@@ -9,7 +9,18 @@
 |	http://codeigniter.com/user_guide/general/hooks.html
 |
 */
+// $hook['post_controller_constructor'] = array(
+                // 'function' => 'hook_acl',
+                // 'filename'=> 'acl.php',
+                // 'filepath' => 'hooks',
+                // 'params' => array(),
+// );
 
+$hook['post_controller_constructor'] = array(
+	'function' => 'initialize',
+	'filename' => 'jia.php',
+	'filepath' => 'hooks'
+);
 
 
 /* End of file hooks.php */
