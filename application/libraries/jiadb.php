@@ -8,7 +8,7 @@
 		}
 		
 		// 返回数据库查询结果数组
-		function fetchAll($where = array(), $order = array(), $limit = '') {
+		function fetchAll($where = array(), $order = array(), $limit = '', $select = array()) {
 			if($where) {
 				foreach ($where as $key => $value) {
 					if(is_array($value)) {
