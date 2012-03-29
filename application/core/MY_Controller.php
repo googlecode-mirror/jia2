@@ -7,6 +7,7 @@
  * create :2012年3月26日19:34:32
  */
 require_once APPPATH . 'libraries/jiadb.php';
+require_once APPPATH . 'libraries/auth.php';
 require_once APPPATH . 'libraries/user.php';
 	class MY_Controller extends CI_Controller {
 		public $jiadb;
@@ -15,20 +16,8 @@ require_once APPPATH . 'libraries/user.php';
 			$this->jiadb = new Jiadb('users');
 		}
 		
-		function _auth($access = array(), $param = '') {
-			$identity = $this->session->userdata('type');
-			if($param) {
-				if($param[0]['user_id'] == 3) {
-					$identity = 'owner';
-				} else {
-					$user = $this->jiadb->fetchAll(array('id'=> 3));
-					$this->jiadb->_table = 'user_type';
-					$type = $this->jiadb->fetchAll(array('id'=> $user[0]['type_id']));
-					$identity = $type[0]['name'];
-				}
-			}
-			if(!in_array($identity, $access)) {
-				show_error('No Right To Access');
-			}
+		function _auth($option, $type, $param) {
+			$auth = Auth_factory::get_auth($option, $type, $param);
+			return $auth->access;
 		}
 	}
