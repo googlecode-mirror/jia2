@@ -28,6 +28,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 			return $friends;
 		}
 		
+		//获取黑名单数组
 		function get_blockers() {
 			$blockers = array();
 			$this->jiadb->_table = 'user_meta';

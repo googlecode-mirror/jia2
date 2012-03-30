@@ -3,14 +3,13 @@
 		function __construct() {
 			parent::__construct();
 		}
-		function index() {
-			
-			
-			$this->_auth(array('owner'));
+		// 默认调用_view 方法
+		function index($id = '') {
+			$this->_view($id);
 		}
 		
-		function view() {
-			
+		function _view($id) {
+			echo $id;
 		}
 		
 		function add() {

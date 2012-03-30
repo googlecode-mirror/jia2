@@ -16,8 +16,18 @@ require_once APPPATH . 'libraries/user.php';
 			$this->jiadb = new Jiadb('users');
 		}
 		
-		function _auth($option, $type, $param) {
+		function _auth($option, $type, $param = '') {
 			$auth = Auth_factory::get_auth($option, $type, $param);
-			return $auth->access;
+			if(!$auth->access) {
+				show_error('No Right to Access');
+			}
+		}
+		
+		function _remap($method) {
+			if(method_exists($this, $method)) {
+				$this->$method();
+			} else {
+				$this->index($method);
+			}
 		}
 	}
