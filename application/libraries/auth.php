@@ -2,19 +2,19 @@
 require_once APPPATH . 'libraries/user.php';
 require_once APPPATH . 'libraries/jiadb.php';
 	class Auth_factory {
-		static function get_auth($option, $type, $param = '') {
+		static function get_auth($operation, $type, $param = '') {
 			switch ($type) {
 				// 帖子操作权限
 				case 'post':
-					return new Post_auth($option, $param);
+					return new Post_auth($operation, $param);
 					break;
 				// 社团操作权限
 				case 'corporation':
-					return new Corporation_auth($option, $param);
+					return new Corporation_auth($operation, $param);
 					break;
 				// 活动操作权限	
 				case 'activity':
-					return new Activity_auth($option, $param);
+					return new Activity_auth($operation, $param);
 					break;
 			}
 		}
@@ -24,27 +24,28 @@ require_once APPPATH . 'libraries/jiadb.php';
 		// 请求权限的用户
 		public $request_user;
 		// 请求的操作
-		public $option;
+		public $operation;
 		// 权限值
 		public $access;
 		public $jiadb;
 		public $CI;
-		function __construct($option) {
+		function __construct($operation) {
 			$this->access = 0;
 			$this->request_user = $this->CI->session->userdata('id');
 			$this->CI =& get_instance();
-			$this->jiadb = new Jiadb('options');
-			// option(name) => option(id)
-			$result = $this->jiadb->fetchAll(array('name' => $option));
-			$this->option = $result[0]['id'];
+			$this->jiadb = new Jiadb('operations');
+			// operation(name) => operation(id)
+			$result = $this->jiadb->fetchAll(array('name' => $operation));
+			$this->operation = $result[0]['id'];
 		}
 		
 		function get_access($owner_id, $identity, $table) {
 			$this->jiadb->_table = 'identity';
+			// identity(name) => identity(id)
 			$result = $this->jiadb->fetchAll(array('name' => $identity));
 			$identity_id = $result[0]['id'];
 			$this->jiadb->_table = $table;
-			$result = $this->jiadb->fetchAll(array('user_id' => $owner_id, 'identity_id' => $identity_id, 'option' => $this->option));
+			$result = $this->jiadb->fetchAll(array('user_id' => $owner_id, 'identity_id' => $identity_id, 'operation_id' => $this->operation));
 			$this->access = $result[0]['access'];
 		}
 	}
@@ -61,8 +62,8 @@ require_once APPPATH . 'libraries/jiadb.php';
 	class Post_auth extends Auth {
 		public $post;
 		public $table;
-		function __construct($option, $post = '') {
-			parent::__construct($option);
+		function __construct($operation, $post = '') {
+			parent::__construct($operation);
 			$this->post = $post;
 			$this->table = 'post_auth';
 		}
@@ -133,8 +134,8 @@ require_once APPPATH . 'libraries/jiadb.php';
 	 *  admin 管理员
 	 */
 	class Corporation_auth extends Auth {
-		function __construct($option, $corporation = '') {
-			parent::__construct($option);
+		function __construct($operation, $corporation = '') {
+			parent::__construct($operation);
 		}
 	}
 	/*
@@ -150,7 +151,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 	 *  admin 管理员
 	 */
 	class Activity_auth extends  Auth {
-		function __construct($option, $activity = '') {
-			parent::__construct($option);
+		function __construct($operation, $activity = '') {
+			parent::__construct($operation);
 		}
 	}
