@@ -13,9 +13,8 @@
 		}
 		
 		function my_info() {
-			$result = $this->User_model->get_info(3, array('user_type' => array('type_id', 'id')));
-			echo '<pre>';
-			print_r($result);
-			echo '</pre>';
+			$join = array(
+			);
+			
 		}
 	}

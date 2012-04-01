@@ -10,7 +10,17 @@ require_once APPPATH . 'libraries/jiadb.php';
 		function login() {
 			$email = $this->input->post('email');
 			$pass = $this->input->post('pass');
-			$info = $this->jiadb->fetchAll(array('email' => $email));
+			$join = array(
+				'user_type' => array('type_id', 'id')
+			);
+			$info = $this->get_info((string)$email, $join);
+			if(!$info) {
+				return 1;
+			}
+			if($info[0]['pass'] != md5($pass)) {
+				return 2;
+			}
+			return $info[0];
 		}
 		
 		function insert() {
@@ -32,8 +42,12 @@ require_once APPPATH . 'libraries/jiadb.php';
 		 * 		'user_type' => array('type_id', 'id')
 		 * )
 		 */ 
-		function get_info($id, $join = array()) {
-			$reslut = $this->jiadb->fetchJoin(array('id' => $id), $join);
+		function get_info($param, $join = array()) {
+			if(is_int($param)) {
+				$reslut = $this->jiadb->fetchJoin(array('id' => $param), $join);
+			} elseif(is_string($param)) {
+				$reslut = $this->jiadb->fetchJoin(array('email' => $param), $join);
+			}	
 			return $reslut;
 		}
 		

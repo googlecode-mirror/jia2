@@ -67,7 +67,7 @@
 		 */ 
 		function fetchJoin($where = array(), $join = array(), $order = array(), $limit = array()) {
 			$result = $this->fetchAll($where, $order, $limit);
-			if($join) {
+			if($result && $join) {
 				foreach ($join as $table => $field) {
 					foreach ($result as $key => $row) {
 						$this->_table = $table;
