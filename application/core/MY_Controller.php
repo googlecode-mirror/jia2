@@ -8,7 +8,6 @@
  */
 require_once APPPATH . 'libraries/jiadb.php';
 require_once APPPATH . 'libraries/auth.php';
-require_once APPPATH . 'libraries/user.php';
 	class MY_Controller extends CI_Controller {
 		public $jiadb;
 		function __construct() {

@@ -3,7 +3,7 @@
 -- Server version:               5.5.16 - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-03-30 13:28:21
+-- Date/time:                    2012-04-01 10:07:07
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -15,8 +15,8 @@ CREATE DATABASE IF NOT EXISTS `jia2` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `jia2`;
 
 
--- Dumping structure for table jia2.activities
-CREATE TABLE IF NOT EXISTS `activities` (
+-- Dumping structure for table jia2.activity
+CREATE TABLE IF NOT EXISTS `activity` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `corporation_id` int(11) NOT NULL,
@@ -28,13 +28,13 @@ CREATE TABLE IF NOT EXISTS `activities` (
   PRIMARY KEY (`id`),
   KEY `fk_activities_users1` (`user_id`),
   KEY `fk_activities_corporations1` (`corporation_id`),
-  CONSTRAINT `fk_activities_corporations1` FOREIGN KEY (`corporation_id`) REFERENCES `corporations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_activities_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_activities_corporation1` FOREIGN KEY (`corporation_id`) REFERENCES `corporation` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_activities_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.activities: ~0 rows (approximately)
-/*!40000 ALTER TABLE `activities` DISABLE KEYS */;
-/*!40000 ALTER TABLE `activities` ENABLE KEYS */;
+-- Dumping data for table jia2.activity: ~0 rows (approximately)
+/*!40000 ALTER TABLE `activity` DISABLE KEYS */;
+/*!40000 ALTER TABLE `activity` ENABLE KEYS */;
 
 
 -- Dumping structure for table jia2.activity_auth
@@ -42,15 +42,15 @@ CREATE TABLE IF NOT EXISTS `activity_auth` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `activity_id` int(10) NOT NULL DEFAULT '0',
   `identity_id` int(10) NOT NULL DEFAULT '0',
-  `option` int(10) NOT NULL DEFAULT '0',
+  `operation_id` int(10) NOT NULL DEFAULT '0',
   `access` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `FK_activity_auth_activities` (`activity_id`),
   KEY `FK_activity_auth_identity` (`identity_id`),
-  KEY `FK_activity_auth_options` (`option`),
-  CONSTRAINT `FK_activity_auth_options` FOREIGN KEY (`option`) REFERENCES `options` (`id`),
-  CONSTRAINT `FK_activity_auth_activities` FOREIGN KEY (`activity_id`) REFERENCES `activities` (`id`),
-  CONSTRAINT `FK_activity_auth_identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`)
+  KEY `FK_activity_auth_operation` (`operation_id`),
+  KEY `FK_activity_auth_activity` (`activity_id`),
+  CONSTRAINT `FK_activity_auth_activity` FOREIGN KEY (`activity_id`) REFERENCES `activity` (`id`),
+  CONSTRAINT `FK_activity_auth_identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`),
+  CONSTRAINT `FK_activity_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table jia2.activity_auth: ~0 rows (approximately)
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `activity_meta` (
   `meta_value` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_activity_meta_activities1` (`activity_id`),
-  CONSTRAINT `fk_activity_meta_activities1` FOREIGN KEY (`activity_id`) REFERENCES `activities` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_activity_meta_activity1` FOREIGN KEY (`activity_id`) REFERENCES `activity` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table jia2.activity_meta: ~0 rows (approximately)
@@ -75,8 +75,8 @@ CREATE TABLE IF NOT EXISTS `activity_meta` (
 /*!40000 ALTER TABLE `activity_meta` ENABLE KEYS */;
 
 
--- Dumping structure for table jia2.comments
-CREATE TABLE IF NOT EXISTS `comments` (
+-- Dumping structure for table jia2.comment
+CREATE TABLE IF NOT EXISTS `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `post_id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
@@ -86,17 +86,17 @@ CREATE TABLE IF NOT EXISTS `comments` (
   PRIMARY KEY (`id`),
   KEY `fk_comments_posts1` (`post_id`),
   KEY `fk_comments_users1` (`users_id`),
-  CONSTRAINT `fk_comments_posts1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_comments_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_comments_post1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_comments_user1` FOREIGN KEY (`users_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.comments: ~0 rows (approximately)
-/*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-/*!40000 ALTER TABLE `comments` ENABLE KEYS */;
+-- Dumping data for table jia2.comment: ~0 rows (approximately)
+/*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 
 
--- Dumping structure for table jia2.corporations
-CREATE TABLE IF NOT EXISTS `corporations` (
+-- Dumping structure for table jia2.corporation
+CREATE TABLE IF NOT EXISTS `corporation` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '社团id',
   `name` varchar(45) NOT NULL COMMENT '学校',
   `school_id` int(11) NOT NULL,
@@ -105,13 +105,13 @@ CREATE TABLE IF NOT EXISTS `corporations` (
   PRIMARY KEY (`id`),
   KEY `fk_corporations_school1` (`school_id`),
   KEY `fk_corporations_users1` (`user_id`),
-  CONSTRAINT `fk_corporations_school1` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_corporations_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_corporations_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_corporations_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.corporations: ~0 rows (approximately)
-/*!40000 ALTER TABLE `corporations` DISABLE KEYS */;
-/*!40000 ALTER TABLE `corporations` ENABLE KEYS */;
+-- Dumping data for table jia2.corporation: ~0 rows (approximately)
+/*!40000 ALTER TABLE `corporation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `corporation` ENABLE KEYS */;
 
 
 -- Dumping structure for table jia2.corporation_auth
@@ -119,14 +119,14 @@ CREATE TABLE IF NOT EXISTS `corporation_auth` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `corporation_id` int(10) NOT NULL DEFAULT '0',
   `identity_id` int(10) NOT NULL DEFAULT '0',
-  `option_id` int(10) NOT NULL DEFAULT '0',
+  `operation_id` int(10) NOT NULL DEFAULT '0',
   `access` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `FK__identity` (`identity_id`),
-  KEY `FK_corporation_auth_corporations` (`corporation_id`),
-  KEY `FK_corporation_auth_options` (`option_id`),
-  CONSTRAINT `FK_corporation_auth_options` FOREIGN KEY (`option_id`) REFERENCES `options` (`id`),
-  CONSTRAINT `FK_corporation_auth_corporations` FOREIGN KEY (`corporation_id`) REFERENCES `corporations` (`id`),
+  KEY `FK_corporation_auth_operation` (`operation_id`),
+  KEY `FK_corporation_auth_corporation` (`corporation_id`),
+  CONSTRAINT `FK_corporation_auth_corporation` FOREIGN KEY (`corporation_id`) REFERENCES `corporation` (`id`),
+  CONSTRAINT `FK_corporation_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`),
   CONSTRAINT `FK__identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='社团权限表';
 
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `corporation_meta` (
   `meta_value` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_corporation_meta_corporations1` (`corporation_id`),
-  CONSTRAINT `fk_corporation_meta_corporations1` FOREIGN KEY (`corporation_id`) REFERENCES `corporations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_corporation_meta_corporation1` FOREIGN KEY (`corporation_id`) REFERENCES `corporation` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='社团变化表';
 
 -- Dumping data for table jia2.corporation_meta: ~0 rows (approximately)
@@ -175,8 +175,8 @@ REPLACE INTO `identity` (`id`, `name`) VALUES
 /*!40000 ALTER TABLE `identity` ENABLE KEYS */;
 
 
--- Dumping structure for table jia2.messages
-CREATE TABLE IF NOT EXISTS `messages` (
+-- Dumping structure for table jia2.message
+CREATE TABLE IF NOT EXISTS `message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `type_id` int(11) NOT NULL,
@@ -186,12 +186,12 @@ CREATE TABLE IF NOT EXISTS `messages` (
   KEY `fk_messages_message_type1` (`type_id`),
   KEY `fk_messages_users1` (`user_id`),
   CONSTRAINT `fk_messages_message_type1` FOREIGN KEY (`type_id`) REFERENCES `message_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_messages_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_messages_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.messages: ~0 rows (approximately)
-/*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-/*!40000 ALTER TABLE `messages` ENABLE KEYS */;
+-- Dumping data for table jia2.message: ~0 rows (approximately)
+/*!40000 ALTER TABLE `message` DISABLE KEYS */;
+/*!40000 ALTER TABLE `message` ENABLE KEYS */;
 
 
 -- Dumping structure for table jia2.message_meta
@@ -203,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `message_meta` (
   `meta_value` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_messsage_meta_messages1` (`message_id`),
-  CONSTRAINT `fk_messsage_meta_messages1` FOREIGN KEY (`message_id`) REFERENCES `messages` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_messsage_meta_message1` FOREIGN KEY (`message_id`) REFERENCES `message` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table jia2.message_meta: ~0 rows (approximately)
@@ -223,27 +223,27 @@ CREATE TABLE IF NOT EXISTS `message_type` (
 /*!40000 ALTER TABLE `message_type` ENABLE KEYS */;
 
 
--- Dumping structure for table jia2.options
-CREATE TABLE IF NOT EXISTS `options` (
+-- Dumping structure for table jia2.operation
+CREATE TABLE IF NOT EXISTS `operation` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(10) NOT NULL,
   `comment` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='操作';
 
--- Dumping data for table jia2.options: ~5 rows (approximately)
-/*!40000 ALTER TABLE `options` DISABLE KEYS */;
-REPLACE INTO `options` (`id`, `name`, `comment`) VALUES
+-- Dumping data for table jia2.operation: ~5 rows (approximately)
+/*!40000 ALTER TABLE `operation` DISABLE KEYS */;
+REPLACE INTO `operation` (`id`, `name`, `comment`) VALUES
 	(1, 'view', '查看'),
 	(2, 'add', '添加'),
 	(3, 'comment', '评论'),
 	(4, 'edit', '编辑'),
 	(5, 'delete', '删除');
-/*!40000 ALTER TABLE `options` ENABLE KEYS */;
+/*!40000 ALTER TABLE `operation` ENABLE KEYS */;
 
 
--- Dumping structure for table jia2.posts
-CREATE TABLE IF NOT EXISTS `posts` (
+-- Dumping structure for table jia2.post
+CREATE TABLE IF NOT EXISTS `post` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -255,14 +255,14 @@ CREATE TABLE IF NOT EXISTS `posts` (
   KEY `fk_post_post_type1` (`type_id`),
   KEY `fk_post_users1` (`user_id`),
   CONSTRAINT `fk_post_post_type1` FOREIGN KEY (`type_id`) REFERENCES `post_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_post_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_post_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.posts: ~1 rows (approximately)
-/*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-REPLACE INTO `posts` (`id`, `type_id`, `user_id`, `content`, `image`, `time`, `status`) VALUES
+-- Dumping data for table jia2.post: ~1 rows (approximately)
+/*!40000 ALTER TABLE `post` DISABLE KEYS */;
+REPLACE INTO `post` (`id`, `type_id`, `user_id`, `content`, `image`, `time`, `status`) VALUES
 	(1, 1, 5, '测试帖', NULL, NULL, NULL);
-/*!40000 ALTER TABLE `posts` ENABLE KEYS */;
+/*!40000 ALTER TABLE `post` ENABLE KEYS */;
 
 
 -- Dumping structure for table jia2.post_auth
@@ -270,20 +270,20 @@ CREATE TABLE IF NOT EXISTS `post_auth` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `user_id` int(10) NOT NULL DEFAULT '0',
   `identity_id` int(10) NOT NULL DEFAULT '0',
-  `option_id` int(10) NOT NULL DEFAULT '0',
+  `operation_id` int(10) NOT NULL DEFAULT '0',
   `access` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `FK_post_auth_users` (`user_id`),
-  KEY `FK_post_auth_options` (`option_id`),
   KEY `FK_post_auth_identity` (`identity_id`),
+  KEY `FK_post_auth_operation` (`operation_id`),
+  KEY `FK_post_auth_user` (`user_id`),
   CONSTRAINT `FK_post_auth_identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`),
-  CONSTRAINT `FK_post_auth_options` FOREIGN KEY (`option_id`) REFERENCES `options` (`id`),
-  CONSTRAINT `FK_post_auth_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `FK_post_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`),
+  CONSTRAINT `FK_post_auth_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='帖子查看权限验证';
 
 -- Dumping data for table jia2.post_auth: ~1 rows (approximately)
 /*!40000 ALTER TABLE `post_auth` DISABLE KEYS */;
-REPLACE INTO `post_auth` (`id`, `user_id`, `identity_id`, `option_id`, `access`) VALUES
+REPLACE INTO `post_auth` (`id`, `user_id`, `identity_id`, `operation_id`, `access`) VALUES
 	(8, 5, 9, 2, 0);
 /*!40000 ALTER TABLE `post_auth` ENABLE KEYS */;
 
@@ -297,7 +297,7 @@ CREATE TABLE IF NOT EXISTS `post_meta` (
   `meta_value` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_post_meta_posts1` (`post_id`),
-  CONSTRAINT `fk_post_meta_posts1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_post_meta_post1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table jia2.post_meta: ~0 rows (approximately)
@@ -319,35 +319,35 @@ REPLACE INTO `post_type` (`id`, `name`) VALUES
 /*!40000 ALTER TABLE `post_type` ENABLE KEYS */;
 
 
--- Dumping structure for table jia2.provinces
-CREATE TABLE IF NOT EXISTS `provinces` (
+-- Dumping structure for table jia2.province
+CREATE TABLE IF NOT EXISTS `province` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.provinces: ~0 rows (approximately)
-/*!40000 ALTER TABLE `provinces` DISABLE KEYS */;
-/*!40000 ALTER TABLE `provinces` ENABLE KEYS */;
+-- Dumping data for table jia2.province: ~0 rows (approximately)
+/*!40000 ALTER TABLE `province` DISABLE KEYS */;
+/*!40000 ALTER TABLE `province` ENABLE KEYS */;
 
 
--- Dumping structure for table jia2.schools
-CREATE TABLE IF NOT EXISTS `schools` (
+-- Dumping structure for table jia2.school
+CREATE TABLE IF NOT EXISTS `school` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL COMMENT '学校',
   `province_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_school_province1` (`province_id`),
-  CONSTRAINT `fk_school_province1` FOREIGN KEY (`province_id`) REFERENCES `provinces` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_school_province1` FOREIGN KEY (`province_id`) REFERENCES `province` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.schools: ~0 rows (approximately)
-/*!40000 ALTER TABLE `schools` DISABLE KEYS */;
-/*!40000 ALTER TABLE `schools` ENABLE KEYS */;
+-- Dumping data for table jia2.school: ~0 rows (approximately)
+/*!40000 ALTER TABLE `school` DISABLE KEYS */;
+/*!40000 ALTER TABLE `school` ENABLE KEYS */;
 
 
--- Dumping structure for table jia2.users
-CREATE TABLE IF NOT EXISTS `users` (
+-- Dumping structure for table jia2.user
+CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户唯一id',
   `name` varchar(45) NOT NULL COMMENT '用户实体表',
   `email` varchar(45) NOT NULL COMMENT '用户邮箱',
@@ -362,28 +362,28 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `fk_users_province1` (`province_id`),
   KEY `fk_users_school1` (`school_id`),
   CONSTRAINT `fk_users_entity_user_type` FOREIGN KEY (`type_id`) REFERENCES `user_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_users_province1` FOREIGN KEY (`province_id`) REFERENCES `provinces` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_users_school1` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_users_province1` FOREIGN KEY (`province_id`) REFERENCES `province` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_users_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.users: ~2 rows (approximately)
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-REPLACE INTO `users` (`id`, `name`, `email`, `pass`, `type_id`, `school_id`, `province_id`, `gender`) VALUES
+-- Dumping data for table jia2.user: ~2 rows (approximately)
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+REPLACE INTO `user` (`id`, `name`, `email`, `pass`, `type_id`, `school_id`, `province_id`, `gender`) VALUES
 	(3, 'Tuzki', 'rabbitzhang52@yahoo.com', 'e18d959268ead9d3caf501969715e3d0', 1, NULL, NULL, 1),
 	(5, 'register', 'register@jia2.cn', '', 2, NULL, NULL, 1);
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 
 -- Dumping structure for table jia2.user_meta
 CREATE TABLE IF NOT EXISTS `user_meta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `users_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `meta_table` varchar(45) DEFAULT NULL COMMENT '变化值对应的表，可以为空',
   `meta_key` int(11) NOT NULL COMMENT '变化的key可以指向任何表的索引',
   `meta_value` varchar(45) DEFAULT NULL COMMENT '可以为空',
   PRIMARY KEY (`id`),
-  KEY `fk_user_meta_users1` (`users_id`),
-  CONSTRAINT `fk_jia2_user_meta_jia2_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_user_meta_users1` (`user_id`),
+  CONSTRAINT `fk_jia2_user_meta_jia2_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table jia2.user_meta: ~0 rows (approximately)

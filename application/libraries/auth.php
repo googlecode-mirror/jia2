@@ -1,5 +1,4 @@
 <?php
-require_once APPPATH . 'libraries/user.php';
 require_once APPPATH . 'libraries/jiadb.php';
 	class Auth_factory {
 		static function get_auth($operation, $type, $param = '') {
@@ -33,6 +32,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 			$this->access = 0;
 			$this->request_user = $this->CI->session->userdata('id');
 			$this->CI =& get_instance();
+			$this->CI->load->model('User_model');
 			$this->jiadb = new Jiadb('operations');
 			// operation(name) => operation(id)
 			$result = $this->jiadb->fetchAll(array('name' => $operation));
@@ -79,9 +79,8 @@ require_once APPPATH . 'libraries/jiadb.php';
 					return;
 				}
 			}
-			$owner = new User($owner_id);
 			// 黑名单
-			$blockers = $owner->get_blockers();
+			$blockers = $this->CI->User_model->get_blockers($owner_id);
 			if(in_array($this->request_user, $friends)) {
 				$identity = 'blocker';
 				parent::get_access($owner_id, $identity, $this->table);
@@ -96,7 +95,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 				}
 			}
 			// 朋友
-			$friends = $owner->get_friends();
+			$friends = $this->CI->User_model->get_friends($owner_id);
 			if(in_array($this->request_user, $friends)) {
 				$identity = 'friend';
 				parent::get_access($owner_id, $identity, $this->table);
@@ -104,7 +103,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 					return;
 				}
 			}
-			$user = new User($this->request_user);
+			
 			// 本人
 			if($this->post['user_id'] == $this->request_user) {
 				$identity = 'self';
