@@ -13,6 +13,7 @@
 		
 		function login() {
 			$data['title'] = '登录加加社团';
+			$data['css'] = 'login_view.css';
 			$data['main_content'] = 'login_view';
 			$this->load->view('includes/template_view', $data);
 		}
