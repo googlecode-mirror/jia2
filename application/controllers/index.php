@@ -18,7 +18,9 @@
 		}
 		
 		function do_login() {
-			$result = $this->User_model->login();
+			$email = $this->input->post('email');
+			$pass = md5($this->input->post('pass'));
+			$result = $this->User_model->login($email, $pass);
 			switch ($result) {
 				case 1:
 					static_view('用户不存在', site_url('index/login'));
@@ -37,12 +39,25 @@
 		}
 		
 		function regist() {
+			$data['title'] = '注册加加';
 			$data['main_content'] = 'regist_view';
 			$this->load->view('includes/template_view', $data);
 		}
 		
 		function do_regist() {
-			$this->User_model->regist();
+			$email = $this->input->post('email');
+			$name = $this->input->post('name');
+			$pass = $this->input->post('pass');
+			$result = $this->User_model->regist($email, $name, $pass);
+			switch ($result) {
+				case 'value':
+					
+					break;
+				
+				default:
+					
+					break;
+			}
 		}
 		
 		function logout() {
