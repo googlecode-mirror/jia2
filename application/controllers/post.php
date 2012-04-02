@@ -2,6 +2,7 @@
 	class Post extends MY_Controller {
 		function __construct() {
 			parent::__construct();
+			$this->load->model('Post_model');
 		}
 		// 默认调用_view 方法
 		function index($id = '') {
@@ -13,8 +14,14 @@
 		}
 		
 		function add() {
-			$this->_auth();
-			echo 'accessed';
+			$this->_auth('add', 'post');
+			$post = array(
+				'id' => $this->session->userdata('id'),
+				'type_id' => 1,
+				'content' => $this->input->post('content'),
+				'time' => time()
+			);
+			//$this->Post_model->insert($post);
 		}
 		
 		function edit($id = 1) {

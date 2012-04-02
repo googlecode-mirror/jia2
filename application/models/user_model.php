@@ -7,9 +7,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 			parent::__construct();
 		}
 		
-		function login() {
-			$email = $this->input->post('email');
-			$pass = $this->input->post('pass');
+		function login($email, $name, $pass) {
 			$join = array(
 				'user_type' => array('type_id', 'id')
 			);
@@ -17,14 +15,24 @@ require_once APPPATH . 'libraries/jiadb.php';
 			if(!$info) {
 				return 1;
 			}
-			if($info[0]['pass'] != md5($pass)) {
+			if($info[0]['pass'] != $pass) {
 				return 2;
 			}
 			return $info[0];
 		}
 		
-		function insert() {
-			
+		function insert($email, $name, $pass) {
+			$info = $this->get_info((string)$email);
+			if($info) {
+				return 1;
+			}
+			$user = array(
+				'email' => $email,
+				'name' => $name,
+				'pass' => md5($pass)
+			);
+			$this->db->insert('user', $user);
+			$user_id = $this->db->insert_id();
 		}
 		
 		function update() {

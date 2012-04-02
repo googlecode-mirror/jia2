@@ -14,7 +14,11 @@ require_once APPPATH . 'libraries/auth.php';
 			parent::__construct();
 			$this->jiadb = new Jiadb('users');
 		}
-		
+		/**
+		 * @param string operation
+		 * @param string post activity corporation
+		 * @param array
+		 */
 		function _auth($operation, $type, $param = '') {
 			$auth = Auth_factory::get_auth($operation, $type, $param);
 			if(!$auth->access) {

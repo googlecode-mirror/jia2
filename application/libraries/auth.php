@@ -30,10 +30,10 @@ require_once APPPATH . 'libraries/jiadb.php';
 		public $CI;
 		function __construct($operation) {
 			$this->access = 0;
-			$this->request_user = $this->CI->session->userdata('id');
 			$this->CI =& get_instance();
+			$this->request_user = $this->CI->session->userdata('id');
 			$this->CI->load->model('User_model');
-			$this->jiadb = new Jiadb('operations');
+			$this->jiadb = new Jiadb('operation');
 			// operation(name) => operation(id)
 			$result = $this->jiadb->fetchAll(array('name' => $operation));
 			$this->operation = $result[0]['id'];
