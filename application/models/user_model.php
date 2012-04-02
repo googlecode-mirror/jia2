@@ -7,7 +7,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 			parent::__construct();
 		}
 		
-		function login($email, $name, $pass) {
+		function login($email, $pass) {
 			$join = array(
 				'user_type' => array('type_id', 'id')
 			);
