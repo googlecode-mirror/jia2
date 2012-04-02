@@ -3,7 +3,7 @@
 -- Server version:               5.5.16 - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-04-01 10:07:07
+-- Date/time:                    2012-04-02 14:28:48
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -21,8 +21,8 @@ CREATE TABLE IF NOT EXISTS `activity` (
   `user_id` int(11) NOT NULL,
   `corporation_id` int(11) NOT NULL,
   `name` text NOT NULL,
-  `start_time` datetime NOT NULL,
-  `deadline` datetime NOT NULL,
+  `start_time` varchar(50) NOT NULL,
+  `deadline` varchar(50) NOT NULL,
   `address` text NOT NULL,
   `comment` text NOT NULL,
   PRIMARY KEY (`id`),
@@ -246,22 +246,22 @@ REPLACE INTO `operation` (`id`, `name`, `comment`) VALUES
 CREATE TABLE IF NOT EXISTS `post` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `owner_id` int(11) NOT NULL,
+  `title` text,
   `content` text,
   `image` varchar(45) DEFAULT NULL,
-  `time` datetime DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
+  `time` varchar(50) DEFAULT NULL,
+  `status` int(11) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `fk_post_post_type1` (`type_id`),
-  KEY `fk_post_users1` (`user_id`),
-  CONSTRAINT `fk_post_post_type1` FOREIGN KEY (`type_id`) REFERENCES `post_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_post_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_post_users1` (`owner_id`),
+  CONSTRAINT `fk_post_post_type1` FOREIGN KEY (`type_id`) REFERENCES `post_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table jia2.post: ~1 rows (approximately)
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-REPLACE INTO `post` (`id`, `type_id`, `user_id`, `content`, `image`, `time`, `status`) VALUES
-	(1, 1, 5, '测试帖', NULL, NULL, NULL);
+REPLACE INTO `post` (`id`, `type_id`, `owner_id`, `title`, `content`, `image`, `time`, `status`) VALUES
+	(1, 1, 5, '0', '测试帖', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 
 
@@ -310,12 +310,14 @@ CREATE TABLE IF NOT EXISTS `post_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.post_type: ~1 rows (approximately)
+-- Dumping data for table jia2.post_type: ~3 rows (approximately)
 /*!40000 ALTER TABLE `post_type` DISABLE KEYS */;
 REPLACE INTO `post_type` (`id`, `name`) VALUES
-	(1, 'personal');
+	(1, 'personal'),
+	(2, 'activity'),
+	(3, 'forward');
 /*!40000 ALTER TABLE `post_type` ENABLE KEYS */;
 
 
