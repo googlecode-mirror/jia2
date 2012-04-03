@@ -91,11 +91,11 @@
 				'register' => array('view', 'add'),
 				'self' => array('view', 'add', 'delete')
 			);
-			if($type = 'activity') {
+			if($type == 'activity') {
 				$array['co_member'] = array('view', 'add');
 				$array['co_admin'] = array('view', 'add', 'delete');
 				$array['participant'] = array('view', 'add');
-			} elseif($type = 'personal') {
+			} elseif($type == 'personal') {
 				$array['friend'] = array('view', 'add');
 				$array['po_master'] = array('view', 'add', 'delete');
 			} else {

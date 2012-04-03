@@ -3,7 +3,7 @@
 -- Server version:               5.5.16 - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-04-02 14:28:48
+-- Date/time:                    2012-04-03 19:39:05
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -40,15 +40,15 @@ CREATE TABLE IF NOT EXISTS `activity` (
 -- Dumping structure for table jia2.activity_auth
 CREATE TABLE IF NOT EXISTS `activity_auth` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `activity_id` int(10) NOT NULL DEFAULT '0',
+  `owner_id` int(10) NOT NULL DEFAULT '0',
   `identity_id` int(10) NOT NULL DEFAULT '0',
   `operation_id` int(10) NOT NULL DEFAULT '0',
-  `access` int(10) NOT NULL DEFAULT '0',
+  `access` int(10) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `FK_activity_auth_identity` (`identity_id`),
   KEY `FK_activity_auth_operation` (`operation_id`),
-  KEY `FK_activity_auth_activity` (`activity_id`),
-  CONSTRAINT `FK_activity_auth_activity` FOREIGN KEY (`activity_id`) REFERENCES `activity` (`id`),
+  KEY `FK_activity_auth_activity` (`owner_id`),
+  CONSTRAINT `FK_activity_auth_activity` FOREIGN KEY (`owner_id`) REFERENCES `activity` (`id`),
   CONSTRAINT `FK_activity_auth_identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`),
   CONSTRAINT `FK_activity_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -95,6 +95,40 @@ CREATE TABLE IF NOT EXISTS `comment` (
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 
 
+-- Dumping structure for table jia2.comment_auth
+CREATE TABLE IF NOT EXISTS `comment_auth` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `owner_id` int(10) NOT NULL DEFAULT '0',
+  `type_id` int(10) NOT NULL DEFAULT '0',
+  `identity_id` int(10) NOT NULL DEFAULT '0',
+  `operation_id` int(10) NOT NULL DEFAULT '0',
+  `access` int(10) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `FK_comment_auth_identity` (`identity_id`),
+  KEY `FK_comment_auth_operation` (`operation_id`),
+  KEY `FK_comment_auth_post_type` (`type_id`),
+  CONSTRAINT `FK_comment_auth_identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`),
+  CONSTRAINT `FK_comment_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`),
+  CONSTRAINT `FK_comment_auth_post_type` FOREIGN KEY (`type_id`) REFERENCES `post_type` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table jia2.comment_auth: ~0 rows (approximately)
+/*!40000 ALTER TABLE `comment_auth` DISABLE KEYS */;
+REPLACE INTO `comment_auth` (`id`, `owner_id`, `type_id`, `identity_id`, `operation_id`, `access`) VALUES
+	(14, 10, 1, 2, 1, 1),
+	(15, 10, 1, 3, 1, 1),
+	(16, 10, 1, 3, 2, 1),
+	(17, 10, 1, 5, 1, 1),
+	(18, 10, 1, 5, 2, 1),
+	(19, 10, 1, 5, 4, 1),
+	(20, 10, 1, 4, 1, 1),
+	(21, 10, 1, 4, 2, 1),
+	(22, 10, 1, 11, 1, 1),
+	(23, 10, 1, 11, 2, 1),
+	(24, 10, 1, 11, 4, 1);
+/*!40000 ALTER TABLE `comment_auth` ENABLE KEYS */;
+
+
 -- Dumping structure for table jia2.corporation
 CREATE TABLE IF NOT EXISTS `corporation` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '社团id',
@@ -117,15 +151,15 @@ CREATE TABLE IF NOT EXISTS `corporation` (
 -- Dumping structure for table jia2.corporation_auth
 CREATE TABLE IF NOT EXISTS `corporation_auth` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `corporation_id` int(10) NOT NULL DEFAULT '0',
+  `owner_id` int(10) NOT NULL DEFAULT '0',
   `identity_id` int(10) NOT NULL DEFAULT '0',
   `operation_id` int(10) NOT NULL DEFAULT '0',
-  `access` int(10) NOT NULL DEFAULT '0',
+  `access` int(10) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `FK__identity` (`identity_id`),
   KEY `FK_corporation_auth_operation` (`operation_id`),
-  KEY `FK_corporation_auth_corporation` (`corporation_id`),
-  CONSTRAINT `FK_corporation_auth_corporation` FOREIGN KEY (`corporation_id`) REFERENCES `corporation` (`id`),
+  KEY `FK_corporation_auth_corporation` (`owner_id`),
+  CONSTRAINT `FK_corporation_auth_corporation` FOREIGN KEY (`owner_id`) REFERENCES `corporation` (`id`),
   CONSTRAINT `FK_corporation_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`),
   CONSTRAINT `FK__identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='社团权限表';
@@ -157,9 +191,9 @@ CREATE TABLE IF NOT EXISTS `identity` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='用户身份';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='用户身份';
 
--- Dumping data for table jia2.identity: ~10 rows (approximately)
+-- Dumping data for table jia2.identity: ~11 rows (approximately)
 /*!40000 ALTER TABLE `identity` DISABLE KEYS */;
 REPLACE INTO `identity` (`id`, `name`) VALUES
 	(1, 'admin'),
@@ -171,7 +205,8 @@ REPLACE INTO `identity` (`id`, `name`) VALUES
 	(7, 'co_admin'),
 	(8, 'co_master'),
 	(9, 'blocker'),
-	(10, 'participant');
+	(10, 'participant'),
+	(11, 'po_master');
 /*!40000 ALTER TABLE `identity` ENABLE KEYS */;
 
 
@@ -229,16 +264,15 @@ CREATE TABLE IF NOT EXISTS `operation` (
   `name` varchar(10) NOT NULL,
   `comment` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='操作';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='操作';
 
--- Dumping data for table jia2.operation: ~5 rows (approximately)
+-- Dumping data for table jia2.operation: ~4 rows (approximately)
 /*!40000 ALTER TABLE `operation` DISABLE KEYS */;
 REPLACE INTO `operation` (`id`, `name`, `comment`) VALUES
 	(1, 'view', '查看'),
 	(2, 'add', '添加'),
-	(3, 'comment', '评论'),
-	(4, 'edit', '编辑'),
-	(5, 'delete', '删除');
+	(3, 'edit', '编辑'),
+	(4, 'delete', '删除');
 /*!40000 ALTER TABLE `operation` ENABLE KEYS */;
 
 
@@ -268,23 +302,28 @@ REPLACE INTO `post` (`id`, `type_id`, `owner_id`, `title`, `content`, `image`, `
 -- Dumping structure for table jia2.post_auth
 CREATE TABLE IF NOT EXISTS `post_auth` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `user_id` int(10) NOT NULL DEFAULT '0',
+  `owner_id` int(10) NOT NULL DEFAULT '0',
   `identity_id` int(10) NOT NULL DEFAULT '0',
   `operation_id` int(10) NOT NULL DEFAULT '0',
-  `access` int(10) NOT NULL DEFAULT '0',
+  `access` int(10) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `FK_post_auth_identity` (`identity_id`),
   KEY `FK_post_auth_operation` (`operation_id`),
-  KEY `FK_post_auth_user` (`user_id`),
+  KEY `FK_post_auth_user` (`owner_id`),
   CONSTRAINT `FK_post_auth_identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`),
   CONSTRAINT `FK_post_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`),
-  CONSTRAINT `FK_post_auth_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='帖子查看权限验证';
+  CONSTRAINT `FK_post_auth_user` FOREIGN KEY (`owner_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COMMENT='帖子查看权限验证';
 
--- Dumping data for table jia2.post_auth: ~1 rows (approximately)
+-- Dumping data for table jia2.post_auth: ~6 rows (approximately)
 /*!40000 ALTER TABLE `post_auth` DISABLE KEYS */;
-REPLACE INTO `post_auth` (`id`, `user_id`, `identity_id`, `operation_id`, `access`) VALUES
-	(8, 5, 9, 2, 0);
+REPLACE INTO `post_auth` (`id`, `owner_id`, `identity_id`, `operation_id`, `access`) VALUES
+	(21, 10, 2, 1, 1),
+	(22, 10, 3, 1, 1),
+	(23, 10, 4, 1, 1),
+	(24, 10, 5, 1, 1),
+	(25, 10, 5, 2, 1),
+	(26, 10, 5, 4, 1);
 /*!40000 ALTER TABLE `post_auth` ENABLE KEYS */;
 
 
@@ -354,7 +393,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `name` varchar(45) NOT NULL COMMENT '用户实体表',
   `email` varchar(45) NOT NULL COMMENT '用户邮箱',
   `pass` varchar(45) NOT NULL COMMENT '密码',
-  `type_id` int(11) NOT NULL DEFAULT '1',
+  `type_id` int(11) NOT NULL DEFAULT '2',
   `school_id` int(11) DEFAULT NULL,
   `province_id` int(11) DEFAULT NULL,
   `gender` int(11) NOT NULL DEFAULT '1',
@@ -366,13 +405,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   CONSTRAINT `fk_users_entity_user_type` FOREIGN KEY (`type_id`) REFERENCES `user_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_province1` FOREIGN KEY (`province_id`) REFERENCES `province` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.user: ~2 rows (approximately)
+-- Dumping data for table jia2.user: ~3 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 REPLACE INTO `user` (`id`, `name`, `email`, `pass`, `type_id`, `school_id`, `province_id`, `gender`) VALUES
 	(3, 'Tuzki', 'rabbitzhang52@yahoo.com', 'e18d959268ead9d3caf501969715e3d0', 1, NULL, NULL, 1),
-	(5, 'register', 'register@jia2.cn', '', 2, NULL, NULL, 1);
+	(5, 'register', 'register@jia2.cn', '', 2, NULL, NULL, 1),
+	(10, 'zhanghui', 'rabbitzhang52@gmail.com', 'e18d959268ead9d3caf501969715e3d0', 2, NULL, NULL, 1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 
