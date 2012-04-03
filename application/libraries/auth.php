@@ -1,19 +1,23 @@
 <?php
 require_once APPPATH . 'libraries/jiadb.php';
 	class Auth_factory {
-		static function get_auth($operation, $type, $param = '') {
+		static function get_auth($operation, $type, $owner_id, $master_id) {
 			switch ($type) {
 				// 帖子操作权限
 				case 'post':
-					return new Post_auth($operation, $param);
+					return new Post_auth($operation, $owner_id);
 					break;
 				// 社团操作权限
 				case 'corporation':
-					return new Corporation_auth($operation, $param);
+					return new Corporation_auth($operation, $owner_id);
 					break;
 				// 活动操作权限	
 				case 'activity':
-					return new Activity_auth($operation, $param);
+					return new Activity_auth($operation, $owner_id);
+					break;
+				// 评论操作权限
+				case 'comment':
+					return new Comment_auth($operation, $owner_id, $master_id);
 					break;
 			}
 		}
@@ -22,6 +26,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 	class Auth {
 		// 请求权限的用户
 		public $request_user;
+		public $owner_id;
 		// 请求的操作
 		public $operation;
 		// 权限值
@@ -45,7 +50,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 			$result = $this->jiadb->fetchAll(array('name' => $identity));
 			$identity_id = $result[0]['id'];
 			$this->jiadb->_table = $table;
-			$result = $this->jiadb->fetchAll(array('user_id' => $owner_id, 'identity_id' => $identity_id, 'operation_id' => $this->operation));
+			$result = $this->jiadb->fetchAll(array('owner_id' => $owner_id, 'identity_id' => $identity_id, 'operation_id' => $this->operation));
 			$this->access = $result[0]['access'];
 		}
 	}
@@ -60,58 +65,56 @@ require_once APPPATH . 'libraries/jiadb.php';
 	 * 	admin 管理员
 	 */
 	class Post_auth extends Auth {
-		public $post;
+		public $owner_id;
 		public $table;
-		function __construct($operation, $post = '') {
+		function __construct($operation, $owner_id) {
 			parent::__construct($operation);
-			$this->post = $post;
+			$this->owner_id = $owner_id;
 			$this->table = 'post_auth';
 		}
 		
 		function get_access() {
-			$owner_id = $this->post['user_id'];
 			$identity = '';
+			// 本人
+			if($this->owner_id == $this->CI->session->userdata('id')) {
+				$identity = 'self';
+				parent::get_access($this->owner_id, $identity, $this->table);
+				return;
+			}
+			
 			// 游客
 			if($this->CI->session->userdata('type') == 'guest') {
 				$identity = 'guest';
-				parent::get_access($owner_id, $identity, $this->table);
-				if($this->access == 1) {
-					return;
-				}
-			}
-			// 黑名单
-			$blockers = $this->CI->User_model->get_blockers($owner_id);
-			if(in_array($this->request_user, $friends)) {
-				$identity = 'blocker';
-				parent::get_access($owner_id, $identity, $this->table);
+				parent::get_access($this->owner_id, $identity, $this->table);
 				return;
 			}
+			
 			// 注册用户
 			if($this->CI->session->userdata('type') == 'register') {
 				$identity = 'register';
-				parent::get_access($owner_id, $identity, $this->table);
-				if($this->access == 1) {
+				$blockers = $this->CI->User_model->get_blockers($this->owner_id);
+				if(in_array($this->request_user, $friends)) {
+					// 黑名单
+					$identity = 'blocker';
+					parent::get_access($this->owner_id, $identity, $this->table);
 					return;
 				}
-			}
-			// 朋友
-			$friends = $this->CI->User_model->get_friends($owner_id);
-			if(in_array($this->request_user, $friends)) {
-				$identity = 'friend';
-				parent::get_access($owner_id, $identity, $this->table);
+				parent::get_access($this->owner_id, $identity, $this->table);
 				if($this->access) {
 					return;
 				}
 			}
 			
-			// 本人
-			if($this->post['user_id'] == $this->request_user) {
-				$identity = 'self';
-				parent::get_access($owner_id, $identity, $this->table);
+			// 朋友
+			$friends = $this->CI->User_model->get_friends($this->owner_id);
+			if(in_array($this->request_user, $friends)) {
+				$identity = 'friend';
+				parent::get_access($this->owner_id, $identity, $this->table);
 				if($this->access) {
 					return;
 				}
 			}
+
 			// 验证是否管理员
 			if($this->CI->session->userdata('type') == 'admin') {
 				$this->access = 1;
@@ -150,7 +153,18 @@ require_once APPPATH . 'libraries/jiadb.php';
 	 *  admin 管理员
 	 */
 	class Activity_auth extends  Auth {
-		function __construct($operation, $activity = '') {
+		function __construct($operation, $owner_id) {
 			parent::__construct($operation);
+		}
+	}
+	
+	class Comment_auth extends Auth {
+		/**
+		 * @param string view edit delete add
+		 * @param int comment_master_id or request_user_id
+		 * @param int post_master_id
+		 */
+		function __construct($operation, $owner_id, $master_id) {
+			
 		}
 	}
