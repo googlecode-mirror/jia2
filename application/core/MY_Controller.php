@@ -8,6 +8,7 @@
  */
 require_once APPPATH . 'libraries/jiadb.php';
 require_once APPPATH . 'libraries/auth.php';
+require_once APPPATH . 'libraries/access.php';
 	class MY_Controller extends CI_Controller {
 		public $jiadb;
 		function __construct() {
@@ -16,13 +17,14 @@ require_once APPPATH . 'libraries/auth.php';
 		}
 		/**
 		 * @param string operation
-		 * @param string post activity corporation
-		 * @param array
+		 * @param string post comment activity corporation
+		 * @param int 
 		 */
-		function _auth($operation, $type, $param = '') {
-			$auth = Auth_factory::get_auth($operation, $type, $param);
+		function _auth($operation, $type, $owner_id, $master_id = '') {
+			$auth = Auth_factory::get_auth($operation, $type, $owner_id, $master_id);
+			$auth->get_access();
 			if(!$auth->access) {
-				show_error('No Right to Access');
+				show_error('No Right Access');
 			}
 		}
 		

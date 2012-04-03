@@ -49,14 +49,18 @@
 			$email = $this->input->post('email');
 			$name = $this->input->post('name');
 			$pass = $this->input->post('pass');
-			$result = $this->User_model->regist($email, $name, $pass);
+			$result = $this->User_model->insert($email, $name, $pass);
 			switch ($result) {
-				case 'value':
-					
+				case 1:
+					static_view('邮箱已被注册');
 					break;
-				
 				default:
-					
+					$session = array(
+						'id' => $result['id'],
+						'type' => $result['user_type']['name']
+					);
+					$this->session->set_userdata($session);
+					redirect('index');
 					break;
 			}
 		}

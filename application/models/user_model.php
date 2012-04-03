@@ -1,5 +1,4 @@
 <?php
-require_once APPPATH . 'libraries/jiadb.php';
 	class User_model extends CI_Model {
 		public $jiadb;
 		function __construct() {
@@ -33,6 +32,15 @@ require_once APPPATH . 'libraries/jiadb.php';
 			);
 			$this->db->insert('user', $user);
 			$user_id = $this->db->insert_id();
+			$post_access = Access_factory::get_access('post');
+			$post_access->init($user_id);
+			$comment_auth = Access_factory::get_access('comment');
+			$comment_auth->init($user_id, 'personal');
+			$join = array(
+				'user_type' => array('type_id', 'id')
+			);
+			$info = $this->get_info((int)$user_id, $join);
+			return $info[0];
 		}
 		
 		function update() {

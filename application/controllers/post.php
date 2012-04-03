@@ -5,16 +5,16 @@
 			$this->load->model('Post_model');
 		}
 		// 默认调用_view 方法
-		function index($id = '') {
-			$this->_view($id);
+		function index() {
+			$this->_view();
 		}
 		
-		function _view($id) {
-			echo $id;
+		function _view() {
+			
 		}
 		
 		function add() {
-			$this->_auth('add', 'post');
+			$this->_auth('add', 'post', $this->session->userdata('id'));
 			$post = array(
 				'id' => $this->session->userdata('id'),
 				'type_id' => 1,
