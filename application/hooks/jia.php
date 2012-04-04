@@ -5,4 +5,8 @@
 		if(!$CI->session->userdata('type')) {
 			$CI->session->set_userdata('type', 'guest');
 		}
+		$post_type = $CI->db->get('post_type')->result_array();
+		foreach ($post_type as $row) {
+			$CI->config->set_item('post_type_' . $row['name'], $row['id']);
+		}
 	}
