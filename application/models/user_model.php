@@ -77,8 +77,10 @@
 			$friends = array();
 			$this->jiadb->_table = 'user_meta';
 			$result = $this->jiadb->fetchAll(array('user_id' => $id, 'meta_key' => 'friend'));
-			foreach ($result as $value) {
-				$friend[] = $value['meta_value'];
+			if($result) {
+				foreach ($result as $value) {
+					$friend[] = $value['meta_value'];
+				}
 			}
 			return $friends;
 		}
@@ -88,8 +90,10 @@
 			$blockers = array();
 			$this->jiadb->_table = 'user_meta';
 			$result = $this->jiadb->fetchAll(array('user_id' => $id, 'meta_key' => 'blocker'));
-			foreach ($result as $value) {
-				$blockers[] = $value['meta_value'];
+			if($result) {
+				foreach ($result as $value) {
+					$blockers[] = $value['meta_value'];
+				}
 			}
 			return $blockers;
 		}

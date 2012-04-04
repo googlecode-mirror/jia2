@@ -3,12 +3,22 @@
 		function __construct() {
 			parent::__construct();
 			$this->load->model('User_model');
+			$this->load->model('Post_model');
 		}
-		function index($param = '') {
-			$data['title'] = 'Jia2 Index';
-			$data['param'] = $param;
-			$data['main_content'] = 'index_view';
-			$this->load->view('includes/template_view', $data);
+		
+		function index() {
+			if($this->session->userdata('type') == 'guest') {
+				$this->_guest();
+			} else {
+				$data['title'] = 'Jia2 Index';
+				$data['posts'] = $this->Post_model->post_string($this->session->userdata('id'));
+				$data['main_content'] = 'index_view';
+				$this->load->view('includes/template_view', $data);
+			}
+		}
+		
+		function _guest() {
+			
 		}
 		
 		function login() {
