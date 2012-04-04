@@ -18,10 +18,10 @@ require_once APPPATH . 'libraries/access.php';
 		/**
 		 * @param string operation
 		 * @param string post comment activity corporation
-		 * @param int 
+		 * @param array 
 		 */
-		function _auth($operation, $type, $owner_id, $master_id = '') {
-			$auth = Auth_factory::get_auth($operation, $type, $owner_id, $master_id);
+		function _auth($operation, $type, $owner_id, $master = '') {
+			$auth = Auth_factory::get_auth($operation, $type, $owner_id, $master);
 			$auth->get_access();
 			if(!$auth->access) {
 				show_error('No Right Access');

@@ -17,11 +17,13 @@
 			$this->_auth('add', 'post', $this->session->userdata('id'));
 			$post = array(
 				'id' => $this->session->userdata('id'),
-				'type_id' => 1,
+				'owner_id' => $this->session->userdata('id'),
+				'type' => 'personal',
 				'content' => $this->input->post('content'),
 				'time' => time()
 			);
-			//$this->Post_model->insert($post);
+			$this->Post_model->insert($post);
+			redirect();
 		}
 		
 		function edit($id = 1) {

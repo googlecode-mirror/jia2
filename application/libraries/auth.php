@@ -1,7 +1,13 @@
 <?php
 require_once APPPATH . 'libraries/jiadb.php';
 	class Auth_factory {
-		static function get_auth($operation, $type, $owner_id, $master_id) {
+		/**
+		 * @param string
+		 * @param string post corporation ...
+		 * @param int
+		 * @param array('type', 'master_id')
+		 */
+		static function get_auth($operation, $type, $owner_id, $master = '') {
 			switch ($type) {
 				// 帖子操作权限
 				case 'post':
@@ -17,7 +23,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 					break;
 				// 评论操作权限
 				case 'comment':
-					return new Comment_auth($operation, $owner_id, $master_id);
+					return new Comment_auth($operation, $owner_id, $master);
 					break;
 			}
 		}
@@ -33,6 +39,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 		public $access;
 		public $jiadb;
 		public $CI;
+		public $table;
 		function __construct($operation) {
 			$this->access = 0;
 			$this->CI =& get_instance();
@@ -44,12 +51,12 @@ require_once APPPATH . 'libraries/jiadb.php';
 			$this->operation = $result[0]['id'];
 		}
 		
-		function get_access($owner_id, $identity, $table) {
+		function get_access($owner_id, $identity) {
 			$this->jiadb->_table = 'identity';
 			// identity(name) => identity(id)
 			$result = $this->jiadb->fetchAll(array('name' => $identity));
 			$identity_id = $result[0]['id'];
-			$this->jiadb->_table = $table;
+			$this->jiadb->_table = $this->table;
 			$result = $this->jiadb->fetchAll(array('owner_id' => $owner_id, 'identity_id' => $identity_id, 'operation_id' => $this->operation));
 			$this->access = $result[0]['access'];
 		}
@@ -66,7 +73,6 @@ require_once APPPATH . 'libraries/jiadb.php';
 	 */
 	class Post_auth extends Auth {
 		public $owner_id;
-		public $table;
 		function __construct($operation, $owner_id) {
 			parent::__construct($operation);
 			$this->owner_id = $owner_id;
@@ -78,14 +84,14 @@ require_once APPPATH . 'libraries/jiadb.php';
 			// 本人
 			if($this->owner_id == $this->CI->session->userdata('id')) {
 				$identity = 'self';
-				parent::get_access($this->owner_id, $identity, $this->table);
+				parent::get_access($this->owner_id, $identity);
 				return;
 			}
 			
 			// 游客
 			if($this->CI->session->userdata('type') == 'guest') {
 				$identity = 'guest';
-				parent::get_access($this->owner_id, $identity, $this->table);
+				parent::get_access($this->owner_id, $identity);
 				return;
 			}
 			
@@ -96,10 +102,10 @@ require_once APPPATH . 'libraries/jiadb.php';
 				if(in_array($this->request_user, $friends)) {
 					// 黑名单
 					$identity = 'blocker';
-					parent::get_access($this->owner_id, $identity, $this->table);
+					parent::get_access($this->owner_id, $identity);
 					return;
 				}
-				parent::get_access($this->owner_id, $identity, $this->table);
+				parent::get_access($this->owner_id, $identity);
 				if($this->access) {
 					return;
 				}
@@ -109,7 +115,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 			$friends = $this->CI->User_model->get_friends($this->owner_id);
 			if(in_array($this->request_user, $friends)) {
 				$identity = 'friend';
-				parent::get_access($this->owner_id, $identity, $this->table);
+				parent::get_access($this->owner_id, $identity);
 				if($this->access) {
 					return;
 				}
@@ -159,12 +165,92 @@ require_once APPPATH . 'libraries/jiadb.php';
 	}
 	
 	class Comment_auth extends Auth {
+		public $master_id;
+		public $type;
 		/**
 		 * @param string view edit delete add
 		 * @param int comment_master_id or request_user_id
 		 * @param int post_master_id
 		 */
-		function __construct($operation, $owner_id, $master_id) {
+		function __construct($operation, $owner_id, $master) {
+			$this->table = 'comment_auth';
+			$this->master_id = $master[0];
+			$this->table = $master[1];
+			parent::__construct($operation);
+		}
+		
+		function get_access() {
+			$identity = '';
 			
+			// 游客
+			if($this->CI->session->userdata('type') == 'guest') {
+				$identity = 'guest';
+				parent::get_access($this->master_id, $identity);
+				return;
+			}
+			
+			// 本人
+			if($owner_id == $this->CI->session->userdara('id')) {
+				$identity = 'self';
+				parent::get_access($owner_id, $identity);
+				return;
+			}
+			
+			if($this->CI->session->userdata('type') == 'register') {
+				$identity = 'register';
+			}
+			
+			// 再判断对于当前po有没有权限
+			if($this->type == 'personal') {
+				$blockers = $this->CI->User_model->get_blockers($this->owner_id);
+				if(in_array($this->request_user, $friends)) {
+					// 黑名单
+					$identity = 'blocker';
+					parent::get_access($this->owner_id, $identity);
+					return;
+				}
+				// 注册用户
+				parent::get_access($this->owner_id, $identity);
+				if($this->access) {
+					return;
+				}
+				// 朋友
+				$friends = $this->CI->User_model->get_friends($this->owner_id);
+				if(in_array($this->request_user, $friends)) {
+					$identity = 'friend';
+					parent::get_access($this->owner_id, $identity);
+					if($this->access) {
+						return;
+					}
+				}
+			}
+			
+			if($this->type == 'activity') {
+				$blockers = $this->CI->User_model->get_blockers($this->owner_id);
+				if(in_array($this->request_user, $friends)) {
+					// 黑名单
+					$identity = 'blocker';
+					parent::get_access($this->owner_id, $identity);
+					return;
+				}
+				// 注册用户
+				parent::get_access($this->owner_id, $identity);
+				if($this->access) {
+					return;
+				}
+				// 活动参与者
+				
+				// 会员
+				
+				// 管理员
+				
+				// 社长
+			}
+			
+			if($this->CI->session->userdata('type') == 'admin') {
+				$this->access = 1;
+				return;
+			}
+			// 
 		}
 	}
