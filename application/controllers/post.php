@@ -10,13 +10,12 @@
 		}
 		
 		function _view() {
-			
+			echo '查看帖子';
 		}
 		
 		function add() {
 			$this->_auth('add', 'post', $this->session->userdata('id'));
 			$post = array(
-				'id' => $this->session->userdata('id'),
 				'owner_id' => $this->session->userdata('id'),
 				'type' => 'personal',
 				'content' => $this->input->post('content'),

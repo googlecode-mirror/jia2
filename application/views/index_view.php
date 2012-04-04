@@ -1,5 +1,7 @@
 <p>here is Jia2 </p>
-<p><?=$param ?></p>
+<pre>
+<? print_r($posts) ?>
+</pre>
 <p><?=$this->session->userdata('type') ?></p>
 <p><?=$this->session->userdata('id') ?></p>
 <div id="new_post">

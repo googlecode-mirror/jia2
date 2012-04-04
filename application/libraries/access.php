@@ -23,7 +23,6 @@
 	class Access {
 		public $jiadb;
 		public $table;
-		public $identity;
 		public $CI;
 		function __construct() {
 			$this->jiadb = new Jiadb($this->table);
