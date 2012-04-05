@@ -98,8 +98,8 @@ require_once APPPATH . 'libraries/jiadb.php';
 			// 注册用户
 			if($this->CI->session->userdata('type') == 'register') {
 				$identity = 'register';
-				$blockers = $this->CI->User_model->get_blockers($this->owner_id);
-				if(in_array($this->request_user, $friends)) {
+				$blockers = $this->CI->User_model->get_meta('blocker', $this->owner_id, FALSE);
+				if(in_array($this->request_user, $blockers)) {
 					// 黑名单
 					$identity = 'blocker';
 					parent::get_access($this->owner_id, $identity);
@@ -112,7 +112,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 			}
 			
 			// 朋友
-			$friends = $this->CI->User_model->get_friends($this->owner_id);
+			$friends = $this->CI->User_model->get_meta('friend', $this->owner_id, FALSE);
 			if(in_array($this->request_user, $friends)) {
 				$identity = 'friend';
 				parent::get_access($this->owner_id, $identity);

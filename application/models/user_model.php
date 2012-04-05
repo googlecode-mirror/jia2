@@ -1,6 +1,6 @@
 <?php
 	class User_model extends CI_Model {
-		public $jiadb;
+		protected $jiadb;
 		function __construct() {
 			$this->jiadb = new Jiadb('user');
 			parent::__construct();
@@ -67,12 +67,29 @@
 			return $reslut;
 		}
 		
-		// 获取变化的数据
-		function get_meta($id, $mety_key = array()) {
-			$result = $this->jiadb->fetchMeta(array('id' => $id), $mety_key);
-			return $result;
+		// 用户变化值获取
+		function get_meta($meta_key, $user_id, $join_table = TRUE, $where = array(), $order = array(), $limit = array()) {
+			$meta = array();
+			$this->jiadb->_table = 'user_meta';
+			$where['user_id'] = $user_id;
+			$where['meta_key'] = $meta_key;
+			$result = $this->jiadb->fetchAll($where, $order, $limit);
+			if($result) {
+				if($join_table) {
+					foreach ($result as $row) {
+						$this->jiadb->_table = 'user';
+						$user = $this->jiadb->fetchAll(array('id' => $row['meta_value']));
+						$meta[] = $user[0];
+					}
+				} else {
+					foreach ($result as $row) {
+						$meta[] = $row['meta_value'];
+					}
+				}	
+			}
+			return $meta;
 		}
-		
+		/*
 		function get_friends($id) {
 			$friends = array();
 			$this->jiadb->_table = 'user_meta';
@@ -86,7 +103,7 @@
 		}
 		
 		//获取黑名单数组
-		function get_blockers() {
+		function get_blockers($with_info = FALSE, $where = array(), $order = array(), $limit = '') {
 			$blockers = array();
 			$this->jiadb->_table = 'user_meta';
 			$result = $this->jiadb->fetchAll(array('user_id' => $id, 'meta_key' => 'blocker'));
@@ -97,5 +114,42 @@
 			}
 			return $blockers;
 		}
+		*/
+		/**
+		 * @return bool
+		 * @param int
+		 * @param int
+		 */
+		function add_friend($user_id, $friend_id) {
+			$insert_array = array(
+				'user_id' => $user_id,
+				'meta_table' => 'user',
+				'meta_key' => 'friend',
+				'meta_value' => $friend_id
+			);
+			$this->jiadb->_table = 'user_meta';
+			if($this->jiadb->fetchAll($insert_array)) {
+				return FALSE;
+			}
+			$this->db->insert('user_meta', $insert_array);
+			return TRUE;
+		}
 		
+		function add_blocker($user_id, $blocker_id) {
+			// 先取消对黑名单用户的关注
+			$this->db->where(array('user_id' => $user_id, 'meta_key' => 'friend', 'meta_value' => $blocker_id));
+			$this->db->delete('user_meta');
+			$insert_array = array(
+				'user_id' => $user_id,
+				'meta_table' => 'user',
+				'meta_key' => 'blocker',
+				'meta_value' => $blocker_id
+			);
+			$this->jiadb->_table = 'user_meta';
+			if($this->jiadb->fetchAll($insert_array)) {
+				return FALSE;
+			}
+			$this->db->insert('user_meta', $insert_array);
+			return TRUE;
+		}
 	}
