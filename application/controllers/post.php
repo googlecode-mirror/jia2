@@ -5,7 +5,7 @@
 			$this->load->model('Post_model');
 		}
 		// 默认调用_view 方法
-		function index() {
+		function index($param = '') {
 			$this->_view();
 		}
 		

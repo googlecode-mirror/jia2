@@ -24,15 +24,17 @@ require_once APPPATH . 'libraries/access.php';
 			$auth = Auth_factory::get_auth($operation, $type, $owner_id, $master);
 			$auth->get_access();
 			if(!$auth->access) {
-				show_error('No Right Access');
+				show_error('灰常抱歉，你没有权限执行改操作');
 			}
 		}
 		
-		function _remap($method) {
-			if(method_exists($this, $method)) {
-				$this->$method();
+		function _remap($method, $params = array()) {
+			if (method_exists($this, $method)){
+				return call_user_func_array(array($this, $method), $params);
 			} else {
-				$this->index($method);
+				$param = array($method);
+				$params = array_merge($param, $params);
+				return call_user_func_array(array($this, 'index'), $params);
 			}
-		}
+		}	 
 	}

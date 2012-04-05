@@ -18,17 +18,19 @@
 			}
 		}
 		
-		// 个人信息流方法
+		// 获取个人信息流方法
 		function post_string($user_id) {
-			$friends = $this->User_model->get_friends($user_id);
+			$friends = $this->User_model->get_meta('friend', $user_id, FALSE);
 			$users = $friends;
+			// 这里以后还要加入社团以及活动的owner_id
 			$users[] = $user_id;
-			$posts = $this->jiadb->fetchAll(array('owner_id' => $users), array('time' => 'desc'), array(20,0));
+			$posts = $this->jiadb->fetchAll(array('owner_id' => $users), array('time' => 'desc'), array(20, 0));
 			return $posts;
 		}
-		
-		
-		function fetch($where = '', $order = '', $limit = '' ) {
-			
+		// 根据条件筛选信息
+		function fetch($where = array(), $order = array('time' => 'desc'), $limit = array(20, 0)) {
+			// 改方法会加入对转载文章的原文读取
+			$post_result = $this->jiadb->fetchAll($where, $order, $limit);
+			return $post_result;
 		}
 	}
