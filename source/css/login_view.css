@@ -12,7 +12,7 @@
 	-webkit-box-shadow:0px 0px 12px #aaa;
 	box-shadow:0px 0px 12px #aaa;
 	width:370px;
-	height:270px;
+	height:300px;
 	position:absolute;
 	top:78px;
 	left:644px;
@@ -20,7 +20,7 @@
 	bo/rder-bottom:#2c7ca4 6px solid;
 	padding:0;
 }
-.register{width:390px;height:400px;}
+.register{height:320px;}
 .title{width:358px;height:60px;line-height:60px;color:#14648c;font-size:24px;font-weight:bold;font-family:'Microsoft Yahei',simsun,Tahoma,Arial;padding-left:12px;background:#c4e5ea;margin:0} 
 .title_r{width:378px;}
 .title span{font-size:20px;}
@@ -34,7 +34,7 @@
 }
 .form_bg_r{
 	width:390px;
-	height:340px;
+	height:260px;
 	}
 form{position:relative;top:20px;left:5px;}
 #reg{position:relative;top:20px;left:15px;}
@@ -42,9 +42,7 @@ form{position:relative;top:20px;left:5px;}
 .field label{display:inline-block;text-align:right;width:70px;font-weight:bold}
 .field input{width:250px;height:25px;line-height: 25px;}
 .submit{position:relative;left:75px;margin-top:20px;}
-.submit input{width:80px;height:30px;background:#94cc7d;color:#FFF;border:none;}
+.submit .button{width:80px;height:30px;background:#94cc7d;color:#FFF;border:none;}
 .submit span{width:80px;height:30px;margin-left:10px}
 .prompt{display:inline-block;margin-left:75px;}
-
-
-input[type=checkbox]{margin:0;padding:0;border: 1px solid #000;}
+.checkbox{clear:both; position:relative;left:75px;margin-top:20px;}
