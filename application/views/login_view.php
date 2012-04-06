@@ -4,7 +4,7 @@
 					Jia2网logo_<span>登录</span>
 				</div>
 				<div class="form_bg"></div>
-				<form>
+				<?=form_open('index/do_login') ?>
 					<div class="field">
 						<label for="username">账 户 名:</label>
 						<input type="text" name="username" id="username" value="tiramisu" maxlength="32" tabindex="1" />
@@ -16,15 +16,14 @@
 							<input type="password" name="password" id="password" maxlength="20" tabindex="2" />
 						</span>
 						<span class="prompt" class="password-edit" sty/le="display:none;">提示信息什么的</span>
-						<input type="checkbox" name="remmber"><span>记住我</span>
+						<span><input type="checkbox" name="remmber">记住我</span>
 
 					</div>
 					<div class="submit">
-						<input type="checkbox" name="remmber">记住我
 						<input type="submit" name="" id="" class="" value="登录"  />
-						<span>|</span><span><a href="register.html"> 用户注册 </a></span>
+						<span>|</span><span><?=anchor(site_url('index/regist'), '用户注册') ?> </span>
 					</div>
-				</form>
+				<?=form_close() ?>
 			</div>
 		</div>
 		</div>
