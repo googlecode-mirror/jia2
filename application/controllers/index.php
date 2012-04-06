@@ -12,6 +12,8 @@
 			} else {
 				$data['title'] = 'Jia2 Index';
 				$data['posts'] = $this->Post_model->post_string($this->session->userdata('id'));
+				$data['css'] = 'style.css';
+				$data['js'] = 'tab.css';
 				$data['main_content'] = 'index_view';
 				$this->load->view('includes/template_view', $data);
 			}
@@ -23,7 +25,8 @@
 		
 		function login() {
 			$data['title'] = '登录加加社团';
-			$data['css'] = 'login_view.css';
+			$data['css'] = array('login_view.css','common.css');
+			$data['js'] = 'comm.js';
 			$data['main_content'] = 'login_view';
 			$this->load->view('includes/template_view', $data);
 		}
@@ -51,6 +54,8 @@
 		
 		function regist() {
 			$data['title'] = '注册加加';
+			$data['css'] = array('login_view.css','common.css');
+			$data['js'] = 'comm.js';
 			$data['main_content'] = 'regist_view';
 			$this->load->view('includes/template_view', $data);
 		}
