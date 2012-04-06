@@ -24,7 +24,8 @@
 			$users = $friends;
 			// 这里以后还要加入社团以及活动的owner_id
 			$users[] = $user_id;
-			$posts = $this->jiadb->fetchAll(array('owner_id' => $users), array('time' => 'desc'), array(20, 0));
+			$join = array('user' => array('owner_id', 'id'));
+			$posts = $this->jiadb->fetchJoin(array('owner_id' => $users), $join, array('time' => 'desc'), array(20, 0));
 			return $posts;
 		}
 		// 根据条件筛选信息
