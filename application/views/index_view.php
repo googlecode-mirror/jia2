@@ -16,7 +16,7 @@
 			
 			<div class="content_main">
 				<div class="main_top">
-				<a href="#" class="head_pic"><img src="images/user02.jpg" />
+				<a href="#" class="head_pic"><img src="<?=site_url('source/img/user.jpg') ?>" />
 					<div class="clear"></div><h4>用户名</h4>
 				</a>
 				
@@ -61,8 +61,9 @@
 					<div class="clear"></div>
 					<div class="article_box">
 						<div id="cc01">
+							
 							<div class="article_one">
-								<a href="#" class="head_pic"><img src="images/user01.jpg" /></a>
+								<a href="#" class="head_pic"><img src="<?=site_url('source/img/user01.jpg') ?>" /></a>
 								<div class="article_sub_box">
 									<h4><span>启明拓展协会：</span>高效率人生须杜绝的10件事，时间不等人，嗖的一下就过去了，改掉举棋不定、拖延症、半途而废等效率低下的习惯吧。</h4>
 									<p>2分钟前 <a href="#">收起回复</a> | <a href="#">分享</a> </p>
@@ -70,7 +71,7 @@
 								</div>
 							</div>
 							<div class="article_one">
-								<a href="#" class="head_pic"><img src="images/user.jpg" /></a>
+								<a href="#" class="head_pic"><img src="<?=site_url('source/img/user02.jpg') ?>" /></a>
 								<div class="article_sub_box">
 									<h4><span>启明拓展协会：</span>高效率人生须杜绝的10件事，时间不等人，嗖的一下就过去了，改掉举棋不定、拖延症、半途而废等效率低下的习惯吧。</h4>
 									<p>2分钟前 <a href="#">收起回复</a> | <a href="#">分享</a> </p>
