@@ -64,3 +64,5 @@ body{background:#faf7ec ;
 .foot p{text-align:center;}
 
 .about p a {color:#999;}
+#content {min-height:600px;}
+.header form{display:inline-block;}

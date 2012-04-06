@@ -6,6 +6,7 @@
         <META HTTP-EQUIV="pragma" CONTENT="no-cache">
         <title><?=(($title == '' ) ? '未定义title' : $title) ?></title>
         <link rel="stylesheet" type="text/css" href="<?=site_url('source/css/common.css') ?>" />
+        <link rel="stylesheet" type="text/css" href="<?=site_url('source/css/style.css') ?>" />
 	    <script type="text/javascript" src="<?=site_url('source/js/jquery.js') ?>"></script>
 	    <script type="text/javascript" src="<?=site_url(('source/js/comm.js')) ?>"></script>
         <script type="text/javascript">
