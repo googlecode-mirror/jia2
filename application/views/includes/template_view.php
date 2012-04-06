@@ -8,5 +8,3 @@
 <? $this->load->view('includes/footer_view') ?>
 </body>
 </html>
-
-

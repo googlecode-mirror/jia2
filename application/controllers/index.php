@@ -13,7 +13,7 @@
 				$data['title'] = 'Jia2 Index';
 				$data['posts'] = $this->Post_model->post_string($this->session->userdata('id'));
 				$data['css'] = 'style.css';
-				$data['js'] = 'tab.css';
+				$data['js'] = 'tab.js';
 				$data['main_content'] = 'index_view';
 				$this->load->view('includes/template_view', $data);
 			}

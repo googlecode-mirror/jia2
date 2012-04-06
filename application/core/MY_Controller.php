@@ -45,7 +45,8 @@ require_once APPPATH . 'libraries/access.php';
 		
 		function _require_ajax() {
 			if(!$this->input->post('ajax')) {
-				show_error('未定义操作');
+				static_view('未定义操作');
+				exit($this->output->get_output());
 			}
 		}
 	}

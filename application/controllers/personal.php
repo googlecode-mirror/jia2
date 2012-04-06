@@ -46,5 +46,13 @@
 		
 		function add_blocker() {
 			$this->_require_login();
+			$this->_require_ajax();
+			$blocker_id = $this->input->post('user_id');
+			$user_id = $this->user_id;
+			if($this->User_model->add_blocker($user_id, $blocker_id)) {
+				echo 1;
+			} else {
+				echo 0;
+			}
 		}
 	}
