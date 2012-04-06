@@ -16,12 +16,12 @@
 							<input type="password" name="password" id="password" maxlength="20" tabindex="2" />
 						</span>
 						<span class="prompt" class="password-edit" sty/le="display:none;">提示信息什么的</span>
-						<span><input type="checkbox" name="remmber">记住我</span>
-
 					</div>
+					<div class="checkbox"></div>
 					<div class="submit">
-						<input type="submit" name="" id="" class="" value="登录"  />
+						<input type="submit" name="" id="" class="button" value="登录"  />
 						<span>|</span><span><?=anchor(site_url('index/regist'), '用户注册') ?> </span>
+						<span><input  type="checkbox" name="remmber"><span>记住我</span></span>
 					</div>
 				<?=form_close() ?>
 			</div>
