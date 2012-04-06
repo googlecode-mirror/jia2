@@ -77,7 +77,7 @@
 			if($result) {
 				if($join_table) {
 					foreach ($result as $row) {
-						$this->jiadb->_table = 'user';
+						$this->jiadb->_table = $row['meta_table'];
 						$user = $this->jiadb->fetchAll(array('id' => $row['meta_value']));
 						$meta[] = $user[0];
 					}
