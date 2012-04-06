@@ -45,3 +45,6 @@ form{position:relative;top:20px;left:5px;}
 .submit input{width:80px;height:30px;background:#94cc7d;color:#FFF;border:none;}
 .submit span{width:80px;height:30px;margin-left:10px}
 .prompt{display:inline-block;margin-left:75px;}
+
+
+input[type=checkbox]{margin:0;padding:0;border: 1px solid #000;}
