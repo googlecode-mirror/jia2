@@ -2,7 +2,7 @@
 	<div class="login register">
     <div class="title title_r">Jia2网logo_<span>注册</span></div>
     <div class="form_bg form_bg_r"></div>
-    <form id="reg">
+    <?=form_open('index/do_regist', 'id = "reg"') ?>
     	<div class="field">
             <label >账&nbsp;户&nbsp;名：</label>
             <input type="text" name="username" id="username_1" value="" maxlength="32" tabindex="1" />
@@ -29,9 +29,10 @@
         </div>
         
          <div class="submit">
-            <a href="#"> 同意以下协议并 注册 </a>
+         	<?=anchor('', '同意以下协议并') ?>
+            <?=form_submit('submit', '注册') ?>
          </div>  
-    	</form>
+    	<?=form_close() ?>
 	</div>
     </div>
 </div>

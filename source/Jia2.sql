@@ -3,7 +3,7 @@
 -- Server version:               5.5.16 - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-04-03 19:39:05
+-- Date/time:                    2012-04-06 15:45:20
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `activity_auth` (
   KEY `FK_activity_auth_identity` (`identity_id`),
   KEY `FK_activity_auth_operation` (`operation_id`),
   KEY `FK_activity_auth_activity` (`owner_id`),
-  CONSTRAINT `FK_activity_auth_activity` FOREIGN KEY (`owner_id`) REFERENCES `activity` (`id`),
+  CONSTRAINT `FK_activity_auth_activity` FOREIGN KEY (`owner_id`) REFERENCES `corporation` (`id`),
   CONSTRAINT `FK_activity_auth_identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`),
   CONSTRAINT `FK_activity_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `comment_auth` (
   CONSTRAINT `FK_comment_auth_post_type` FOREIGN KEY (`type_id`) REFERENCES `post_type` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.comment_auth: ~0 rows (approximately)
+-- Dumping data for table jia2.comment_auth: ~11 rows (approximately)
 /*!40000 ALTER TABLE `comment_auth` DISABLE KEYS */;
 REPLACE INTO `comment_auth` (`id`, `owner_id`, `type_id`, `identity_id`, `operation_id`, `access`) VALUES
 	(14, 10, 1, 2, 1, 1),
@@ -290,12 +290,14 @@ CREATE TABLE IF NOT EXISTS `post` (
   KEY `fk_post_post_type1` (`type_id`),
   KEY `fk_post_users1` (`owner_id`),
   CONSTRAINT `fk_post_post_type1` FOREIGN KEY (`type_id`) REFERENCES `post_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.post: ~1 rows (approximately)
+-- Dumping data for table jia2.post: ~3 rows (approximately)
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
 REPLACE INTO `post` (`id`, `type_id`, `owner_id`, `title`, `content`, `image`, `time`, `status`) VALUES
-	(1, 1, 5, '0', '测试帖', NULL, NULL, NULL);
+	(1, 1, 5, '0', '测试帖', NULL, NULL, NULL),
+	(10, 1, 10, NULL, '测试第一篇帖子！！！！', NULL, '1333508483', 1),
+	(12, 1, 10, NULL, ' 测试第一篇帖子！！！！', NULL, '1333527676', 1);
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 
 
@@ -355,8 +357,8 @@ CREATE TABLE IF NOT EXISTS `post_type` (
 /*!40000 ALTER TABLE `post_type` DISABLE KEYS */;
 REPLACE INTO `post_type` (`id`, `name`) VALUES
 	(1, 'personal'),
-	(2, 'activity'),
-	(3, 'forward');
+	(2, 'forward'),
+	(3, 'activity');
 /*!40000 ALTER TABLE `post_type` ENABLE KEYS */;
 
 
