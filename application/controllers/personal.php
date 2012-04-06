@@ -28,8 +28,9 @@
 		
 		function setting() {
 			$this->_require_login();
+			$data['title'] = '账户设置';
 			$data['main_content'] = 'personal/setting_view';
-			$this->load->view('inlcudes/template_view', $data);
+			$this->load->view('includes/template_view', $data);
 		}
 		
 		function add_friend() {

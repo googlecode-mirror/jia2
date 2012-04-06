@@ -12,15 +12,14 @@
 			} else {
 				$data['title'] = 'Jia2 Index';
 				$data['posts'] = $this->Post_model->post_string($this->session->userdata('id'));
-				$data['css'] = 'style.css';
-				$data['js'] = 'tab.js';
+				$data['js'] = array('tab.js', 'index_view.js');
 				$data['main_content'] = 'index_view';
 				$this->load->view('includes/template_view', $data);
 			}
 		}
 		
 		function _guest() {
-			
+			static_view('这里是游客页面');
 		}
 		
 		function login() {
@@ -82,6 +81,6 @@
 		
 		function logout() {
 			$this->session->sess_destroy();
-			redirect('index');
+			redirect('index/login');
 		}
 	}

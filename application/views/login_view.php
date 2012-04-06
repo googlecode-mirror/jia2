@@ -7,7 +7,7 @@
 				<?=form_open('index/do_login') ?>
 					<div class="field">
 						<label for="email">邮&nbsp; 　箱:</label>
-						<input type="text" name="email" id="email" value="tiramisu" maxlength="32" tabindex="1" />
+						<input type="text" name="email" id="email" maxlength="32" tabindex="1" />
 						<span class="prompt" class="password-edit" sty/le="display:none;">提示信息什么的</span>
 					</div>
 					<div class="field">

@@ -2,7 +2,10 @@
 <? $this->load->view('includes/css_view') ?>
 <? $this->load->view('includes/js_view') ?>
 <body>
-<div id="content" style="min-height: 600px">
+<div id="content">
+<? if($this->uri->segment(2) != 'login'): ?>
+<? $this->load->view('includes/nav_view') ?>
+<? endif ?>
 <? $this->load->view($main_content) ?>
 </div>
 <? $this->load->view('includes/footer_view') ?>
