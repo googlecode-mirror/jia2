@@ -3,7 +3,7 @@
 -- Server version:               5.5.16 - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-04-07 08:10:57
+-- Date/time:                    2012-04-07 21:36:35
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -88,9 +88,9 @@ CREATE TABLE IF NOT EXISTS `comment` (
   KEY `fk_comments_users1` (`user_id`),
   CONSTRAINT `fk_comments_post1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_comments_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.comment: ~14 rows (approximately)
+-- Dumping data for table jia2.comment: ~18 rows (approximately)
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
 REPLACE INTO `comment` (`id`, `post_id`, `user_id`, `content`, `time`, `status`) VALUES
 	(1, 15, 10, '泪流满面啊', '1333727643', 1),
@@ -106,7 +106,11 @@ REPLACE INTO `comment` (`id`, `post_id`, `user_id`, `content`, `time`, `status`)
 	(11, 12, 10, '泪流满面啊 而黄家坎 而黄家坎 而啊哈同济牙科', '1333728776', 1),
 	(12, 12, 10, '测试第一篇帖子！！！！', '1333728781', 1),
 	(13, 19, 10, '王尼玛每天早上都起来跑步,然后 CCC', '1333728941', 1),
-	(14, 19, 10, '早上都起来跑步,然后 CCC ', '1333728980', 1);
+	(14, 19, 10, '早上都起来跑步,然后 CCC ', '1333728980', 1),
+	(15, 17, 11, '尼玛每天早上都起 ', '1333757784', 1),
+	(16, 20, 11, '风格啊', '1333761945', 1),
+	(17, 14, 11, '阿尔和他', '1333761948', 1),
+	(18, 17, 11, '自己肯定能给自己回复撒', '1333761974', 1);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 
 
@@ -161,6 +165,7 @@ CREATE TABLE IF NOT EXISTS `corporation` (
   `name` varchar(45) NOT NULL COMMENT '学校',
   `school_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `avatar` varchar(50) NOT NULL DEFAULT 'default.jpg',
   `comment` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_corporations_school1` (`school_id`),
@@ -316,9 +321,9 @@ CREATE TABLE IF NOT EXISTS `post` (
   KEY `fk_post_post_type1` (`type_id`),
   KEY `fk_post_users1` (`owner_id`),
   CONSTRAINT `fk_post_post_type1` FOREIGN KEY (`type_id`) REFERENCES `post_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.post: ~10 rows (approximately)
+-- Dumping data for table jia2.post: ~11 rows (approximately)
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
 REPLACE INTO `post` (`id`, `type_id`, `owner_id`, `title`, `content`, `image`, `time`, `status`) VALUES
 	(1, 1, 5, '0', '测试帖', NULL, NULL, NULL),
@@ -330,7 +335,8 @@ REPLACE INTO `post` (`id`, `type_id`, `owner_id`, `title`, `content`, `image`, `
 	(16, 1, 11, NULL, '尼玛，晓得我叫啥子名字不！', NULL, '1333704398', 1),
 	(17, 1, 11, NULL, '王尼玛每天早上都起来跑步,跑完步后在公园的凳子上睡个小觉,这天王尼玛又跑完步了,在公园的凳子上睡觉,这时来了一个基佬, 看着王尼玛长的挺俊的, 于是就把王尼玛XXX了', NULL, '1333714497', 1),
 	(18, 1, 11, NULL, '这尼玛坑爹呐是吧!', NULL, '1333715483', 1),
-	(19, 1, 10, NULL, '王尼玛每天早上都起来跑步,然后 CCC', NULL, '1333728932', 1);
+	(19, 1, 10, NULL, '王尼玛每天早上都起来跑步,然后 CCC', NULL, '1333728932', 1),
+	(20, 1, 11, NULL, '这尼玛是什么情况!', NULL, '1333760070', 1);
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 
 
@@ -437,6 +443,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `type_id` int(11) NOT NULL DEFAULT '2',
   `school_id` int(11) DEFAULT NULL,
   `province_id` int(11) DEFAULT NULL,
+  `avatar` varchar(50) DEFAULT 'default.jpg',
   `gender` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`),
@@ -448,13 +455,12 @@ CREATE TABLE IF NOT EXISTS `user` (
   CONSTRAINT `fk_users_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.user: ~4 rows (approximately)
+-- Dumping data for table jia2.user: ~3 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-REPLACE INTO `user` (`id`, `name`, `email`, `pass`, `type_id`, `school_id`, `province_id`, `gender`) VALUES
-	(3, 'Tuzki', 'rabbitzhang52@yahoo.com', 'e18d959268ead9d3caf501969715e3d0', 1, NULL, NULL, 1),
-	(5, 'register', 'register@jia2.cn', '', 2, NULL, NULL, 1),
-	(10, 'zhanghui', 'rabbitzhang52@gmail.com', 'e18d959268ead9d3caf501969715e3d0', 2, NULL, NULL, 1),
-	(11, '张晖', 'rabbitzhang52@qq.com', 'e18d959268ead9d3caf501969715e3d0', 2, NULL, NULL, 1);
+REPLACE INTO `user` (`id`, `name`, `email`, `pass`, `type_id`, `school_id`, `province_id`, `avatar`, `gender`) VALUES
+	(3, 'Tuzki', 'rabbitzhang52@yahoo.com', 'e18d959268ead9d3caf501969715e3d0', 1, NULL, NULL, 'default.jpg', 1),
+	(10, 'zhanghui', 'rabbitzhang52@gmail.com', 'e18d959268ead9d3caf501969715e3d0', 2, NULL, NULL, 'default.jpg', 1),
+	(11, '张晖', 'rabbitzhang52@qq.com', 'e18d959268ead9d3caf501969715e3d0', 2, NULL, NULL, '11.jpg', 1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 
@@ -463,15 +469,18 @@ CREATE TABLE IF NOT EXISTS `user_meta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `meta_table` varchar(45) DEFAULT NULL COMMENT '变化值对应的表，可以为空',
-  `meta_key` int(11) NOT NULL COMMENT '变化的key可以指向任何表的索引',
+  `meta_key` varchar(11) NOT NULL COMMENT '变化的key可以指向任何表的索引',
   `meta_value` varchar(45) DEFAULT NULL COMMENT '可以为空',
   PRIMARY KEY (`id`),
   KEY `fk_user_meta_users1` (`user_id`),
   CONSTRAINT `fk_jia2_user_meta_jia2_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.user_meta: ~0 rows (approximately)
+-- Dumping data for table jia2.user_meta: ~2 rows (approximately)
 /*!40000 ALTER TABLE `user_meta` DISABLE KEYS */;
+REPLACE INTO `user_meta` (`id`, `user_id`, `meta_table`, `meta_key`, `meta_value`) VALUES
+	(2, 11, 'user', 'friend', '11'),
+	(4, 11, 'user', 'friend', '10');
 /*!40000 ALTER TABLE `user_meta` ENABLE KEYS */;
 
 
