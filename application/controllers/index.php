@@ -12,7 +12,7 @@
 			} else {
 				$data['title'] = 'Jia2 Index';
 				$data['posts'] = $this->Post_model->post_string($this->session->userdata('id'));
-				$data['js'] = array('tab.js', 'index_view.js');
+				$data['js'] = array('tab.js', 'index_view.js', 'post.js');
 				$data['main_content'] = 'index_view';
 				$this->load->view('includes/template_view', $data);
 			}

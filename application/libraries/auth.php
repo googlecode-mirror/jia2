@@ -32,6 +32,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 	class Auth {
 		// 请求权限的用户
 		public $request_user;
+		// 
 		public $owner_id;
 		// 请求的操作
 		public $operation;
@@ -246,6 +247,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 	 */
 	
 	class Comment_auth extends Auth {
+		// 帖子主人id
 		public $master_id;
 		public $type;
 		/**
@@ -253,11 +255,10 @@ require_once APPPATH . 'libraries/jiadb.php';
 		 * @param int comment_master_id or request_user_id
 		 * @param int post_master_id
 		 */
-		function __construct($operation, $owner_id, $master) {
+		function __construct($operation, $owner_id, $master_id) {
 			$this->table = 'comment_auth';
-			$this->master_id = $master[0];
-			$this->table = $master[1];
-			parent::__construct($operation);
+			$this->master_id = $master_id;
+			parent::__construct($operation, $owner_id);
 		}
 		
 		function get_access() {
@@ -271,7 +272,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 			}
 			
 			// 本人
-			if($this->owner_id == $this->CI->session->userdara('id')) {
+			if($this->owner_id == $this->CI->session->userdata('id')) {
 				$identity = 'self';
 				parent::get_access($identity);
 				return;
@@ -283,7 +284,12 @@ require_once APPPATH . 'libraries/jiadb.php';
 			
 			// 再判断对于当前po有没有权限
 			if($this->type == 'personal') {
-				$blockers = $this->CI->User_model->get_blockers($this->owner_id);
+				if($this->request_user = $this->master_id) {
+					$identity = 'po_master';
+					parent::get_access($identity);
+					return;
+				}
+				$blockers = $this->CI->User_model->get_blockers($this->master_id);
 				if(in_array($this->request_user, $friends)) {
 					// 黑名单
 					$identity = 'blocker';
@@ -296,7 +302,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 					return;
 				}
 				// 朋友
-				$friends = $this->CI->User_model->get_friends($this->owner_id);
+				$friends = $this->CI->User_model->get_friends($this->master_id);
 				if(in_array($this->request_user, $friends)) {
 					$identity = 'friend';
 					parent::get_access($identity);

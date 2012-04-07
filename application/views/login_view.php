@@ -19,7 +19,7 @@
 					</div>
 					<div class="checkbox"></div>
 					<div class="submit">
-						<input type="submit" name="" id="" class="button" value="登录"  />
+						<?=form_submit('submit', '登录', 'class="button"') ?>
 						<span>|</span><span><?=anchor(site_url('index/regist'), '用户注册') ?> </span>
 						<span><input  type="checkbox" name="remmber"><span>记住我</span></span>
 					</div>

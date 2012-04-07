@@ -50,9 +50,17 @@
 								<div class="article_one">
 									<a href="#" class="head_pic"><img src="<?=site_url('source/img/user01.jpg') ?>" /></a>
 									<div class="article_sub_box">
-										<h4><span><?=$post['user']['name'] ?></span>&nbsp;<?=$post['content'] ?></h4>
+										<h4><span><?=$post['user'][0]['name'] ?></span>&nbsp;<?=$post['content'] ?></h4>
 										<p>2分钟前 <a href="#">收起回复</a> | <a href="#">分享</a> </p>
-										<p><input value="添加回复..."/></p>
+										<? if($post['comment']): ?>
+											<? foreach($post['comment'] as $comment): ?>
+												<p><?=$comment['content'] ?></p>
+											<? endforeach ?>
+											<p></p>
+										<? endif ?>
+										<p></p>
+										<p><?=form_textarea(array('name' => 'comment_content', 'post_id' => $post['id'], 'owner_id' => $post['owner_id'], 'cols' => 60, 'rows' => 2)) ?></p>
+										<p><?=form_button('comment', '评论') ?></p>
 									</div>
 								</div>
 							<? endforeach ?>

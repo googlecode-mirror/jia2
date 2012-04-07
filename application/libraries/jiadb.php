@@ -72,14 +72,7 @@
 					foreach ($result as $key => $row) {
 						$this->_table = $table;
 						$tmp = $this->fetchAll(array($field[1] => $row[$field[0]]));
-						$num_rows = count($tmp);
-						switch ($num_rows) {
-							case 0:
-								$tmp = 0;
-								break;
-							case 1:
-								$tmp = $tmp[0];
-						}
+						
 						$result[$key][$table] = $tmp;
 					}
 				}

@@ -3,7 +3,7 @@
 -- Server version:               5.5.16 - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-04-06 15:45:20
+-- Date/time:                    2012-04-07 08:10:57
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -79,19 +79,34 @@ CREATE TABLE IF NOT EXISTS `activity_meta` (
 CREATE TABLE IF NOT EXISTS `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `post_id` int(11) NOT NULL,
-  `users_id` int(11) NOT NULL,
-  `content` text,
-  `status` int(11) DEFAULT NULL,
-  `parent_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `time` varchar(50) NOT NULL,
+  `status` int(11) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `fk_comments_posts1` (`post_id`),
-  KEY `fk_comments_users1` (`users_id`),
+  KEY `fk_comments_users1` (`user_id`),
   CONSTRAINT `fk_comments_post1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_comments_user1` FOREIGN KEY (`users_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_comments_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.comment: ~0 rows (approximately)
+-- Dumping data for table jia2.comment: ~14 rows (approximately)
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+REPLACE INTO `comment` (`id`, `post_id`, `user_id`, `content`, `time`, `status`) VALUES
+	(1, 15, 10, '泪流满面啊', '1333727643', 1),
+	(2, 15, 10, '而黄家坎', '1333728396', 1),
+	(3, 15, 10, '而黄家坎', '1333728403', 1),
+	(4, 15, 10, '而啊哈同济牙科', '1333728439', 1),
+	(5, 15, 10, '泪流满面啊\n\n而黄家坎\n\n而黄家坎\n\n而啊哈同济牙科', '1333728507', 1),
+	(6, 15, 10, 'sjhkl;\'', '1333728533', 1),
+	(7, 15, 10, '泪流满面啊 而黄家坎 而黄家坎 而啊哈同济牙科', '1333728715', 1),
+	(8, 14, 10, '泪流满面啊 而黄家坎 而黄家坎 而啊哈同济牙科', '1333728726', 1),
+	(9, 15, 10, '泪流满面啊 而黄家坎 而黄家坎 而啊哈同济牙科', '1333728759', 1),
+	(10, 14, 10, '泪流满面啊 而黄家坎 而黄家坎 而啊哈同济牙科', '1333728764', 1),
+	(11, 12, 10, '泪流满面啊 而黄家坎 而黄家坎 而啊哈同济牙科', '1333728776', 1),
+	(12, 12, 10, '测试第一篇帖子！！！！', '1333728781', 1),
+	(13, 19, 10, '王尼玛每天早上都起来跑步,然后 CCC', '1333728941', 1),
+	(14, 19, 10, '早上都起来跑步,然后 CCC ', '1333728980', 1);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 
 
@@ -110,9 +125,9 @@ CREATE TABLE IF NOT EXISTS `comment_auth` (
   CONSTRAINT `FK_comment_auth_identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`),
   CONSTRAINT `FK_comment_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`),
   CONSTRAINT `FK_comment_auth_post_type` FOREIGN KEY (`type_id`) REFERENCES `post_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.comment_auth: ~11 rows (approximately)
+-- Dumping data for table jia2.comment_auth: ~22 rows (approximately)
 /*!40000 ALTER TABLE `comment_auth` DISABLE KEYS */;
 REPLACE INTO `comment_auth` (`id`, `owner_id`, `type_id`, `identity_id`, `operation_id`, `access`) VALUES
 	(14, 10, 1, 2, 1, 1),
@@ -125,7 +140,18 @@ REPLACE INTO `comment_auth` (`id`, `owner_id`, `type_id`, `identity_id`, `operat
 	(21, 10, 1, 4, 2, 1),
 	(22, 10, 1, 11, 1, 1),
 	(23, 10, 1, 11, 2, 1),
-	(24, 10, 1, 11, 4, 1);
+	(24, 10, 1, 11, 4, 1),
+	(25, 11, 1, 2, 1, 1),
+	(26, 11, 1, 3, 1, 1),
+	(27, 11, 1, 3, 2, 1),
+	(28, 11, 1, 5, 1, 1),
+	(29, 11, 1, 5, 2, 1),
+	(30, 11, 1, 5, 4, 1),
+	(31, 11, 1, 4, 1, 1),
+	(32, 11, 1, 4, 2, 1),
+	(33, 11, 1, 11, 1, 1),
+	(34, 11, 1, 11, 2, 1),
+	(35, 11, 1, 11, 4, 1);
 /*!40000 ALTER TABLE `comment_auth` ENABLE KEYS */;
 
 
@@ -290,14 +316,21 @@ CREATE TABLE IF NOT EXISTS `post` (
   KEY `fk_post_post_type1` (`type_id`),
   KEY `fk_post_users1` (`owner_id`),
   CONSTRAINT `fk_post_post_type1` FOREIGN KEY (`type_id`) REFERENCES `post_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.post: ~3 rows (approximately)
+-- Dumping data for table jia2.post: ~10 rows (approximately)
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
 REPLACE INTO `post` (`id`, `type_id`, `owner_id`, `title`, `content`, `image`, `time`, `status`) VALUES
 	(1, 1, 5, '0', '测试帖', NULL, NULL, NULL),
 	(10, 1, 10, NULL, '测试第一篇帖子！！！！', NULL, '1333508483', 1),
-	(12, 1, 10, NULL, ' 测试第一篇帖子！！！！', NULL, '1333527676', 1);
+	(12, 1, 10, NULL, ' 测试第一篇帖子！！！！', NULL, '1333527676', 1),
+	(13, 1, 10, NULL, '这尼玛，要发一个试试喃！', NULL, '1333702854', 1),
+	(14, 1, 10, NULL, '帅气！灰常好！', NULL, '1333702868', 1),
+	(15, 1, 10, NULL, '这个页面的大小被固定了哇~', NULL, '1333703006', 1),
+	(16, 1, 11, NULL, '尼玛，晓得我叫啥子名字不！', NULL, '1333704398', 1),
+	(17, 1, 11, NULL, '王尼玛每天早上都起来跑步,跑完步后在公园的凳子上睡个小觉,这天王尼玛又跑完步了,在公园的凳子上睡觉,这时来了一个基佬, 看着王尼玛长的挺俊的, 于是就把王尼玛XXX了', NULL, '1333714497', 1),
+	(18, 1, 11, NULL, '这尼玛坑爹呐是吧!', NULL, '1333715483', 1),
+	(19, 1, 10, NULL, '王尼玛每天早上都起来跑步,然后 CCC', NULL, '1333728932', 1);
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 
 
@@ -315,9 +348,9 @@ CREATE TABLE IF NOT EXISTS `post_auth` (
   CONSTRAINT `FK_post_auth_identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`),
   CONSTRAINT `FK_post_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`),
   CONSTRAINT `FK_post_auth_user` FOREIGN KEY (`owner_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COMMENT='帖子查看权限验证';
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COMMENT='帖子查看权限验证';
 
--- Dumping data for table jia2.post_auth: ~6 rows (approximately)
+-- Dumping data for table jia2.post_auth: ~12 rows (approximately)
 /*!40000 ALTER TABLE `post_auth` DISABLE KEYS */;
 REPLACE INTO `post_auth` (`id`, `owner_id`, `identity_id`, `operation_id`, `access`) VALUES
 	(21, 10, 2, 1, 1),
@@ -325,7 +358,13 @@ REPLACE INTO `post_auth` (`id`, `owner_id`, `identity_id`, `operation_id`, `acce
 	(23, 10, 4, 1, 1),
 	(24, 10, 5, 1, 1),
 	(25, 10, 5, 2, 1),
-	(26, 10, 5, 4, 1);
+	(26, 10, 5, 4, 1),
+	(27, 11, 2, 1, 1),
+	(28, 11, 3, 1, 1),
+	(29, 11, 4, 1, 1),
+	(30, 11, 5, 1, 1),
+	(31, 11, 5, 2, 1),
+	(32, 11, 5, 4, 1);
 /*!40000 ALTER TABLE `post_auth` ENABLE KEYS */;
 
 
@@ -407,14 +446,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   CONSTRAINT `fk_users_entity_user_type` FOREIGN KEY (`type_id`) REFERENCES `user_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_province1` FOREIGN KEY (`province_id`) REFERENCES `province` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.user: ~3 rows (approximately)
+-- Dumping data for table jia2.user: ~4 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 REPLACE INTO `user` (`id`, `name`, `email`, `pass`, `type_id`, `school_id`, `province_id`, `gender`) VALUES
 	(3, 'Tuzki', 'rabbitzhang52@yahoo.com', 'e18d959268ead9d3caf501969715e3d0', 1, NULL, NULL, 1),
 	(5, 'register', 'register@jia2.cn', '', 2, NULL, NULL, 1),
-	(10, 'zhanghui', 'rabbitzhang52@gmail.com', 'e18d959268ead9d3caf501969715e3d0', 2, NULL, NULL, 1);
+	(10, 'zhanghui', 'rabbitzhang52@gmail.com', 'e18d959268ead9d3caf501969715e3d0', 2, NULL, NULL, 1),
+	(11, '张晖', 'rabbitzhang52@qq.com', 'e18d959268ead9d3caf501969715e3d0', 2, NULL, NULL, 1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 

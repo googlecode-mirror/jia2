@@ -24,7 +24,7 @@
          </div>
          <div class="submit">
          	<?=anchor('', '同意以下协议并') ?>
-            <?=form_submit('submit', '注册') ?>
+            <?=form_submit('submit', '注册', 'class="button"') ?>
          </div>  
     	<?=form_close() ?>
 	</div>
