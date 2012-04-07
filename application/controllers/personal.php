@@ -5,6 +5,7 @@
 			parent::__construct();
 			$this->load->model('User_model');
 			$this->load->model('Post_model');
+			$this->load->model('Photo_model');
 			$this->user_id = $this->session->userdata('id');
 		}
 		
@@ -32,6 +33,31 @@
 			$data['title'] = '账户设置';
 			$data['main_content'] = 'personal/setting_view';
 			$this->load->view('includes/template_view', $data);
+		}
+		
+		function do_setting() {
+			$this->_require_login();
+			$setting = $this->input->post('setting');
+			switch ($setting) {
+				case 'avatar':
+					// 头像设置
+					$result = $this->Photo_model->set_avatar('personal', $this->user_id);
+					echo $result;
+					if($result) {
+						$this->User_model->update(array('id' => $this->user_id), array('avatar' => $result));
+						//redirect('personal/setting');
+					} else {
+						static_view('不好意思亲~ 上传失败了, 要不然' . anchor('personal/setting', '再试一次?'));
+					}
+					break;
+				case 'info':
+					// 资料设置
+					$this->
+					break;
+				case 'privacy':
+				// 隐私设置
+					break;
+			}
 		}
 		
 		function add_friend() {
