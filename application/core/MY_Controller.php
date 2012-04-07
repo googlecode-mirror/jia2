@@ -20,17 +20,19 @@ require_once APPPATH . 'libraries/access.php';
 		 * @param string post comment activity corporation
 		 * @param array 
 		 */
-		function _auth($operation, $type, $owner_id, $master = '') {
-			$auth = Auth_factory::get_auth($operation, $type, $owner_id, $master);
+		function _auth($operation, $type, $owner_id, $post = array()) {
+			$auth = Auth_factory::get_auth($operation, $type, $owner_id, $post);
 			$auth->get_access();
 			if(!$auth->access) {
 				show_error('灰常抱歉，你没有权限执行改操作');
 			}
 		}
 		
-		function _require_login() {
-			if($this->session->userdata('type') == 'guest') {
+		function _require_login($sign = TRUE) {
+			if($sign && $this->session->userdata('type') == 'guest') {
 				redirect('index/login');
+			} elseif($this->session->userdata('type') != 'guest') {
+				redirect();
 			}
 		}
 		

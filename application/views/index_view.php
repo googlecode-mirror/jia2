@@ -59,7 +59,7 @@
 											<p></p>
 										<? endif ?>
 										<p></p>
-										<p><?=form_textarea(array('name' => 'comment_content', 'post_id' => $post['id'], 'owner_id' => $post['owner_id'], 'cols' => 60, 'rows' => 2)) ?></p>
+										<p><?=form_textarea(array('name' => 'comment_content', 'post_id' => $post['id'], 'type_id' =>$post['type_id'] , 'owner_id' => $post['owner_id'], 'cols' => 60, 'rows' => 2)) ?></p>
 										<p><?=form_button('comment', '评论') ?></p>
 									</div>
 								</div>
