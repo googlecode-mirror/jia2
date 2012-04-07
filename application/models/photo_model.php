@@ -2,6 +2,7 @@
 	class Photo_model extends CI_Model {
 		function __construct() {
 			parent::__construct();
+			$this->load->library('upload');
 			$this->load->library('image_lib');
 		}
 		
@@ -13,13 +14,9 @@
 			  		'overwrite' => TRUE,
 			  		'file_name'	=> $param['filename']
 			 );
-			 echo '<pre>';
-			  print_r($config);
-			 echo '</pre>';
-			
+			 $this->upload->initialize($config);
 			switch ($param['mode']) {
 				case 'avatar':
-					echo 'here';
 					if($this->upload->do_upload()) {
 						$image_data = $this->upload->data();
 						$thumb_tiny = array(
@@ -44,9 +41,13 @@
 						$this->image_lib->resize();
 						$this->image_lib->initialize($thumb_big);
 						$this->image_lib->resize();
+						// 删除原始图像
+						if(file_exists($image_data['full_path']))
+							unlink($image_data['full_path']);
+						return TRUE;
 						} else {
 							//错误提示
-							echo $this->upload->display_errors('<p>', '</p>');
+							// echo $this->upload->display_errors('<p>', '</p>');
 							return FALSE;
 						}
 					break;
@@ -59,9 +60,13 @@
 		function set_avatar($mode = 'personal', $filename) {
 			$param = array(
 				'upload_path' => $this->config->item($mode . '_avatar_path'),
-				'mode' => 'personal',
+				'mode' => 'avatar',
 				'filename' => $filename . '.jpg'
 			);
-			$this->upload($param);
+			if($this->upload($param)) {
+				return $param['filename'];
+			} else {
+				return FALSE;
+			}
 		}
 	}

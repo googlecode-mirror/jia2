@@ -1,7 +1,7 @@
 	<div class="container">
 			<div class="content_main">
 				<div class="main_top">
-				<a href="<?=site_url('personal/profile/' . $info[0]['id'])?>" class="head_pic"><img src="<?=site_url('source/img/user.jpg') ?>" />
+				<a href="<?=site_url('personal/profile/' . $info[0]['id'])?>" class="head_pic"><img src="<?=avatar_url($info[0]['avatar'], 'big') ?>" />
 					<div class="clear"></div><h4><?=$info[0]['name']?></h4>
 				</a>
 				<?=form_button(array('name' => 'add_friend', 'content' => '关注', 'user_id' => $info[0]['id'])) ?>
@@ -49,7 +49,7 @@
 							<? if($posts): ?>
 							<? foreach ($posts as $post): ?>
 								<div class="article_one">
-									<a href="#" class="head_pic"><img src="<?=site_url('source/img/user01.jpg') ?>" /></a>
+									<a href="<?=site_url('personal/profile/' . $post['user'][0]['id']) ?>" class="head_pic"><img src="<?=avatar_url($post['user'][0]['avatar'], 'tiny') ?>" /></a>
 									<div class="article_sub_box">
 										<h4><span><?=$post['user'][0]['name'] ?></span>&nbsp;<?=$post['content'] ?></h4>
 										<p>2分钟前 <a href="#">收起回复</a> | <a href="#">分享</a> </p>
