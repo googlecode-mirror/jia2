@@ -68,9 +68,9 @@
 			$this->load->view('includes/template_view', $data);
 		}
 		
-		function do_regist() {
-			$this->_require_login();
+		function do_regist() {	
 			$this->_require_login(FALSE);
+			$this->_require_ajax();
 			$email = $this->input->post('email');
 			$name = $this->input->post('name');
 			$pass = $this->input->post('pass');
