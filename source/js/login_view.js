@@ -7,7 +7,7 @@ $(function() {
 			email:email,
 			pass:pass
 		}, function(data) {
-				if(data.login == 1) {
+				if(data.verify == 1) {
 					window.location.href = SITE_URL;
 				} else {
 					$("#email_prompt").text(data.email);
