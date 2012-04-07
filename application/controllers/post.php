@@ -30,4 +30,24 @@
 			$this->_auth(array('owner'), $post);
 			echo '可以编辑';
 		}
+		
+		function comment() {
+			$this->_require_login();
+			$this->_require_ajax();
+			$owner_id = $this->input->post('owner_id');
+			$this->_auth('add', 'comment', $owner_id);
+			$comment = array(
+				'post_id' => $this->input->post('post_id'),
+				'user_id' => $this->session->userdata('id'),
+				'content' => $this->input->post('content'),
+				'time' => time()
+			);
+			$comment_id = $this->Post_model->insert_comment($comment);
+			if($comment_id) {
+				$comment = $this->Post_model->fetch_comment(array('id' => $comment_id));
+				echo json_encode($comment);
+			} else {
+				echo 0;
+			}
+		}
 	} 

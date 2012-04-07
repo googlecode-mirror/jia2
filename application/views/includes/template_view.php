@@ -3,7 +3,7 @@
 <? $this->load->view('includes/js_view') ?>
 <body>
 <div id="content">
-<? if($this->uri->segment(2) != 'login'): ?>
+<? if($this->uri->segment(2) != 'login' && $this->uri->segment(2) != 'regist'): ?>
 <? $this->load->view('includes/nav_view') ?>
 <? endif ?>
 <? $this->load->view($main_content) ?>
