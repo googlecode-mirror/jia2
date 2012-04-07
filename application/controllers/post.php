@@ -35,7 +35,9 @@
 			$this->_require_login();
 			$this->_require_ajax();
 			$owner_id = $this->input->post('owner_id');
-			$this->_auth('add', 'comment', $owner_id);
+			$type_id = $this->input->post('type_id');
+			$type = $this->config->item('post_type_activity') == $type_id ? 'activity' : 'personal';
+			$this->_auth('add', 'comment', $this->session->userdata('id'), array($type, $owner_id));
 			$comment = array(
 				'post_id' => $this->input->post('post_id'),
 				'user_id' => $this->session->userdata('id'),

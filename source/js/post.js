@@ -16,6 +16,7 @@ $(function() {
 		content = $comment.val();
 		post_id = $comment.attr('post_id');
 		owner_id = $comment.attr('owner_id');
+		type_id = $comment.attr('type_id');
 		$.post(
 			SITE_URL + "post/comment", {
 				ajax:1,

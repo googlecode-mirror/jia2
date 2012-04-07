@@ -14,7 +14,7 @@
 			if(!$info) {
 				return 1;
 			}
-			if($info[0]['pass'] != $pass) {
+			if($info[0]['pass'] != md5($pass)) {
 				return 2;
 			}
 			return $info[0];
@@ -59,11 +59,12 @@
 		 * )
 		 */ 
 		function get_info($param, $join = array()) {
+			$result = '';
 			$this->jiadb->_table = 'user';
 			if(is_int($param)) {
 				$result = $this->jiadb->fetchJoin(array('id' => $param), $join);
 			} elseif(is_string($param)) {
-				$reslut = $this->jiadb->fetchJoin(array('email' => $param), $join);
+				$result = $this->jiadb->fetchJoin(array('email' => $param), $join);
 			}
 			return $result;
 		}

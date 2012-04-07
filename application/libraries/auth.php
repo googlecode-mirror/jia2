@@ -7,7 +7,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 		 * @param int
 		 * @param array('type', 'master_id')
 		 */
-		static function get_auth($operation, $type, $owner_id, $master = '') {
+		static function get_auth($operation, $type, $owner_id, $post = array()) {
 			switch ($type) {
 				// 帖子操作权限
 				case 'post':
@@ -23,7 +23,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 					break;
 				// 评论操作权限
 				case 'comment':
-					return new Comment_auth($operation, $owner_id, $master);
+					return new Comment_auth($operation, $owner_id, $post);
 					break;
 			}
 		}
@@ -255,9 +255,10 @@ require_once APPPATH . 'libraries/jiadb.php';
 		 * @param int comment_master_id or request_user_id
 		 * @param int post_master_id
 		 */
-		function __construct($operation, $owner_id, $master_id) {
+		function __construct($operation, $owner_id, $post) {
 			$this->table = 'comment_auth';
-			$this->master_id = $master_id;
+			$this->type = $post[0];
+			$this->master_id = $post[1];
 			parent::__construct($operation, $owner_id);
 		}
 		
