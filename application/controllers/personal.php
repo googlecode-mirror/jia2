@@ -22,6 +22,7 @@
 			$data['info'] = $this->User_model->get_info((int)$id);
 			$data['friends'] = $this->User_model->get_meta('friend', $this->user_id);
 			$data['posts'] = $this->Post_model->fetch(array('owner_id' => $this->user_id));
+			$data['js'] = array('post.js', 'profile_view.js');
 			$data['main_content'] = 'personal/profile_view';
 			$this->load->view('includes/template_view', $data);
 		}
@@ -37,8 +38,7 @@
 			$this->_require_login();
 			$this->_require_ajax();
 			$friend_id = $this->input->post('user_id');
-			$user_id = $this->user_id;
-			if($this->User_model->add_friend($user_id, $friend_id)) {
+			if($this->User_model->add_friend($this->user_id, $friend_id)) {
 				echo 1;
 			} else {
 				echo 0;
@@ -49,8 +49,7 @@
 			$this->_require_login();
 			$this->_require_ajax();
 			$blocker_id = $this->input->post('user_id');
-			$user_id = $this->user_id;
-			if($this->User_model->add_blocker($user_id, $blocker_id)) {
+			if($this->User_model->add_blocker($this->user_id, $blocker_id)) {
 				echo 1;
 			} else {
 				echo 0;

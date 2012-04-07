@@ -44,9 +44,10 @@
 				default:
 					$session = array(
 						'id' => $result['id'],
-						'type' => $result['user_type']['name']
+						'type' => $result['user_type'][0]['name']
 					);
 					$this->session->set_userdata($session);
+					print_r($session);
 					redirect('index');
 			}
 		}
