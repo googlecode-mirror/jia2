@@ -59,12 +59,13 @@
 		 * )
 		 */ 
 		function get_info($param, $join = array()) {
+			$this->jiadb->_table = 'user';
 			if(is_int($param)) {
-				$reslut = $this->jiadb->fetchJoin(array('id' => $param), $join);
+				$result = $this->jiadb->fetchJoin(array('id' => $param), $join);
 			} elseif(is_string($param)) {
 				$reslut = $this->jiadb->fetchJoin(array('email' => $param), $join);
-			}	
-			return $reslut;
+			}
+			return $result;
 		}
 		
 		// 用户变化值获取
