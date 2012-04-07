@@ -5,26 +5,63 @@
 			$this->load->library('image_lib');
 		}
 		
-		function upload($mode = 'avatar') {
+		function upload($param = array()) {
 			$config = array(
 			  		'allowed_types' => 'jpeg|jpg|png|gif',
-			  		'upload_path' => $this->upload_path,
+			  		'upload_path' => $param['upload_path'],
 			  		'max_size' => '2048',
 			  		'overwrite' => TRUE,
-			  		'file_name'	=> 'avatar_id' . $user_id
-			  	);
-			switch ($mode) {
+			  		'file_name'	=> $param['filename']
+			 );
+			 echo '<pre>';
+			  print_r($config);
+			 echo '</pre>';
+			
+			switch ($param['mode']) {
 				case 'avatar':
+					echo 'here';
+					if($this->upload->do_upload()) {
+						$image_data = $this->upload->data();
+						$thumb_tiny = array(
+							'source_image' => $image_data['full_path'],
+							'create_thumb' => TRUE,
+							'maintain_ratio' => TRUE,
+							'thumb_marker' => '',
+							'new_image' => $param['upload_path'] . 'tiny/',
+							'width' => 50,
+							'height' => 50
+						);
+						$thumb_big = array(
+							'source_image' => $image_data['full_path'],
+							'create_thumb' => TRUE,
+							'maintain_ratio' => TRUE,
+							'thumb_marker' => '',
+							'new_image' => $param['upload_path'] . 'big/',
+							'width' => 180,
+							'height' => 180
+						);
+						$this->image_lib->initialize($thumb_tiny); 
+						$this->image_lib->resize();
+						$this->image_lib->initialize($thumb_big);
+						$this->image_lib->resize();
+						} else {
+							//错误提示
+							echo $this->upload->display_errors('<p>', '</p>');
+							return FALSE;
+						}
+					break;
+				case 'corporation':
 					
 					break;
 			}
 		}
 		
-		function avatar($mode = 'personal') {
-			$upload_path = $this->config->item($mode . '_avatar_path');
-		}
-		
-		function create_thumb() {
-			
+		function set_avatar($mode = 'personal', $filename) {
+			$param = array(
+				'upload_path' => $this->config->item($mode . '_avatar_path'),
+				'mode' => 'personal',
+				'filename' => $filename . '.jpg'
+			);
+			$this->upload($param);
 		}
 	}

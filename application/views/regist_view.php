@@ -18,7 +18,7 @@
          <div class="field">
             <label >密&nbsp; 　码：</label>
             <span >
-             <input type="pass" id="pass" maxlength="20" tabindex="2" />
+             <input type="password" id="pass" maxlength="20" tabindex="2" />
             </span>
             <span class="prompt" class="password-edit" sty/le="display:none;">提示信息什么的</span>       
          </div>

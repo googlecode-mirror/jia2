@@ -43,8 +43,9 @@
 			return $info[0];
 		}
 		
-		function update() {
-			
+		function update($where = array(), $row = array()) {
+			$this->db->where($where);
+			$this->db->update('user', $row);
 		}
 		
 		/**
@@ -91,32 +92,7 @@
 			}
 			return $meta;
 		}
-		/*
-		function get_friends($id) {
-			$friends = array();
-			$this->jiadb->_table = 'user_meta';
-			$result = $this->jiadb->fetchAll(array('user_id' => $id, 'meta_key' => 'friend'));
-			if($result) {
-				foreach ($result as $value) {
-					$friend[] = $value['meta_value'];
-				}
-			}
-			return $friends;
-		}
 		
-		//获取黑名单数组
-		function get_blockers($with_info = FALSE, $where = array(), $order = array(), $limit = '') {
-			$blockers = array();
-			$this->jiadb->_table = 'user_meta';
-			$result = $this->jiadb->fetchAll(array('user_id' => $id, 'meta_key' => 'blocker'));
-			if($result) {
-				foreach ($result as $value) {
-					$blockers[] = $value['meta_value'];
-				}
-			}
-			return $blockers;
-		}
-		*/
 		/**
 		 * @return bool
 		 * @param int
