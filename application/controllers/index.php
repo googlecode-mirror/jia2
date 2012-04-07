@@ -38,7 +38,7 @@
 			$pass = $this->input->post('pass');
 			$remember = $this->input->post('remember');
 			$result = $this->User_model->login($email, $pass);
-			$json_array = array('login' => 0, 'email' => '', 'pass' => '');
+			$json_array = array('verify' => 0, 'email' => '', 'pass' => '');
 			switch ($result) {
 				case 1:
 					$json_array['email'] = '账户不存在';
@@ -49,7 +49,7 @@
 					echo json_encode($json_array);
 					break;
 				default:
-					$json_array['login'] = 1;
+					$json_array['verify'] = 1;
 					echo json_encode($json_array);
 					$session = array(
 						'id' => $result['id'],
@@ -75,17 +75,19 @@
 			$name = $this->input->post('name');
 			$pass = $this->input->post('pass');
 			$result = $this->User_model->insert($email, $name, $pass);
+			$json_array = array('verify' => 0, 'email' => '');
 			switch ($result) {
 				case 1:
-					break;
+					$json_array['email'] = '邮箱已被注册';
+					echo json_encode($json_array);
 				default:
-					echo 1;
+					$json_array['verify'] = 1;
+					echo json_encode($json_array);
 					$session = array(
 						'id' => $result['id'],
 						'type' => $result['user_type']['name']
 					);
 					$this->session->set_userdata($session);
-
 			}
 		}
 		
