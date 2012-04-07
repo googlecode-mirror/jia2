@@ -19,10 +19,10 @@
 			}
 			$id = $id ? $id : $this->session->userdata('id');
 			$this->_auth('view', 'post', $id);
-			$data['title'] = '个人主页';
 			$data['info'] = $this->User_model->get_info((int)$id);
-			$data['friends'] = $this->User_model->get_meta('friend', $this->user_id);
-			$data['posts'] = $this->Post_model->fetch(array('owner_id' => $this->user_id));
+			$data['title'] = '个人主页-' . $data['info'][0]['name'];
+			$data['friends'] = $this->User_model->get_meta('friend', $id);
+			$data['posts'] = $this->Post_model->fetch(array('owner_id' => $id));
 			$data['js'] = array('post.js', 'profile_view.js');
 			$data['main_content'] = 'personal/profile_view';
 			$this->load->view('includes/template_view', $data);
@@ -51,7 +51,8 @@
 					break;
 				case 'info':
 					// 资料设置
-					$this->
+					$post = $this->input->post('post');
+					$comment = $this->input->post('comment');
 					break;
 				case 'privacy':
 				// 隐私设置

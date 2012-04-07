@@ -2,7 +2,7 @@
 		<div class="content_main">
 			<div class="main_top">
 			<a href="#" class="head_pic"><img src="<?=avatar_url($this->session->userdata('avatar'), 'big') ?>" />
-				<div class="clear"></div><h4>用户名</h4>
+				<div class="clear"></div><h4><?=$this->session->userdata('name') ?></h4>
 			</a>
 			<div class="pub">
 				<div  class="menu_cont">
