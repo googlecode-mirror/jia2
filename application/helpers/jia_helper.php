@@ -20,3 +20,10 @@ if( ! function_exists('jump_view')) {
 		$CI->load->view('includes/template_view', $data);
 	}
 }
+
+if( ! function_exists('avatar_url')) {
+	function avatar_url($avatar = 'default.jpg', $mode = 'tiny') {
+		$CI =& get_instance();
+		return site_url($CI->config->item('personal_avatar_path') . $mode . '/' . $avatar);
+	}
+}

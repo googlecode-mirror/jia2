@@ -42,10 +42,9 @@
 				case 'avatar':
 					// 头像设置
 					$result = $this->Photo_model->set_avatar('personal', $this->user_id);
-					echo $result;
 					if($result) {
 						$this->User_model->update(array('id' => $this->user_id), array('avatar' => $result));
-						//redirect('personal/setting');
+						redirect('personal/setting');
 					} else {
 						static_view('不好意思亲~ 上传失败了, 要不然' . anchor('personal/setting', '再试一次?'));
 					}

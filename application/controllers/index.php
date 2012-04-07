@@ -53,7 +53,9 @@
 					echo json_encode($json_array);
 					$session = array(
 						'id' => $result['id'],
-						'type' => $result['user_type'][0]['name']
+						'type' => $result['user_type'][0]['name'],
+						'name' => $result['name'],
+						'avatar' => $result['avatar'],
 					);
 					$this->session->set_userdata($session);
 			}
