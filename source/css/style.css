@@ -28,7 +28,7 @@ img{width:50px;height:50px;}
 	position: relative;
 	height: 45px;
 	clear: both;
-	background: #000 url(../images/stripe.gif) repeat top left;
+	background: #000 url(../img/stripe.gif) repeat top left;
 	margin-bottom: 30px;
 	border-bottom: 7px solid #ccc;
 	font-size: 14px;
@@ -42,14 +42,14 @@ img{width:50px;height:50px;}
 	text-shadow: 1px 1px 1px #000;
 	padding: 0px 10px;
 	outline: none;
+	color: #1B80B5;
 }
+a.logo {color:#ccc;}
 .header a:hover {
 	color: #fff;
 }
-.header .nav_1 {
-	color: #1B80B5;
-}
-.header .nav_1:hover {
+
+.header a:hover {
 	color: #fff;
 }
 .left {
