@@ -20,8 +20,8 @@
 			}
 		}
 		
-		function avatar() {
-			
+		function avatar($mode = 'personal') {
+			$upload_path = $this->config->item($mode . '_avatar_path');
 		}
 		
 		function create_thumb() {
