@@ -26,8 +26,8 @@
 		function login() {
 			$this->_require_login(FALSE);
 			$data['title'] = '登录加加社团';
-			$data['css'] = array('comm.css','login_view.css');
-			$data['js'] = array('comm.js', 'login_view.js');
+			$data['css'] = array('common.css','login_view.css');
+			$data['js'] = array('common.js', 'login_view.js');
 			$data['main_content'] = 'login_view';
 			$this->load->view('includes/template_view', $data);
 		}
@@ -65,8 +65,8 @@
 		function regist() {
 			$this->_require_login(FALSE);
 			$data['title'] = '注册加加';
-			$data['css'] = array('comm.css','login_view.css');
-			$data['js'] = array('comm.js', 'login_view.js');
+			$data['css'] = array('common.css','login_view.css');
+			$data['js'] = array('common.js', 'regist_view.js');
 			$data['main_content'] = 'regist_view';
 			$this->load->view('includes/template_view', $data);
 		}
