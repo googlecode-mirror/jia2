@@ -75,21 +75,19 @@
 		 * @param int user_id or corporation_id
 		 * @param array like
 		 * array(
-		 * 'operation1' => array('identity', 'identity'),
-		 * 'operation2' => array('identity', 'identity')
+		 *   array('identity' => 'register', 'opetarion' => 'add', 'access' => 0),
+			 array('identity' => 'friend', 'opetarion' => 'add', 'access' => 1)
 		 * )
 		 */
-		function set_access($id, $access = array(), $extend = array()) {
-			foreach ($access as $operation => $identity_array) {
-				$operation_id = $this->operation_array[$operation];
-				foreach ($identity_array as $identity) {
-					$identity_id = $this->identity_array[$identity];
-					$this->CI->db->where(array('operation_id' => $operation_id, 'identity_id' => $identity_id));
-					if($extend) {
-						$this->CI->db->where($extend);
-					}
-					$this->CI->db->update($this->table, array('access' => 1));
+		function set_access($id, array $access, $extend = array()) {
+			foreach ($access as $row) {
+				$this->CI->db->where('owner_id', $id);
+				$this->db->where('identity_id', $this->identity_array[$row['iedntity']]);
+				$this->db->where('operation_id', $this->operation_array[$row['operation']]);
+				if($extend) {
+					$this->CI->db->where($extend);
 				}
+				$this->CI->db->update($this->table, array('access' => $row['access']));
 			}
 		}
 	}
@@ -142,30 +140,16 @@
 			$type_id = $post_type_result[0]['id'];
 			$extend = array('type_id' => $type_id);
 			parent::init($owner_id, $array, $extend);
-			/*
-			foreach ($array as $identity => $auth_array) {
-				$this->jiadb->_table = 'identity';
-				$identity_result = $this->jiadb->fetchAll(array('name' => $identity));
-				$identity_id = $identity_result[0]['id'];
-				foreach ($auth_array as $operation) {
-					$this->jiadb->_table = 'operation';
-					$operation_result = $this->jiadb->fetchAll(array('name' => $operation));
-					$operation_id = $operation_result[0]['id'];
-					$row = array(
-						'owner_id' => $owner_id,
-						'type_id' => $type_id,
-						'identity_id' => $identity_id,
-						'operation_id' => $operation_id
-					);
-					$this->CI->db->insert($this->table, $row);
-				}
-			}
-			 * 
-			 */
+			
 		}
 		
-		function set_access() {
-			
+		function set_access($id, $access = array(), $post_type) {
+			$this->jiadb->_table = 'post_type';
+			$result = $this->jiadb->fetchAll(array('name' => $post_type));
+			$extend = array(
+				'type_id' => $result[0]['id']
+			);
+			parent::set_access($id, $access, $result);
 		}
 	}
 	

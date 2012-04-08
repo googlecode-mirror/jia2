@@ -30,7 +30,6 @@ $(function() {
 			);
 			return false;
 		} else {
-			alert('没有通过验证~亲');
 			return false;
 		}
 	});	
