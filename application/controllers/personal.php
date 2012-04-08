@@ -53,6 +53,22 @@
 					// 资料设置
 					$post = $this->input->post('post');
 					$comment = $this->input->post('comment');
+					$post_access = Access_factory::get_access('post');
+					$comment_access = Access_factory::get_access('comment');
+					switch ($post) {
+						case 'guest':
+							$post_access_array = array(
+								'view' => 'guest',
+								'view' => ''
+							);
+							break;
+						case 'register':
+							
+							break;
+						case 'friend':
+							
+							break;
+					}
 					break;
 				case 'privacy':
 				// 隐私设置

@@ -34,10 +34,12 @@ require_once APPPATH . 'libraries/jiadb.php';
 		public $request_user;
 		// 
 		public $owner_id;
-		// 请求的操作
+		// 请求的操作(id)
 		public $operation;
 		// 权限值
 		public $access;
+		public $identity_array;
+		public $operation_array;
 		public $jiadb;
 		public $CI;
 		public $table;
@@ -46,18 +48,13 @@ require_once APPPATH . 'libraries/jiadb.php';
 			$this->CI =& get_instance();
 			$this->owner_id = $owner_id;
 			$this->request_user = $this->CI->session->userdata('id');
-			$this->jiadb = new Jiadb('operation');
+			$this->jiadb = new Jiadb();
 			$this->CI->load->model('User_model');
-			// operation(name) => operation(id)
-			$result = $this->jiadb->fetchAll(array('name' => $operation));
-			$this->operation = $result[0]['id'];
+			$operation = $this->operation_array[$operation];
 		}
 		
 		function get_access($identity) {
-			$this->jiadb->_table = 'identity';
-			// identity(name) => identity(id)
-			$result = $this->jiadb->fetchAll(array('name' => $identity));
-			$identity_id = $result[0]['id'];
+			$identity_id = $this->identity_array[$identity];
 			$this->jiadb->_table = $this->table;
 			$result = $this->jiadb->fetchAll(array('owner_id' => $this->owner_id, 'identity_id' => $identity_id, 'operation_id' => $this->operation));
 			$this->access = $result[0]['access'];

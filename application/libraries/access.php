@@ -24,9 +24,19 @@
 		public $jiadb;
 		public $table;
 		public $CI;
+		public $identity_array;
+		public $operation_array;
 		function __construct() {
 			$this->jiadb = new Jiadb($this->table);
 			$this->CI =& get_instance();
+			$identity_result = $this->CI->db->get('identity')->result_array();
+			$operation_result = $this->CI->db->get('operation')->result_array();
+			foreach ($identity_result as $row) {
+				$this->identity_array[$row['name']] = $row['id'];
+			}
+			foreach ($operation_result as $row) {
+				$this->operation_array[$row['name']] = $row['id'];
+			}
 		}
 		// 初始化权限
 		/**
@@ -36,22 +46,49 @@
 		 * array(
 		 * 	'identity' => 'operation'
 		 * ) 
+		 * @param array such as
+		 * array(
+		 * 'type_id' => 'value'
+		 * )
 		 */
-		function init($id, $array) {
+		function init($id, $array, $extend = array()) {
 			foreach ($array as $identity => $auth_array) {
-				$this->jiadb->_table = 'identity';
-				$identiry_result = $this->jiadb->fetchAll(array('name' => $identity));
-				$identiry_id = $identiry_result[0]['id'];
+				$identity_id = $this->identity_array[$identity];
 				foreach ($auth_array as $operation) {
-					$this->jiadb->_table = 'operation';
-					$operation_result = $this->jiadb->fetchAll(array('name' => $operation));
-					$operation_id = $operation_result[0]['id'];
+					$operation_id = $this->operation_array[$operation];
 					$row = array(
 						'owner_id' => $id,
-						'identity_id' =>$identiry_id,
+						'identity_id' =>$identity_id,
 						'operation_id' => $operation_id
 					);
+					if($extend) {
+						foreach ($extend as $field => $value) {
+							$row[$field] = $value;
+						}
+					}
 					$this->CI->db->insert($this->table, $row);
+				}
+			}
+		}
+		/**
+		 * 
+		 * @param int user_id or corporation_id
+		 * @param array like
+		 * array(
+		 * 'operation1' => array('identity', 'identity'),
+		 * 'operation2' => array('identity', 'identity')
+		 * )
+		 */
+		function set_access($id, $access = array(), $extend = array()) {
+			foreach ($access as $operation => $identity_array) {
+				$operation_id = $this->operation_array[$operation];
+				foreach ($identity_array as $identity) {
+					$identity_id = $this->identity_array[$identity];
+					$this->CI->db->where(array('operation_id' => $operation_id, 'identity_id' => $identity_id));
+					if($extend) {
+						$this->CI->db->where($extend);
+					}
+					$this->CI->db->update($this->table, array('access' => 1));
 				}
 			}
 		}
@@ -103,6 +140,9 @@
 			$this->jiadb->_table = 'post_type';
 			$post_type_result = $this->jiadb->fetchAll(array('name' => $type));
 			$type_id = $post_type_result[0]['id'];
+			$extend = array('type_id' => $type_id);
+			parent::init($owner_id, $array, $extend);
+			/*
 			foreach ($array as $identity => $auth_array) {
 				$this->jiadb->_table = 'identity';
 				$identity_result = $this->jiadb->fetchAll(array('name' => $identity));
@@ -120,6 +160,12 @@
 					$this->CI->db->insert($this->table, $row);
 				}
 			}
+			 * 
+			 */
+		}
+		
+		function set_access() {
+			
 		}
 	}
 	
