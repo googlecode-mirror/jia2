@@ -23,7 +23,7 @@
 			$data['title'] = '个人主页-' . $data['info'][0]['name'];
 			$data['friends'] = $this->User_model->get_meta('friend', $id);
 			$data['posts'] = $this->Post_model->fetch(array('owner_id' => $id));
-			$data['css'] = array('index_view.css');
+			$data['css'] = array('index.css');
 			$data['js'] = array('post.js', 'profile_view.js', 'tab.js');
 			$data['main_content'] = 'personal/profile_view';
 			$this->load->view('includes/template_view', $data);
@@ -50,28 +50,74 @@
 						static_view('不好意思亲~ 上传失败了, 要不然' . anchor('personal/setting', '再试一次?'));
 					}
 					break;
-				case 'info':
+				case 'privacy':
 					// 资料设置
 					$post = $this->input->post('post');
 					$comment = $this->input->post('comment');
 					$post_access = Access_factory::get_access('post');
 					$comment_access = Access_factory::get_access('comment');
+					// post 权限设置
+					$post_access_array = array();
+					$comment_access_array = array();
 					switch ($post) {
 						case 'guest':
 							$post_access_array = array(
-								'view' => 'guest',
-								'view' => ''
+								array('identity' => 'guest', 'operation' => 'view', 'access' => 1),
+								array('identity' => 'register', 'opetarion' => 'view', 'access' => 1),
+								array('identity' => 'friend', 'opetarion' => 'view', 'access' => 1)
 							);
 							break;
 						case 'register':
-							
+							$post_access_array = array(
+								array('identity' => 'guest', 'operation' => 'view', 'access' => 0),
+								array('identity' => 'register', 'opetarion' => 'view', 'access' => 1),
+								array('identity' => 'friend', 'opetarion' => 'view', 'access' => 1)
+							);
 							break;
 						case 'friend':
-							
+							$post_access_array = array(
+								array('identity' => 'guest', 'operation' => 'view', 'access' => 0),
+								array('identity' => 'register', 'opetarion' => 'view', 'access' => 0),
+								array('identity' => 'friend', 'opetarion' => 'view', 'access' => 1)
+							);
 							break;
+						case 'self':
+							$post_access_array = array(
+								array('identity' => 'guest', 'operation' => 'view', 'access' => 0),
+								array('identity' => 'register', 'opetarion' => 'view', 'access' => 0),
+								array('identity' => 'friend', 'opetarion' => 'view', 'access' => 0)
+							);
+							break;
+						default:
+							static_view('亲, 请不要恶意篡改表单好嘛~, 给你个机会, ' . anchor('personal/setting#privacy', '重新设置'));
 					}
+					// 评论权限设置
+					switch ($comment) {
+						case 'register':
+							$comment_access_array = array(
+								array('identity' => 'register', 'opetarion' => 'add', 'access' => 1),
+								array('identity' => 'friend', 'opetarion' => 'add', 'access' => 1)
+							);
+							break;
+						case 'friend':
+							$comment_access_array = array(
+								array('identity' => 'register', 'opetarion' => 'add', 'access' => 0),
+								array('identity' => 'friend', 'opetarion' => 'add', 'access' => 1)
+							);
+							break;
+						case 'self':
+							$comment_access_array = array(
+								array('identity' => 'register', 'opetarion' => 'add', 'access' => 0),
+								array('identity' => 'friend', 'opetarion' => 'add', 'access' => 0)
+							);
+							break;
+						default:
+							static_view('亲, 请不要恶意篡改表单好嘛~, 给你个机会, ' . anchor('personal/setting#privacy', '重新设置'));
+					}
+					$post_access->set_access($this->user_id, $post_access_array);
+					$comment_access->set_access($this->user_id, $post_access_array, 'personal');
 					break;
-				case 'privacy':
+				case 'info':
 				// 隐私设置
 					break;
 			}

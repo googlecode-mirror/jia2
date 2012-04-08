@@ -7,6 +7,7 @@ if ( ! function_exists('static_view')) {
 		$data['title'] = $title;
 		$data['url'] = $url;
 		$CI->load->view('includes/template_view', $data);
+		exit($CI->output->get_output());
 	}
 }
 
@@ -15,9 +16,10 @@ if( ! function_exists('jump_view')) {
 		$CI =& get_instance();
 		$data['main_content'] = 'jump_view';
 		$data['message'] = $message;
-		$data['url'] = $url;
+		$data['url'] = $url ? $url : site_url();
 		$data['title'] = $title;
 		$CI->load->view('includes/template_view', $data);
+		exit($CI->output->get_output());
 	}
 }
 
