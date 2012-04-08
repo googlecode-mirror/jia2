@@ -49,8 +49,16 @@ require_once APPPATH . 'libraries/jiadb.php';
 			$this->owner_id = $owner_id;
 			$this->request_user = $this->CI->session->userdata('id');
 			$this->jiadb = new Jiadb();
+			$identity_result = $this->CI->db->get('identity')->result_array();
+			$operation_result = $this->CI->db->get('operation')->result_array();
+			foreach ($identity_result as $row) {
+				$this->identity_array[$row['name']] = $row['id'];
+			}
+			foreach ($operation_result as $row) {
+				$this->operation_array[$row['name']] = $row['id'];
+			}
 			$this->CI->load->model('User_model');
-			$operation = $this->operation_array[$operation];
+			$this->operation = $this->operation_array[$operation];
 		}
 		
 		function get_access($identity) {

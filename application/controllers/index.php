@@ -83,12 +83,13 @@
 				case 1:
 					$json_array['email'] = '邮箱已被注册';
 					echo json_encode($json_array);
+					break;
 				default:
 					$json_array['verify'] = 1;
 					echo json_encode($json_array);
 					$session = array(
 						'id' => $result['id'],
-						'type' => $result['user_type']['name']
+						'type' => $result['user_type'][0]['name']
 					);
 					$this->session->set_userdata($session);
 			}
