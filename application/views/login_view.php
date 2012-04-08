@@ -7,7 +7,7 @@
 					<div class="field">
 						<label for="email">邮&nbsp; 　箱：</label>
 						<input type="text" name="email" id="email" maxlength="32" tabindex="1" />
-						<span class="prompt" id="email_prompt">请输入正确的邮箱</span>
+						<span class="prompt" id="email_prompt"></span>
 					</div>
 					<div class="field">
 						<label>密&nbsp; 　码：</label>

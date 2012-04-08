@@ -33,4 +33,4 @@ form{margin-top:20px;margin-left: 10px;}
 .field_below{position:relative;left:75px;margin-top:20px;}
 .field_below .button{width:80px;height:30px;background:#94cc7d;color:#FFF;border:none;}
 .field_below span{margin-left:10px;}
-.prompt{display:inline-block;margin-left:75px;height: 20px;line-height: 20px;}
+.prompt{display:block;margin-left:75px;height: 20px;line-height: 20px;}

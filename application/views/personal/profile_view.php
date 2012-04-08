@@ -20,7 +20,7 @@
 					<div class="">
 						<div id="c01">
 							<?=form_open('post/add') ?>
-							<?=form_textarea(array('name' => 'content', 'cols' => 100, 'rows' => 4)) ?>
+							<?=form_textarea(array('name' => 'content', 'cols' => 60, 'rows' => 4)) ?>
 							<p><?=form_submit('submit', '发布') ?></p>
 							<?=form_close() ?>
 						</div>
@@ -33,16 +33,16 @@
 				</div>
 				<div class="line"></div>
 				<div class="new_things">
-					<div  class="menu_cont">
-						<ul  class="navlist" >
-							<li class="sd01" id="mm01">
-								<a href="#">社团新鲜事</a>
-							</li>
-							<li class="sd02" id="mm02">
-								<a href="#">好友新鲜事</a>
-							</li>
-						</ul>
-					</div>
+					<div  class="tab">
+				<ul  class="navlist" >
+					<li class="sd01" id="mm01">
+						<a href="#"  class="tab_item">社团新鲜事</a>
+					</li>
+					<li class="sd02" id="mm02">
+						<a href="#"  class="tab_item">好友新鲜事</a>
+					</li>
+				</ul>
+			</div>
 					<div class="clear"></div>
 					<div class="article_box">
 						<div id="cc01">

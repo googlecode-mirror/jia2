@@ -17,7 +17,7 @@
 				<div class="tab_cont_box">
 					<div id="c01">
 						<?=form_open('post/add')?>
-						<?=form_textarea(array('name' => 'content', 'cols' => 100, 'rows' => 4))?>
+						<?=form_textarea(array('name' => 'content', 'cols' => 60, 'rows' => 4))?>
 						<p>
 							<?=form_submit('submit', '发布')?>
 						</p>

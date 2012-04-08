@@ -23,7 +23,8 @@
 			$data['title'] = '个人主页-' . $data['info'][0]['name'];
 			$data['friends'] = $this->User_model->get_meta('friend', $id);
 			$data['posts'] = $this->Post_model->fetch(array('owner_id' => $id));
-			$data['js'] = array('post.js', 'profile_view.js');
+			$data['css'] = array('index_view.css');
+			$data['js'] = array('post.js', 'profile_view.js', 'tab.js');
 			$data['main_content'] = 'personal/profile_view';
 			$this->load->view('includes/template_view', $data);
 		}
