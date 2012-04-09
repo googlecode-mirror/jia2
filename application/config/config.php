@@ -14,8 +14,8 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://rabbit.com/PHP_proj/Jia2/';
-$config['site_url']	= 'http://rabbit.com/PHP_proj/Jia2/';
+$config['base_url'] = 'http://jia2.localhost/';
+$config['site_url']	= 'http://jia2.localhost/';
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +45,7 @@ $config['index_page'] = '';
 | 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
 |
 */
-$config['uri_protocol']	= 'AUTO';
+$config['uri_protocol']	= 'PATH_INFO';
 
 /*
 |--------------------------------------------------------------------------

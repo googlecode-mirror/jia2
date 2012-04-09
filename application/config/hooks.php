@@ -22,6 +22,12 @@ $hook['post_controller_constructor'] = array(
 	'filepath' => 'hooks'
 );
 
+$hook['post_controller'] = array(
+	'function' => 'jia_redirect',
+	'filename' => 'jia.php',
+	'filepath' => 'hooks'
+);
+
 
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */

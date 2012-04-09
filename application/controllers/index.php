@@ -32,34 +32,61 @@
 			$this->load->view('includes/template_view', $data);
 		}
 		
-		function do_login() {
-			$this->_require_ajax();
+		function do_login($cookie = FALSE) {
 			$this->_require_login(FALSE);
-			$email = $this->input->post('email');
-			$pass = $this->input->post('pass');
-			$remember = $this->input->post('remember');
-			$result = $this->User_model->login($email, $pass);
-			$json_array = array('verify' => 0, 'email' => '', 'pass' => '');
-			switch ($result) {
-				case 1:
-					$json_array['email'] = '账户不存在';
-					echo json_encode($json_array);
-					break;
-				case 2:
-					$json_array['pass'] = '密码不正确';
-					echo json_encode($json_array);
-					break;
-				default:
-					$json_array['verify'] = 1;
-					echo json_encode($json_array);
-					$session = array(
-						'id' => $result['id'],
-						'type' => $result['user_type'][0]['name'],
-						'name' => $result['name'],
-						'avatar' => $result['avatar'],
-					);
-					$this->session->set_userdata($session);
+			if($cookie) {
+				$id = get_cookie('id');
+				$pass = get_cookie('pass');
+				$result = $this->User_model->login((int)$id, $pass);
+				switch ($result) {
+					case 1:
+					case 2:
+						delete_cookie('id');
+						delete_cookie('pass');
+						break;
+					default:
+						$session = array(
+							'id' => $result['id'],
+							'type' => $result['user_type'][0]['name'],
+							'name' => $result['name'],
+							'avatar' => $result['avatar'],
+						);
+						$this->session->set_userdata($session);
+						break;
+				}
+			} else {
+				$this->_require_ajax();
+				$email = $this->input->post('email');
+				$pass = md5($this->input->post('pass'));
+				$remember = $this->input->post('remember');
+				$result = $this->User_model->login((string)$email, $pass);
+				$json_array = array('verify' => 0, 'email' => '', 'pass' => '');
+				switch ($result) {
+					case 1:
+						$json_array['email'] = '账户不存在';
+						echo json_encode($json_array);
+						break;
+					case 2:
+						$json_array['pass'] = '密码不正确';
+						echo json_encode($json_array);
+						break;
+					default:
+						$session = array(
+							'id' => $result['id'],
+							'type' => $result['user_type'][0]['name'],
+							'name' => $result['name'],
+							'avatar' => $result['avatar'],
+						);
+						$this->session->set_userdata($session);
+						$json_array['verify'] = 1;
+						echo json_encode($json_array);
+						if($remember) {
+							set_cookie('id', $result['id'], '86500');
+							set_cookie('pass', $result['pass'], '86500');
+						}
+				}
 			}
+			
 		}
 		
 		function regist() {
@@ -96,7 +123,10 @@
 		}
 		
 		function logout() {
+			$this->_require_login();
 			$this->session->sess_destroy();
+			delete_cookie('id');
+			delete_cookie('pass');
 			redirect('index/login');
 		}
 	}

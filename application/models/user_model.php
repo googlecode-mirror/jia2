@@ -6,15 +6,15 @@
 			parent::__construct();
 		}
 		
-		function login($email, $pass) {
+		function login($param, $pass) {
 			$join = array(
 				'user_type' => array('type_id', 'id')
 			);
-			$info = $this->get_info((string)$email, $join);
+			$info = $this->get_info($param, $join);
 			if(!$info) {
 				return 1;
 			}
-			if($info[0]['pass'] != md5($pass)) {
+			if($info[0]['pass'] != $pass) {
 				return 2;
 			}
 			return $info[0];
