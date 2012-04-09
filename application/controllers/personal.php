@@ -33,6 +33,7 @@
 			$this->_require_login();
 			$data['title'] = '账户设置';
 			$data['main_content'] = 'personal/setting_view';
+			$data['js'] = 'personal/setting.js';
 			$this->load->view('includes/template_view', $data);
 		}
 		
@@ -40,6 +41,7 @@
 			$this->_require_login();
 			$setting = $this->input->post('setting');
 			switch ($setting) {
+				
 				case 'avatar':
 					// 头像设置
 					$result = $this->Photo_model->set_avatar('personal', $this->user_id);
@@ -50,8 +52,14 @@
 						static_view('不好意思亲~ 上传失败了, 要不然' . anchor('personal/setting', '再试一次?'));
 					}
 					break;
+					
+				case 'info':
+				// 资料设置
+				
+					break;
+					
 				case 'privacy':
-					// 资料设置
+					// 隐私设置
 					$post = $this->input->post('post');
 					$comment = $this->input->post('comment');
 					$post_access = Access_factory::get_access('post');
@@ -117,9 +125,46 @@
 					$post_access->set_access($this->user_id, $post_access_array);
 					$comment_access->set_access($this->user_id, $post_access_array, 'personal');
 					break;
-				case 'info':
-				// 隐私设置
-					break;
+					
+				case 'pass':
+					// 密码设置
+					$this->_require_ajax();
+					$old_pass = $this->input->post('old_pass');
+					$pass = $this->input->post('pass');
+					$pass_check = $this->input->post('pass_check');
+					$json_array = array(
+						'verify' => 0,
+						'old_pass' => '',
+						'pass' => '',
+						'pass_check' => ''
+					);
+					if(!$old_pass) {
+						$json_array['old_pass'] = '请输入原密码';
+						echo json_encode($json_array);
+						return;
+					}
+					if(!$pass) {
+						$json_array['pass'] = '请输入新密码';
+						echo json_encode($json_array);
+						return;
+					}
+					if($pass != $pass_check) {
+						$json_array['pass_check'] = '密码不一致';
+						echo json_encode($json_array);
+						return;
+					}
+					$info = $this->User_model->get_info((int)$this->user_id);
+					$info = $info[0];
+					if($info['pass'] != md5($old_pass)) {
+						$json_array['old_pass'] = '原密码不正确';
+						echo json_encode($json_array);
+						return;
+					}
+					$this->db->where('id', $this->user_id);
+					$this->db->update('user', array('pass' => md5($pass)));
+					$json_array['verify'] = 1;
+					echo json_encode($json_array);
+				break;
 			}
 		}
 		

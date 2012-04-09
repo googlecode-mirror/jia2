@@ -17,11 +17,14 @@
 </div>
 <h2>账户设置</h2>
 	<h3>修改密码</h3>
-	<?=form_open('personal/do_setting')?>
+	<?=form_open('personal/do_setting', 'id="pass"')?>
 	<?=form_hidden('setting', 'pass') ?>
-	<p>原密码: <?=form_input('old_pass') ?></p>
-	<p>新密码: <?=form_input('pass') ?></p>
-	<p>确认密码: <?=form_input('pass_check') ?></p>
+	<p>原密码: <?=form_password('old_pass') ?></p>
+	<span class="prompt" id="old_pass_prompt"></span>
+	<p>新密码: <?=form_password('pass') ?></p>
+	<span class="prompt" id="pass_prompt"></span>
+	<p>确认密码: <?=form_password('pass_check') ?></p>
+	<span class="prompt" id="pass_check_prompt"></span>
 	<p><?=form_submit('submit', '更新') ?></p>
 	<?=form_close() ?>
 <h2>隐私设置</h2>
