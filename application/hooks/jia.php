@@ -6,9 +6,23 @@
 		if(!$CI->session->userdata('type')) {
 			$CI->session->set_userdata('type', 'guest');
 		}
-		$post_type = $CI->db->get('post_type')->result_array();
 		// 从数据库读取并修改配置文件
+		// 文章类型id
+		$post_type = $CI->db->get('post_type')->result_array();
 		foreach ($post_type as $row) {
 			$CI->config->set_item('post_type_' . $row['name'], $row['id']);
+		}
+		
+		// 用cooki登录
+		if($CI->session->userdata('type') == 'guest' && get_cookie('id') && get_cookie('pass') && $CI->uri->segment(2) != 'do_login') {
+			$redirect = uri_string();
+			redirect('index/do_login/1?redirect=' . $redirect);
+		}
+	}
+	
+	function jia_redirect() {
+		$CI =& get_instance();
+		if($CI->input->get('redirect')) {
+			redirect($CI->input->get('redirect'));
 		}
 	}

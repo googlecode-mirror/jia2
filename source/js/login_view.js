@@ -1,11 +1,13 @@
 $(function() {
         $("input[name='submit']").click(function() {
-                email = $("input[name='email']").val()
-                pass = $("input[name='pass']").val()
+                email = $("input[name='email']").val();
+                pass = $("input[name='pass']").val();
+                remember = $("input[name='remember']").val();
                 $.post(SITE_URL+"index/do_login", {
                     ajax:1,
                     email:email,
-                    pass:pass
+                    pass:pass,
+                    remember:remember
                 }, function(data) {
                     if(data.verify == 1) {
 						window.location.href = SITE_URL;
