@@ -86,6 +86,13 @@ require_once APPPATH . 'libraries/jiadb.php';
 		
 		function get_access() {
 			$identity = '';
+			
+			// 验证是否管理员
+			if($this->CI->session->userdata('type') == 'admin') {
+				$this->access = 1;
+				return;
+			}
+			
 			// 本人
 			if($this->owner_id == $this->CI->session->userdata('id')) {
 				$identity = 'self';
@@ -124,12 +131,6 @@ require_once APPPATH . 'libraries/jiadb.php';
 					}
 				}
 			}
-
-			// 验证是否管理员
-			if($this->CI->session->userdata('type') == 'admin') {
-				$this->access = 1;
-				return;
-			}
 		}
 	}
 	
@@ -154,8 +155,14 @@ require_once APPPATH . 'libraries/jiadb.php';
 		function get_access() {
 			$identity = '';
 			
+			// admin
+			if($this->CI->session->userdata('type') == 'admin') {
+				$this->access = 1;
+				return;
+			}
+			
 			// 游客
-			if($this->CI->userdata('type') == 'guest') {
+			if($this->CI->session->userdata('type') == 'guest') {
 				$identity = 'guest';
 				parent::get_access($identity);
 				return;
@@ -213,13 +220,6 @@ require_once APPPATH . 'libraries/jiadb.php';
 				}
 				
 			}
-			
-			
-			// admin
-			if($this->CI->session->userdata('type') == 'admin') {
-				$this->access = 1;
-				return;
-			}
 		}
 	}
 	/*
@@ -269,6 +269,12 @@ require_once APPPATH . 'libraries/jiadb.php';
 		
 		function get_access() {
 			$identity = '';
+			
+			
+			if($this->CI->session->userdata('type') == 'admin') {
+				$this->access = 1;
+				return;
+			}
 			
 			// 游客
 			if($this->CI->session->userdata('type') == 'guest') {
@@ -339,11 +345,5 @@ require_once APPPATH . 'libraries/jiadb.php';
 				
 				// 社长
 			}
-			
-			if($this->CI->session->userdata('type') == 'admin') {
-				$this->access = 1;
-				return;
-			}
-			// 
 		}
 	}

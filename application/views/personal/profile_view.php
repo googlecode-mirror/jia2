@@ -82,7 +82,7 @@
 						<div class="user_name">社团名</div>
 					</li>
 					<li>
-						<img src="images/user01.jpg" />
+						<img src="<?=site_url('img/user01.jpg') ?>" />
 						<div class="user_name">社团名</div>
 					</li>
 				</ul>
@@ -90,15 +90,15 @@
 				<h3><a href="#">关注的社团(3)</a></h3>
 				<ul>
 					<li>
-						<img src="images/user02.jpg" />
+						<img src="<?=site_url('img/user02.jpg') ?>" />
 						<div class="user_name">社团名</div>
 					</li>
 					<li>
-						<img src="images/user01.jpg" />
+						<img src="<?=site_url('img/user01.jpg') ?>" />
 						<div class="user_name">社团名</div>
 					</li>
 					<li>
-						<img src="images/user.jpg" />
+						<img src="<?=site_url('img/user.jpg') ?>" />
 						<div class="user_name">社团名</div>
 					</li>
 				</ul>
@@ -109,11 +109,11 @@
 				<h3>最近来访</h3>
 				<ul>
 					<li>
-						<img src="images/user02.jpg" />
+						<img src="<?=site_url('img/user02.jpg') ?>" />
 						<div >社团名</div>
 					</li>
 					<li>
-						<img src="images/user01.jpg" />
+						<img src="<?=site_url('img/user01.jpg') ?>" />
 						<div >社团名</div>
 					</li>
 				</ul>
