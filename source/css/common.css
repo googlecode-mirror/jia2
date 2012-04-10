@@ -4,7 +4,7 @@ html,body,div,form,ul,li,h1,h2,h3,h4,h5,p,a,img{
 }
 
 body {
-	font-family: 'Microsoft YaHei', Arial, Verdana, Helvetica, Tahoma, sans-serif;
+	font-family: 'Microsoft YaHe/i', Arial, Verdana, Helvetica, Tahoma, sans-serif;
 	color: #444;
 	padding-bottom: 60px;
 	font-size: 12px;
@@ -17,15 +17,15 @@ table {
 }
 img{border: none;}
 h1{font-size:16px;}
-h2, h3{font-size:14px;}
-h4, h5, h6{font-size:12px}
+h2, h3,h4{font-size:14px;}
+h5, h6,p{font-size:12px}
 small{font-size:11px}
 em{font-style:normal;font-weight:bold;color:#F93}
 input, option, textarea{font-size:12px;}
-ol, ul{list-style: none;}
+ol, ul,li{list-style: none;}
 
 a {
-	font-size: 12px;
+	font-size: 100%;
 	color: #006699;
 	font-style: normal;
 	font-family: verdana, arial, helvetica, sans-serif;
@@ -71,6 +71,9 @@ a:active {}
 	outline: none;
 	display:inline-block;
 }
+.right a{
+	padding: 0px 5px;
+}
 .header a:hover {
 	color: #fff;
 }
@@ -86,8 +89,11 @@ a:active {}
 }
 .right{float: right;border:1px solid #006699;}
 .right form{display:inline-block;}
-.right .keywords { width:152px; line-height:10px; height:10px; margin-top:10px; padding:5px; color:#bab9b9; }
-.right .button {line-height:25px; height:25px;margin-top:10px;}
+#search { float:right; background:#fff; width:200px;height:20px; margin-top: 13px;margin-left:20px;border:1px solid #cccccd;padding-left: 5px;}
+#search .keywords { width:180px; line-height:18px; height:18px; 
+	border:1px solid red; background:none;
+	margin:0;padding:0; border:0;color:#bab9b9; }
+#search .button { float:right; margin:0; padding:0; border:0; position:relative;width:20px;height:20px; }
 /**footer**/
 .footer {
 	margin-top: 20px;
@@ -96,3 +102,28 @@ a:active {}
 	color: #666;
 	font: normal 12px Tahoma, Geneva, sans-serif;
 }
+/***********子页面样式暂时放在这里******************/
+#modify{
+	float: right;
+}
+.set_title{
+	padding-bottom:10px;
+	margin-bottom:20px;
+	margin-top:20px;
+	border-bottom:1px solid #ccc;
+}
+.user_setting li{
+	margin: 10px auto;
+}
+.user_setting .button{
+	padding-bottom:5px;
+	margin-left:35px;
+	background:#e6eff7;
+	color:#005CA8;
+	display:block;
+	height:25px;
+	line-height:25px;
+	text-align:center;
+	border:1px solid #2C7CA4;
+}
+#uploading{margin-left:0;margin-bottom: 5px;}
