@@ -8,7 +8,7 @@
 			<?=form_open('') ?>
 				<?=form_input(array('id' => 'textfield', 'maxlength' => 50, 'class' => 'keywords', 'name' => 'keywords')) ?>
 				<?=form_close() ?>
-			<? if($this->session->userdata('type') == 'register'): ?>
+			<? if($this->session->userdata('type') != 'guest'): ?>
 				<?=anchor('', '站内信', '') ?>
 				<?=anchor('', '好友请求', '') ?>
 				<?=anchor('', '通知', '') ?>

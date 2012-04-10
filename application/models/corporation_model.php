@@ -13,7 +13,7 @@
 		
 		function get_meta($meta_key, $co_id, $join_table = TRUE, $where = array(), $order = array(), $limit = array()) {
 			$meta = array();
-			$this->jiadb->_table = 'user_meta';
+			$this->jiadb->_table = 'corporation_meta';
 			$where['corporation_id'] = $co_id;
 			$where['meta_key'] = $meta_key;
 			$result = $this->jiadb->fetchAll($where, $order, $limit);

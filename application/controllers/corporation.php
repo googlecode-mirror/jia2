@@ -3,8 +3,10 @@
 		function __construct() {
 			parent::__construct();
 		}
+		
 		function add() {
-			$this->_auth(array('admin'));
+			$this->_require_login();
+			$this->_auth('add', 'corporation', $this->session->userdata('id'));
 			echo '有权限';
 		}
 		
