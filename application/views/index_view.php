@@ -4,7 +4,7 @@
 			<a href="#" class="head_pic"><img src="<?=avatar_url($this->session->userdata('avatar'), 'big') ?>" /> <div class="clear"></div><h4><?=$this->session->userdata('name')?></h4> </a>
 			<div class="pub">
 				<div  class="tab">
-					<ul  class="navlist" >
+					<ul>
 						<li class="sd01" id="m01">
 							<a href="#">状态</a>
 						</li>
@@ -14,12 +14,13 @@
 					</ul>
 				</div>
 				<div class="clear"></div>
+				
 				<div class="tab_cont_box">
 					<div id="c01">
 						<?=form_open('post/add')?>
-						<?=form_textarea(array('name' => 'content', 'cols' => 60, 'rows' => 4))?>
+						<?=form_textarea(array('name' => 'content', 'cols' => 60, 'rows' => 1,'id' => 'pub_textarea'))?>
 						<p>
-							<?=form_submit('submit', '发布')?>
+							<?=form_submit('submit', '发布','class="button"')?>
 						</p>
 						<?=form_close()?>
 					</div>
@@ -29,16 +30,23 @@
 					</div>
 				</div>
 			</div>
+			<!--<script>
+				$(function() {
+					$("#pub_textarea").focus(function() {
+						$("this").attr("background", "red");
+					})
+				});
+			</script>-->
 		</div>
 		<div class="line"></div>
 		<div class="new_things">
 			<div  class="tab">
-				<ul  class="navlist" >
+				<ul >
 					<li class="sd01" id="mm01">
-						<a href="#"  class="tab_item">社团新鲜事</a>
+						<a href="#"  >社团新鲜事</a>
 					</li>
 					<li class="sd02" id="mm02">
-						<a href="#"  class="tab_item">好友新鲜事</a>
+						<a href="#"  >好友新鲜事</a>
 					</li>
 				</ul>
 			</div>
@@ -50,38 +58,43 @@
 					<div class="article_one">
 						<a href="<?=site_url('personal/profile/' . $post['user'][0]['id']) ?>" class="head_pic"><img src="<?=avatar_url($post['user'][0]['avatar'], 'tiny') ?>" /></a>
 						<div class="article_sub_box">
-							<h4><span><?=$post['user'][0]['name']?></span>&nbsp;<?=$post['content']?></h4>
+							<h4><a href="#"><?=$post['user'][0]['name']?></a>&nbsp;<?=$post['content']?></h4>
 							<p>
 								2分钟前 <a href="#">收起回复</a> | <a href="#">分享</a>
 							</p>
+							<div class="comment">
 							<? if($post['comment']):?>
 							<? foreach($post['comment'] as $comment):?>
-							<p>
-								<?=$comment['content']?>
-							</p>
-							<? endforeach?>
-
-							<p></p>
-							<? endif?>
-							<p></p>
-							<p>
-								<?=form_textarea(array('name' => 'comment_content', 'post_id' => $post['id'], 'type_id' =>$post['type_id'] , 'owner_id' => $post['owner_id'], 'cols' => 60, 'rows' => 2))
-								?>
-							</p>
-							<p>
-								<?=form_button('comment', '评论')?>
-							</p>
+								<ul>
+									<li>
+										<a href="#" class="head_pic"><img src="" /></a>
+										<p><a href="#">谁谁谁</a>：<?=$comment['content']?><a href="#" class="reply"'>回复</a><br />
+										<small>2012-04-09 20:43</small></p>
+									</li>
+								</ul>
+								<? endforeach?>
+								<? endif?>
+								<p>
+									<?=form_textarea(array('name' => 'comment_content', 'post_id' => $post['id'], 'type_id' =>$post['type_id'] , 'owner_id' => $post['owner_id'], 'cols' => 60, 'rows' => 2))
+									?>
+								</p>
+								<p>
+									<?=form_button('comment', '评论','class="button"')?>
+								</p>
+							</div>
 						</div>
 					</div>
 					<? endforeach?>
 					<? endif?>
 				</div>
+				
 				<div id="cc02" class="hidden">
 					第二层内容
 				</div>
 			</div>
 		</div>
 	</div>
+	
 	<div class="content_siber">
 		<h3><a href="#">我的社团(2)</a></h3>
 		<ul>

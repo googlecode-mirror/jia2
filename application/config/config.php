@@ -14,8 +14,10 @@
 | path to your installation.
 |
 */
+
 $config['base_url'] = 'http://jia2.localhost/';
 $config['site_url']	= 'http://jia2.localhost/';
+
 
 /*
 |--------------------------------------------------------------------------

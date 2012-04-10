@@ -60,7 +60,8 @@
 			$data['privacy'] = $privacy;
 			$data['info'] = $this->User_model->get_info((int)$this->session->userdata('id'));
 			$data['main_content'] = 'personal/setting_view';
-			$data['js'] = 'personal/setting.js';
+			$data['css'] = array('common.css','index.css');
+			$data['js'] = array('tab.js','personal/setting.js');
 			$this->load->view('includes/template_view', $data);
 		}
 		

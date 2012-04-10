@@ -35,4 +35,5 @@ window.onload = function(){
 	var SDmodel = new scrollDoor();
 	SDmodel.sd(["m01","m02"],["c01","c02"],"sd01","sd02");
 	SDmodel.sd(["mm01","mm02"],["cc01","cc02"],"sd01","sd02");
+	SDmodel.sd(["mmm01", "mmm02", "mmm03"], ["ccc01", "ccc02", "ccc03"], "sd01", "sd02");
 }
