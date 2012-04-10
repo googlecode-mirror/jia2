@@ -31,7 +31,34 @@
 		
 		function setting() {
 			$this->_require_login();
+			$post_auth = Auth_factory::get_auth('post', $this->session->userdata('id'));
+			$comment_auth = Auth_factory::get_auth('comment', $this->session->userdata('id'));
+			$identity_array = array(
+				'guest', 'register', 'friend'
+			);
+			$privacy = array(
+				'post' => '',
+				'comment' => ''
+			);
+			for($i=0; $i<3; $i++) {
+				$post_auth->get_access('view', $identity_array[$i]);
+				if ($post_auth->access == 1) {
+					$privacy['post'] = $identity_array[$i];
+					break;
+				}
+			}
+			for ($i=0; $i<3; $i++) {
+				$comment_auth->get_access('add', $identity_array[$i]);
+				if ($comment_auth->access == 1) {
+					$privacy['comment'] = $identity_array[$i];
+					break;
+				}
+			}
+			$privacy['post'] = $privacy['post'] ? $privacy['post'] : 'self';
+			$privacy['comment'] = $privacy['comment'] ? $privacy['comment'] : 'self';
 			$data['title'] = '账户设置';
+			$data['privacy'] = $privacy;
+			$data['info'] = $this->User_model->get_info((int)$this->session->userdata('id'));
 			$data['main_content'] = 'personal/setting_view';
 			$data['js'] = 'personal/setting.js';
 			$this->load->view('includes/template_view', $data);

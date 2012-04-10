@@ -2,8 +2,8 @@
 <h2>资料设置</h2>
 	<?=form_open('personal/do_setting')?>
 	<?=form_hidden('setting', 'info') ?>
-	<p>姓名: <?=form_input('name') ?></p>
-	<p>性别: <?=form_dropdown('gender', array('1'=> '男淫', '0' => '女淫')) ?></p>
+	<p>姓名: <?=form_input('name', $info[0]['name']) ?></p>
+	<p>性别: <?=form_dropdown('gender', array('1'=> '男淫', '0' => '女淫'), $info[0]['gender']) ?></p>
 	<p>学校，省份 等等...</p>
 	<p><?=form_submit('submit', '更新') ?></p>
 	<?=form_close() ?>
@@ -30,7 +30,7 @@
 <h2>隐私设置</h2>
 	<?=form_open('personal/do_setting')?>
 	<?=form_hidden('setting', 'privacy') ?>
-	<p>浏览权限: <?=form_dropdown('post', array('guest' => '所有人', 'register' => '注册用户', 'friend' => '仅好友', 'self' => '仅自己')) ?></p>
-	<p>评论权限: <?=form_dropdown('comment', array('guest' => '所有人', 'register' => '注册用户', 'friend' => '仅好友', 'self' => '仅自己')) ?></p>
+	<p>浏览权限: <?=form_dropdown('post', array('guest' => '所有人', 'register' => '注册用户', 'friend' => '仅好友', 'self' => '仅自己'), $privacy['post']) ?></p>
+	<p>评论权限: <?=form_dropdown('comment', array('guest' => '所有人', 'register' => '注册用户', 'friend' => '仅好友', 'self' => '仅自己'), $privacy['comment']) ?></p>
 	<p><?=form_submit('submit', '更新') ?></p>
 	<?=form_close() ?>

@@ -7,35 +7,33 @@ require_once APPPATH . 'libraries/jiadb.php';
 		 * @param int
 		 * @param array('type', 'master_id')
 		 */
-		static function get_auth($operation, $type, $owner_id, $post = array()) {
+		static function get_auth($type, $owner_id, $post = array()) {
 			switch ($type) {
 				// 帖子操作权限
 				case 'post':
-					return new Post_auth($operation, $owner_id);
+					return new Post_auth($owner_id);
 					break;
 				// 社团操作权限
 				case 'corporation':
-					return new Corporation_auth($operation, $owner_id);
+					return new Corporation_auth($owner_id);
 					break;
 				// 活动操作权限	
 				case 'activity':
-					return new Activity_auth($operation, $owner_id);
+					return new Activity_auth($owner_id);
 					break;
 				// 评论操作权限
 				case 'comment':
-					return new Comment_auth($operation, $owner_id, $post);
+					return new Comment_auth($owner_id, $post);
 					break;
 			}
 		}
 	}
 
-	class Auth {
+	abstract class Auth {
 		// 请求权限的用户
 		public $request_user;
 		// 
 		public $owner_id;
-		// 请求的操作(id)
-		public $operation;
 		// 权限值
 		public $access;
 		public $identity_array;
@@ -43,7 +41,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 		public $jiadb;
 		public $CI;
 		public $table;
-		function __construct($operation, $owner_id) {
+		function __construct($owner_id) {
 			$this->access = 0;
 			$this->CI =& get_instance();
 			$this->owner_id = $owner_id;
@@ -58,13 +56,13 @@ require_once APPPATH . 'libraries/jiadb.php';
 				$this->operation_array[$row['name']] = $row['id'];
 			}
 			$this->CI->load->model('User_model');
-			$this->operation = $this->operation_array[$operation];
 		}
 		
-		function get_access($identity) {
+		function get_access($operation, $identity) {
+			$operation_id = $this->operation_array[$operation];
 			$identity_id = $this->identity_array[$identity];
 			$this->jiadb->_table = $this->table;
-			$result = $this->jiadb->fetchAll(array('owner_id' => $this->owner_id, 'identity_id' => $identity_id, 'operation_id' => $this->operation));
+			$result = $this->jiadb->fetchAll(array('owner_id' => $this->owner_id, 'identity_id' => $identity_id, 'operation_id' => $operation_id));
 			$this->access = $result[0]['access'];
 		}
 	}
@@ -79,13 +77,16 @@ require_once APPPATH . 'libraries/jiadb.php';
 	 * 	admin 管理员
 	 */
 	class Post_auth extends Auth {
-		function __construct($operation, $owner_id) {
-			parent::__construct($operation, $owner_id);
+		function __construct($owner_id) {
+			parent::__construct($owner_id);
 			$this->table = 'post_auth';
 		}
 		
-		function get_access() {
-			$identity = '';
+		function get_access($operation, $identity = '') {
+			if($identity) {
+				parent::get_access($operation, $identity);
+				return;
+			}
 			
 			// 验证是否管理员
 			if($this->CI->session->userdata('type') == 'admin') {
@@ -94,16 +95,16 @@ require_once APPPATH . 'libraries/jiadb.php';
 			}
 			
 			// 本人
-			if($this->owner_id == $this->CI->session->userdata('id')) {
+			if($this->owner_id == $this->request_user) {
 				$identity = 'self';
-				parent::get_access($identity);
+				parent::get_access($operation, $identity);
 				return;
 			}
 			
 			// 游客
 			if($this->CI->session->userdata('type') == 'guest') {
 				$identity = 'guest';
-				parent::get_access($identity);
+				parent::get_access($operation, $identity);
 				return;
 			}
 			
@@ -114,10 +115,10 @@ require_once APPPATH . 'libraries/jiadb.php';
 				if(in_array($this->request_user, $blockers)) {
 					// 黑名单
 					$identity = 'blocker';
-					parent::get_access($identity);
+					parent::get_access($operation, $identity);
 					return;
 				}
-				parent::get_access($identity);
+				parent::get_access($operation, $identity);
 				if($this->access) {
 					return;
 				}
@@ -125,7 +126,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 				$friends = $this->CI->User_model->get_meta('friend', $this->owner_id, FALSE);
 				if(in_array($this->request_user, $friends)) {
 					$identity = 'friend';
-					parent::get_access($identity);
+					parent::get_access($operation, $identity);
 					if($this->access) {
 						return;
 					}
@@ -146,15 +147,17 @@ require_once APPPATH . 'libraries/jiadb.php';
 	 *  admin 管理员
 	 */
 	class Corporation_auth extends Auth {
-		function __construct($operation, $owner_id) {
-			parent::__construct($operation, $owner_id);
+		function __construct($owner_id) {
+			parent::__construct($owner_id);
 			$this->CI->load->model('Corporation_model');
 			$this->table = 'corporation_auth';
 		}
 		
-		function get_access() {
-			$identity = '';
-			
+		function get_access($operation, $identity = '') {
+			if($identity) {
+				parent::get_access($operation, $identity);
+				return;
+			}
 			// admin
 			if($this->CI->session->userdata('type') == 'admin') {
 				$this->access = 1;
@@ -164,7 +167,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 			// 游客
 			if($this->CI->session->userdata('type') == 'guest') {
 				$identity = 'guest';
-				parent::get_access($identity);
+				parent::get_access($operation, $identity);
 				return;
 			}
 			
@@ -174,10 +177,10 @@ require_once APPPATH . 'libraries/jiadb.php';
 				$blockers = $this->CI->Corporation_model->get_meta('blocker', $this->owner_id, FALSE);
 				if(in_array($this->request_user, $blockers)) {
 					$identity = 'blocker';
-					parent::get_access($identity);
+					parent::get_access($operation, $identity);
 					return;
 				}
-				parent::get_access($identity);
+				parent::get_access($operation, $identity);
 				if($this->access) {
 					return;
 				}
@@ -186,7 +189,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 				$cos = $this->CI->User_model->get_meta('corporation', $this->request_user, FALSE);
 				if(in_array($this->owner_id, $cos)) {
 					$identity = 'friend';
-					parent::get_access($identity);
+					parent::get_access($operation, $identity);
 					if($this->access) {
 						return;
 					}
@@ -196,7 +199,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 				$members = $this->CI->Corporation_model->get_meta('member', $this->owner_id, FALSE);
 				if(in_array($this->request_user, $members)) {
 					$identity = 'co_member';
-					parent::get_access($identity);
+					parent::get_access($operation, $identity);
 					if($this->access) {
 						return;
 					}
@@ -206,7 +209,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 				$administrators = $this->CI->Corporation_model->get_meta('admin', $this->owner_id, FALSE);
 				if(in_array($this->request_user, $administrators)) {
 					$identity = 'co_admin';
-					parent::get_access($identity);
+					parent::get_access($operation, $identity);
 					if($this->access) {
 						return;
 					}
@@ -215,7 +218,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 				$corporation = $this->CI->Corporation_model->get_info($this->owner_id);
 				if($this->request_user == $corporation[0]['user_id']) {
 					$identity = 'co_master';
-					parent::get_access($identity);
+					parent::get_access($operation, $identity);
 					return;
 				}
 				
@@ -235,8 +238,8 @@ require_once APPPATH . 'libraries/jiadb.php';
 	 *  admin 管理员
 	 */
 	class Activity_auth extends  Auth {
-		function __construct($operation, $owner_id) {
-			parent::__construct($operation, $owner_id);
+		function __construct($owner_id) {
+			parent::__construct($owner_id);
 			$this->CI->load->model('Corporation_model');
 		}
 	}
@@ -256,20 +259,23 @@ require_once APPPATH . 'libraries/jiadb.php';
 		public $master_id;
 		public $type;
 		/**
-		 * @param string view edit delete add
 		 * @param int comment_master_id or request_user_id
-		 * @param int post_master_id
+		 * @param array (post_type_name, post_master_id)
 		 */
-		function __construct($operation, $owner_id, $post) {
+		function __construct($owner_id, $post = array()) {
 			$this->table = 'comment_auth';
-			$this->type = $post[0];
-			$this->master_id = $post[1];
-			parent::__construct($operation, $owner_id);
+			if($post) {
+				$this->type = $post[0];
+				$this->master_id = $post[1];
+			}
+			parent::__construct($owner_id);
 		}
 		
-		function get_access() {
-			$identity = '';
-			
+		function get_access($operation, $identity = '') {
+			if($identity) {
+				parent::get_access($operation, $identity);
+				return;
+			}
 			
 			if($this->CI->session->userdata('type') == 'admin') {
 				$this->access = 1;
@@ -279,14 +285,14 @@ require_once APPPATH . 'libraries/jiadb.php';
 			// 游客
 			if($this->CI->session->userdata('type') == 'guest') {
 				$identity = 'guest';
-				parent::get_access($identity);
+				parent::get_access($operation, $identity);
 				return;
 			}
 			
 			// 本人
 			if($this->owner_id == $this->CI->session->userdata('id')) {
 				$identity = 'self';
-				parent::get_access($identity);
+				parent::get_access($operation, $identity);
 				return;
 			}
 			
@@ -298,18 +304,18 @@ require_once APPPATH . 'libraries/jiadb.php';
 			if($this->type == 'personal') {
 				if($this->request_user = $this->master_id) {
 					$identity = 'po_master';
-					parent::get_access($identity);
+					parent::get_access($operation, $identity);
 					return;
 				}
 				$blockers = $this->CI->User_model->get_blockers($this->master_id);
 				if(in_array($this->request_user, $friends)) {
 					// 黑名单
 					$identity = 'blocker';
-					parent::get_access($identity);
+					parent::get_access($operation, $identity);
 					return;
 				}
 				// 注册用户
-				parent::get_access($identity);
+				parent::get_access($operation, $identity);
 				if($this->access) {
 					return;
 				}
@@ -317,7 +323,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 				$friends = $this->CI->User_model->get_friends($this->master_id);
 				if(in_array($this->request_user, $friends)) {
 					$identity = 'friend';
-					parent::get_access($identity);
+					parent::get_access($operation, $identity);
 					if($this->access) {
 						return;
 					}
@@ -329,11 +335,11 @@ require_once APPPATH . 'libraries/jiadb.php';
 				if(in_array($this->request_user, $friends)) {
 					// 黑名单
 					$identity = 'blocker';
-					parent::get_access($identity);
+					parent::get_access($operation, $identity);
 					return;
 				}
 				// 注册用户
-				parent::get_access($identity);
+				parent::get_access($operation, $identity);
 				if($this->access) {
 					return;
 				}
