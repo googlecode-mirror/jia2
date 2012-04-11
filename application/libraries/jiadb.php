@@ -65,22 +65,57 @@
 		 * @param array
 		 * @param array
 		 */ 
+		 
 		function fetchJoin($where = array(), $join = array(), $order = array(), $limit = array()) {
 			$result = $this->fetchAll($where, $order, $limit);
 			if($result && $join) {
 				foreach ($join as $table => $field) {
+					$table = explode('.', $table);
 					foreach ($result as $key => $row) {
-						$this->_table = $table;
-						$tmp = $this->fetchAll(array($field[1] => $row[$field[0]]));
-						
-						$result[$key][$table] = $tmp;
+						if(array_key_exists(1, $table) && array_key_exists($table[0], $row)) {
+							$this->_table = $table[1];
+							foreach ($row[$table[0]] as $sub_key => $sub_row) {
+								$tmp = $this->fetchAll(array($field[1] => $sub_row[$field[0]]));
+								$result[$key][$table[0]][$sub_key][$table[1]] = $tmp;
+							}
+						} elseif(!array_key_exists(1, $table)) {
+							$this->_table = $table[0];
+							$tmp = $this->fetchAll(array($field[1] => $row[$field[0]]));
+							if($tmp) {
+								$result[$key][$table[0]] = $tmp;
+							}
+						}
 					}
 				}
 			}
-			return $result;
-			
+			return $result;	
 		}
-		
+		 
+		/**
+		function fetchJoin($where = array(), $join = array(), $order = array(), $limit = array()) {
+			$result = $this->fetchAll($where, $order, $limit);
+			if($result && $join) {
+				foreach ($join as $table => $field) {
+					$table = explode('.', $table);
+					foreach ($result as $key => $row) {
+						if(count($table) == 1) {
+							$this->_table = $table[0];
+							$tmp = $this->fetchAll(array($field[1] => $row[$field[0]]));
+							if($tmp) {
+								$result[$key][$table[0]] = $tmp;
+							}
+						} else {
+							foreach($row[$table[0]] as $key => $sub_row) {
+								
+							}
+							
+						}
+					}
+				}
+			}
+			return $result;	
+		}
+		*/
 		/**
 		 * @param array
 		 * @param array like following:

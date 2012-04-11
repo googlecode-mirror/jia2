@@ -38,7 +38,8 @@
 			$users[] = $user_id;
 			$join = array(
 				'user' => array('owner_id', 'id'),
-				'comment' => array('id', 'post_id')
+				'comment' => array('id', 'post_id'),
+				'comment.user' => array('user_id', 'id')
 			);
 			$posts = $this->jiadb->fetchJoin(array('owner_id' => $users), $join, array('time' => 'desc'), array(20, 0));
 			return $posts;
@@ -48,10 +49,11 @@
 			// 改方法会加入对转载文章的原文读取
 			$join = array(
 				'user' => array('owner_id', 'id'),
-				'comment' => array('id', 'post_id')
+				'comment' => array('id', 'post_id'),
+				'comment.user' => array('user_id', 'id')
 			);
-			$post_result = $this->jiadb->fetchJoin($where, $join, $order, $limit);
-			return $post_result;
+			$posts = $this->jiadb->fetchJoin($where, $join, $order, $limit);
+			return $posts;
 		}
 		
 		function fetch_comment($where = array(), $order = array('time' => 'desc'), $limit = array(2, 0)) {

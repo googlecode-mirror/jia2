@@ -10,7 +10,12 @@ $(function() {
                     remember:remember
                 }, function(data) {
                     if(data.verify == 1) {
-						window.location.href = SITE_URL;
+                    	href = window.location.href;
+                    	if(href.indexOf("?jump=" != -1)) {
+                    		window.location.href = SITE_URL + href.substr(href.indexOf("?jump=") + 6);
+                    	} else {
+                    		window.location.href = SITE_URL;
+                    	}
                     } else {
                         $("#email_prompt").text(data.email);
                         $("#pass_prompt").text(data.pass);

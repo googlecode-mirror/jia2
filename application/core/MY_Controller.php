@@ -30,7 +30,12 @@ require_once APPPATH . 'libraries/access.php';
 		
 		function _require_login($sign = TRUE) {
 			if($sign && $this->session->userdata('type') == 'guest') {
-				redirect('index/login');
+				if(!$this->input->get('jump')) {
+					$jump = substr(uri_string(), 1);
+					redirect('index/login?jump=' . $jump);
+				} else {
+					redirect('index/login');
+				}
 			} elseif(!$sign && $this->session->userdata('type') != 'guest') {
 				redirect();
 			}
