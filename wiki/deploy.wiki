@@ -5,8 +5,8 @@ deploy jia2 on your xamp
 
 = Details =
 
-1. Checkout source code to your web directory.
-2. Import Jia2.sql under `/source/Jia2.sql`.
-4. Recommend create a apache vhost.
-5. Change config
+1. Checkout source code to your web directory. ----
+2. Import Jia2.sql under /source/Jia2.sql.----
+4. Recommend create a apache vhost.----
+5. Change config----
    
