@@ -89,11 +89,11 @@ a:active {}
 }
 .right{float: right;border:1px solid #006699;}
 .right form{display:inline-block;}
-#search { float:right; background:#fff; width:200px;height:20px; margin-top: 13px;margin-left:20px;border:1px solid #cccccd;padding-left: 5px;}
-#search .keywords { width:180px; line-height:18px; height:18px; 
+#search { float:right; background:#fff; width:200px;height:28px; margin-top: 8px;margin-left:20px;border:1px solid #cccccd;padding-left: 5px;}
+#search .keywords { width:160px; line-height:18px; height:28px; float:left;
 	border:1px solid red; background:none;
 	margin:0;padding:0; border:0;color:#bab9b9; }
-#search .button { float:right; margin:0; padding:0; border:0; position:relative;width:20px;height:20px; }
+#search .button { float:right; margin:0; padding:0; border:0; position:relative;width:26px;height:28px; }
 /**footer**/
 .footer {
 	margin-top: 20px;

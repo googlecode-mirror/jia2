@@ -5,17 +5,10 @@
 			<?=anchor('', '首页', '') ?><?=anchor('personal', '个人主页', '') . anchor('', '搜索社团', '')?>
 			<div id="search">
 				<?=form_open('') ?>
-				<?=form_input( array('class' => 'button','type' => 'image', 'name' => 'search','src'=> "<?=site_url('source/img/search.gif') ?>")) ?>
-				<?=form_input(array('id' => 'textfield', 'maxlength' => 50, 'class' => 'keywords', 'name' => 'keywords','value'=> 'Search...')) ?>
-			<!--<input name="search" type="image" src="<?=site_url('source/img/search.gif') ?>" class="button"/>
-	            <input name="keywords" type="text" class="keywords" id="textfield" maxlength="50" value="Search..." />-->
+				<?=form_input(array('id' => 'textfield', 'maxlength' => 50, 'class' => 'keywords', 'name' => 'keywords', 'value'=> 'Search...')) ?>
+				<?=form_submit('submit', '', 'class="button" style="background-image:url(' . site_url('source/img/search.gif') . ')"') ?>
 	            <?=form_close() ?>
 			</div>
-			<!--
-			<?=form_open('') ?>
-				<?=form_input(array('id' => 'textfield', 'maxlength' => 50, 'class' => 'keywords', 'name' => 'keywords')) ?>
-				<?=form_submit('submit', '搜索', 'class="search"') ?>
-			<?=form_close() ?>-->
 		</div>
 		<div class="right">
 			<? if($this->session->userdata('type') != 'guest'): ?>

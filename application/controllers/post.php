@@ -50,7 +50,13 @@
 			$comment_id = $this->Post_model->insert_comment($comment);
 			if($comment_id) {
 				$comment = $this->Post_model->fetch_comment(array('id' => $comment_id));
-				echo json_encode($comment);
+				?>
+				<li>
+				<?=anchor('personal/profile/' . $comment['user'][0]['id'], '<img src="'. avatar_url($comment['user'][0]['avatar']) .'" >') ?>
+				<p><?=anchor('personal/profile/' . $comment['user'][0]['id'], $comment['user'][0]['name']) ?>：<?=$comment['content']?><a href="#" class="reply"'>回复</a><br />
+				<small><?=$comment['time'] ?></small></p>
+				</li>
+			<?
 			} else {
 				echo 0;
 			}

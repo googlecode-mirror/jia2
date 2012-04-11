@@ -9,17 +9,18 @@
 								2分钟前 <a href="#">收起回复</a> | <a href="#">分享</a>
 							</p>
 							<div class="comment">
+								<ul>
 							<? if(array_key_exists('comment', $post)):?>
 							<? foreach($post['comment'] as $comment):?>
-								<ul>
 									<li>
 										<?=anchor('personal/profile/' . $comment['user'][0]['id'], '<img src="'. avatar_url($comment['user'][0]['avatar']) .'" >') ?>
 										<p><?=anchor('personal/profile/' . $comment['user'][0]['id'], $comment['user'][0]['name']) ?>：<?=$comment['content']?><a href="#" class="reply"'>回复</a><br />
 										<small>2012-04-09 20:43</small></p>
 									</li>
-								</ul>
+								
 								<? endforeach?>
 								<? endif?>
+								</ul>
 								<p>
 									<?=form_textarea(array('name' => 'comment_content', 'post_id' => $post['id'], 'type_id' =>$post['type_id'] , 'owner_id' => $post['owner_id'], 'cols' => 60, 'rows' => 2))
 									?>
