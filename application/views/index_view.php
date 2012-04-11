@@ -52,42 +52,7 @@
 			</div>
 			<div class="clear"></div>
 			<div class="tab_cont_box">
-				<div id="cc01">
-					<? if($posts):?>
-					<? foreach ($posts as $post):?>
-					<div class="article_one">
-						<a href="<?=site_url('personal/profile/' . $post['user'][0]['id']) ?>" class="head_pic"><img src="<?=avatar_url($post['user'][0]['avatar'], 'tiny') ?>" /></a>
-						<div class="article_sub_box">
-							<h4><a href="#"><?=$post['user'][0]['name']?></a>&nbsp;<?=$post['content']?></h4>
-							<p>
-								2分钟前 <a href="#">收起回复</a> | <a href="#">分享</a>
-							</p>
-							<div class="comment">
-							<? if($post['comment']):?>
-							<? foreach($post['comment'] as $comment):?>
-								<ul>
-									<li>
-										<a href="#" class="head_pic"><img src="" /></a>
-										<p><a href="#">谁谁谁</a>：<?=$comment['content']?><a href="#" class="reply"'>回复</a><br />
-										<small>2012-04-09 20:43</small></p>
-									</li>
-								</ul>
-								<? endforeach?>
-								<? endif?>
-								<p>
-									<?=form_textarea(array('name' => 'comment_content', 'post_id' => $post['id'], 'type_id' =>$post['type_id'] , 'owner_id' => $post['owner_id'], 'cols' => 60, 'rows' => 2))
-									?>
-								</p>
-								<p>
-									<?=form_button('comment', '评论','class="button"')?>
-								</p>
-							</div>
-						</div>
-					</div>
-					<? endforeach?>
-					<? endif?>
-				</div>
-				
+				<? $this->load->view('posts_view') ?>
 				<div id="cc02" class="hidden">
 					第二层内容
 				</div>

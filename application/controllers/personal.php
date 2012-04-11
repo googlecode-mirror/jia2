@@ -83,8 +83,8 @@
 					
 				case 'info':
 				// 资料设置
-				
-					break;
+					$name = $this->input->post('name');
+					$gender = $this->input->post('gender');
 					
 				case 'privacy':
 					// 隐私设置

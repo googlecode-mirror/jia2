@@ -45,28 +45,7 @@
 			</div>
 					<div class="clear"></div>
 					<div class="article_box">
-						<div id="cc01">
-							<? if($posts): ?>
-							<? foreach ($posts as $post): ?>
-								<div class="article_one">
-									<a href="<?=site_url('personal/profile/' . $post['user'][0]['id']) ?>" class="head_pic"><img src="<?=avatar_url($post['user'][0]['avatar'], 'tiny') ?>" /></a>
-									<div class="article_sub_box">
-										<h4><span><?=$post['user'][0]['name'] ?></span>&nbsp;<?=$post['content'] ?></h4>
-										<p>2分钟前 <a href="#">收起回复</a> | <a href="#">分享</a> </p>
-										<? if($post['comment']): ?>
-											<? foreach($post['comment'] as $comment): ?>
-												<p><?=$comment['content'] ?></p>
-											<? endforeach ?>
-											<p></p>
-										<? endif ?>
-										<p></p>
-										<p><?=form_textarea(array('name' => 'comment_content', 'post_id' => $post['id'], 'owner_id' => $post['owner_id'], 'cols' => 60, 'rows' => 2)) ?></p>
-										<p><?=form_button('comment', '评论') ?></p>
-									</div>
-								</div>
-							<? endforeach ?>
-							<? endif ?>
-						</div>
+						<? $this->load->view('posts_view') ?>
 						<div id="cc02" class="hidden">
 							第二层内容
 						</div>
@@ -82,7 +61,7 @@
 						<div class="user_name">社团名</div>
 					</li>
 					<li>
-						<img src="<?=site_url('img/user01.jpg') ?>" />
+						<img src="<?=site_url('source/img/user01.jpg') ?>" />
 						<div class="user_name">社团名</div>
 					</li>
 				</ul>
@@ -90,15 +69,15 @@
 				<h3><a href="#">关注的社团(3)</a></h3>
 				<ul>
 					<li>
-						<img src="<?=site_url('img/user02.jpg') ?>" />
+						<img src="<?=site_url('source/img/user02.jpg') ?>" />
 						<div class="user_name">社团名</div>
 					</li>
 					<li>
-						<img src="<?=site_url('img/user01.jpg') ?>" />
+						<img src="<?=site_url('source/img/user01.jpg') ?>" />
 						<div class="user_name">社团名</div>
 					</li>
 					<li>
-						<img src="<?=site_url('img/user.jpg') ?>" />
+						<img src="<?=site_url('source/img/user.jpg') ?>" />
 						<div class="user_name">社团名</div>
 					</li>
 				</ul>
@@ -109,11 +88,11 @@
 				<h3>最近来访</h3>
 				<ul>
 					<li>
-						<img src="<?=site_url('img/user02.jpg') ?>" />
+						<img src="<?=site_url('source/img/user02.jpg') ?>" />
 						<div >社团名</div>
 					</li>
 					<li>
-						<img src="<?=site_url('img/user01.jpg') ?>" />
+						<img src="<?=site_url('source/img/user01.jpg') ?>" />
 						<div >社团名</div>
 					</li>
 				</ul>
