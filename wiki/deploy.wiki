@@ -9,4 +9,6 @@ deploy jia2 on your xamp
 2. Import Jia2.sql under /source/Jia2.sql.<br>
 4. Recommend create a apache vhost.<br>
 5. Change config
-   
+/application/config/config.php(site_url & base_url as your host setting)
+/application/config/database.php(database name pass)
+if you do not use vhost maybe you need edit /.htaccess
