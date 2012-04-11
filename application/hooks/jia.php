@@ -16,6 +16,7 @@
 		// 用cooki登录
 		if($CI->session->userdata('type') == 'guest' && get_cookie('id') && get_cookie('pass') && $CI->uri->segment(2) != 'do_login') {
 			$redirect = uri_string();
+			$redirect = (($redirect == '') ? site_url() : $redirect);
 			redirect('index/do_login/1?redirect=' . $redirect);
 		}
 	}

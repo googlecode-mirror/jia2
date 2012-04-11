@@ -65,7 +65,7 @@
 		 * @param array
 		 * @param array
 		 */ 
-		 
+		
 		function fetchJoin($where = array(), $join = array(), $order = array(), $limit = array()) {
 			$result = $this->fetchAll($where, $order, $limit);
 			if($result && $join) {
@@ -90,32 +90,56 @@
 			}
 			return $result;	
 		}
-		 
+		
+		
 		/**
-		function fetchJoin($where = array(), $join = array(), $order = array(), $limit = array()) {
-			$result = $this->fetchAll($where, $order, $limit);
+		 * @param array db result array
+		 * @param array
+		 */
+		/**
+		function _join($result, $join) {
+			echo '<pre>';
 			if($result && $join) {
 				foreach ($join as $table => $field) {
-					$table = explode('.', $table);
-					foreach ($result as $key => $row) {
-						if(count($table) == 1) {
-							$this->_table = $table[0];
-							$tmp = $this->fetchAll(array($field[1] => $row[$field[0]]));
-							if($tmp) {
-								$result[$key][$table[0]] = $tmp;
-							}
-						} else {
-							foreach($row[$table[0]] as $key => $sub_row) {
-								
-							}
-							
+				//print_r($join);
+				unset($join[$table]);
+				$table_array = explode('.', $table);
+				//print_r($table_array);
+				foreach ($result as $key => $row) {
+					var_dump($table_array);
+					if(array_key_exists(1, $table_array) && array_key_exists($table_array[0], $row)) {
+						//exit();
+						$sub_field = $table_array[0];
+						unset($table_array[0]);
+						$table_array = array_values($table_array);
+						$sub_join = array(implode('.', $table_array) => $field);
+						$result[$key][$sub_field] =  $this->_join($row[$sub_field], $sub_join);
+						//print_r($result);
+					} elseif (!array_key_exists(1, $table_array)) {
+						$this->_table = $table_array[0];
+						print_r($row);
+						$tmp = $this->fetchAll(array($field[1] => $row[$field[0]]));
+						if($tmp) {
+							$result[$key][$table_array[0]] = $tmp;
 						}
 					}
 				}
 			}
+			}
+			
+			echo '</pre>';
+			return $result;
+		}
+		
+		function fetchJoin($where = array(), $join = array(), $order = array(), $limit = array()) {
+			$result = $this->fetchAll($where, $order, $limit);
+			if($result && $join) {
+				$result = $this->_join($result, $join);
+			}
 			return $result;	
 		}
-		*/
+		 * /
+		
 		/**
 		 * @param array
 		 * @param array like following:

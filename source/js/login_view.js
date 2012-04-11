@@ -11,7 +11,7 @@ $(function() {
                 }, function(data) {
                     if(data.verify == 1) {
                     	href = window.location.href;
-                    	if(href.indexOf("?jump=" != -1)) {
+                    	if(href.indexOf("?jump=") > 0) {
                     		window.location.href = SITE_URL + href.substr(href.indexOf("?jump=") + 6);
                     	} else {
                     		window.location.href = SITE_URL;

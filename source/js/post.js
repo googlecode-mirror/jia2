@@ -24,10 +24,9 @@ $(function() {
 				post_id: post_id,
 				owner_id: owner_id,
 			}, function(data) {
-				str = "<p>" + data.content + "</p>";
 				$comment.val('');
-				$comment.parent().before(str);
-			}, 'json'
+				$comment.parent().prev().append(data);
+			}
 		);
 	});
 });
