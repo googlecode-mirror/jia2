@@ -87,6 +87,8 @@ a:active {}
 	float: left;
 	font-weight: bold;
 }
+
+.left a {float:left }
 .right{float: right;border:1px solid #006699;}
 .right form{display:inline-block;}
 #search { float:right; background:#fff; width:200px;height:28px; margin-top: 8px;margin-left:20px;border:1px solid #cccccd;padding-left: 5px;}
