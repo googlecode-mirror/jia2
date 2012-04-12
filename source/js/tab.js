@@ -36,4 +36,5 @@ window.onload = function(){
 	SDmodel.sd(["m01","m02"],["c01","c02"],"sd01","sd02");
 	SDmodel.sd(["mm01","mm02"],["cc01","cc02"],"sd01","sd02");
 	SDmodel.sd(["mmm01", "mmm02", "mmm03"], ["ccc01", "ccc02", "ccc03"], "sd01", "sd02");
+	SDmodel.sd(["01", "02", "03","04"], ["search_result_01", "search_result_02", "search_result_03","search_result_04"], "sd01", "sd02");
 }
