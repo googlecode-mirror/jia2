@@ -24,7 +24,7 @@ require_once APPPATH . 'libraries/access.php';
 			$auth = Auth_factory::get_auth($type, $owner_id, $post);
 			$auth->get_access($operation);
 			if(!$auth->access) {
-				show_error('灰常抱歉，你没有权限执行改操作');
+				static_view('貌似你没有改权限哦~');
 			}
 		}
 		
