@@ -48,6 +48,10 @@
 					<li class="sd02" id="mm02">
 						<a href="#"  >好友新鲜事</a>
 					</li>
+					<li id="refresh">
+						<a >刷新</a>
+					</li>
+					
 				</ul>
 			</div>
 			<div class="clear"></div>

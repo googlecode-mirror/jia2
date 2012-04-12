@@ -13,7 +13,7 @@
 							<? if(array_key_exists('comment', $post)):?>
 							<? foreach($post['comment'] as $comment):?>
 									<li>
-										<?=anchor('personal/profile/' . $comment['user'][0]['id'], '<img src="'. avatar_url($comment['user'][0]['avatar']) .'" >') ?>
+										<?=anchor('personal/profile/' . $comment['user'][0]['id'], '<img src="'. avatar_url($comment['user'][0]['avatar']) .'" >','class="head_pic"') ?>
 										<p><?=anchor('personal/profile/' . $comment['user'][0]['id'], $comment['user'][0]['name']) ?>：<?=$comment['content']?><a href="#" class="reply"'>回复</a><br />
 										<small>2012-04-09 20:43</small></p>
 									</li>
