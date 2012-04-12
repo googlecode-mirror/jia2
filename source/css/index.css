@@ -36,6 +36,7 @@ h4{
 .pub{float:right;width:530px;bor/der:1px solid #006699;}
 
 /****content_new_things*****/
+#refresh{float: right;}
 .new_things .tab{width: 540px;margin:5px;}
 .new_things .tab{padding-left:100px;}
 .new_things img{width:50px;height:50px;}
@@ -50,9 +51,9 @@ h4{
 
 .comment{background:#f3faff;padding:5px;bo/rder: 1px solid #ccc;}
 .comment li{border-bottom: 1px solid #e6eff7;}
-.comment a,.comment img{width:30px;height:30px;} 
+.comment a.head_pic,.comment img{width:30px;height:30px;float: left;} 
 .comment a.head_pic{margin-left:0px;margin-right: 10px;}
-a.reply{margin-left:10px;}
+.comment a.reply{margin-left:10px;}
 
 /**content_siber**/
 .content_siber{
