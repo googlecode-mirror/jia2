@@ -4,8 +4,9 @@
 			<?=anchor('', '<strong>Jia2网Logo</strong>', 'class="logo"') ?>
 			<?=anchor('', '首页', '') ?><?=anchor('personal', '个人主页', '') . anchor('', '搜索社团', '')?>
 			<div id="search">
-				<?=form_open('') ?>
-				<?=form_input(array('id' => 'textfield', 'maxlength' => 50, 'class' => 'keywords', 'name' => 'keywords', 'value'=> 'Search...')) ?>
+				<?=form_open('search') ?>
+				<?=form_input(array('id' => 'textfield', 'maxlength' => 50, 'class' => 'keywords', 'name' => 'keywords')) ?>
+				<?=form_hidden('offset', 0) ?>
 				<?=form_submit('submit', '', 'class="button" style="background-image:url(' . site_url('source/img/search.gif') . ')"') ?>
 	            <?=form_close() ?>
 			</div>
