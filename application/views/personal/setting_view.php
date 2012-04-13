@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="content_main">
 		<div class="main_top">
-			<a href="#" class="head_pic"><img src="<?=avatar_url($this->session->userdata('avatar'), 'big') ?>" /> 
+			<a href="#" class="head_pic"><img src="<?=avatar_url($this->session->userdata('avatar'), 'personal', 'big') ?>" /> 
 			<div class="clear"></div><h4><?=$this->session->userdata('name')?></h4> </a>
 			<div class="pub">
 				<div  class="tab">

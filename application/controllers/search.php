@@ -60,7 +60,7 @@
 					<li>
 						<div>
 							<h3><?=$row['name'] ?></h3>
-							<img src="<?=$row['avatar']?>" />
+							<img src="<?=avatar_url($row['avatar'], 'personal', 'big') ?>" />
 						</div>
 					</li>
 					<?
@@ -76,9 +76,6 @@
 			$where = array('name REGEXP' => $keywords);
 			$user_result = $this->jiadb->fetchAll($where, '', array($this->limit, $offset));
 			if($user_result) {
-				foreach ($user_result as $key => $row) {
-					$user_result[$key]['avatar'] = avatar_url($row['avatar'], 'big');
-				}
 				$user_result['rows'] = count_rows('user', $where);
 			} else {
 				$user_result['rows'] = 0;

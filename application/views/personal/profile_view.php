@@ -1,7 +1,7 @@
 	<div class="container">
 			<div class="content_main">
 				<div class="main_top">
-				<a href="<?=site_url('personal/profile/' . $info[0]['id'])?>" class="head_pic"><img src="<?=avatar_url($info[0]['avatar'], 'big') ?>" />
+				<a href="<?=site_url('personal/profile/' . $info[0]['id'])?>" class="head_pic"><img src="<?=avatar_url($info[0]['avatar'], 'personal', 'big') ?>" />
 					<div class="clear"></div><h4><?=$info[0]['name']?></h4>
 				</a>
 				<?=form_button(array('name' => 'add_friend', 'content' => '关注', 'user_id' => $info[0]['id'])) ?>

@@ -28,9 +28,9 @@ if( ! function_exists('avatar_url')) {
 	 * @param string from db
 	 * @param string ting or big
 	 */
-	function avatar_url($avatar = 'default.jpg', $mode = 'tiny') {
+	function avatar_url($avatar = 'default.jpg', $obj = 'personal', $mode = 'tiny') {
 		$CI =& get_instance();
-		return site_url($CI->config->item('personal_avatar_path') . $mode . '/' . $avatar);
+		return site_url($CI->config->item($obj . '_avatar_path') . $mode . '/' . $avatar);
 	}
 }
 

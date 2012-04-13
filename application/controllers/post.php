@@ -41,24 +41,26 @@
 			$type_id = $this->input->post('type_id');
 			$type = $this->config->item('post_type_activity') == $type_id ? 'activity' : 'personal';
 			$this->_auth('add', 'comment', $this->session->userdata('id'), array($type, $owner_id));
-			$comment = array(
-				'post_id' => $this->input->post('post_id'),
-				'user_id' => $this->session->userdata('id'),
-				'content' => $this->input->post('content'),
-				'time' => time()
-			);
-			$comment_id = $this->Post_model->insert_comment($comment);
-			if($comment_id) {
-				$comment = $this->Post_model->fetch_comment(array('id' => $comment_id));
-				?>
-				<li>
-				<?=anchor('personal/profile/' . $comment['user'][0]['id'], '<img src="'. avatar_url($comment['user'][0]['avatar']) .'" >') ?>
-				<p><?=anchor('personal/profile/' . $comment['user'][0]['id'], $comment['user'][0]['name']) ?>：<?=$comment['content']?><a href="#" class="reply"'>回复</a><br />
-				<small><?=$comment['time'] ?></small></p>
-				</li>
-			<?
-			} else {
-				echo 0;
+			if($this->input->post('content') != '') {
+				$comment = array(
+					'post_id' => $this->input->post('post_id'),
+					'user_id' => $this->session->userdata('id'),
+					'content' => $this->input->post('content'),
+					'time' => time()
+				);
+				$comment_id = $this->Post_model->insert_comment($comment);
+				if($comment_id) {
+					$comment = $this->Post_model->fetch_comment(array('id' => $comment_id));
+					?>
+					<li>
+					<?=anchor('personal/profile/' . $comment['user'][0]['id'], '<img src="'. avatar_url($comment['user'][0]['avatar']) .'" >', 'class="head_pic"') ?>
+					<p><?=anchor('personal/profile/' . $comment['user'][0]['id'], $comment['user'][0]['name']) ?>：<?=$comment['content']?><a href="#" class="reply"'>回复</a><br />
+					<small><?=$comment['time'] ?></small></p>
+					</li>
+				<?
+				} else {
+					echo 0;
+				}
 			}
 		}
 	} 

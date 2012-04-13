@@ -106,7 +106,7 @@ window.onload = function(){
 		<li>
 			<div>
 				<h3><?=$row['name'] ?></h3>
-				<img src="<?=$row['avatar']?>" />
+				<img src="<?=avatar_url($row['avatar'], 'personal', 'big') ?>" />
 			</div>
 		</li>
 		<? endforeach ?>
