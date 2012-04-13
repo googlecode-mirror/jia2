@@ -33,5 +33,11 @@
 			return $meta;
 		}
 		
-		
+		function insert($array) {
+			if($this->db->insert('corporation', $array)) {
+				return $this->db->insert_id();
+			} else {
+				return FALSE;
+			}
+		}
 	}
