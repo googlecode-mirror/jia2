@@ -2,5 +2,6 @@
  * @author Tiramisu
  */
 $(document).ready(function(){
-	$("content").attr("min-height","$(document.body).height()");
+	$("content").css("min-height","$(document.body).height()");
+	// $("content").style.min-height="$(document.body).height()";
 })
