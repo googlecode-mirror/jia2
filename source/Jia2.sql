@@ -3,7 +3,7 @@
 -- Server version:               5.5.16 - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-04-14 09:55:17
+-- Date/time:                    2012-04-14 10:02:19
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -53,21 +53,21 @@ CREATE TABLE IF NOT EXISTS `activity_auth` (
   CONSTRAINT `FK_activity_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.activity_auth: ~0 rows (approximately)
+-- Dumping data for table jia2.activity_auth: ~12 rows (approximately)
 /*!40000 ALTER TABLE `activity_auth` DISABLE KEYS */;
 REPLACE INTO `activity_auth` (`id`, `owner_id`, `identity_id`, `operation_id`, `access`) VALUES
-	(1, 6, 2, 1, 1),
-	(2, 6, 3, 1, 1),
-	(3, 6, 10, 1, 1),
-	(4, 6, 6, 1, 1),
-	(5, 6, 7, 1, 1),
-	(6, 6, 7, 2, 1),
-	(7, 6, 7, 3, 1),
-	(8, 6, 7, 4, 1),
-	(9, 6, 8, 1, 1),
-	(10, 6, 8, 2, 1),
-	(11, 6, 8, 3, 1),
-	(12, 6, 8, 4, 1);
+	(13, 7, 2, 1, 1),
+	(14, 7, 3, 1, 1),
+	(15, 7, 10, 1, 1),
+	(16, 7, 6, 1, 1),
+	(17, 7, 7, 1, 1),
+	(18, 7, 7, 2, 1),
+	(19, 7, 7, 3, 1),
+	(20, 7, 7, 4, 1),
+	(21, 7, 8, 1, 1),
+	(22, 7, 8, 2, 1),
+	(23, 7, 8, 3, 1),
+	(24, 7, 8, 4, 1);
 /*!40000 ALTER TABLE `activity_auth` ENABLE KEYS */;
 
 
@@ -171,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `comment_auth` (
   CONSTRAINT `FK_comment_auth_post_type` FOREIGN KEY (`type_id`) REFERENCES `post_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.comment_auth: ~33 rows (approximately)
+-- Dumping data for table jia2.comment_auth: ~46 rows (approximately)
 /*!40000 ALTER TABLE `comment_auth` DISABLE KEYS */;
 REPLACE INTO `comment_auth` (`id`, `owner_id`, `type_id`, `identity_id`, `operation_id`, `access`) VALUES
 	(14, 10, 1, 2, 1, 1),
@@ -206,7 +206,20 @@ REPLACE INTO `comment_auth` (`id`, `owner_id`, `type_id`, `identity_id`, `operat
 	(54, 13, 1, 4, 2, 1),
 	(55, 13, 1, 11, 1, 1),
 	(56, 13, 1, 11, 2, 1),
-	(57, 13, 1, 11, 4, 1);
+	(57, 13, 1, 11, 4, 1),
+	(58, 7, 3, 2, 1, 1),
+	(59, 7, 3, 3, 1, 1),
+	(60, 7, 3, 3, 2, 1),
+	(61, 7, 3, 5, 1, 1),
+	(62, 7, 3, 5, 2, 1),
+	(63, 7, 3, 5, 4, 1),
+	(64, 7, 3, 6, 1, 1),
+	(65, 7, 3, 6, 2, 1),
+	(66, 7, 3, 7, 1, 1),
+	(67, 7, 3, 7, 2, 1),
+	(68, 7, 3, 7, 4, 1),
+	(69, 7, 3, 10, 1, 1),
+	(70, 7, 3, 10, 2, 1);
 /*!40000 ALTER TABLE `comment_auth` ENABLE KEYS */;
 
 
@@ -225,10 +238,10 @@ CREATE TABLE IF NOT EXISTS `corporation` (
   CONSTRAINT `fk_corporations_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.corporation: ~0 rows (approximately)
+-- Dumping data for table jia2.corporation: ~1 rows (approximately)
 /*!40000 ALTER TABLE `corporation` DISABLE KEYS */;
 REPLACE INTO `corporation` (`id`, `name`, `school_id`, `user_id`, `avatar`, `comment`) VALUES
-	(6, '坑爹社团', 2, 11, 'default.jpg', '坑爹不解释');
+	(7, '坑爹社团', 1, 11, 'default.jpg', '坑爹不解释');
 /*!40000 ALTER TABLE `corporation` ENABLE KEYS */;
 
 
@@ -248,15 +261,15 @@ CREATE TABLE IF NOT EXISTS `corporation_auth` (
   CONSTRAINT `FK__identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='社团权限表';
 
--- Dumping data for table jia2.corporation_auth: ~0 rows (approximately)
+-- Dumping data for table jia2.corporation_auth: ~6 rows (approximately)
 /*!40000 ALTER TABLE `corporation_auth` DISABLE KEYS */;
 REPLACE INTO `corporation_auth` (`id`, `owner_id`, `identity_id`, `operation_id`, `access`) VALUES
-	(9, 6, 2, 1, 1),
-	(10, 6, 3, 1, 1),
-	(11, 6, 6, 1, 1),
-	(12, 6, 7, 1, 1),
-	(13, 6, 8, 1, 1),
-	(14, 6, 8, 3, 1);
+	(15, 7, 2, 1, 1),
+	(16, 7, 3, 1, 1),
+	(17, 7, 6, 1, 1),
+	(18, 7, 7, 1, 1),
+	(19, 7, 8, 1, 1),
+	(20, 7, 8, 3, 1);
 /*!40000 ALTER TABLE `corporation_auth` ENABLE KEYS */;
 
 
