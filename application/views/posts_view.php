@@ -4,7 +4,7 @@
 	<div class="article_one">
 		<?=anchor('personal/profile/' . $post['user'][0]['id'], '<img src="'. avatar_url($post['user'][0]['avatar']) .'">', 'class="head_pic"') ?>
 		<div class="article_sub_box">
-			<h4><a href="#"><?=$post['user'][0]['name']?></a>&nbsp;<?=$post['content']?></h4>
+			<h4><a href="<?=site_url('personal/profile/' . $post['user'][0]['id']) ?>"><?=$post['user'][0]['name']?></a>&nbsp;<?=$post['content']?></h4>
 			<p>
 				2分钟前 <a href="#">收起回复</a> | <a href="#">分享</a>
 			</p>

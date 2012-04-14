@@ -60,6 +60,10 @@
 		}
 		
 		function setting($id = '') {
-			static_view('这里将是社团信息设置页面，包括社团资料设置，头像设置，权限设置');
+			if($id = '' || !is_numeric($id)) {
+				static_view('未定义操作', '未定义操作');
+			} else {
+				$this->_auth('edit', 'corporation', $owner_id);
+			}
 		}
 	}

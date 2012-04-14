@@ -4,10 +4,6 @@
 			parent::__construct();
 		}
 		
-		function _auth() {
-			
-		}
-		
 		function index() {
 			
 		}

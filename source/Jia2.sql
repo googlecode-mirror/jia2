@@ -3,7 +3,7 @@
 -- Server version:               5.5.16 - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-04-07 21:36:35
+-- Date/time:                    2012-04-14 09:55:17
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS `activity` (
   PRIMARY KEY (`id`),
   KEY `fk_activities_users1` (`user_id`),
   KEY `fk_activities_corporations1` (`corporation_id`),
-  CONSTRAINT `fk_activities_corporation1` FOREIGN KEY (`corporation_id`) REFERENCES `corporation` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_activities_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_activities_corporation1` FOREIGN KEY (`corporation_id`) REFERENCES `corporation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_activities_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table jia2.activity: ~0 rows (approximately)
@@ -45,16 +45,29 @@ CREATE TABLE IF NOT EXISTS `activity_auth` (
   `operation_id` int(10) NOT NULL DEFAULT '0',
   `access` int(10) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
+  KEY `FK_activity_auth_activity` (`owner_id`),
   KEY `FK_activity_auth_identity` (`identity_id`),
   KEY `FK_activity_auth_operation` (`operation_id`),
-  KEY `FK_activity_auth_activity` (`owner_id`),
-  CONSTRAINT `FK_activity_auth_activity` FOREIGN KEY (`owner_id`) REFERENCES `corporation` (`id`),
-  CONSTRAINT `FK_activity_auth_identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`),
-  CONSTRAINT `FK_activity_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`)
+  CONSTRAINT `FK_activity_auth_activity` FOREIGN KEY (`owner_id`) REFERENCES `corporation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_activity_auth_identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_activity_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table jia2.activity_auth: ~0 rows (approximately)
 /*!40000 ALTER TABLE `activity_auth` DISABLE KEYS */;
+REPLACE INTO `activity_auth` (`id`, `owner_id`, `identity_id`, `operation_id`, `access`) VALUES
+	(1, 6, 2, 1, 1),
+	(2, 6, 3, 1, 1),
+	(3, 6, 10, 1, 1),
+	(4, 6, 6, 1, 1),
+	(5, 6, 7, 1, 1),
+	(6, 6, 7, 2, 1),
+	(7, 6, 7, 3, 1),
+	(8, 6, 7, 4, 1),
+	(9, 6, 8, 1, 1),
+	(10, 6, 8, 2, 1),
+	(11, 6, 8, 3, 1),
+	(12, 6, 8, 4, 1);
 /*!40000 ALTER TABLE `activity_auth` ENABLE KEYS */;
 
 
@@ -67,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `activity_meta` (
   `meta_value` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_activity_meta_activities1` (`activity_id`),
-  CONSTRAINT `fk_activity_meta_activity1` FOREIGN KEY (`activity_id`) REFERENCES `activity` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_activity_meta_activity1` FOREIGN KEY (`activity_id`) REFERENCES `activity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table jia2.activity_meta: ~0 rows (approximately)
@@ -86,11 +99,11 @@ CREATE TABLE IF NOT EXISTS `comment` (
   PRIMARY KEY (`id`),
   KEY `fk_comments_posts1` (`post_id`),
   KEY `fk_comments_users1` (`user_id`),
-  CONSTRAINT `fk_comments_post1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_comments_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_comments_post1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_comments_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.comment: ~18 rows (approximately)
+-- Dumping data for table jia2.comment: ~45 rows (approximately)
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
 REPLACE INTO `comment` (`id`, `post_id`, `user_id`, `content`, `time`, `status`) VALUES
 	(1, 15, 10, '泪流满面啊', '1333727643', 1),
@@ -110,7 +123,34 @@ REPLACE INTO `comment` (`id`, `post_id`, `user_id`, `content`, `time`, `status`)
 	(15, 17, 11, '尼玛每天早上都起 ', '1333757784', 1),
 	(16, 20, 11, '风格啊', '1333761945', 1),
 	(17, 14, 11, '阿尔和他', '1333761948', 1),
-	(18, 17, 11, '自己肯定能给自己回复撒', '1333761974', 1);
+	(18, 17, 11, '自己肯定能给自己回复撒', '1333761974', 1),
+	(19, 20, 11, '几把', '1333806417', 1),
+	(20, 21, 11, 'dd', '1333853845', 1),
+	(21, 21, 11, 'gg', '1333853848', 1),
+	(22, 21, 11, 'rr', '1333853850', 1),
+	(23, 20, 11, 're', '1333853857', 1),
+	(24, 20, 11, 'tewtw', '1333853859', 1),
+	(25, 19, 11, 'rw', '1333853862', 1),
+	(26, 34, 11, '回复一下看看', '1334063597', 1),
+	(27, 34, 11, '个人主页', '1334063604', 1),
+	(28, 34, 11, '回复', '1334063630', 1),
+	(29, 15, 11, 'ceshi ', '1334065431', 1),
+	(30, 35, 11, '测试ajax返回', '1334134802', 1),
+	(31, 34, 11, '测试返回', '1334134851', 1),
+	(32, 10, 11, '这尼玛！必须要成功！', '1334134915', 1),
+	(33, 22, 11, '这尼玛什么状况！', '1334134940', 1),
+	(34, 22, 11, '没见过老子刷评论！', '1334134951', 1),
+	(35, 22, 11, '老子就是没见过怎么了！怎么了！', '1334134961', 1),
+	(36, 35, 11, '老子来试看看ajax喃', '1334137345', 1),
+	(37, 35, 11, '这种岩石爽！', '1334224276', 1),
+	(38, 35, 11, '我喜欢这种的！ \'你妹啊\'', '1334239113', 1),
+	(39, 35, 11, '这是个什么状况', '1334309262', 1),
+	(40, 34, 11, '再试一次', '1334309330', 1),
+	(41, 15, 11, '尼玛！', '1334309997', 1),
+	(42, 15, 11, '', '1334310003', 1),
+	(43, 15, 11, '', '1334310005', 1),
+	(44, 14, 11, '这尼玛', '1334310349', 1),
+	(45, 35, 11, '这尼玛是什么情况！', '1334366045', 1);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 
 
@@ -126,12 +166,12 @@ CREATE TABLE IF NOT EXISTS `comment_auth` (
   KEY `FK_comment_auth_identity` (`identity_id`),
   KEY `FK_comment_auth_operation` (`operation_id`),
   KEY `FK_comment_auth_post_type` (`type_id`),
-  CONSTRAINT `FK_comment_auth_identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`),
-  CONSTRAINT `FK_comment_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`),
-  CONSTRAINT `FK_comment_auth_post_type` FOREIGN KEY (`type_id`) REFERENCES `post_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK_comment_auth_identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_comment_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_comment_auth_post_type` FOREIGN KEY (`type_id`) REFERENCES `post_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.comment_auth: ~22 rows (approximately)
+-- Dumping data for table jia2.comment_auth: ~33 rows (approximately)
 /*!40000 ALTER TABLE `comment_auth` DISABLE KEYS */;
 REPLACE INTO `comment_auth` (`id`, `owner_id`, `type_id`, `identity_id`, `operation_id`, `access`) VALUES
 	(14, 10, 1, 2, 1, 1),
@@ -155,7 +195,18 @@ REPLACE INTO `comment_auth` (`id`, `owner_id`, `type_id`, `identity_id`, `operat
 	(32, 11, 1, 4, 2, 1),
 	(33, 11, 1, 11, 1, 1),
 	(34, 11, 1, 11, 2, 1),
-	(35, 11, 1, 11, 4, 1);
+	(35, 11, 1, 11, 4, 1),
+	(47, 13, 1, 2, 1, 1),
+	(48, 13, 1, 3, 1, 1),
+	(49, 13, 1, 3, 2, 1),
+	(50, 13, 1, 5, 1, 1),
+	(51, 13, 1, 5, 2, 1),
+	(52, 13, 1, 5, 4, 1),
+	(53, 13, 1, 4, 1, 1),
+	(54, 13, 1, 4, 2, 1),
+	(55, 13, 1, 11, 1, 1),
+	(56, 13, 1, 11, 2, 1),
+	(57, 13, 1, 11, 4, 1);
 /*!40000 ALTER TABLE `comment_auth` ENABLE KEYS */;
 
 
@@ -170,12 +221,14 @@ CREATE TABLE IF NOT EXISTS `corporation` (
   PRIMARY KEY (`id`),
   KEY `fk_corporations_school1` (`school_id`),
   KEY `fk_corporations_users1` (`user_id`),
-  CONSTRAINT `fk_corporations_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_corporations_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_corporations_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_corporations_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table jia2.corporation: ~0 rows (approximately)
 /*!40000 ALTER TABLE `corporation` DISABLE KEYS */;
+REPLACE INTO `corporation` (`id`, `name`, `school_id`, `user_id`, `avatar`, `comment`) VALUES
+	(6, '坑爹社团', 2, 11, 'default.jpg', '坑爹不解释');
 /*!40000 ALTER TABLE `corporation` ENABLE KEYS */;
 
 
@@ -187,16 +240,23 @@ CREATE TABLE IF NOT EXISTS `corporation_auth` (
   `operation_id` int(10) NOT NULL DEFAULT '0',
   `access` int(10) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `FK__identity` (`identity_id`),
-  KEY `FK_corporation_auth_operation` (`operation_id`),
   KEY `FK_corporation_auth_corporation` (`owner_id`),
-  CONSTRAINT `FK_corporation_auth_corporation` FOREIGN KEY (`owner_id`) REFERENCES `corporation` (`id`),
-  CONSTRAINT `FK_corporation_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`),
-  CONSTRAINT `FK__identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='社团权限表';
+  KEY `FK_corporation_auth_operation` (`operation_id`),
+  KEY `FK__identity` (`identity_id`),
+  CONSTRAINT `FK_corporation_auth_corporation` FOREIGN KEY (`owner_id`) REFERENCES `corporation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_corporation_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK__identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='社团权限表';
 
 -- Dumping data for table jia2.corporation_auth: ~0 rows (approximately)
 /*!40000 ALTER TABLE `corporation_auth` DISABLE KEYS */;
+REPLACE INTO `corporation_auth` (`id`, `owner_id`, `identity_id`, `operation_id`, `access`) VALUES
+	(9, 6, 2, 1, 1),
+	(10, 6, 3, 1, 1),
+	(11, 6, 6, 1, 1),
+	(12, 6, 7, 1, 1),
+	(13, 6, 8, 1, 1),
+	(14, 6, 8, 3, 1);
 /*!40000 ALTER TABLE `corporation_auth` ENABLE KEYS */;
 
 
@@ -209,7 +269,7 @@ CREATE TABLE IF NOT EXISTS `corporation_meta` (
   `meta_value` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_corporation_meta_corporations1` (`corporation_id`),
-  CONSTRAINT `fk_corporation_meta_corporation1` FOREIGN KEY (`corporation_id`) REFERENCES `corporation` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_corporation_meta_corporation1` FOREIGN KEY (`corporation_id`) REFERENCES `corporation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='社团变化表';
 
 -- Dumping data for table jia2.corporation_meta: ~0 rows (approximately)
@@ -251,8 +311,8 @@ CREATE TABLE IF NOT EXISTS `message` (
   PRIMARY KEY (`id`),
   KEY `fk_messages_message_type1` (`type_id`),
   KEY `fk_messages_users1` (`user_id`),
-  CONSTRAINT `fk_messages_message_type1` FOREIGN KEY (`type_id`) REFERENCES `message_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_messages_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_messages_message_type1` FOREIGN KEY (`type_id`) REFERENCES `message_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_messages_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table jia2.message: ~0 rows (approximately)
@@ -269,7 +329,7 @@ CREATE TABLE IF NOT EXISTS `message_meta` (
   `meta_value` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_messsage_meta_messages1` (`message_id`),
-  CONSTRAINT `fk_messsage_meta_message1` FOREIGN KEY (`message_id`) REFERENCES `message` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_messsage_meta_message1` FOREIGN KEY (`message_id`) REFERENCES `message` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table jia2.message_meta: ~0 rows (approximately)
@@ -320,10 +380,10 @@ CREATE TABLE IF NOT EXISTS `post` (
   PRIMARY KEY (`id`),
   KEY `fk_post_post_type1` (`type_id`),
   KEY `fk_post_users1` (`owner_id`),
-  CONSTRAINT `fk_post_post_type1` FOREIGN KEY (`type_id`) REFERENCES `post_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_post_post_type1` FOREIGN KEY (`type_id`) REFERENCES `post_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.post: ~11 rows (approximately)
+-- Dumping data for table jia2.post: ~16 rows (approximately)
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
 REPLACE INTO `post` (`id`, `type_id`, `owner_id`, `title`, `content`, `image`, `time`, `status`) VALUES
 	(1, 1, 5, '0', '测试帖', NULL, NULL, NULL),
@@ -336,7 +396,12 @@ REPLACE INTO `post` (`id`, `type_id`, `owner_id`, `title`, `content`, `image`, `
 	(17, 1, 11, NULL, '王尼玛每天早上都起来跑步,跑完步后在公园的凳子上睡个小觉,这天王尼玛又跑完步了,在公园的凳子上睡觉,这时来了一个基佬, 看着王尼玛长的挺俊的, 于是就把王尼玛XXX了', NULL, '1333714497', 1),
 	(18, 1, 11, NULL, '这尼玛坑爹呐是吧!', NULL, '1333715483', 1),
 	(19, 1, 10, NULL, '王尼玛每天早上都起来跑步,然后 CCC', NULL, '1333728932', 1),
-	(20, 1, 11, NULL, '这尼玛是什么情况!', NULL, '1333760070', 1);
+	(20, 1, 11, NULL, '这尼玛是什么情况!', NULL, '1333760070', 1),
+	(21, 1, 11, NULL, 'fgsh', NULL, '1333853832', 1),
+	(22, 1, 11, NULL, 'gdgd', NULL, '1333853921', 1),
+	(34, 1, 11, NULL, 'yjem', NULL, '1333900933', 1),
+	(35, 1, 11, NULL, '这尼玛是神马情况！', NULL, '1334109378', 1),
+	(36, 1, 13, NULL, '来发一条看看喃', NULL, '1334366637', 1);
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 
 
@@ -351,12 +416,12 @@ CREATE TABLE IF NOT EXISTS `post_auth` (
   KEY `FK_post_auth_identity` (`identity_id`),
   KEY `FK_post_auth_operation` (`operation_id`),
   KEY `FK_post_auth_user` (`owner_id`),
-  CONSTRAINT `FK_post_auth_identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`),
-  CONSTRAINT `FK_post_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`),
-  CONSTRAINT `FK_post_auth_user` FOREIGN KEY (`owner_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COMMENT='帖子查看权限验证';
+  CONSTRAINT `FK_post_auth_identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_post_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_post_auth_user` FOREIGN KEY (`owner_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COMMENT='帖子查看权限验证';
 
--- Dumping data for table jia2.post_auth: ~12 rows (approximately)
+-- Dumping data for table jia2.post_auth: ~18 rows (approximately)
 /*!40000 ALTER TABLE `post_auth` DISABLE KEYS */;
 REPLACE INTO `post_auth` (`id`, `owner_id`, `identity_id`, `operation_id`, `access`) VALUES
 	(21, 10, 2, 1, 1),
@@ -370,7 +435,13 @@ REPLACE INTO `post_auth` (`id`, `owner_id`, `identity_id`, `operation_id`, `acce
 	(29, 11, 4, 1, 1),
 	(30, 11, 5, 1, 1),
 	(31, 11, 5, 2, 1),
-	(32, 11, 5, 4, 1);
+	(32, 11, 5, 4, 1),
+	(39, 13, 2, 1, 1),
+	(40, 13, 3, 1, 1),
+	(41, 13, 4, 1, 1),
+	(42, 13, 5, 1, 1),
+	(43, 13, 5, 2, 1),
+	(44, 13, 5, 4, 1);
 /*!40000 ALTER TABLE `post_auth` ENABLE KEYS */;
 
 
@@ -383,7 +454,7 @@ CREATE TABLE IF NOT EXISTS `post_meta` (
   `meta_value` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_post_meta_posts1` (`post_id`),
-  CONSTRAINT `fk_post_meta_post1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_post_meta_post1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table jia2.post_meta: ~0 rows (approximately)
@@ -412,10 +483,12 @@ CREATE TABLE IF NOT EXISTS `province` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.province: ~0 rows (approximately)
+-- Dumping data for table jia2.province: ~1 rows (approximately)
 /*!40000 ALTER TABLE `province` DISABLE KEYS */;
+REPLACE INTO `province` (`id`, `name`) VALUES
+	(1, '四川省');
 /*!40000 ALTER TABLE `province` ENABLE KEYS */;
 
 
@@ -426,11 +499,14 @@ CREATE TABLE IF NOT EXISTS `school` (
   `province_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_school_province1` (`province_id`),
-  CONSTRAINT `fk_school_province1` FOREIGN KEY (`province_id`) REFERENCES `province` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_school_province1` FOREIGN KEY (`province_id`) REFERENCES `province` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.school: ~0 rows (approximately)
+-- Dumping data for table jia2.school: ~2 rows (approximately)
 /*!40000 ALTER TABLE `school` DISABLE KEYS */;
+REPLACE INTO `school` (`id`, `name`, `province_id`) VALUES
+	(1, '四川大学', 1),
+	(2, '成都信息工程学院', 1);
 /*!40000 ALTER TABLE `school` ENABLE KEYS */;
 
 
@@ -450,17 +526,18 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `fk_users_entity_user_type` (`type_id`),
   KEY `fk_users_province1` (`province_id`),
   KEY `fk_users_school1` (`school_id`),
-  CONSTRAINT `fk_users_entity_user_type` FOREIGN KEY (`type_id`) REFERENCES `user_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_users_province1` FOREIGN KEY (`province_id`) REFERENCES `province` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_users_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_users_entity_user_type` FOREIGN KEY (`type_id`) REFERENCES `user_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_users_province1` FOREIGN KEY (`province_id`) REFERENCES `province` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_users_school1` FOREIGN KEY (`school_id`) REFERENCES `school` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.user: ~3 rows (approximately)
+-- Dumping data for table jia2.user: ~4 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 REPLACE INTO `user` (`id`, `name`, `email`, `pass`, `type_id`, `school_id`, `province_id`, `avatar`, `gender`) VALUES
 	(3, 'Tuzki', 'rabbitzhang52@yahoo.com', 'e18d959268ead9d3caf501969715e3d0', 1, NULL, NULL, 'default.jpg', 1),
 	(10, 'zhanghui', 'rabbitzhang52@gmail.com', 'e18d959268ead9d3caf501969715e3d0', 2, NULL, NULL, 'default.jpg', 1),
-	(11, '张晖', 'rabbitzhang52@qq.com', 'e18d959268ead9d3caf501969715e3d0', 2, NULL, NULL, '11.jpg', 1);
+	(11, '张晖', 'rabbitzhang52@qq.com', 'e18d959268ead9d3caf501969715e3d0', 2, NULL, NULL, '11.jpg', 1),
+	(13, '兔子张', 'rabbitzhang52@163.com', 'e18d959268ead9d3caf501969715e3d0', 2, NULL, NULL, '13.jpg', 1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 
@@ -473,14 +550,15 @@ CREATE TABLE IF NOT EXISTS `user_meta` (
   `meta_value` varchar(45) DEFAULT NULL COMMENT '可以为空',
   PRIMARY KEY (`id`),
   KEY `fk_user_meta_users1` (`user_id`),
-  CONSTRAINT `fk_jia2_user_meta_jia2_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_jia2_user_meta_jia2_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.user_meta: ~2 rows (approximately)
+-- Dumping data for table jia2.user_meta: ~3 rows (approximately)
 /*!40000 ALTER TABLE `user_meta` DISABLE KEYS */;
 REPLACE INTO `user_meta` (`id`, `user_id`, `meta_table`, `meta_key`, `meta_value`) VALUES
 	(2, 11, 'user', 'friend', '11'),
-	(4, 11, 'user', 'friend', '10');
+	(4, 11, 'user', 'friend', '10'),
+	(5, 10, 'user', 'friend', '11');
 /*!40000 ALTER TABLE `user_meta` ENABLE KEYS */;
 
 

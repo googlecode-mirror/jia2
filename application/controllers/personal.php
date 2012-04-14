@@ -56,6 +56,7 @@
 			}
 			$privacy['post'] = $privacy['post'] ? $privacy['post'] : 'self';
 			$privacy['comment'] = $privacy['comment'] ? $privacy['comment'] : 'self';
+			$data['info'] = $this->User_model->get_info((int)$this->session->userdata('id'));
 			$data['title'] = '账户设置';
 			$data['privacy'] = $privacy;
 			$data['info'] = $this->User_model->get_info((int)$this->session->userdata('id'));
@@ -99,29 +100,29 @@
 						case 'guest':
 							$post_access_array = array(
 								array('identity' => 'guest', 'operation' => 'view', 'access' => 1),
-								array('identity' => 'register', 'opetarion' => 'view', 'access' => 1),
-								array('identity' => 'friend', 'opetarion' => 'view', 'access' => 1)
+								array('identity' => 'register', 'operation' => 'view', 'access' => 1),
+								array('identity' => 'friend', 'operation' => 'view', 'access' => 1)
 							);
 							break;
 						case 'register':
 							$post_access_array = array(
 								array('identity' => 'guest', 'operation' => 'view', 'access' => 0),
-								array('identity' => 'register', 'opetarion' => 'view', 'access' => 1),
-								array('identity' => 'friend', 'opetarion' => 'view', 'access' => 1)
+								array('identity' => 'register', 'operation' => 'view', 'access' => 1),
+								array('identity' => 'friend', 'operation' => 'view', 'access' => 1)
 							);
 							break;
 						case 'friend':
 							$post_access_array = array(
 								array('identity' => 'guest', 'operation' => 'view', 'access' => 0),
-								array('identity' => 'register', 'opetarion' => 'view', 'access' => 0),
-								array('identity' => 'friend', 'opetarion' => 'view', 'access' => 1)
+								array('identity' => 'register', 'operation' => 'view', 'access' => 0),
+								array('identity' => 'friend', 'operation' => 'view', 'access' => 1)
 							);
 							break;
 						case 'self':
 							$post_access_array = array(
 								array('identity' => 'guest', 'operation' => 'view', 'access' => 0),
-								array('identity' => 'register', 'opetarion' => 'view', 'access' => 0),
-								array('identity' => 'friend', 'opetarion' => 'view', 'access' => 0)
+								array('identity' => 'register', 'operation' => 'view', 'access' => 0),
+								array('identity' => 'friend', 'operation' => 'view', 'access' => 0)
 							);
 							break;
 						default:
@@ -131,27 +132,27 @@
 					switch ($comment) {
 						case 'register':
 							$comment_access_array = array(
-								array('identity' => 'register', 'opetarion' => 'add', 'access' => 1),
-								array('identity' => 'friend', 'opetarion' => 'add', 'access' => 1)
+								array('identity' => 'register', 'operation' => 'add', 'access' => 1),
+								array('identity' => 'friend', 'operation' => 'add', 'access' => 1)
 							);
 							break;
 						case 'friend':
 							$comment_access_array = array(
-								array('identity' => 'register', 'opetarion' => 'add', 'access' => 0),
-								array('identity' => 'friend', 'opetarion' => 'add', 'access' => 1)
+								array('identity' => 'register', 'operation' => 'add', 'access' => 0),
+								array('identity' => 'friend', 'operation' => 'add', 'access' => 1)
 							);
 							break;
 						case 'self':
 							$comment_access_array = array(
-								array('identity' => 'register', 'opetarion' => 'add', 'access' => 0),
-								array('identity' => 'friend', 'opetarion' => 'add', 'access' => 0)
+								array('identity' => 'register', 'operation' => 'add', 'access' => 0),
+								array('identity' => 'friend', 'operation' => 'add', 'access' => 0)
 							);
 							break;
 						default:
 							static_view('亲, 请不要恶意篡改表单好嘛~, 给你个机会, ' . anchor('personal/setting#privacy', '重新设置'));
 					}
 					$post_access->set_access($this->user_id, $post_access_array);
-					$comment_access->set_access($this->user_id, $post_access_array, 'personal');
+					$comment_access->set_access($this->user_id, $comment_access_array, 'personal');
 					break;
 					
 				case 'pass':
@@ -194,6 +195,7 @@
 					echo json_encode($json_array);
 				break;
 			}
+			redirect('personal/setting');
 		}
 		
 		function add_friend() {
