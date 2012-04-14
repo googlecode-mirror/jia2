@@ -1,8 +1,8 @@
 <div class="container">
 	<div class="content_main">
 		<div class="main_top">
-			<a href="#" class="head_pic"><img src="<?=avatar_url($this->session->userdata('avatar'), 'personal', 'big') ?>" /> 
-			<div class="clear"></div><h4><?=$this->session->userdata('name')?></h4> </a>
+			<a href="#" class="head_pic"><img src="<?=avatar_url($info[0]['avatar'], 'personal', 'big') ?>" /> 
+			<div class="clear"></div><h4><?=$info[0]['name'] ?></h4> </a>
 			<div class="pub">
 				<div  class="tab">
 					<ul>
@@ -44,19 +44,16 @@
 					</div>
 					<div id="ccc02" class="hidden">
 						<h4 class="set_title">设置新头像</h4>
-						<p><a href="#">使用照片</a>&nbsp; |&nbsp; <a href="#">使用摄像头</a><br />
-							支持JPG、JPEG、GIF、BMP和PNG文件，最大4M。
+							支持JPG、JPEG、GIF和PNG文件，最大2M。
 						</p>
-						<a href="#" class="button" id="uploading">上传头像</a>
 						<?=form_open_multipart('personal/do_setting') ?>
 						<?=form_upload('userfile','class="button"') ?>
 						<?=form_hidden('setting', 'avatar') ?>
 						<?=form_submit('submit', '上传') ?>
 						<?=form_close() ?>
-						<p>使用真实姓名，上传真实头像，成为星级用户</p>
 						
 						<h4 class="set_title">当前头像</h4>
-						<a href="#" class="head_pic"><img src="<?=avatar_url($this->session->userdata('avatar'), 'big') ?>" /> </a>
+						<img src="<?=avatar_url($info[0]['avatar'], 'personal', 'big') ?>" />
 					</div>
 					<div id="ccc03" class="hidden">
 						<h4 class="set_title">修改密码</h4>

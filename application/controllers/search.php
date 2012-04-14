@@ -14,9 +14,15 @@
 			$data['js'] = array('search.js','tab.js');
 			if($this->input->post('keywords')) {
 				$user_result = $this->_user();
-				$data['user_rows'] = $user_result['rows'];
+				$user_rows = $user_result['rows'];
+				$corporation_result = $this->_corporation();
+				$corporation_rows = $corporation_result['rows'];
+				unset($corporation_result['rows']);
 				unset($user_result['rows']);
 				$data['user_result'] = $user_result;
+				$data['user_rows'] = $user_rows;
+				$data['corporation_result'] = $corporation_result;
+				$data['corporation_rows'] = $corporation_rows;
 			}
 			$this->load->view('includes/template_view', $data);
 		}
@@ -54,6 +60,9 @@
 					// 三个都搜索
 					$user_result = $this->_user();
 					$user_rows = $user_result['rows'];
+					$corporation_result = $this->_corporation();
+					$corporation_rows = $corporation_result['rows'];
+					unset($corporation_result['rows']);
 					unset($user_result['rows']);
 					foreach($user_result as $row) {
 					?>
@@ -61,6 +70,16 @@
 						<div>
 							<h3><?=$row['name'] ?></h3>
 							<img src="<?=avatar_url($row['avatar'], 'personal', 'big') ?>" />
+						</div>
+					</li>
+					<?
+					}
+					foreach($corporation_result as $row) {
+					?>
+					<li>
+						<div>
+							<h3><?=$row['name'] ?></h3>
+							<img src="<?=avatar_url($row['avatar'], 'corporation', 'big') ?>" />
 						</div>
 					</li>
 					<?
@@ -84,7 +103,17 @@
 		}
 		
 		function _corporation() {
-			
+			$keywords = $this->input->post('keywords');
+			$offset = $this->input->post('offset');
+			$this->jiadb->_table = 'corporation';
+			$where = array('name REGEXP' => $keywords);
+			$corporation_result = $this->jiadb->fetchAll($where, '', array($this->limit, $offset));
+			if($corporation_result) {
+				$corporation_result['rows'] = count_rows('corporation', $where);
+			} else {
+				$corporation_result['rows'] = 0;
+			}
+			return $corporation_result;
 		}
 		
 		function _activity() {

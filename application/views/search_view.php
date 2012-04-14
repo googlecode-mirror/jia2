@@ -44,8 +44,6 @@ window.onload = function(){
 			<div id="search-bar">
 			<?=form_input('keywords','','class="serch_input"') ?>
 			<?=form_button('search', '搜索','class="serch_button"') ?>
-			<a>高级搜索</a>
-			
 			</div>
 		</div>
 		<div id="search_item">
@@ -67,16 +65,50 @@ window.onload = function(){
 			</div>
 		</div>
 		<div id="search_result_01" class="search_result">
-			<h4>人名 <span>100+条结果</span></h4>
+			<h4>人名 <span><?=$user_rows ?>条结果</span></h4>
 			<ul id="user-result">
-				<li>
-					<a href="#" class="head_pic"> <img /></a>
-					<div class="li_mbox"><h3><a href="#">张晖</a></h3>
-						成都信息工程大学<br />
-						启明拓展协会<br />
-					</div>
-					<a href="#" class="li_r">加为好友</a>
-				</li>
+					<? if(isset($user_result)): ?>
+					<? foreach($user_result as $row): ?>
+					<li>
+						<?=anchor('personal/profile/' . $row['id'], '<img src="' . avatar_url($row['avatar'], 'personal', 'big') . '">', 'class="head_pic"') ?>
+						<div class="li_mbox">
+							<h3><?=anchor('personal/profile/' . $row['id'], $row['name']) ?></h3>
+							
+						</div>
+						<a href="#" class="li_r">加为好友</a>
+					</li>
+					<? endforeach ?>
+					<? endif ?>
+			</ul>
+			<h4>社团 <span><?=$corporation_rows ?>条结果</span></h4>
+			<ul id="corporation-result">
+					<? if(isset($corporation_result)): ?>
+					<? foreach($corporation_result as $row): ?>
+					<li>
+						<?=anchor('corporation/profile/' . $row['id'], '<img src="' . avatar_url($row['avatar'], 'corporation', 'big') . '">', 'class="head_pic"') ?>
+						<div class="li_mbox">
+							<h3><?=anchor('corporation/profile/' . $row['id'], $row['name']) ?></h3>
+							
+						</div>
+						
+					</li>
+					<? endforeach ?>
+					<? endif ?>
+			</ul>
+			<h4>活动 <span>0条结果</span></h4>
+			<ul id="activity-result">
+					<? if(isset($activity_result)): ?>
+					<? foreach($activity_result as $row): ?>
+					<li>
+						<?=anchor('personal/profile/' . $row['id'], '<img src="' . avatar_url($row['avatar'], 'personal', 'big') . '">', 'class="head_pic"') ?>
+						<div class="li_mbox">
+							<h3><?=anchor('personal/profile/' . $row['id'], $row['name']) ?></h3>
+							
+						</div>
+						<a href="#" class="li_r">加为好友</a>
+					</li>
+					<? endforeach ?>
+					<? endif ?>
 			</ul>
 		</div>
 		<div id="search_result_02" class="hidden search_result">
@@ -93,23 +125,3 @@ window.onload = function(){
 	
 	</div>
 </div>
-
-<!--
-<div id="search-bar">
-	<?=form_input('keywords') ?>
-	<?=form_button('search', '搜索') ?>
-</div>
-<div id="search-result">
-	<ul id="user-result">
-		<? if(isset($user_result)): ?>
-		<? foreach($user_result as $row): ?>
-		<li>
-			<div>
-				<h3><?=$row['name'] ?></h3>
-				<img src="<?=avatar_url($row['avatar'], 'personal', 'big') ?>" />
-			</div>
-		</li>
-		<? endforeach ?>
-		<? endif ?>
-	</ul>
-</div>-->

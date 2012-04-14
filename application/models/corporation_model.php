@@ -35,7 +35,12 @@
 		
 		function insert($array) {
 			if($this->db->insert('corporation', $array)) {
-				return $this->db->insert_id();
+				$corporation_id = $this->db->insert_id();
+				$corporation_access = Access_factory::get_access('corporation');
+				$activity_access = Access_factory::get_access('activity');
+				$corporation_access->init($corporation_id);
+				$activity_access->init($corporation_id);
+				return $corporation_id;
 			} else {
 				return FALSE;
 			}

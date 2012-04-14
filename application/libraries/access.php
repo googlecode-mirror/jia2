@@ -82,8 +82,8 @@
 		function set_access($id, array $access, $extend = array()) {
 			foreach ($access as $row) {
 				$this->CI->db->where('owner_id', $id);
-				$this->db->where('identity_id', $this->identity_array[$row['iedntity']]);
-				$this->db->where('operation_id', $this->operation_array[$row['operation']]);
+				$this->CI->db->where('identity_id', $this->identity_array[$row['identity']]);
+				$this->CI->db->where('operation_id', $this->operation_array[$row['operation']]);
 				if($extend) {
 					$this->CI->db->where($extend);
 				}
@@ -99,13 +99,13 @@
 		}
 		
 		function init($user_id) {
-			$inti_array = array(
+			$init_array = array(
 				'guest' => array('view'),
 				'register' => array('view'),
 				'friend' => array('view'),
 				'self' => array('view', 'add', 'delete')
 			);
-			parent::init($user_id, $inti_array);
+			parent::init($user_id, $init_array);
 		}
 	}
 	
@@ -140,7 +140,6 @@
 			$type_id = $post_type_result[0]['id'];
 			$extend = array('type_id' => $type_id);
 			parent::init($owner_id, $array, $extend);
-			
 		}
 		
 		function set_access($id, $access = array(), $post_type) {
@@ -149,7 +148,7 @@
 			$extend = array(
 				'type_id' => $result[0]['id']
 			);
-			parent::set_access($id, $access, $result);
+			parent::set_access($id, $access, $extend);
 		}
 	}
 	
@@ -158,11 +157,35 @@
 			$this->table = 'activity_auth';
 			parent::__construct();
 		}
+		
+		function init($corporation_id) {
+			$init_array = array(
+				'guest' => array('view'),
+				'register' => array('view'),
+				'participant' => array('view'),
+				'co_member' => array('view'),
+				'co_admin' => array('view', 'add', 'edit', 'delete'),
+				'co_master' => array('view', 'add','edit', 'delete')
+			);
+			parent::init($corporation_id, $init_array);
+		}
 	}
 	
 	class Corporation_access extends Access {
 		function __construct() {
 			$this->table = 'corporation_auth';
 			parent::__construct();
+		}
+		
+		// 社团权限初始化
+		function init($corporation_id) {
+			$init_array = array(
+				'guest' => array('view'),
+				'register' => array('view'),
+				'co_member' => array('view'),
+				'co_admin' => array('view'),
+				'co_master' => array('view', 'edit')
+			);
+			parent::init($corporation_id, $init_array);
 		}
 	}
