@@ -38,6 +38,8 @@
 				$corporation_id = $this->db->insert_id();
 				$corporation_access = Access_factory::get_access('corporation');
 				$activity_access = Access_factory::get_access('activity');
+				$comment_access = Access_factory::get_access('comment');
+				$comment_access->init($corporation_id, 'activity');
 				$corporation_access->init($corporation_id);
 				$activity_access->init($corporation_id);
 				return $corporation_id;
