@@ -24,7 +24,7 @@
 			$data['title'] = 'Jia2 这里是游客页面';
 				$data['css'] = array('common.css','index.css','guest.css');
 				$data['js'] = array('tab.js');
-				$data['main_content'] = 'static_view';
+				$data['main_content'] = 'guest_view';
 				$this->load->view('includes/template_view', $data);
 		}
 		
