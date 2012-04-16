@@ -38,6 +38,8 @@
 		}
 		
 		function do_add() {
+			$this->_require_login();
+			$this->_auth('add', 'corporation', $this->session->userdata('id'));
 			$name = $this->input->post('name');
 			$school_id = $this->input->post('school');
 			$user_id = $this->input->post('master');
@@ -60,10 +62,17 @@
 		}
 		
 		function setting($id = '') {
+			$this->_require_login();
 			if($id = '' || !is_numeric($id)) {
 				static_view('未定义操作', '未定义操作');
 			} else {
-				$this->_auth('edit', 'corporation', $owner_id);
+				$corporation_info = $this->Corporation_model->get_info($id);
+				if($corporation_info) {
+					$this->_auth('edit', 'corporation', $id);
+					static_view('社团设置页面');
+				} else {
+					static_view('社团不存在');
+				}
 			}
 		}
 	}
