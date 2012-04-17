@@ -17,12 +17,17 @@
 				$user_rows = $user_result['rows'];
 				$corporation_result = $this->_corporation();
 				$corporation_rows = $corporation_result['rows'];
+				$activity_result = $this->_activity();
+				$activity_rows = $activity_result['rows'];
+				unset($activity_result['rows']);
 				unset($corporation_result['rows']);
 				unset($user_result['rows']);
 				$data['user_result'] = $user_result;
 				$data['user_rows'] = $user_rows;
 				$data['corporation_result'] = $corporation_result;
 				$data['corporation_rows'] = $corporation_rows;
+				$data['activity_result'] = $activity_result;
+				$data['activity_rows'] = $activity_rows;
 			}
 			$this->load->view('includes/template_view', $data);
 		}
@@ -62,8 +67,11 @@
 					$user_rows = $user_result['rows'];
 					$corporation_result = $this->_corporation();
 					$corporation_rows = $corporation_result['rows'];
+					$activity_result = $this->_activity();
+					$activity_result = $corporation_result['rows'];
 					unset($corporation_result['rows']);
 					unset($user_result['rows']);
+					unset($activity_result['rows']);
 					foreach($user_result as $row) {
 					?>
 					<li>
@@ -80,6 +88,16 @@
 						<div>
 							<h3><?=$row['name'] ?></h3>
 							<img src="<?=avatar_url($row['avatar'], 'corporation', 'big') ?>" />
+						</div>
+					</li>
+					<?
+					}
+					foreach($activity_result as $row) {
+					?>
+					<li>
+						<div>
+							<h3><?=$row['name'] ?></h3>
+							<img src="<?=avatar_url($row['corporation'][0]['avatar'], 'corporation', 'big') ?>" />
 						</div>
 					</li>
 					<?
@@ -120,7 +138,20 @@
 		
 		// 搜索活动
 		function _activity() {
-			
+			$keywords = $this->input->post('keywords');
+			$offset = $this->input->post('offset');
+			$this->jiadb->_table = 'activity';
+			$where = array('name REGEXP' => $keywords);
+			$join = array(
+				'corporation' => array('corporation_id', 'id')
+			);
+			$activity_result = $this->jiadb->fetchJoin($where, $join, '', array($this->limit, $offset));
+			if($activity_result) {
+				$activity_result['rows'] = count_rows('activity', $where);
+			} else {
+				$activity_result['rows'] = 0;
+			}
+			return $activity_result;
 		}
 		
 		// 返回json格式的数据，用于表单自动完成
