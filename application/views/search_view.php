@@ -62,17 +62,16 @@ window.onload = function(){
 					<? endforeach ?>
 					<? endif ?>
 			</ul>
-			<h4>活动 <span>0条结果</span></h4>
+			<h4>活动 <span><?=$activity_rows ?>条结果</span></h4>
 			<ul id="activity-result">
 					<? if(isset($activity_result)): ?>
 					<? foreach($activity_result as $row): ?>
 					<li>
-						<?=anchor('personal/profile/' . $row['id'], '<img src="' . avatar_url($row['avatar'], 'personal', 'big') . '">', 'class="head_pic"') ?>
+						<?=anchor('activity/view/' . $row['id'], '<img src="' . avatar_url($row['corporation'][0]['avatar'], 'corporation', 'big') . '">', 'class="head_pic"') ?>
 						<div class="li_mbox">
-							<h3><?=anchor('personal/profile/' . $row['id'], $row['name']) ?></h3>
+							<h3><?=anchor('activity/view/' . $row['id'], $row['name']) ?></h3>
 							
 						</div>
-						<a href="#" class="li_r">加为好友</a>
 					</li>
 					<? endforeach ?>
 					<? endif ?>
