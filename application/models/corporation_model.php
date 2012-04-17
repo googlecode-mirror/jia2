@@ -8,7 +8,11 @@
 		
 		function get_info($id, $join = array()) {
 			$reslut = $this->jiadb->fetchJoin(array('id' => $id), $join);
-			return $reslut[0];
+			if($reslut) {
+				return $reslut[0];
+			} else {
+				return FALSE;
+			}
 		}
 		
 		function get_meta($meta_key, $co_id, $join_table = TRUE, $where = array(), $order = array(), $limit = array()) {

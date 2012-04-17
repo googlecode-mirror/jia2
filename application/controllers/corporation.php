@@ -8,18 +8,27 @@
 		}
 		// 社团之家~？
 		function index() {
-			static_view('这里将展示社团综合信息');
+			static_view('这里将展示社团综合信息', '社团之家');
 		}
 		
-		function profile($id) {
-			$join = array(
-				'school' => array('school_id', 'id')
-			);
-			$data['info'] = $this->Corporation_model->get_info(array('id' => $id), $join);
-			$data['main_content'] = 'corporation/profile_view';
-			$data['title'] = $data['info'][0]['name'] .  ' | 加加社团';
-			$data['css'] = 'corporation/css/profile.css';
-			$this->load->view('includes/template_view', $data);
+		function profile($corporation_id = '') {
+			if($corporation_id) {
+				$join = array(
+					'school' => array('school_id', 'id')
+				);
+				$corporation_info = $this->Corporation_model->get_info(array('id' => $corporation_id), $join);
+				if($corporation_info) {
+					$data['info'] = $corporation_info;
+					$data['main_content'] = 'corporation/profile_view';
+					$data['title'] = $data['info']['name'] .  ' | 加加社团';
+					$data['css'] = 'corporation/css/profile.css';
+					$this->load->view('includes/template_view', $data);
+				} else {
+					static_view('你要查看的社团不存在');
+				}
+			} else {
+				static_view('你要查看的社团不存在');
+			}
 		}
 		
 		function add() {
@@ -54,10 +63,10 @@
 				if($corporation_id = $this->Corporation_model->insert($corporation)) {
 					redirect('corporation/profile/' . $corporation_id);
 				} else {
-					static_view('貌似没有创建成功~， 要不然' . anchor('corporation/add', '再试一次？'), '', '创建社团失败');
+					static_view('貌似没有创建成功~， 要不然' . anchor('corporation/add', '再试一次？'), '创建社团失败');
 				}
 			} else {
-				static_view('请将表单填写完整', site_url('corporation/add'), '创建社团失败');
+				static_view('请将表单填写完整', '创建社团失败', site_url('corporation/add'));
 			}
 		}
 		

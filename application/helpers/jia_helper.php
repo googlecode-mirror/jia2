@@ -1,6 +1,6 @@
 <?php
 if ( ! function_exists('static_view')) {
-	function static_view($message, $url = '', $title = 'Error') {
+	function static_view($message, $title = '出错了～', $url = '') {
 		$CI =& get_instance();
 		$data['main_content'] = 'static_view';
 		$data['message'] = $message;

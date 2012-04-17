@@ -4,7 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <META HTTP-EQUIV="pragma" CONTENT="no-cache">
-        <title><?=(($title == '' ) ? '未定义title' : $title) ?></title>
+        <title><?=(($title == '' ) ? '未定义标题' : $title) ?></title>
         <link rel="stylesheet" type="text/css" href="<?=site_url('source/css/common.css') ?>" />
 	    <script type="text/javascript" src="<?=site_url('source/js/jquery.js') ?>"></script>
 	    <script type="text/javascript" src="<?=site_url(('source/js/common.js')) ?>"></script>

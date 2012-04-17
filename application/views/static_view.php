@@ -4,4 +4,3 @@
 	<p><?=anchor($url, '返回') ?></p>
 	<? endif ?>
 </div>
-

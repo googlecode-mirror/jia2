@@ -3,10 +3,29 @@
 		function __construct() {
 			parent::__construct();
 			$this->load->model('Corporation_model');
+			$this->load->model('Activity_model');
 		}
 		
 		function index() {
 			static_view('活动集中地');
+		}
+		
+		function view($activity_id = '') {
+			if($activity_id) {
+				$activity_info = $this->Activity_model->get_info($activity_id);
+				if($activity_info) {
+					$data['info'] = $activity_info;
+					$data['title'] = '查看活动-' . $activity_info['name'];
+					$data['main_content'] = 'activity/details_view';
+					$data['css'] = array();
+					$data['js'] = array();
+					$this->load->view('includes/template_view', $data);
+				} else {
+					static_view('你要查看的活动不存在');
+				}
+			} else {
+				static_view('你要查看的活动不存在');
+			}
 		}
 		
 		function add($corporation_id = '') {
@@ -15,7 +34,10 @@
 				$corporation_info = $this->Corporation_model->get_info($corporation_id);
 				if($corporation_info) {
 					$this->_auth('add', 'activity', $corporation_id);
-					static_view('给社团创建活动页面');
+					$data['title'] = '创建活动';
+					$data['main_content'] = 'activity/add_view';
+					$data['corporation'] = $corporation_info;
+					$this->load->view('includes/template_view', $data);
 				} else {
 					static_view('社团不存在');
 				}
@@ -24,8 +46,43 @@
 			}
 		}
 		
-		function do_add() {
+		function do_add($corporation_id = '') {
 			$this->_require_login();
+			if($corporation_id) {
+				$corporation_info = $this->Corporation_model->get_info($corporation_id);
+				if($corporation_info) {
+					$this->_auth('add', 'activity', $corporation_id);
+					// 开始创建活动
+					$name = $this->input->post('name');
+					$address = $this->input->post('address');
+					$start_time = $this->input->post('start_time');
+					$deadline = $this->input->post('deadline');
+					$comment = $this->input->post('comment');
+					if($name && $address && $start_time && $deadline && $comment) {
+						$activity = array(
+							'user_id' => $this->session->userdata('id'),
+							'corporation_id' => $corporation_info['id'],
+							'name' => $name,
+							'start_time' => strtotime($start_time),
+							'deadline' => strtotime($deadline),
+							'address' => $address,
+							'comment' => $comment
+						);
+						$activity_id = $this->Activity_model->insert($activity);
+						if($activity_id) {
+							static_view('创建活动成功！' . anchor('activity/view/' . $activity_id, '查看该活动') . '或者' . anchor('activity/add', '继续创建'), '创建活动成功');
+						} else {
+							static_view('创建活动失败，请联系管理员～', '创建活动失败');
+						}
+					} else {
+						static_view('请输入完整信息', '创建活动失败');
+					}
+				} else {
+					static_view('社团不存在');
+				}
+			} else {
+				static_view('社团不存在', '创建活动失败');
+			}
 		}
 		
 		function edit() {
