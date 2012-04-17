@@ -241,6 +241,80 @@ require_once APPPATH . 'libraries/jiadb.php';
 		function __construct($owner_id) {
 			parent::__construct($owner_id);
 			$this->CI->load->model('Corporation_model');
+			$this->table = 'activity_auth';
+		}
+		
+		
+		function get_access($operation, $identity = '') {
+			if($identity) {
+				parent::get_access($operation, $identity);
+				return;
+			}
+			// admin
+			if($this->CI->session->userdata('type') == 'admin') {
+				$this->access = 1;
+				return;
+			}
+			
+			// 游客
+			if($this->CI->session->userdata('type') == 'guest') {
+				$identity = 'guest';
+				parent::get_access($operation, $identity);
+				return;
+			}
+			
+			// 注册用户
+			if($this->CI->session->userdata('type') == 'register') {
+				$identity = 'register';
+				$blockers = $this->CI->Corporation_model->get_meta('blocker', $this->owner_id, FALSE);
+				if(in_array($this->request_user, $blockers)) {
+					$identity = 'blocker';
+					parent::get_access($operation, $identity);
+					return;
+				}
+				parent::get_access($operation, $identity);
+				if($this->access) {
+					return;
+				}
+				
+				// 社团粉丝
+				$cos = $this->CI->User_model->get_meta('corporation', $this->request_user, FALSE);
+				if(in_array($this->owner_id, $cos)) {
+					$identity = 'friend';
+					parent::get_access($operation, $identity);
+					if($this->access) {
+						return;
+					}
+				}
+				
+				// 社团成员
+				$members = $this->CI->Corporation_model->get_meta('member', $this->owner_id, FALSE);
+				if(in_array($this->request_user, $members)) {
+					$identity = 'co_member';
+					parent::get_access($operation, $identity);
+					if($this->access) {
+						return;
+					}
+				}
+				
+				// 社团管理员
+				$administrators = $this->CI->Corporation_model->get_meta('admin', $this->owner_id, FALSE);
+				if(in_array($this->request_user, $administrators)) {
+					$identity = 'co_admin';
+					parent::get_access($operation, $identity);
+					if($this->access) {
+						return;
+					}
+				}
+				// 社长
+				$corporation = $this->CI->Corporation_model->get_info($this->owner_id);
+				if($this->request_user == $corporation[0]['user_id']) {
+					$identity = 'co_master';
+					parent::get_access($operation, $identity);
+					return;
+				}
+				
+			}
 		}
 	}
 	

@@ -87,7 +87,8 @@
 					break;
 			}
 		}
-		
+
+		//搜索用户
 		function _user() {
 			$keywords = $this->input->post('keywords');
 			$offset = $this->input->post('offset');
@@ -102,6 +103,7 @@
 			return $user_result;
 		}
 		
+		// 搜索社团
 		function _corporation() {
 			$keywords = $this->input->post('keywords');
 			$offset = $this->input->post('offset');
@@ -116,7 +118,14 @@
 			return $corporation_result;
 		}
 		
+		// 搜索活动
 		function _activity() {
 			
+		}
+		
+		// 返回json格式的数据，用于表单自动完成
+		function user_json() {
+			$this->_require_ajax();
+			$this->_require_login();
 		}
 	}
