@@ -7,7 +7,7 @@
 				<?=form_open('search') ?>
 				<?=form_input(array('id' => 'textfield', 'maxlength' => 50, 'class' => 'keywords', 'name' => 'keywords')) ?>
 				<?=form_hidden('offset', 0) ?>
-				<?=form_submit('submit', '', 'class="button" style="background-image:url(' . site_url('source/img/search.gif') . ')"') ?>
+				<?=form_submit('submit', '', 'class="button" style="background-image:url(' . site_url('resource/img/search.gif') . ')"') ?>
 	            <?=form_close() ?>
 			</div>
 		</div>
@@ -24,7 +24,7 @@
 				<?=anchor('index/regist', '注册') ?>
 			<? endif ?>
 			
-			<input type="image" src="<?=site_url('source/img/search.gif') ?>" class="button hidden" />
+			<input type="image" src="<?=site_url('resource/img/search.gif') ?>" class="button hidden" />
 		</div>				
 	</div>
 </div>
