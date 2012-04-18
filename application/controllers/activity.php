@@ -12,7 +12,11 @@
 		
 		function view($activity_id = '') {
 			if($activity_id) {
-				$activity_info = $this->Activity_model->get_info($activity_id);
+				$join = array(
+					'corporation' => array('corporation_id', 'id'),
+					'user' => array('user_id', 'id')
+				);
+				$activity_info = $this->Activity_model->get_info($activity_id, $join);
 				if($activity_info) {
 					$data['info'] = $activity_info;
 					$data['title'] = '查看活动-' . $activity_info['name'];
@@ -85,8 +89,23 @@
 			}
 		}
 		
-		function edit() {
+		function edit($activity_id = '') {
 			$this->_require_login();
+			if($activity_id) {
+				$this->jiadb->_table = 'activity';
+				$join = array('corporation' => array('corporation_id', 'id'));
+				$activity_info = $this->Activity_model->get_info($activity_id, $join);
+				if($activity_id) {
+					$corporation_id = $activity_info['corporation'][0]['id'];
+					$this->_auth('edit', 'activity', $corporation_id);
+					static_view('亲，你有权限编辑这个活动哦！', '编辑活动');
+				} else {
+					static_view('你要编辑的活动不存在', '编辑活动');
+				}
+				
+			} else {
+				static_view('你要编辑的活动不存在', '编辑活动');
+			}
 		}
 		
 		function do_edit() {
@@ -96,4 +115,5 @@
 		function delete() {
 			$this->_require_login();
 		}
+		
 	}

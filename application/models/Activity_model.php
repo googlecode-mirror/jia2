@@ -35,13 +35,8 @@
 			}
 		}
 		
-		//编辑活动
-		function edit() {
-			
-		}
-		
-		// 发布post
-		function post() {
+		//更新活动
+		function update() {
 			
 		}
 	}
