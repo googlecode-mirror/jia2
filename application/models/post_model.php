@@ -1,7 +1,7 @@
 <?php
 	class Post_model extends CI_Model {
 		public $post_type;
-		public $jiadb;
+		protected $jiadb;
 		function __construct() {
 			parent::__construct();
 			$this->jiadb = new Jiadb('post');
@@ -32,18 +32,25 @@
 		
 		// 获取个人信息流方法
 		function post_string($user_id) {
-			$friends = $this->User_model->get_meta('friend', $user_id, FALSE);
-			$users = $friends;
+			$following_user = $this->User_model->get_following($user_id);
+			$following_co = $this->User_model->get_following($user_id, 'corporation');
 			// 这里以后还要加入社团以及活动的owner_id
-			$users[] = $user_id;
-			$join = array(
+			$following_user[] = $user_id;
+			$join_user = array(
 				'user' => array('owner_id', 'id'),
 				'comment' => array('id', 'post_id'),
 				'comment.user' => array('user_id', 'id')
 			);
-			$posts = $this->jiadb->fetchJoin(array('owner_id' => $users), $join, array('time' => 'desc'), array(20, 0));
+			$join_co = array(
+				'corporation' => array('owner_id', 'id'),
+				'comment' => array('id', 'post_id'),
+				'comment.user' => array('user_id', 'id')
+			);
+			$posts['personal'] = $this->jiadb->fetchJoin(array('owner_id' => $following_user, 'type_id' => $this->post_type['personal']), $join_user, array('time' => 'desc'), array(20, 0));
+			$posts['activity'] = $this->jiadb->fetchJoin(array('owner_id' =>$following_co, 'type_id' => $this->post_type['activity']), $join_co, array('time' => 'desc'), array(20,0));
 			return $posts;
 		}
+		
 		// 根据条件筛选信息
 		function fetch($where = array(), $order = array('time' => 'desc'), $limit = array(20, 0)) {
 			// 改方法会加入对转载文章的原文读取

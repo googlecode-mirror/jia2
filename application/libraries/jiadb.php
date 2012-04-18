@@ -68,6 +68,8 @@
 		
 		function fetchJoin($where = array(), $join = array(), $order = array(), $limit = array()) {
 			$result = $this->fetchAll($where, $order, $limit);
+			// 因为此方法内部会改变对象的_table值，需要做一个备份，后面再恢复
+			$original_table = $this->_table;
 			if($result && $join) {
 				foreach ($join as $table => $field) {
 					$table = explode('.', $table);
@@ -88,57 +90,11 @@
 					}
 				}
 			}
+			$this->_table = $original_table;
+			unset($original_table);
 			return $result;	
 		}
 		
-		
-		/**
-		 * @param array db result array
-		 * @param array
-		 */
-		/**
-		function _join($result, $join) {
-			echo '<pre>';
-			if($result && $join) {
-				foreach ($join as $table => $field) {
-				//print_r($join);
-				unset($join[$table]);
-				$table_array = explode('.', $table);
-				//print_r($table_array);
-				foreach ($result as $key => $row) {
-					var_dump($table_array);
-					if(array_key_exists(1, $table_array) && array_key_exists($table_array[0], $row)) {
-						//exit();
-						$sub_field = $table_array[0];
-						unset($table_array[0]);
-						$table_array = array_values($table_array);
-						$sub_join = array(implode('.', $table_array) => $field);
-						$result[$key][$sub_field] =  $this->_join($row[$sub_field], $sub_join);
-						//print_r($result);
-					} elseif (!array_key_exists(1, $table_array)) {
-						$this->_table = $table_array[0];
-						print_r($row);
-						$tmp = $this->fetchAll(array($field[1] => $row[$field[0]]));
-						if($tmp) {
-							$result[$key][$table_array[0]] = $tmp;
-						}
-					}
-				}
-			}
-			}
-			
-			echo '</pre>';
-			return $result;
-		}
-		
-		function fetchJoin($where = array(), $join = array(), $order = array(), $limit = array()) {
-			$result = $this->fetchAll($where, $order, $limit);
-			if($result && $join) {
-				$result = $this->_join($result, $join);
-			}
-			return $result;	
-		}
-		 * /
 		
 		/**
 		 * @param array
@@ -150,26 +106,20 @@
 		 * @param array
 		 * @param array
 		 */ 
-		function fetchMeta($where = array(), $meta = array(), $order = array(), $limit = array()) {
-			$reslut = array();
-			$this->_table += '_meta';
-			if($meta) {
-				if(count($meta) > 1) {
-					foreach ($meta as $key => $meta_key) {
-						$meta_where = array_merge($where, array('meta_key' => $meta_key));
-						$tmp = $this->fetchAll($meta_where);
-						foreach($tmp as $row) {
-							$reslut[$meta_key][] = $row['meta_value'];
-						}
-					}
-				} else {
-					$meta_where = array_merge($where, array('meta_key' => $meta[0]));
-					$tmp = $this->fetchAll($meta_where);
-					foreach ($tmp as $row) {
-						$reslut[] = $row['meta_value'];
-					}
+		 
+		 
+		 function fetchMeta($return, $where = array(), $order = array(), $limit = array()) {
+		 	$meta = array();
+			$original_table = $this->_table;
+			$this->_table .= '_meta';
+			$result = $this->fetchAll($where, $order, $limit);
+			if($result) {
+				foreach ($result as $row) {
+					$meta[] = $row[$return];
 				}
-				
 			}
-		}
+			$this->_table = $original_table;
+			unset($original_table);
+			return $meta;
+		 }
 	}

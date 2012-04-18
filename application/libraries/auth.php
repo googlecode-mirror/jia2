@@ -72,7 +72,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 	 *  guest 游客
 	 *  register 注册用户
 	 *  blocker 帖子主人黑名单
-	 * 	friend 帖子主人朋友
+	 * 	follower 帖子主人粉丝
 	 * 	self 帖子主人
 	 * 	admin 管理员
 	 */
@@ -111,7 +111,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 			// 注册用户
 			if($this->CI->session->userdata('type') == 'register') { 
 				$identity = 'register';
-				$blockers = $this->CI->User_model->get_meta('blocker', $this->owner_id, FALSE);
+				$blockers = (array)$this->CI->User_model->get_blockers($this->owner_id);
 				if(in_array($this->request_user, $blockers)) {
 					// 黑名单
 					$identity = 'blocker';
@@ -122,10 +122,10 @@ require_once APPPATH . 'libraries/jiadb.php';
 				if($this->access) {
 					return;
 				}
-				// 朋友
-				$friends = $this->CI->User_model->get_meta('friend', $this->owner_id, FALSE);
-				if(in_array($this->request_user, $friends)) {
-					$identity = 'friend';
+				// 粉丝
+				$followers = $this->CI->User_model->get_followers($this->owner_id);
+				if(in_array($this->request_user, $followers)) {
+					$identity = 'follower';
 					parent::get_access($operation, $identity);
 					if($this->access) {
 						return;
@@ -140,7 +140,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 	 *  guest 游客
 	 * 	register 注册用户
 	 *  blocker 黑名单
-	 *  friend 朋友（关注）
+	 *  follower 粉丝
 	 *  co_member 社团成员
 	 *  co_admin 社团管理员
 	 *  co_master 社长
@@ -152,7 +152,6 @@ require_once APPPATH . 'libraries/jiadb.php';
 			$this->CI->load->model('Corporation_model');
 			$this->table = 'corporation_auth';
 		}
-		
 		function get_access($operation, $identity = '') {
 			if($identity) {
 				parent::get_access($operation, $identity);
@@ -174,7 +173,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 			// 注册用户
 			if($this->CI->session->userdata('type') == 'register') {
 				$identity = 'register';
-				$blockers = $this->CI->Corporation_model->get_meta('blocker', $this->owner_id, FALSE);
+				$blockers = $this->CI->Corporation_model->get_blockers($this->owner_id);
 				if(in_array($this->request_user, $blockers)) {
 					$identity = 'blocker';
 					parent::get_access($operation, $identity);
@@ -186,9 +185,9 @@ require_once APPPATH . 'libraries/jiadb.php';
 				}
 				
 				// 社团粉丝
-				$cos = $this->CI->User_model->get_meta('corporation', $this->request_user, FALSE);
+				$cos = $this->CI->Corporation_model->get_followers($this->owner_id);
 				if(in_array($this->owner_id, $cos)) {
-					$identity = 'friend';
+					$identity = 'follower';
 					parent::get_access($operation, $identity);
 					if($this->access) {
 						return;
@@ -196,7 +195,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 				}
 				
 				// 社团成员
-				$members = $this->CI->Corporation_model->get_meta('member', $this->owner_id, FALSE);
+				$members = $this->CI->Corporation_model->get_members($this->owner_id);
 				if(in_array($this->request_user, $members)) {
 					$identity = 'co_member';
 					parent::get_access($operation, $identity);
@@ -206,7 +205,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 				}
 				
 				// 社团管理员
-				$administrators = $this->CI->Corporation_model->get_meta('admin', $this->owner_id, FALSE);
+				$administrators = $this->CI->Corporation_model->get_admin($this->owner_id);
 				if(in_array($this->request_user, $administrators)) {
 					$identity = 'co_admin';
 					parent::get_access($operation, $identity);
@@ -230,7 +229,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 	 *  guest 游客
 	 *  register 注册用户
 	 * 	blocker 社团黑名单
-	 * 	friend 关注者
+	 * 	follower 粉丝
 	 *  participant 参加者
 	 * 	self 活动创建者
 	 * 	co_amdin 所属社团管理员
@@ -266,7 +265,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 			// 注册用户
 			if($this->CI->session->userdata('type') == 'register') {
 				$identity = 'register';
-				$blockers = $this->CI->Corporation_model->get_meta('blocker', $this->owner_id, FALSE);
+				$blockers = $this->CI->Corporation_model->get_blockers($this->owner_id);
 				if(in_array($this->request_user, $blockers)) {
 					$identity = 'blocker';
 					parent::get_access($operation, $identity);
@@ -278,9 +277,9 @@ require_once APPPATH . 'libraries/jiadb.php';
 				}
 				
 				// 社团粉丝
-				$cos = $this->CI->User_model->get_meta('corporation', $this->request_user, FALSE);
+				$cos = $this->CI->Corporation_model->get_followers($this->owner_id);
 				if(in_array($this->owner_id, $cos)) {
-					$identity = 'friend';
+					$identity = 'follower';
 					parent::get_access($operation, $identity);
 					if($this->access) {
 						return;
@@ -288,7 +287,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 				}
 				
 				// 社团成员
-				$members = $this->CI->Corporation_model->get_meta('member', $this->owner_id, FALSE);
+				$members = $this->CI->Corporation_model->get_members($this->owner_id);
 				if(in_array($this->request_user, $members)) {
 					$identity = 'co_member';
 					parent::get_access($operation, $identity);
@@ -298,7 +297,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 				}
 				
 				// 社团管理员
-				$administrators = $this->CI->Corporation_model->get_meta('admin', $this->owner_id, FALSE);
+				$administrators = $this->CI->Corporation_model->get_admin($this->owner_id);
 				if(in_array($this->request_user, $administrators)) {
 					$identity = 'co_admin';
 					parent::get_access($operation, $identity);
@@ -323,7 +322,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 	 *  guest 游客
 	 *  register 注册用户
 	 * 	blocker 帖子主人黑名单
-	 * 	friend 帖子主人朋友
+	 * 	follower 帖子主人粉丝
 	 * 	self 本人
 	 *  admin 管理员
 	 */
@@ -382,7 +381,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 					return;
 				}
 				$blockers = $this->CI->User_model->get_blockers($this->master_id);
-				if(in_array($this->request_user, $friends)) {
+				if(in_array($this->request_user, $blockers)) {
 					// 黑名单
 					$identity = 'blocker';
 					parent::get_access($operation, $identity);
@@ -393,10 +392,10 @@ require_once APPPATH . 'libraries/jiadb.php';
 				if($this->access) {
 					return;
 				}
-				// 朋友
-				$friends = $this->CI->User_model->get_friends($this->master_id);
-				if(in_array($this->request_user, $friends)) {
-					$identity = 'friend';
+				// 粉丝
+				$followers = $this->CI->User_model->get_followers($this->master_id);
+				if(in_array($this->request_user, $followers)) {
+					$identity = 'follower';
 					parent::get_access($operation, $identity);
 					if($this->access) {
 						return;
@@ -404,9 +403,10 @@ require_once APPPATH . 'libraries/jiadb.php';
 				}
 			}
 			
+			// 
 			if($this->type == 'activity') {
-				$blockers = $this->CI->User_model->get_blockers($this->owner_id);
-				if(in_array($this->request_user, $friends)) {
+				$blockers = $this->CI->Corporation_model->get_blockers($this->master_id);
+				if(in_array($this->request_user, $blockers)) {
 					// 黑名单
 					$identity = 'blocker';
 					parent::get_access($operation, $identity);

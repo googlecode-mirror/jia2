@@ -76,7 +76,7 @@
 		 * @param array like
 		 * array(
 		 *   array('identity' => 'register', 'opetarion' => 'add', 'access' => 0),
-			 array('identity' => 'friend', 'opetarion' => 'add', 'access' => 1)
+			 array('identity' => 'follower', 'opetarion' => 'add', 'access' => 1)
 		 * )
 		 */
 		function set_access($id, array $access, $extend = array()) {
@@ -102,7 +102,7 @@
 			$init_array = array(
 				'guest' => array('view'),
 				'register' => array('view'),
-				'friend' => array('view'),
+				'follower' => array('view'),
 				'self' => array('view', 'add', 'delete')
 			);
 			parent::init($user_id, $init_array);
@@ -130,7 +130,7 @@
 				$array['co_admin'] = array('view', 'add', 'delete');
 				$array['participant'] = array('view', 'add');
 			} elseif($type == 'personal') {
-				$array['friend'] = array('view', 'add');
+				$array['follower'] = array('view', 'add');
 				$array['po_master'] = array('view', 'add', 'delete');
 			} else {
 				return FALSE;

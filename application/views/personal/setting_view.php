@@ -75,8 +75,8 @@
 						<ul id="pass_setting">
 						<?=form_open('personal/do_setting')?>
 						<?=form_hidden('setting', 'privacy') ?>
-							<li>浏览权限: <?=form_dropdown('post', array('guest' => '所有人', 'register' => '注册用户', 'friend' => '仅好友', 'self' => '仅自己'), $privacy['post']) ?></li>
-							<li>评论权限: <?=form_dropdown('comment', array('register' => '注册用户', 'friend' => '仅好友', 'self' => '仅自己'), $privacy['comment']) ?></li>
+							<li>浏览权限: <?=form_dropdown('post', array('guest' => '所有人', 'register' => '注册用户', 'follower' => '仅粉丝', 'self' => '仅自己'), $privacy['post']) ?></li>
+							<li>评论权限: <?=form_dropdown('comment', array('register' => '注册用户', 'follower' => '仅粉丝', 'self' => '仅自己'), $privacy['comment']) ?></li>
 							<li><?=form_submit('submit', '更新','class="button"') ?></li>
 						<?=form_close() ?>
 						</ul>

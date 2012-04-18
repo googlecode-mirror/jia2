@@ -15,6 +15,12 @@
 			}
 		}
 		
+		function get_followers($corporation_id) {
+			
+		}
+		
+		
+		/*
 		function get_meta($meta_key, $co_id, $join_table = TRUE, $where = array(), $order = array(), $limit = array()) {
 			$meta = array();
 			$this->jiadb->_table = 'corporation_meta';
@@ -36,6 +42,7 @@
 			}
 			return $meta;
 		}
+		 */
 		
 		function insert($array) {
 			if($this->db->insert('corporation', $array)) {
@@ -49,6 +56,28 @@
 				return $corporation_id;
 			} else {
 				return FALSE;
+			}
+		}
+		
+		function add_follower($user_id, $corporation_id) {
+			$blocker = $this->get_meta('blocker', $corporation_id);
+			if(in_array($user_id, $blocker)) {
+				return FALSE;
+			} else {
+				$user_meta = array(
+					'user_id' => $user_id,
+					'meta_table' => 'corporation',
+					'meta_key' => 'follower',
+					'meta_value' => $corporation_id
+				);
+				$this->jiadb->_table = 'user_meta';
+				$exists = $this->jiadb->fetchAll($user_meta);
+				if($exists) {
+					return TRUE;
+				} else {
+					$this->db->insert('user_meta', $user_meta);
+					return TRUE;
+				}
 			}
 		}
 	}
