@@ -68,13 +68,13 @@
 		<h3><a href="#">我的社团(2)</a></h3>
 		<ul>
 			<li>
-				<img src="<?=site_url('source/img/user02.jpg') ?>" />
+				<img src="<?=site_url('resource/img/user02.jpg') ?>" />
 				<div class="user_name">
 					社团名
 				</div>
 			</li>
 			<li>
-				<img src="<?=site_url('source/img/user01.jpg') ?>" />
+				<img src="<?=site_url('resource/img/user01.jpg') ?>" />
 				<div class="user_name">
 					社团名
 				</div>
@@ -84,19 +84,19 @@
 		<h3><a href="#">关注的社团(3)</a></h3>
 		<ul>
 			<li>
-				<img src="<?=site_url('source/img/user02.jpg') ?>" />
+				<img src="<?=site_url('resource/img/user02.jpg') ?>" />
 				<div class="user_name">
 					社团名
 				</div>
 			</li>
 			<li>
-				<img src="<?=site_url('source/img/user01.jpg') ?>" />
+				<img src="<?=site_url('resource/img/user01.jpg') ?>" />
 				<div class="user_name">
 					社团名
 				</div>
 			</li>
 			<li>
-				<img src="<?=site_url('source/img/user.jpg') ?>" />
+				<img src="<?=site_url('resource/img/user.jpg') ?>" />
 				<div class="user_name">
 					社团名
 				</div>
@@ -108,13 +108,13 @@
 		<h3>最近来访</h3>
 		<ul>
 			<li>
-				<img src="<?=site_url('source/img/user02.jpg') ?>" />
+				<img src="<?=site_url('resource/img/user02.jpg') ?>" />
 				<div >
 					社团名
 				</div>
 			</li>
 			<li>
-				<img src="<?=site_url('source/img/user01.jpg') ?>" />
+				<img src="<?=site_url('resource/img/user01.jpg') ?>" />
 				<div >
 					社团名
 				</div>
