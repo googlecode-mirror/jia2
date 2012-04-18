@@ -21,10 +21,10 @@
 			$this->_auth('view', 'post', $id);
 			$data['info'] = $this->User_model->get_info((int)$id);
 			$data['title'] = '个人主页-' . $data['info'][0]['name'];
-			$data['friends'] = $this->User_model->get_meta('friend', $id);
-			$data['posts'] = $this->Post_model->fetch(array('owner_id' => $id));
+			$data['followers'] = $this->User_model->get_followers($id);
+			$data['posts'] = array('personal' => $this->Post_model->fetch(array('owner_id' => $id)));
 			$data['css'] = array('index.css');
-			$data['js'] = array('post.js', 'profile_view.js', 'tab.js');
+			$data['js'] = array('post.js', 'personal/profile_view.js', 'tab.js');
 			$data['main_content'] = 'personal/profile_view';
 			$this->load->view('includes/template_view', $data);
 		}
@@ -34,7 +34,7 @@
 			$post_auth = Auth_factory::get_auth('post', $this->session->userdata('id'));
 			$comment_auth = Auth_factory::get_auth('comment', $this->session->userdata('id'));
 			$identity_array = array(
-				'guest', 'register', 'friend'
+				'guest', 'register', 'follower'
 			);
 			$privacy = array(
 				'post' => '',
@@ -101,28 +101,28 @@
 							$post_access_array = array(
 								array('identity' => 'guest', 'operation' => 'view', 'access' => 1),
 								array('identity' => 'register', 'operation' => 'view', 'access' => 1),
-								array('identity' => 'friend', 'operation' => 'view', 'access' => 1)
+								array('identity' => 'follower', 'operation' => 'view', 'access' => 1)
 							);
 							break;
 						case 'register':
 							$post_access_array = array(
 								array('identity' => 'guest', 'operation' => 'view', 'access' => 0),
 								array('identity' => 'register', 'operation' => 'view', 'access' => 1),
-								array('identity' => 'friend', 'operation' => 'view', 'access' => 1)
+								array('identity' => 'follower', 'operation' => 'view', 'access' => 1)
 							);
 							break;
-						case 'friend':
+						case 'follower':
 							$post_access_array = array(
 								array('identity' => 'guest', 'operation' => 'view', 'access' => 0),
 								array('identity' => 'register', 'operation' => 'view', 'access' => 0),
-								array('identity' => 'friend', 'operation' => 'view', 'access' => 1)
+								array('identity' => 'follower', 'operation' => 'view', 'access' => 1)
 							);
 							break;
 						case 'self':
 							$post_access_array = array(
 								array('identity' => 'guest', 'operation' => 'view', 'access' => 0),
 								array('identity' => 'register', 'operation' => 'view', 'access' => 0),
-								array('identity' => 'friend', 'operation' => 'view', 'access' => 0)
+								array('identity' => 'follower', 'operation' => 'view', 'access' => 0)
 							);
 							break;
 						default:
@@ -133,19 +133,19 @@
 						case 'register':
 							$comment_access_array = array(
 								array('identity' => 'register', 'operation' => 'add', 'access' => 1),
-								array('identity' => 'friend', 'operation' => 'add', 'access' => 1)
+								array('identity' => 'follower', 'operation' => 'add', 'access' => 1)
 							);
 							break;
-						case 'friend':
+						case 'follower':
 							$comment_access_array = array(
 								array('identity' => 'register', 'operation' => 'add', 'access' => 0),
-								array('identity' => 'friend', 'operation' => 'add', 'access' => 1)
+								array('identity' => 'follower', 'operation' => 'add', 'access' => 1)
 							);
 							break;
 						case 'self':
 							$comment_access_array = array(
 								array('identity' => 'register', 'operation' => 'add', 'access' => 0),
-								array('identity' => 'friend', 'operation' => 'add', 'access' => 0)
+								array('identity' => 'follower', 'operation' => 'add', 'access' => 0)
 							);
 							break;
 						default:
@@ -198,18 +198,20 @@
 			redirect('personal/setting');
 		}
 		
-		function add_friend() {
+		// 关注某人
+		function follow() {
 			$this->_require_login();
 			$this->_require_ajax();
-			$friend_id = $this->input->post('user_id');
-			if($this->User_model->add_friend($this->user_id, $friend_id)) {
+			$follower_id = $this->input->post('user_id');
+			if($this->User_model->add_follower($this->user_id, $follower_id)) {
 				echo 1;
 			} else {
 				echo 0;
 			}
 		}
 		
-		function add_blocker() {
+		// 屏蔽某人
+		function block() {
 			$this->_require_login();
 			$this->_require_ajax();
 			$blocker_id = $this->input->post('user_id');

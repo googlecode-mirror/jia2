@@ -20,8 +20,9 @@
 				if($corporation_info) {
 					$data['info'] = $corporation_info;
 					$data['main_content'] = 'corporation/profile_view';
-					$data['title'] = $data['info']['name'] .  ' | 加加社团';
-					$data['css'] = 'corporation/css/profile.css';
+					$data['title'] = $data['info']['name'];
+					$data['js'] = array('corporation/profile_view.js');
+					$data['css'] = 'corporation/profile.css';
 					$this->load->view('includes/template_view', $data);
 				} else {
 					static_view('你要查看的社团不存在');
@@ -82,6 +83,18 @@
 				} else {
 					static_view('社团不存在');
 				}
+			}
+		}
+		
+		function follow() {
+			$this->_require_login();
+			$this->_require_ajax();
+			$corporation_id = $this->input->post('id');
+			$user_id = $this->session->userdata('id');
+			if($this->Corporation_model->add_follower($user_id, $corporation_id)) {
+				echo 1;
+			} else {
+				echo 0;
 			}
 		}
 	}

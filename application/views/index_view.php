@@ -56,10 +56,8 @@
 			</div>
 			<div class="clear"></div>
 			<div class="tab_cont_box">
-				<? $this->load->view('posts_view') ?>
-				<div id="cc02" class="hidden">
-					第二层内容
-				</div>
+				<? $this->load->view('post/user_posts_view') ?>
+				<? $this->load->view('post/co_posts_view') ?>
 			</div>
 		</div>
 	</div>

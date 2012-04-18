@@ -1,6 +1,6 @@
 <div id="cc01">
-	<? if($posts):?>
-	<? foreach ($posts as $post):?>
+	<? if(array_key_exists('personal', $posts)):?>
+	<? foreach ($posts['personal'] as $post):?>
 	<div class="article_one">
 		<?=anchor('personal/profile/' . $post['user'][0]['id'], '<img src="'. avatar_url($post['user'][0]['avatar']) .'">', 'class="head_pic"') ?>
 		<div class="article_sub_box">
