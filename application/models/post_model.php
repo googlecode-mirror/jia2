@@ -41,13 +41,15 @@
 				'comment' => array('id', 'post_id'),
 				'comment.user' => array('user_id', 'id')
 			);
-			$join_co = array(
-				'corporation' => array('owner_id', 'id'),
-				'comment' => array('id', 'post_id'),
-				'comment.user' => array('user_id', 'id')
-			);
 			$posts['personal'] = $this->jiadb->fetchJoin(array('owner_id' => $following_user, 'type_id' => $this->post_type['personal']), $join_user, array('time' => 'desc'), array(20, 0));
-			$posts['activity'] = $this->jiadb->fetchJoin(array('owner_id' =>$following_co, 'type_id' => $this->post_type['activity']), $join_co, array('time' => 'desc'), array(20,0));
+			if($following_co) {
+				$join_co = array(
+					'corporation' => array('owner_id', 'id'),
+					'comment' => array('id', 'post_id'),
+					'comment.user' => array('user_id', 'id')
+				);
+				$posts['activity'] = $this->jiadb->fetchJoin(array('owner_id' =>$following_co, 'type_id' => $this->post_type['activity']), $join_co, array('time' => 'desc'), array(20,0));
+			}
 			return $posts;
 		}
 		
