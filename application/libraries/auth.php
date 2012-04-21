@@ -349,7 +349,6 @@ require_once APPPATH . 'libraries/jiadb.php';
 				parent::get_access($operation, $identity);
 				return;
 			}
-			
 			if($this->CI->session->userdata('type') == 'admin') {
 				$this->access = 1;
 				return;
@@ -366,7 +365,9 @@ require_once APPPATH . 'libraries/jiadb.php';
 			if($this->owner_id == $this->CI->session->userdata('id')) {
 				$identity = 'self';
 				parent::get_access($operation, $identity);
-				return;
+				if($this->access = 0) {
+					return;
+				}
 			}
 			
 			if($this->CI->session->userdata('type') == 'register') {
@@ -375,13 +376,13 @@ require_once APPPATH . 'libraries/jiadb.php';
 			
 			// 再判断对于当前po有没有权限
 			if($this->type == 'personal') {
-				if($this->request_user = $this->master_id) {
+				if($this->request_user == $this->master_id) {
 					$identity = 'po_master';
 					parent::get_access($operation, $identity);
 					return;
 				}
 				$blockers = $this->CI->User_model->get_blockers($this->master_id);
-				if(in_array($this->request_user, $blockers)) {
+				if(!empty($blockers) && in_array($this->request_user, $blockers)) {
 					// 黑名单
 					$identity = 'blocker';
 					parent::get_access($operation, $identity);
