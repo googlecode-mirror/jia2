@@ -138,7 +138,7 @@
 		 * @return bool
 		 * @param int
 		 * @param int
-		 */
+		 *
 		function add_follower($user_id, $follower_id) {
 			$insert_array = array(
 				'user_id' => $user_id,
@@ -153,6 +153,7 @@
 			$this->db->insert('user_meta', $insert_array);
 			return TRUE;
 		}
+		 */
 		
 		/**
 		 * @param int follower_id
@@ -224,6 +225,7 @@
 			$this->db->delete('user_meta');
 		}
 		
+		/*
 		function add_blocker($user_id, $blocker_id) {
 			// 先取消对黑名单用户的关注
 			$this->db->where(array('user_id' => $user_id, 'meta_key' => 'follower', 'meta_value' => $blocker_id));
@@ -241,4 +243,6 @@
 			$this->db->insert('user_meta', $insert_array);
 			return TRUE;
 		}
+		 * 
+		 */
 	}

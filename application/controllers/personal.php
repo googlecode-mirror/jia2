@@ -22,7 +22,17 @@
 			$data['info'] = $this->User_model->get_info((int)$id);
 			$data['title'] = '个人主页-' . $data['info'][0]['name'];
 			$data['followers'] = $this->User_model->get_followers($id);
-			$data['posts'] = array('personal' => $this->Post_model->fetch(array('owner_id' => $id)));
+			$post_id = $this->input->get('post_id');
+			if(!empty($post_id)) {
+				$post = array('personal' => $this->Post_model->fetch(array('owner_id' => $id, 'id' => $post_id)));
+				if($post['personal']) {
+					$data['posts'] = $post;
+				} else {
+					static_view('抱歉该页面不存在');
+				}
+			} else {
+				$data['posts'] = array('personal' => $this->Post_model->fetch(array('owner_id' => $id)));
+			}
 			$data['css'] = array('index.css');
 			$data['js'] = array('post.js', 'personal/profile_view.js', 'tab.js');
 			$data['main_content'] = 'personal/profile_view';
@@ -202,8 +212,16 @@
 		function follow() {
 			$this->_require_login();
 			$this->_require_ajax();
-			$follower_id = $this->input->post('user_id');
-			if($this->User_model->add_follower($this->user_id, $follower_id)) {
+			$following_id = $this->input->post('user_id');
+			if($this->User_model->follow($this->user_id, $following_id)) {
+				// 发条通知
+				$notify = array(
+					'user_id' => $this->user_id,
+					'receiver' => $following_id,
+					'content' => '关注了你',
+					'time' => time(),
+					'type' => 'message'
+				);
 				echo 1;
 			} else {
 				echo 0;

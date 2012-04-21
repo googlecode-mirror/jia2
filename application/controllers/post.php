@@ -20,7 +20,7 @@
 				$post = array(
 				'owner_id' => $this->session->userdata('id'),
 				'type' => 'personal',
-				'content' => $this->input->post('content'),
+				'content' => trim($this->input->post('content')),
 				'time' => time()
 			);
 				$this->Post_model->insert($post);
@@ -49,6 +49,17 @@
 					'time' => time()
 				);
 				$comment_id = $this->Post_model->insert_comment($comment);
+				if(!($type == 'personal' && $owner_id == $this->session->userdata('id'))) {
+					// 插入一条通知
+					$notify = array(
+						'user_id' => $this->session->userdata('id'),
+						'receiver' => $owner_id,
+						'content' => '评论了你的新鲜事' . anchor('personal/profile?post_id=' . $this->input->post('post_id')),
+						'type' => 'message',
+						'time' => time()
+					);
+					$this->Notify_model->insert($notify);
+				}
 				if($comment_id) {
 					$comment = $this->Post_model->fetch_comment(array('id' => $comment_id));
 					?>

@@ -8,9 +8,14 @@
 		}
 		// 从数据库读取并修改配置文件
 		// 文章类型id
+		// 消息类型id
 		$post_type = $CI->db->get('post_type')->result_array();
+		$notify_type = $CI->db->get('notify_type')->result_array();
 		foreach ($post_type as $row) {
 			$CI->config->set_item('post_type_' . $row['name'], $row['id']);
+		}
+		foreach ($notify_type as $row) {
+			$CI->config->set_item('notify_type_' . $row['name'], $row['id']);
 		}
 		
 		// 用cooki登录
