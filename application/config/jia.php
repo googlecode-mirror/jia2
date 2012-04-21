@@ -15,3 +15,8 @@
 	$config['corporation_avatar_path'] = 'data/avatar/corporation/';
 	// 社团照片上传路径
 	$config['corporation_album_path'] = 'data/avatar/corporation/';
+	
+	// 消息类型id
+	$config['notify_type_letter'] = 1;
+	$config['notify_type_request'] = 2;
+	$config['notify_type_message'] = 3;
