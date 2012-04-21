@@ -24,8 +24,12 @@ $(function() {
 				post_id: post_id,
 				owner_id: owner_id,
 			}, function(data) {
-				$comment.val('');
-				$comment.parent().prev().append(data);
+				if(data == "0") {
+					alert('由于对方隐私设置，你不能评论~');
+				} else {
+					$comment.val('');
+					$comment.parent().prev().append(data);
+				}
 			}
 		);
 	});

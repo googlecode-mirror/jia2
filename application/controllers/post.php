@@ -41,6 +41,7 @@
 			$type_id = $this->input->post('type_id');
 			$type = $this->config->item('post_type_activity') == $type_id ? 'activity' : 'personal';
 			if(!$this->_auth('add', 'comment', $this->session->userdata('id'), TRUE, array($type, $owner_id))) {
+				echo 0;
 				exit();
 			}
 			if($this->input->post('content') != '') {
