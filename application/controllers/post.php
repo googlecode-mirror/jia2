@@ -40,7 +40,9 @@
 			$owner_id = $this->input->post('owner_id');
 			$type_id = $this->input->post('type_id');
 			$type = $this->config->item('post_type_activity') == $type_id ? 'activity' : 'personal';
-			$this->_auth('add', 'comment', $this->session->userdata('id'), array($type, $owner_id));
+			if(!$this->_auth('add', 'comment', $this->session->userdata('id'), TRUE, array($type, $owner_id))) {
+				exit();
+			}
 			if($this->input->post('content') != '') {
 				$comment = array(
 					'post_id' => $this->input->post('post_id'),
