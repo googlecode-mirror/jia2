@@ -39,14 +39,18 @@
 <div id="header">
 			<div id="head">
 				<div class="left" id="head_nav">
-					<a ><strong >Jia2网logo</strong></a>
-					<a >首页</a><a>个人主页</a><a >社团之家</a>
+					<?=anchor('', 'Jia2网Logo') ?>
+					<?=anchor('', '首页', '') ?><?=anchor('personal', '个人主页', '') . anchor('', '社团之家', '')?>
 				</div>
 				<span class="search left">
-						<input type="text" class="keywords" id="textfield" maxlength="50" value="社团/活动/搜人..." />
-						<input type="buton" class="button" />
-					</span>
+					<?=form_open('search') ?>
+					<?=form_input(array('id' => 'textfield', 'maxlength' => 50, 'class' => 'keywords', 'name' => 'keywords','value' => '社团/活动/搜人...')) ?>
+					<?=form_hidden('offset', 0) ?>
+					<?=form_submit('buton', '', 'class="button"') ?>
+		            <?=form_close() ?>
+				</span>
 				<div class="right">
+					
 					<div class="setting">
 						<a href="" class="nav_1">通知</a>
 						<ul class="drop_box" >
@@ -56,13 +60,25 @@
 						</ul>
 					</div>
 					<div class="setting">
-						<a href="setting.html" class="nav_1" >设置</a>
+						<?=anchor('personal/setting', '设置', '') ?>
 						<ul class="drop_box" >
 							<li><a href="setting.html" >资料修改</a></li>
 							<li><a href="setting.html" >头像修改</a></li>
 							<li><a href="setting.html" >隐私修改</a></li>
 						</ul>
 					</div>
+					<div class="setting">
+						<?=anchor('index/logout', '退出') ?>
+					</div>
+					<!-- <? if($this->session->userdata('type') != 'guest'): ?>
+					<?=anchor('', '通知', '') ?>
+					<?=anchor('', '账户', 'id="account-drop-down"') ?>
+					<?=anchor('personal/setting', '设置', '') ?>
+					<?=anchor('index/logout', '退出') ?>
+					<? else: ?>
+						<?=anchor('index/login', '登录') ?>
+						<?=anchor('index/regist', '注册') ?>
+					<? endif ?> -->
 				</div>			
 			</div>
 		</div>

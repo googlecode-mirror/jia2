@@ -341,7 +341,7 @@ li.feed_a{
 	border: 1px solid #C6C7C6;
 	margin-left:10px;
 }
-.search .keywords {float:left;border: 0; width:155px; background:none; line-height:11px; height:11px; padding:5px; color:#bab9b9; }
+.search .keywords {float:left;border: 0; width:155px; background:none; line-height:21px; height:21px; color:#bab9b9; }
 .search .button {float:left;margin:0;width:25px;height:21px;cursor:pointer;border-left:1px solid #cacaca; background:url(../images/page_element/toolbar.png) -91px -26px;}
 
 /**************container******************/

@@ -1,26 +1,20 @@
-<div class="container">
-	<div class="content_main">
-		<div class="main_top">
-			<a href="#" class="head_pic"><img src="<?=avatar_url($info[0]['avatar'], 'personal', 'big') ?>" /> 
-			<div class="clear"></div><h4><?=$info[0]['name'] ?></h4> </a>
-			<div class="pub">
-				<div  class="tab">
-					<ul>
-						<li class="sd01" id="mmm01">
-							<a href="#">资料设置</a>
-						</li>
-						<li class="sd02" id="mmm02">
+<div id="main">
+				<div id="search_item">
+						<ul>
+							<li class="sd01" id="mmm01">
+								<a href="#" id="active">资料设置</a>
+							</li>
+							<li class="sd02" id="mmm02">
 							<a href="#">头像设置</a>
-						</li>
-						<li class="sd02" id="mmm03">
-							<a href="#">账户设置</a>
-						</li>
-						<li class="sd02" id="mmm04">
-							<a href="#">隐私设置</a>
-						</li>
-					</ul>
+							</li>
+							<li class="sd02" id="mmm03">
+								<a href="#">账户设置</a>
+							</li>
+							<li class="sd02" id="mmm04">
+								<a href="#">隐私设置</a>
+							</li>
+						</ul>
 				</div>
-				<div class="clear"></div>
 				<div class="tab_cont_box user_setting">
 					<div id="ccc01">
 						<h4 class="set_title"><span>某某</span>，你好！<a id="modify" href="#">修改</a></h4>
@@ -83,6 +77,32 @@
 					</div>
 				</div>
 			</div>
+			
+<!-- <div class="container">
+	<div class="content_main">
+		<div class="main_top">
+			<a href="#" class="head_pic"><img src="<?=avatar_url($info[0]['avatar'], 'personal', 'big') ?>" /> 
+			<div class="clear"></div><h4><?=$info[0]['name'] ?></h4> </a>
+			<div class="pub">
+			<!-- <div  class="tab">
+					<ul>
+						<li class="sd01" id="mmm01">
+							<a href="#">资料设置</a>
+						</li>
+						<li class="sd02" id="mmm02">
+							<a href="#">头像设置</a>
+						</li>
+						<li class="sd02" id="mmm03">
+							<a href="#">账户设置</a>
+						</li>
+						<li class="sd02" id="mmm04">
+							<a href="#">隐私设置</a>
+						</li>
+					</ul>
+				</div> 
+				<div class="clear"></div>
+				
+			</div>
 		</div>
 	</div>
-</div>
+</div> -->

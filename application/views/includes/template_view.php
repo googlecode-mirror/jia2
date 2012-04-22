@@ -8,7 +8,7 @@
 <? endif ?>
 <div id="container">
 <? $this->load->view($main_content) ?> 
-<? $this->load->view('includes/slider_bar_view') ?> 
+<? $this->load->view($slider_bar_view) ?> 
 </div>
 </div>
 <? $this->load->view('includes/footer_view') ?>
