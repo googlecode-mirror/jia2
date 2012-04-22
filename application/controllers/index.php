@@ -15,6 +15,7 @@
 				// $data['css'] = array('common.css','index.css');
 				// $data['js'] = array('tab.js', 'index_view.js', 'post.js');
 				// $data['main_content'] = 'index_view';
+				$data['slider_bar_view'] = 'includes/slider_bar_view';
 				$data['main_content'] = 'post_view';
 				$this->load->view('includes/template_view', $data);
 			}

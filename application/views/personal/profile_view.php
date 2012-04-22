@@ -1,5 +1,46 @@
-<div class="container">
-		<div class="content_main">
+	<div id="main">
+				<h3>&nbsp;提拉米苏&nbsp;&nbsp;<span>10+</span></h3>
+				<p><span class="profile_info">位置&nbsp;<a>四川 成都</a></span>|
+					<span class="profile_info">在&nbsp;<a>成都信息工程大学</a></span>|
+					<span class="profile_info">是&nbsp;<a>启明拓展协会</a>&nbsp;会员</span>|
+					<span class="profile_info"><a href="">更多资料</a></span></p>
+					<?=form_button(array('name' => 'follow', 'content' => '关注', 'user_id' => $info[0]['id'])) ?>
+				<div id="profile_pic_style">
+						<ul>
+							<li>
+								<a href="#" id="active"><img id="" title="修改" src="images/photo_album/01.jpg" /></a>
+							</li>
+							<li>
+								<a href="#"><img id="" title="修改" src="images/photo_album/user02.jpg" /></a>
+							</li>
+							<li>
+								<a href="#"><img id="" title="修改" src="images/photo_album/01.jpg" /></a>
+							</li>
+							<li>
+								<a href="#"><img id="" title="修改" src="images/photo_album/user02.jpg" /></a>
+							</li>
+						</ul>
+				</div>
+				<div class="new_things">
+				<div  class="tab">
+				<ul  class="navlist" >
+					<li class="sd01" id="mm01">
+						<a href="#"  class="tab_item">个人动态</a>
+					</li>
+				</ul>
+				</div>
+				<div class="clear"></div>
+				<div class="article_box">
+					<? $this->load->view('post/user_posts_view') ?>
+					<div id="cc02" class="hidden">
+						第二层内容
+					</div>
+				</div>
+			</div>
+			</div>
+
+
+<!-- 
 			<div class="main_top">
 			<a href="<?=site_url('personal/profile/' . $info[0]['id'])?>" class="head_pic"><img src="<?=avatar_url($info[0]['avatar'], 'personal', 'big') ?>" />
 				<div class="clear"></div><h4><?=$info[0]['name']?></h4>
@@ -34,15 +75,15 @@
 			<div class="line"></div>
 			<div class="new_things">
 				<div  class="tab">
-			<ul  class="navlist" >
-				<li class="sd01" id="mm01">
-					<a href="#"  class="tab_item">社团新鲜事</a>
-				</li>
-				<li class="sd02" id="mm02">
-					<a href="#"  class="tab_item">好友新鲜事</a>
-				</li>
-			</ul>
-		</div>
+				<ul  class="navlist" >
+					<li class="sd01" id="mm01">
+						<a href="#"  class="tab_item">社团新鲜事</a>
+					</li>
+					<li class="sd02" id="mm02">
+						<a href="#"  class="tab_item">好友新鲜事</a>
+					</li>
+				</ul>
+				</div>
 				<div class="clear"></div>
 				<div class="article_box">
 					<? $this->load->view('post/user_posts_view') ?>
@@ -50,51 +91,5 @@
 						第二层内容
 					</div>
 				</div>
-			</div>
-		</div>
-		
-		<div class="content_siber">
-			<h3><a href="#">我的社团(2)</a></h3>
-			<ul>
-				<li>
-					<img src="<?=site_url('resource/img/user02.jpg') ?>" />
-					<div class="user_name">社团名</div>
-				</li>
-				<li>
-					<img src="<?=site_url('resource/img/user01.jpg') ?>" />
-					<div class="user_name">社团名</div>
-				</li>
-			</ul>
-			<div class="clear"></div>
-			<h3><a href="#">关注的社团(3)</a></h3>
-			<ul>
-				<li>
-					<img src="<?=site_url('resource/img/user02.jpg') ?>" />
-					<div class="user_name">社团名</div>
-				</li>
-				<li>
-					<img src="<?=site_url('resource/img/user01.jpg') ?>" />
-					<div class="user_name">社团名</div>
-				</li>
-				<li>
-					<img src="<?=site_url('resource/img/user.jpg') ?>" />
-					<div class="user_name">社团名</div>
-				</li>
-			</ul>
-			<div class="clear"></div>
-			<h3><a href="#">关注的活动(3)</a></h3>
 			
-			<div class="clear"></div>
-			<h3>最近来访</h3>
-			<ul>
-				<li>
-					<img src="<?=site_url('resource/img/user02.jpg') ?>" />
-					<div >社团名</div>
-				</li>
-				<li>
-					<img src="<?=site_url('resource/img/user01.jpg') ?>" />
-					<div >社团名</div>
-				</li>
-			</ul>
-		</div>
-	</div>
+	</div> -->

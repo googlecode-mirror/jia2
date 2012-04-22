@@ -36,6 +36,7 @@
 			$data['css'] = array('index.css');
 			$data['js'] = array('post.js', 'personal/profile_view.js', 'tab.js');
 			$data['main_content'] = 'personal/profile_view';
+			$data['slider_bar_view'] = 'includes/slider_bar_view';
 			$this->load->view('includes/template_view', $data);
 		}
 		
@@ -71,7 +72,7 @@
 			$data['privacy'] = $privacy;
 			$data['info'] = $this->User_model->get_info((int)$this->session->userdata('id'));
 			$data['main_content'] = 'personal/setting_view';
-			$data['css'] = array('common.css','index.css');
+			$data['slider_bar_view'] = 'includes/slider_bar_view';
 			$data['js'] = array('tab.js','personal/setting.js');
 			$this->load->view('includes/template_view', $data);
 		}
