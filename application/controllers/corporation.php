@@ -91,7 +91,7 @@
 			$this->_require_ajax();
 			$corporation_id = $this->input->post('id');
 			$user_id = $this->session->userdata('id');
-			if($this->Corporation_model->add_follower($user_id, $corporation_id)) {
+			if($this->Corporation_model->follow($user_id, $corporation_id)) {
 				echo 1;
 			} else {
 				echo 0;

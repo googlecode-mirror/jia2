@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.5.9)
 # Database: jia2
-# Generation Time: 2012-04-19 00:05:28 +0800
+# Generation Time: 2012-04-22 10:13:26 +0800
 # ************************************************************
 
 
@@ -182,7 +182,28 @@ VALUES
 	(46,35,11,'来个中文看看！','1334565670',1),
 	(47,35,11,'评论呢是否成功','1334740432',1),
 	(48,35,11,'这尼玛什么状况','1334754565',1),
-	(49,37,11,'我来评论一下看看喃','1334757780',1);
+	(49,37,11,'我来评论一下看看喃','1334757780',1),
+	(50,35,10,'测试看看','1334831622',1),
+	(51,35,13,'测试看看','1334831651',1),
+	(52,36,13,'我评论一个看看喃','1334917578',1),
+	(53,36,11,'测试回复','1334997037',1),
+	(54,36,11,'再次测试回复','1334997086',1),
+	(55,36,13,'各家回复一个','1335013092',1),
+	(56,36,11,'再来看看','1335013118',1),
+	(57,36,11,'再来看看','1335013138',1),
+	(58,35,13,'测试看看','1335013344',1),
+	(59,35,13,'测试看看回复','1335013421',1),
+	(60,35,13,'echo \'here\';\n   exit();','1335013502',1),
+	(61,35,13,'测试看看回复','1335013518',1),
+	(62,35,13,'测试看看回复','1335013590',1),
+	(63,35,13,'测试看看回复','1335013629',1),
+	(64,35,13,'return;','1335013721',1),
+	(65,35,13,'测试看看回复','1335013737',1),
+	(66,35,13,'测试看看回复','1335013757',1),
+	(67,35,13,'测试看看回复','1335013806',1),
+	(68,35,13,'测试看看回复','1335013826',1),
+	(69,35,13,'测试看看回复','1335013950',1),
+	(70,35,11,'现在老子看你还敢回复不','1335014869',1);
 
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -238,7 +259,7 @@ VALUES
 	(35,11,1,11,4,1),
 	(47,13,1,2,1,1),
 	(48,13,1,3,1,1),
-	(49,13,1,3,2,1),
+	(49,13,1,3,2,0),
 	(50,13,1,5,1,1),
 	(51,13,1,5,2,1),
 	(52,13,1,5,4,1),
@@ -381,55 +402,95 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table message
+# Dump of table notify
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `message`;
+DROP TABLE IF EXISTS `notify`;
 
-CREATE TABLE `message` (
+CREATE TABLE `notify` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
+  `receiver` int(11) NOT NULL,
   `type_id` int(11) NOT NULL,
+  `time` int(11) NOT NULL,
   `content` text NOT NULL,
-  `status` int(11) DEFAULT '0',
+  `status` int(11) DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `fk_messages_message_type1` (`type_id`),
-  KEY `fk_messages_users1` (`user_id`),
-  CONSTRAINT `fk_messages_message_type1` FOREIGN KEY (`type_id`) REFERENCES `message_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_messages_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_notify_user2` (`user_id`),
+  KEY `fk_notify_notify_type1` (`type_id`),
+  KEY `fk_notify_user1` (`user_id`),
+  KEY `fk_notify_user3` (`receiver`),
+  CONSTRAINT `fk_notify_notify_type1` FOREIGN KEY (`type_id`) REFERENCES `notify_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_notify_user1` FOREIGN KEY (`receiver`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_notify_user2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `notify` WRITE;
+/*!40000 ALTER TABLE `notify` DISABLE KEYS */;
+
+INSERT INTO `notify` (`id`, `user_id`, `receiver`, `type_id`, `time`, `content`, `status`)
+VALUES
+	(1,11,13,3,1334997086,'评论了你的新鲜事<a href=\"http://jia2.localhost/personal/profile?post_id=36\">http://jia2.localhost/personal/profile?post_id=36</a>',1),
+	(2,11,13,3,1335013118,'评论了你的新鲜事<a href=\"http://jia2.localhost/personal/profile?post_id=36\">http://jia2.localhost/personal/profile?post_id=36</a>',1),
+	(3,11,13,3,1335013138,'评论了你的新鲜事<a href=\"http://jia2.localhost/personal/profile?post_id=36\">http://jia2.localhost/personal/profile?post_id=36</a>',1),
+	(4,13,11,3,1335013344,'评论了你的新鲜事<a href=\"http://jia2.localhost/personal/profile?post_id=35\">http://jia2.localhost/personal/profile?post_id=35</a>',1),
+	(5,13,11,3,1335013421,'评论了你的新鲜事<a href=\"http://jia2.localhost/personal/profile?post_id=35\">http://jia2.localhost/personal/profile?post_id=35</a>',1),
+	(6,13,11,3,1335013502,'评论了你的新鲜事<a href=\"http://jia2.localhost/personal/profile?post_id=35\">http://jia2.localhost/personal/profile?post_id=35</a>',1),
+	(7,13,11,3,1335013518,'评论了你的新鲜事<a href=\"http://jia2.localhost/personal/profile?post_id=35\">http://jia2.localhost/personal/profile?post_id=35</a>',1),
+	(8,13,11,3,1335013590,'评论了你的新鲜事<a href=\"http://jia2.localhost/personal/profile?post_id=35\">http://jia2.localhost/personal/profile?post_id=35</a>',1),
+	(9,13,11,3,1335013629,'评论了你的新鲜事<a href=\"http://jia2.localhost/personal/profile?post_id=35\">http://jia2.localhost/personal/profile?post_id=35</a>',1),
+	(10,13,11,3,1335013721,'评论了你的新鲜事<a href=\"http://jia2.localhost/personal/profile?post_id=35\">http://jia2.localhost/personal/profile?post_id=35</a>',1),
+	(11,13,11,3,1335013738,'评论了你的新鲜事<a href=\"http://jia2.localhost/personal/profile?post_id=35\">http://jia2.localhost/personal/profile?post_id=35</a>',1),
+	(12,13,11,3,1335013757,'评论了你的新鲜事<a href=\"http://jia2.localhost/personal/profile?post_id=35\">http://jia2.localhost/personal/profile?post_id=35</a>',1),
+	(13,13,11,3,1335013806,'评论了你的新鲜事<a href=\"http://jia2.localhost/personal/profile?post_id=35\">http://jia2.localhost/personal/profile?post_id=35</a>',1),
+	(14,13,11,3,1335013826,'评论了你的新鲜事<a href=\"http://jia2.localhost/personal/profile?post_id=35\">http://jia2.localhost/personal/profile?post_id=35</a>',1),
+	(15,13,11,3,1335013950,'评论了你的新鲜事<a href=\"http://jia2.localhost/personal/profile?post_id=35\">http://jia2.localhost/personal/profile?post_id=35</a>',1);
+
+/*!40000 ALTER TABLE `notify` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
-# Dump of table message_meta
+# Dump of table notify_meta
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `message_meta`;
+DROP TABLE IF EXISTS `notify_meta`;
 
-CREATE TABLE `message_meta` (
+CREATE TABLE `notify_meta` (
   `id` int(11) NOT NULL,
-  `message_id` int(11) NOT NULL,
+  `notify_id` int(11) NOT NULL,
   `meta_table` varchar(45) DEFAULT NULL,
   `meta_key` varchar(45) NOT NULL,
   `meta_value` text NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_messsage_meta_messages1` (`message_id`),
-  CONSTRAINT `fk_messsage_meta_message1` FOREIGN KEY (`message_id`) REFERENCES `message` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_messsage_meta_messages1` (`notify_id`),
+  CONSTRAINT `fk_notify_meta_notify1` FOREIGN KEY (`notify_id`) REFERENCES `notify` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
-# Dump of table message_type
+# Dump of table notify_type
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `message_type`;
+DROP TABLE IF EXISTS `notify_type`;
 
-CREATE TABLE `message_type` (
-  `id` int(11) NOT NULL,
+CREATE TABLE `notify_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
+  `comment` varchar(45) DEFAULT NULL COMMENT '字段说明',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `notify_type` WRITE;
+/*!40000 ALTER TABLE `notify_type` DISABLE KEYS */;
+
+INSERT INTO `notify_type` (`id`, `name`, `comment`)
+VALUES
+	(1,'letter','站内信'),
+	(2,'request','请求'),
+	(3,'message','消息');
+
+/*!40000 ALTER TABLE `notify_type` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table operation
@@ -535,7 +596,7 @@ VALUES
 	(24,10,5,1,1),
 	(25,10,5,2,1),
 	(26,10,5,4,1),
-	(27,11,2,1,1),
+	(27,11,2,1,0),
 	(28,11,3,1,1),
 	(29,11,4,1,1),
 	(30,11,5,1,1),
@@ -578,17 +639,18 @@ DROP TABLE IF EXISTS `post_type`;
 CREATE TABLE `post_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
+  `comment` varchar(45) DEFAULT NULL COMMENT '字段说明',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `post_type` WRITE;
 /*!40000 ALTER TABLE `post_type` DISABLE KEYS */;
 
-INSERT INTO `post_type` (`id`, `name`)
+INSERT INTO `post_type` (`id`, `name`, `comment`)
 VALUES
-	(1,'personal'),
-	(2,'forward'),
-	(3,'activity');
+	(1,'personal','个人'),
+	(2,'forward','转发'),
+	(3,'activity','活动');
 
 /*!40000 ALTER TABLE `post_type` ENABLE KEYS */;
 UNLOCK TABLES;

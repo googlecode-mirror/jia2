@@ -20,8 +20,8 @@ require_once APPPATH . 'libraries/access.php';
 		 * @param string post comment activity corporation
 		 * @param array 
 		 */
-		function _auth($operation, $type, $owner_id, $return = FALSE, $post = array()) {
-			$auth = Auth_factory::get_auth($type, $owner_id, $post);
+		function _auth($operation, $type, $owner_id, $return = FALSE, $post_id = '') {
+			$auth = Auth_factory::get_auth($type, $owner_id, $post_id);
 			$auth->get_access($operation);
 			if(!$auth->access && !$return) {
 				static_view('貌似你没有该权限哦~', '需要权限');

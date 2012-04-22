@@ -135,79 +135,69 @@
 		}
 		
 		/**
-		 * @return bool
-		 * @param int
-		 * @param int
-		 *
-		function add_follower($user_id, $follower_id) {
-			$insert_array = array(
-				'user_id' => $user_id,
-				'meta_table' => 'user',
-				'meta_key' => 'follower',
-				'meta_value' => $follower_id
-			);
-			$this->jiadb->_table = 'user_meta';
-			if($this->jiadb->fetchAll($insert_array)) {
-				return FALSE;
-			}
-			$this->db->insert('user_meta', $insert_array);
-			return TRUE;
-		}
-		 */
-		
-		/**
 		 * @param int follower_id
 		 * @param int following_id
 		 */
-		function follow($user_id, $following_id) {
-			// 被关注者的黑名单
-			$following_blockers = $this->get_blockers($following_id);
-			// 关注者的黑名单
-			$follower_blockers = $this->get_blockers($user_id);
-			// 需要满足 关注者不在被关注者的黑名单内同时 被关注者也不在关注者的黑名单内
-			if(in_array($user_id, $following_blockers) || in_array($following_id, $follower_blockers)) {
-				return FALSE;
+		function follow($user_id, $following_id, $unfollow = FALSE) {
+			$meta_array = array(
+				'user_id' => $user_id,
+				'meta_table' => 'user',
+				'meta_key' => 'follower',
+				'meta_value' => $following_id
+			);
+			if($unfollow) {
+				$this->db->where($meta_array);
+				$this->db->delete('user_meta', $meta_array);
 			} else {
-				$meta_array = array(
-					'user_id' => $user_id,
-					'meta_table' => 'user',
-					'meta_key' => 'follower',
-					'meta_value' => $following_id
-				);
-				$this->insert_meta($meta_array);
-				return TRUE;
+				// 被关注者的黑名单
+				$following_blockers = $this->get_blockers($following_id);
+				// 关注者的黑名单
+				$follower_blockers = $this->get_blockers($user_id);
+				// 需要满足 关注者不在被关注者的黑名单内同时 被关注者也不在关注者的黑名单内
+				if(in_array($user_id, $following_blockers) || in_array($following_id, $follower_blockers)) {
+					return FALSE;
+				} else {
+					$this->insert_meta($meta_array);
+					return TRUE;
+				}
 			}
+			
 		}
 		
 		/**
 		 * @param int master_id
 		 * @param int blocker_id
 		 */
-		function block($user_id, $blocker_id) {
-			// 移除关注
-			$delete_following = array(
-				'user_id' => $user_id,
-				'meta_key' => 'follower',
-				'meta_table' => 'user',
-				'meta_value' => $blocker_id
-			);
-			
-			// 移除粉丝
-			$delete_follower = array(
-				'user_id' => $blocker_id,
-				'meta_key' => 'follower',
-				'meta_table' => 'user',
-				'meta_value' => $user_id
-			);
-			$this->delete_meta($delete_follower);
-			$this->delete_meta($delete_following);
+		function block($user_id, $blocker_id, $unblock = FALSE) {
 			$meta_array = array(
 				'user_id' => $user_id,
 				'meta_key' => 'blocker',
 				'meta_table' => 'user',
 				'meta_value' => $blocker_id
 			);
-			$this->insert_meta($meta_array);
+			if($unblock) {
+				$this->db->where($meta_array);
+				$this->db->delete('user_meta', $meta_array);
+			} else {
+				// 移除关注
+				$delete_following = array(
+					'user_id' => $user_id,
+					'meta_key' => 'follower',
+					'meta_table' => 'user',
+					'meta_value' => $blocker_id
+				);
+				
+				// 移除粉丝
+				$delete_follower = array(
+					'user_id' => $blocker_id,
+					'meta_key' => 'follower',
+					'meta_table' => 'user',
+					'meta_value' => $user_id
+				);
+				$this->delete_meta('user_meta', $delete_follower);
+				$this->delete_meta('user_meta', $delete_following);
+				$this->insert_meta('usermeta', $meta_array);
+			}
 		}
 		
 		function insert_meta(array $meta_array) {
@@ -224,25 +214,4 @@
 			$this->db->where($meta_array);
 			$this->db->delete('user_meta');
 		}
-		
-		/*
-		function add_blocker($user_id, $blocker_id) {
-			// 先取消对黑名单用户的关注
-			$this->db->where(array('user_id' => $user_id, 'meta_key' => 'follower', 'meta_value' => $blocker_id));
-			$this->db->delete('user_meta');
-			$insert_array = array(
-				'user_id' => $user_id,
-				'meta_table' => 'user',
-				'meta_key' => 'blocker',
-				'meta_value' => $blocker_id
-			);
-			$this->jiadb->_table = 'user_meta';
-			if($this->jiadb->fetchAll($insert_array)) {
-				return FALSE;
-			}
-			$this->db->insert('user_meta', $insert_array);
-			return TRUE;
-		}
-		 * 
-		 */
 	}

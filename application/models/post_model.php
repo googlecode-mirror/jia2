@@ -10,6 +10,11 @@
 			$this->post_type['activity'] = $this->config->item('post_type_activity');
 		}
 		
+		function get_info($post_id, $join = array()) {
+			$this->jiadb->_table = 'post';
+			return $this->jiadb->fetchJoin(array('id' => $post_id), $join);
+		}
+		
 		function insert($post = array()) {
 			if($post) {
 				$post['type_id'] = $this->post_type[$post['type']];
@@ -45,6 +50,7 @@
 			if($following_co) {
 				$join_co = array(
 					'corporation' => array('owner_id', 'id'),
+					'post_meta' => array('id', 'post_id'),
 					'comment' => array('id', 'post_id'),
 					'comment.user' => array('user_id', 'id')
 				);
