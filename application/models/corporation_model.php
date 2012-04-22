@@ -146,6 +146,8 @@
 					return FALSE;
 				} elseif(!in_array($member_id, $members)) {
 					$this->db->insert('corporation_meta', $meta_array);
+					// 加入社团会自动关注这个社团
+					$this->follow($member_id, $corporation_id);
 					return TRUE;
 				}
 			}
