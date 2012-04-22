@@ -5,7 +5,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <META HTTP-EQUIV="pragma" CONTENT="no-cache">
         <title><?=(empty($title) ? '未定义标题' : $title) . ' | 加加社团' ?></title>
-        <link rel="stylesheet" type="text/css" href="<?=site_url('resource/css/common.css') ?>" />
+        <link rel="stylesheet" type="text/css" href="<?=site_url('resource/css/home.css') ?>" />
+        <link rel="stylesheet" type="text/css" href="<?=site_url('resource/css/main_content.css') ?>" />
 	    <script type="text/javascript" src="<?=site_url('resource/js/jquery.js') ?>"></script>
 	    <script type="text/javascript" src="<?=site_url(('resource/js/common.js')) ?>"></script>
         <script type="text/javascript">

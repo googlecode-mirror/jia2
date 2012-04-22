@@ -1,0 +1,193 @@
+/*body {
+	width:610px;
+	overflow: hidden;
+}*/
+textarea{
+	padding:0;
+	margin:0;
+	border:1px solid #C6C7C6;
+}
+.feeds {
+	font-size: 12px;
+	line-height: 1.33;
+	padding-top: 5px;
+}
+
+.img_block img{
+	display:block;
+	width: 50px;
+	height: 50px;
+	border-radius: 4px;
+}
+#pub textarea{
+	width:599px;
+	max-width:600px;
+	max-height:50px;
+}
+.input{
+	margin-top:4px; 
+	position: relative;
+	width:600px;
+	height:50px;
+	bo/rder: 1px solid #000;
+}
+.input .button_pub{
+	position: absolute;
+	right:0;
+	top:0;
+}
+/****post_switch******/
+.post_switch{
+	overflow:hidden;
+	border-bottom:1px solid #C6C7C6;
+}
+
+/*******feeds_container********/
+#feeds_container{
+	padding:10px 0;
+	color: #999;
+	back/ground:#fff;
+	overflow: hidden;
+}
+.img_block{
+	float:left;
+	margin:0 20px 10px 0;
+}
+.feed_main{
+	float:left;
+	width:540px;
+	bor/der:1px solid #C6C7C6;
+}
+
+.f_info,.f_ct,p.f_pm,.textarea_comm{
+	margin-bottom:10px;
+}
+.feeds_comment_box{
+	border-top:1px solid #C6C7C6;
+}
+
+.comment li .img_block img{
+	width:30px;
+	height:30px;
+	border-radius: 3px;
+}
+.comment .f_info,.comment p.f_pm{
+	margin-bottom: 2px;
+}
+.comment_main{
+	float:left;
+	width:460px;
+}
+.textarea_comm{
+	width:500px;
+	max-width:540px;
+}
+/***********************profile*******/
+#main>p{
+	border-bottom:1px solid #C6C7C6 ;
+	padding-bottom:5px;
+}
+span.profile_info{
+	margin:0 5px;
+}
+
+/***********************search*******/
+#search_box{
+	width:600px;
+	height:30px;
+	padding:10px;
+	background:#ebebeb;
+	border:1px solid #d4d5d4;
+}
+#search_box a.ad_search{
+	display:block;
+	float:right;
+	width:80px;
+	height:30px;
+	line-height: 30px;
+	border-left:1px solid #c6c7c6;
+	marg/in-left:20px;
+	font-size: 14px;
+	text-align:center;
+	cursor: pointer;
+}
+.serch_input{
+	width:400px;
+	height:22px;
+	line-height: 30px;
+	vertical-align:middle;
+	background:#fff;
+	border:1px solid #c6c7c6;
+	padding:4px;
+	color:#B8B8B8;
+}
+.serch_button{
+	width:80px;
+	height:30px;
+	line-height: 30px;
+	text-align:center;
+	background:#005eac;
+	border:none;
+	color: #fff;
+	font-weight:bold;
+	vertical-align:middle;
+}
+.search_result{
+	float:left;
+	width:600px;
+	padding:10px;
+	background:#f3faff;
+	margin-top:10px;
+	
+}
+.search_result ul li{
+	overflow: hidden;
+	padding:10px 0;
+	border-bottom:1px solid #ccc;
+}
+.search_result .head_pic,.search_result img{
+	display:block;
+	width:100px;
+	height:100px;
+	float: left;
+}
+.li_mbox{
+	float:left;
+	margin-left:20px;
+	b/order:1px solid #7fa3cb;
+	width:160px;
+}
+.li_r{
+	display:block;
+	float:right;
+	width:80px;
+	text-align:center;
+}
+/*******search_item******/
+#search_item{
+	margin-top:10px;
+}
+/**********************asso_pro*********/
+.feed_main a:hover{
+	text-decoration: underline;
+}
+.asso_name span{
+	font-size: 12px;
+	backgro/und:#BAB9B9;
+}
+.asso_name {
+	padding:0;margin:0;
+}
+
+.asso_list_01 .asso_list_a_name{
+	display:block;
+	width:50px;
+	margin-top:2px;
+	height:auto;
+	margin:0;
+	bo/rder:1px solid #C6C7C6;
+}
+/*****association-pro**********/
+.asso_info{
+	margin-top:5px;
+}
