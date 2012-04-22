@@ -16,33 +16,48 @@
 		}
 		
 		function get_followers($corporation_id) {
-			
+			$this->jiadb->_table = 'user';
+			$return = 'user_id';
+			$where = array(
+				'meta_table' => 'corporation',
+				'meta_value' => $corporation_id,
+				'meta_key' => 'follower'
+			);
+			return $this->jiadb->fetchMeta($return, $where);
 		}
 		
-		
-		/*
-		function get_meta($meta_key, $co_id, $join_table = TRUE, $where = array(), $order = array(), $limit = array()) {
-			$meta = array();
-			$this->jiadb->_table = 'corporation_meta';
-			$where['corporation_id'] = $co_id;
-			$where['meta_key'] = $meta_key;
-			$result = $this->jiadb->fetchAll($where, $order, $limit);
-			if($result) {
-				if($join_table) {
-					foreach ($result as $row) {
-						$this->jiadb->_table = $row['meta_table'];
-						$user = $this->jiadb->fetchAll(array('id' => $row['meta_value']));
-						$meta[] = $user[0];
-					}
-				} else {
-					foreach ($result as $row) {
-						$meta[] = $row['meta_value'];
-					}
-				}	
-			}
-			return $meta;
+		function get_members($corporation_id) {
+			$this->jiadb->_table = 'corporation';
+			$return = 'meta_value';
+			$where = array(
+				'meta_table' => 'user',
+				'meta_key' => 'member',
+				'corporation_id' => $corporation_id
+			);
+			return $this->jiadb->fetchMeta($return);
 		}
-		 */
+		
+		function get_admin($corporation_id) {
+			$this->jiadb->_table = 'corporation';
+			$return  = 'meta_value';
+			$where = array(
+				'meta_table' => 'user',
+				'meta_key' => 'admin',
+				'corporation_id' => $corporation_id
+			);
+			return $this->jiadb->fetchMeta($return);
+		}
+		
+		function get_blockers($corporation_id) {
+			$this->jiadb->_table = 'corporation';
+			$return = 'meta_value';
+			$where = array(
+				'meta_table' => 'user',
+				'corporation_id' => $corporation_id,
+				'meta_key' => 'blocker'
+			);
+			return $this->jiadb->fetchMeta($return, $where);
+		}
 		
 		function insert($array) {
 			if($this->db->insert('corporation', $array)) {
@@ -59,24 +74,100 @@
 			}
 		}
 		
-		function add_follower($user_id, $corporation_id) {
-			$blocker = $this->get_meta('blocker', $corporation_id);
-			if(in_array($user_id, $blocker)) {
-				return FALSE;
+		/**
+		 * @param int follower_id
+		 * @param int following_id
+		 * @param boolean follow or unfollow
+		 */
+		function follow($user_id, $corporation_id, $unfollow = FALSE) {
+			$user_meta = array(
+				'user_id' => $user_id,
+				'meta_table' => 'corporation',
+				'meta_key' => 'follower',
+				'meta_value' => $corporation_id
+			);
+			// 取消关注
+			if($unfollow) {
+				$this->db->where($user_meta);
+				$this->db->delete('user_meta', $user_meta);
 			} else {
-				$user_meta = array(
-					'user_id' => $user_id,
-					'meta_table' => 'corporation',
+				$blocker = $this->get_meta('blocker', $corporation_id);
+				if(in_array($user_id, $blocker)) {
+					return FALSE;
+				} else {
+					$this->jiadb->_table = 'user_meta';
+					$exists = $this->jiadb->fetchAll($user_meta);
+					if($exists) {
+						return TRUE;
+					} else {
+						$this->db->insert('user_meta', $user_meta);
+						return TRUE;
+					}
+				}
+			}
+		}
+		
+		function block($corporation_id, $blocker_id, $unblock = FALSE) {
+			$meta_array = array(
+				'corporation_id' => $corporation_id,
+				'meta_key' => 'blocker',
+				'meta_table' => 'user',
+				'meta_value' => $blocker_id
+			);
+			if($unblock) {
+				$this->db->where($meta_array);
+				$this->db->delete('corporation_meta', $meta_array);
+			} else {
+				// 移除粉丝
+				$delete_follower = array(
+					'user_id' => $blocker_id,
 					'meta_key' => 'follower',
+					'meta_table' => 'corporation',
 					'meta_value' => $corporation_id
 				);
-				$this->jiadb->_table = 'user_meta';
-				$exists = $this->jiadb->fetchAll($user_meta);
-				if($exists) {
+				$this->delete_meta('user_meta', $delete_follower);
+				$this->insert_meta($meta_array);
+			}
+		}
+		
+		function join_member($corporation_id, $member_id, $unjoin = FALSE) {
+			$meta_array = array(
+				'meta_key' => 'member',
+				'meta_table' => 'user',
+				'meta_value' => $member_id,
+				'corporation_id' => $corporation_id
+			);
+			if($unjoin) {
+				$this->db->delete('corporation_meta', $meta_array);
+			} else {
+				$blockers = $this->get_blockers($corporation_id);
+				$members = $this->get_members($corporation_id);
+				if(!empty($blockers) && in_array($member_id, $blockers)) {
+					return FALSE;
+				} elseif(!in_array($member_id, $members)) {
+					$this->db->insert('corporation_meta', $meta_array);
 					return TRUE;
+				}
+			}
+		}
+		
+		function join_admin($corporation_id, $admin_id, $unjoin = FALSE) {
+			$meta_array = array(
+				'meta_key' => 'admin',
+				'meta_table' => 'user',
+				'meta_value' => $admin_id,
+				'corporation_id' => $corporation_id
+			);
+			if($unjoin) {
+				$this->db->where($meta_array);
+				$this->db->delete('corporation_meta', $meta_array);
+			} else {
+				$members = $this->get_members($corporation_id);
+				$admin = $this->get_members($corporation_id);
+				if(!in_array($admin_id, $admin) && in_array($admin_id, $members)) {
+					$this->db->insert('corporation_meta', $meta_array);
 				} else {
-					$this->db->insert('user_meta', $user_meta);
-					return TRUE;
+					return FALSE;
 				}
 			}
 		}
