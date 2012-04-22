@@ -12,9 +12,10 @@
 			} else {
 				$data['title'] = '首页';
 				$data['posts'] = $this->Post_model->post_string($this->session->userdata('id'));
-				$data['css'] = array('common.css','index.css');
-				$data['js'] = array('tab.js', 'index_view.js', 'post.js');
-				$data['main_content'] = 'index_view';
+				// $data['css'] = array('common.css','index.css');
+				// $data['js'] = array('tab.js', 'index_view.js', 'post.js');
+				// $data['main_content'] = 'index_view';
+				$data['main_content'] = 'post_view';
 				$this->load->view('includes/template_view', $data);
 			}
 		}
