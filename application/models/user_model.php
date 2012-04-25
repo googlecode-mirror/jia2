@@ -71,7 +71,7 @@
 					$field = 'email';
 				}
 			} else {
-				if(is_int($param)) {
+				if(is_numeric($param)) {
 					$field = 'id';
 				} elseif(is_string($param)) {
 					$field = 'email';

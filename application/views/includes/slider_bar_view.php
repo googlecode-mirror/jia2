@@ -1,9 +1,6 @@
 <div id="sidebar">
 	<div class="user_head_box sidebar_nav">
-		<a href="" class="user_head">
-			<img id="" title="修改头像" src="images/head_pic/02.jpg" />
-<!-- 						<img src="<?=avatar_url($info[0]['avatar'], 'personal', 'big') ?>" />  -->
-		</a>
+		<?=anchor('personal/profile/' . $info[0]['id'], '<img src="'. avatar_url($info[0]['avatar'], 'personal', 'big') .'" >','class="user_head"') ?>
 		<a href="" class="user_name">提拉米苏</a>
 		<a href="" class="user_name">启明拓展协会</a>
 	</div>
