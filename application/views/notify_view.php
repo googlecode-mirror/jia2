@@ -1,3 +1,2 @@
-<div>
-	通知视图
-</div>
+<? $this->load->view('notify/menu_view') ?>
+<? $this->load->view('notify/' . $notify . '_view') ?>

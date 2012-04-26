@@ -9,17 +9,21 @@
 		function index() {
 			$this->_require_login();
 			$type = $this->input->get('type');
+			$data['notify'] = $type;
+			$data['main_content'] = 'notify_view';
 			switch($type) {
 				case 'letter':
 					$data['letter'] = $this->_letter();
+					$this->load->view('includes/template_view', $data);
 					break;
 				case 'message':
 					$data['message'] = $this->_message();
-					$data['main_content'] = 'notify_view';
 					$this->load->view('includes/template_view', $data);
 					break;
 				case 'request':
 					$this->_request();
+					$data['request'] = $this->_request();
+					$this->load->view('includes/template_view', $data);
 					break;
 				default:
 					static_view('抱歉，你访问的页面不存在');
@@ -28,22 +32,42 @@
 		
 		function _message() {
 			$where = array(
-				'user_id' => $this->session->userdata('id'),
+				'receiver' => $this->session->userdata('id'),
 				'type' => 'message'
 			);
 			return $this->Notify_model->fetch($where);
 		}
 		
 		function _letter() {
-			
+			$where = array(
+				'receiver' => $this->session->userdata('id'),
+				'type' => 'letter'
+			);
+			return $this->Notify_model->fetch($where);
 		}
 		
 		function _request() {
-			
+			$where = array(
+				'receiver' => $this->session->userdata('id'),
+				'type' => 'request'
+			);
+			return $this->Notify_model->fetch($where);
 		}
 		
 		function check() {
 			$this->_require_login();
 			$this->_require_ajax();
+			$user_id = $this->session->userdata('id');
+			$where = array(
+				'status' => 1,
+				'receiver' => $user_id
+			);
+			$where['type_id'] = $this->config->item('notify_type_letter');
+			$result['letter'] = count_rows('notify', $where);
+			$where['type_id'] = $this->config->item('notify_type_message');
+			$result['message'] = count_rows('notify', $where);
+			$where['type_id'] = $this->config->item('notify_type_request');
+			$result['request'] = count_rows('notify', $where);
+			echo json_encode($result);
 		}
 	}

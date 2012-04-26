@@ -3,30 +3,19 @@
 	<h3>&nbsp;提拉米苏&nbsp;&nbsp;<span>10+</span></h3>
 	<p><span class="profile_info">位置&nbsp;<a>四川 成都</a></span>|
 		<span class="profile_info">在&nbsp;<a>成都信息工程大学</a></span>|
-		<span class="profile_info">是&nbsp;<a>启明拓展协会</a>&nbsp;会员</span>|
 		<span class="profile_info"><a href="">更多资料</a></span></p>
+		<? if($this->session->userdata('id') != $info[0]['id'] ): ?>
+		<? if(in_array($this->session->userdata('id'), $followers)): ?>
+		<?=form_button(array('name' => 'follow', 'content' => '已关注', 'user_id' => $info[0]['id'], 'disabled' => 'disabled')) ?>
+		<? else: ?>
 		<?=form_button(array('name' => 'follow', 'content' => '关注', 'user_id' => $info[0]['id'])) ?>
-	<div id="profile_pic_style">
-			<ul>
-				<li>
-					<a href="#" id="active"><img id="" title="修改" src="images/photo_album/01.jpg" /></a>
-				</li>
-				<li>
-					<a href="#"><img id="" title="修改" src="images/photo_album/user02.jpg" /></a>
-				</li>
-				<li>
-					<a href="#"><img id="" title="修改" src="images/photo_album/01.jpg" /></a>
-				</li>
-				<li>
-					<a href="#"><img id="" title="修改" src="images/photo_album/user02.jpg" /></a>
-				</li>
-			</ul>
-	</div>
+		<? endif ?>
+		<? endif ?>
+		
 	<div class="new_things">
 	<div  class="tab">
 	<ul  class="navlist" >
 		<li class="sd01" id="mm01">
-			<a href="#"  class="tab_item">个人动态</a>
 		</li>
 	</ul>
 	</div>

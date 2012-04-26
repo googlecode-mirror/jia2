@@ -1,7 +1,7 @@
 $(function() {
-	$("button[name='add_friend']").click(function() {
+	$("button[name='follow']").click(function() {
 		user_id = $(this).attr('user_id');
-		$.post(SITE_URL + 'personal/add_friend', {
+		$.post(SITE_URL + 'personal/follow', {
 			ajax: 1,
 			user_id: user_id
 		}, function(data) {
