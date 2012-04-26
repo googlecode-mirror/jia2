@@ -20,6 +20,7 @@
 			$id = $id ? $id : $this->session->userdata('id');
 			$this->_auth('view', 'post', $id);
 			$data['info'] = $this->User_model->get_info((int)$id);
+			$data['followers'] = $this->User_model->get_followers($id);
 			$data['title'] = '个人主页-' . $data['info'][0]['name'];
 			$data['followers'] = $this->User_model->get_followers($id);
 			$post_id = $this->input->get('post_id');

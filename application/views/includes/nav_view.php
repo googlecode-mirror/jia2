@@ -26,17 +26,17 @@
 			<div class="setting">
 				<?=anchor('', '通知', '') ?>
 				<ul class="drop_box" >
-					<li><a href="">站内信</a></li>
-					<li><a href="">请求</a></li>
-					<li><a href="">消息</a></li>
+					<li><a id="letter_notify" href="<?=site_url('notify?type=letter') ?>">站内信</a></li>
+					<li><a id="request_notify" href="<?=site_url('notify?type=request') ?>">请求</a></li>
+					<li><a id="message_notify" href="<?=site_url('notify?type=message') ?>">消息</a></li>
 				</ul>
 			</div>
 			<div class="setting">
 				<?=anchor('personal/setting', '设置', '') ?>
 				<ul class="drop_box" >
-					<li><a href="setting.html" >资料修改</a></li>
-					<li><a href="setting.html" >头像修改</a></li>
-					<li><a href="setting.html" >隐私修改</a></li>
+					<li><a href="<?=site_url('personal/setting') ?>" >资料修改</a></li>
+					<li><a href="<?=site_url('personal/setting') ?>" >头像修改</a></li>
+					<li><a href="<?=site_url('personal/setting') ?>" >隐私修改</a></li>
 				</ul>
 			</div>
 				<?=anchor('index/logout', '退出') ?>
