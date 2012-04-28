@@ -29,7 +29,7 @@ window.onload = function(){
 						<h3><a>社么社团的</a></h3>
 						<p>是简介呢还是新鲜事呢还是简介呢还是新鲜事呢还是简介呢还是新鲜事呢还是简介呢还是新鲜事呢。。</p>
 						<div class="box_1_foot">
-							<a>+ 关注</a><a>详细 >></a>
+							<a class="left">+ 关注</a><a class="right">详细 >></a>
 						</div>
 					</li>
 					<li class="box_1">
@@ -37,7 +37,7 @@ window.onload = function(){
 						<h3><a>什么活动</a></h3>
 						<p>是简介呢还是新鲜事呢还是简介呢还是新鲜事呢还是简介呢还是新鲜事呢还是简介呢还是新鲜事呢。。</p>
 						<div class="box_1_foot">
-							<a>+ 关注</a><a>详细 >></a>
+							<a class="left">+ 关注</a><a class="right">详细 >></a>
 						</div>
 					</li>
 				</ul>
@@ -49,7 +49,7 @@ window.onload = function(){
 						<h3><a>什么社团的</a></h3>
 						<p>是简介呢还是新鲜事呢还是简介呢还是新鲜事呢还是简介呢还是新鲜事呢还是简介呢还是新鲜事呢。。</p>
 						<div class="box_1_foot">
-							<a>+ 关注</a><a>详细 >></a>
+							<a class="left">+ 关注</a><a class="right">详细 >></a>
 						</div>
 					</li>
 				</ul>
@@ -61,7 +61,7 @@ window.onload = function(){
 						<h3><a>什么活动</a></h3>
 						<p>是简介呢还是新鲜事呢还是简介呢还是新鲜事呢还是简介呢还是新鲜事呢还是简介呢还是新鲜事呢。。</p>
 						<div class="box_1_foot">
-							<a>+ 关注</a><a>详细 >></a>
+							<a class="left">+ 关注</a><a class="right">详细 >></a>
 						</div>
 					</li>
 				</ul>

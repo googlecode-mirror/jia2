@@ -22,7 +22,7 @@
 		
 		function _guest() {
 			$data['title'] = '游客页面';
-			$data['css'] = array('common.css','index.css','guest.css');
+			$data['css'] = array('home.css','guest.css');
 			$data['js'] = array('tab.js');
 			$data['main_content'] = 'guest_view';
 			$this->load->view('includes/template_view', $data);
@@ -31,7 +31,7 @@
 		function login() {
 			$this->_require_login(FALSE);
 			$data['title'] = '登录';
-			$data['css'] = array('common.css','login_regist.css');
+			$data['css'] = array('home.css','login_regist.css');
 			$data['js'] = array('common.js', 'login_view.js');
 			$data['main_content'] = 'login_view';
 			$this->load->view('includes/template_view', $data);
@@ -96,7 +96,7 @@
 		function regist() {
 			$this->_require_login(FALSE);
 			$data['title'] = '注册加加';
-			$data['css'] = array('login_regist.css');
+			$data['css'] = array('home.css','login_regist.css');
 			$data['js'] = array('regist_view.js');
 			$data['main_content'] = 'regist_view';
 			$this->load->view('includes/template_view', $data);

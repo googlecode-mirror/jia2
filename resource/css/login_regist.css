@@ -5,6 +5,7 @@
 	height:300px;
 	background:#2c7ca4;
 	color:#666;
+	font-size:12px;
 	position:relative;
 	font-family:'Microsoft Yahei',simsun,Tahoma,Arial,;}
 .login{
@@ -15,8 +16,8 @@
 	h/eight:300px;
 	overflow:hidden;
 	position:absolute;
-	top:100px;
-	left:600px;
+	top:50px;
+	left:300px;
 	background:#fff;
 	border:#2c7ca4 10px solid;
 	padding-bottom:30px;
@@ -29,7 +30,7 @@
 form{margin-top:20px;margin-left: 10px;}
 .field{margin-top:15px;}
 .field label{display:inline-block;text-align:right;width:70px;font-weight:bold}
-.field input{width:250px;height:25px;line-height: 25px;}
+.field input{width:250px;height:25px;line-height: 25px;border: 1px solid #eaeaea;}
 .field_below{position:relative;left:75px;margin-top:20px;}
 .field_below .button{width:80px;height:30px;background:#94cc7d;color:#FFF;border:none;}
 .field_below span{margin-left:10px;}

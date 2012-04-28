@@ -1,5 +1,5 @@
 <div id="main">
-				<div id="search_item">
+				<div class="search_item">
 						<ul>
 							<li class="sd01" id="mmm01">
 								<a href="#" id="active">资料设置</a>

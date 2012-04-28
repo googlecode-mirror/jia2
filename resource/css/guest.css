@@ -1,3 +1,10 @@
+.tab {float:left; width:520px;background:#f3f3f3;}
+.tab ul ,.content_siber ul{ float:left; }
+.tab ul li,.content_siber ul li { margin:0; padding:5px 10px; float:left;}
+.tab ul li a.tab_item { display:block; margin:0; padding:0; color:#069; text-decoration:none; font:bold 13px Arial, Helvetica, sans-serif;}
+.tab ul li.active a, .tab ul li a:hover { color:#ce0201;}
+.tab_cont_box{height: auto; overflow:hidden;  margin:0;  padding:0px 10px;}
+
 #guest_tab{
 	width:100%;
 	background:#fff;
@@ -22,7 +29,7 @@
 	float:left;
 	margin:10px 
 }
-.box_1 a,.box_1 a img{
+.box_1 a img{
 	display:block;
 	width:180px;
 }
@@ -40,5 +47,5 @@
 }
 .box_1_foot a{
 	display: inline;
-	margin-right:20px; 
+	font-size:12px; 
 }
