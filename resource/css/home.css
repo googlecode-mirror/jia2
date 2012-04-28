@@ -2,6 +2,7 @@ html,body,iframe,div,form,ul,li,h1,h2,h3,h4,h5,p,a,i,img,input,span,table,tr,td,
 	margin: 0;
 	padding: 0;
 	border:0;
+	font-size:100%;
 }
 body{
 	background: #f2f2f2;
@@ -28,6 +29,9 @@ h3 span,h4 span {
 	padding-left:20px;
 	font-weight:normal;
 	font-size: small;
+}
+p{
+	font-size: 13px;
 }
 form{clear:both;}
 .clear{
@@ -130,7 +134,7 @@ a.creat_button{
 	margin-bottom:20px;
 }
 /*-----a_选项卡-----*/
-#search_item ul li a{
+.search_item ul li a{
 	display:block;
 	float:left;
 	padding: 0 20px;
@@ -139,11 +143,11 @@ a.creat_button{
 	display:block;
 	font-weight:normal;
 }
-#search_item ul li a:hover{
+.search_item ul li a:hover{
 	text-decoration: none;
 	background:#ebebeb;
 }
-#search_item ul li a#active,#search_item ul li a#active:hover{
+.search_item ul li a#active,.search_item ul li a#active:hover{
 	background:#c6c7c6;
 	color:#fff;
 	font-weight:bold;
@@ -201,12 +205,12 @@ li.feed_a{
 	border:none;
 }
 /*--------ul li a 选项卡----------*/
-#search_item ul{
+.search_item ul{
 	border-bottom:1px solid #c6c7c6;
 	padding-top:20px;
 	overflow: hidden;
 }
-#search_item ul li{ 
+.search_item ul li{ 
 	float:left;
 }
 
@@ -359,6 +363,7 @@ li.feed_a{
 	padding-left:10px;
 	padding-right:40px;
 	border-right:1px solid #c6c7c6;
+	font-size:12px;
 }
 
 /*********sidebar*************/

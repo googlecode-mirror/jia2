@@ -34,7 +34,6 @@
 			} else {
 				$data['posts'] = array('personal' => $this->Post_model->fetch(array('owner_id' => $id)));
 			}
-			$data['css'] = array('index.css');
 			$data['js'] = array('post.js', 'personal/profile_view.js', 'tab.js');
 			$data['main_content'] = 'personal/profile_view';
 			$data['slider_bar_view'] = 'includes/slider_bar_view';
