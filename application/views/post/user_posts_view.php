@@ -11,7 +11,7 @@
 		</div>
 		<div class="f_summary">
 			<p class="f_pm">
-				<span>22:06</span>
+				<span><?=date('Y-m-d H:i:s', $post['time']) ?></span>
 				<span><a>收起评论</a></span>
 				<span><a>评论</a></span>
 			</p>
@@ -28,7 +28,7 @@
 								<span class="f_do"><?=$comment['content']?></span>
 							</div>
 							<p class="f_pm">
-								<span>04月18日   22:06</span>
+								<span><?=date('Y-m-d H:i:s', $comment['time']) ?></span>
 								<span><a>回复</a></span>
 							</p>
 							</div>
