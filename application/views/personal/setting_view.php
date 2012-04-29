@@ -1,3 +1,9 @@
+<script>
+window.onload = function() {
+	var SDmodel = new scrollDoor();
+	SDmodel.sd(["mmm01", "mmm02", "mmm03"], ["ccc01", "ccc02", "ccc03"], "sd01", "sd02");//设置页面
+}
+</script>
 <div id="main">
 				<div class="search_item">
 						<ul>

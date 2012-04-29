@@ -12,9 +12,9 @@
 			} else {
 				$data['title'] = '首页';
 				$data['posts'] = $this->Post_model->post_string($this->session->userdata('id'));
-				// $data['css'] = array('common.css','index.css');
 				$data['info'] = $this->User_model->get_info($this->session->userdata('id'));
-				$data['js'] = array('tab.js', 'index_view.js', 'post.js');
+				$data['css'] = array('home.css');
+				$data['js'] = array('post.js','tab.js');
 				$data['main_content'] = 'index_view';
 				$this->load->view('includes/template_view', $data);
 			}
@@ -32,7 +32,7 @@
 			$this->_require_login(FALSE);
 			$data['title'] = '登录';
 			$data['css'] = array('home.css','login_regist.css');
-			$data['js'] = array('common.js', 'login_view.js');
+			$data['js'] = array('login_view.js');
 			$data['main_content'] = 'login_view';
 			$this->load->view('includes/template_view', $data);
 		}
