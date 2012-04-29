@@ -1,4 +1,4 @@
-	<div class="footer">
+	<div id="footer" >
 			<p align="center">
 				地址：成都信息工程学院 | 邮编:610225
 				<br/>

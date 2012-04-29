@@ -10,7 +10,7 @@
 		function index() {
 			$data['main_content'] = 'search_view';
 			$data['title'] = '搜索';
-			$data['css'] = array('common.css','index.css','search.css');
+			$data['css'] = array("main_content.css");
 			$data['js'] = array('search.js','tab.js');
 			if($this->input->post('keywords')) {
 				$user_result = $this->_user();

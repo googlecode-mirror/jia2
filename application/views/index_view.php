@@ -1,5 +1,5 @@
 <? $this->load->view('includes/slider_bar_view') ?>
-<script>
+<!-- <script>
 var agt = navigator.userAgent.toLowerCase();
 var is_op = (agt.indexOf("opera") != -1);
 var is_ie = (agt.indexOf("msie") != -1) && document.all && !is_op;
@@ -29,8 +29,9 @@ $(document).ready(function(){
 	},function(){
 		$(this).css("border-color","#E1E1E1");
 	});
+	$("body").css("min-height",document.body.clientWidth);
 })
-</script>
+</script> -->
 <div id="main">
 <div class="post_top">
 	<form id="pub">
@@ -41,19 +42,22 @@ $(document).ready(function(){
 	</form>
 </div>
 <div class="post_main">
-	<div class="post_switch">
-		<div class="left">
-			<a href="" class="icon" id="po1">全部</a> | <a href="" class="icon" id="po2">活动日志</a> | <a href="" class="icon" id="po3">活动图片</a>
-		</div>
-		<div class="right">
-			<a href="" class="icon">刷新</a>
-		</div>
+				<div class="search_item"><ul>
+					<li class="sd01" id="po1">
+						<a href="" id="active">全部</a>
+					</li>
+					<li class="sd02" id="po2">
+						<a href="">活动日志</a>
+					</li>
+					<li class="sd02" id="po3">
+						<a href="">活动图片</a>
+					</li>
+					<div class="right">
+					<li><a href="">刷新</a></li>
+					</div>
+				</ul></div>
 	</div>
 <script>
-window.onload = function(){
-	var SDmodel = new scrollDoor();
-	SDmodel.sd(["po1", "po2", "po3"], ["feed_1", "feed_2", "feed_3"], "sd01", "sd02");
-}
 </script>
 	<div id="feeds_container" class="feeds">
 		<ul id="feed_1">
