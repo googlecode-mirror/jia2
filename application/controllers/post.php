@@ -37,13 +37,15 @@
 		function comment() {
 			$this->_require_login();
 			$this->_require_ajax();
-			$owner_id = $this->input->post('owner_id');
-			$type_id = $this->input->post('type_id');
-			$type = $this->config->item('post_type_activity') == $type_id ? 'activity' : 'personal';
-			if(!$this->_auth('add', 'comment', $this->session->userdata('id'), TRUE, $this->input->post('post_id'))) {
+			//$owner_id = $this->input->post('owner_id');
+			$type = $this->input->post('type');
+			$post_id = $this->input->post('post_id');
+			if(!$this->_auth('add', 'comment', $this->session->userdata('id'), TRUE, $post_id)) {
 				echo 0;
 				exit();
 			}
+			$post = $this->Post_model->get_info($post_id);
+			$owner_id = $post[0]['owner_id'];
 			if($this->input->post('content') != '') {
 				$comment = array(
 					'post_id' => $this->input->post('post_id'),
@@ -57,7 +59,7 @@
 					$notify = array(
 						'user_id' => $this->session->userdata('id'),
 						'receiver' => $owner_id,
-						'content' => '评论了你的新鲜事' . anchor('personal/profile?post_id=' . $this->input->post('post_id')),
+						'content' => '评论了你的' . anchor('personal/profile?post_id=' . $this->input->post('post_id'), '新鲜事'),
 						'type' => 'message',
 						'time' => time()
 					);
@@ -67,9 +69,17 @@
 					$comment = $this->Post_model->fetch_comment(array('id' => $comment_id));
 					?>
 					<li>
-					<?=anchor('personal/profile/' . $comment['user'][0]['id'], '<img src="'. avatar_url($comment['user'][0]['avatar']) .'" >', 'class="head_pic"') ?>
-					<p><?=anchor('personal/profile/' . $comment['user'][0]['id'], $comment['user'][0]['name']) ?>：<?=$comment['content']?><a href="#" class="reply"'>回复</a><br />
-					<small><?=$comment['time'] ?></small></p>
+						<div class="img_block"><?=anchor('personal/profile/' . $comment['user'][0]['id'], '<img src="'. avatar_url($comment['user'][0]['avatar']) .'" >','class="head_pic"') ?></div>
+						<div class="comment_main">
+							<div class="f_info">
+							<?=anchor('personal/profile/' . $comment['user'][0]['id'], $comment['user'][0]['name']) ?>：
+							<span class="f_do"><?=$comment['content']?></span>
+						</div>
+						<p class="f_pm">
+							<span><?=$comment['time'] ?></span>
+							<span><a>回复</a></span>
+						</p>
+						</div>
 					</li>
 				<?
 				} else {

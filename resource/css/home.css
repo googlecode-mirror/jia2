@@ -162,6 +162,7 @@ a.creat_button{
 ol, ul{list-style: none;}
 li {
 	display: list-item;
+	list-style: none;
 	text-align: -webkit-match-parent;
 }
 /*-下拉菜单-*/
@@ -346,7 +347,7 @@ li.feed_a{
 	margin-left:10px;
 }
 .search .keywords {float:left;border: 0; width:155px; background:none; line-height:21px; height:21px; color:#bab9b9; }
-.search .button {float:left;margin:0;width:25px;height:21px;cursor:pointer;border-left:1px solid #cacaca; background:url(../images/page_element/toolbar.png) -91px -26px;}
+.search .button {float:left;margin:0;width:25px;height:21px;cursor:pointer;border-left:1px solid #cacaca; background:url(../img/page_element/toolbar.png) -91px -26px;}
 
 /**************container******************/
 #container{

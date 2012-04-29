@@ -1,8 +1,7 @@
 <div id="sidebar">
 	<div class="user_head_box sidebar_nav">
 		<?=anchor('personal/profile/' . $info[0]['id'], '<img src="'. avatar_url($info[0]['avatar'], 'personal', 'big') .'" >','class="user_head"') ?>
-		<a href="" class="user_name">提拉米苏</a>
-		<a href="" class="user_name">启明拓展协会</a>
+		<a href="" class="user_name"><?=$info[0]['name'] ?></a>
 	</div>
 	<div class="sidebar_nav">
 		<ul class="ul_sty_01">

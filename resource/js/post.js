@@ -15,20 +15,19 @@ $(function() {
 		$comment = $(this).parent().prev().children('textarea');
 		content = $comment.val();
 		post_id = $comment.attr('post_id');
-		owner_id = $comment.attr('owner_id');
-		type_id = $comment.attr('type_id');
+		type = $comment.attr('type');
 		$.post(
 			SITE_URL + "post/comment", {
 				ajax:1,
 				content: content,
 				post_id: post_id,
-				owner_id: owner_id,
+				type: type
 			}, function(data) {
 				if(data == "0") {
 					alert('由于对方隐私设置，你不能评论~');
 				} else {
 					$comment.val('');
-					$comment.parent().prev().append(data);
+					$comment.parent().parent().prev().append(data);
 				}
 			}
 		);
