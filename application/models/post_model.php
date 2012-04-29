@@ -12,7 +12,12 @@
 		
 		function get_info($post_id, $join = array()) {
 			$this->jiadb->_table = 'post';
-			return $this->jiadb->fetchJoin(array('id' => $post_id), $join);
+			$post = $this->jiadb->fetchJoin(array('id' => $post_id), $join);
+			if($post) {
+				return $post[0];
+			} else {
+				return FALSE;
+			}
 		}
 		
 		function insert($post = array()) {
