@@ -15,6 +15,7 @@
 				<span><a>收起评论</a></span>
 				<span><a>评论</a></span>
 			</p>
+		</div>
 			<div class="feeds_comment_box">
 				<ul class="comment">
 					<? if(array_key_exists('comment', $post)):?>
@@ -40,6 +41,7 @@
 					<p><?=form_button('comment', '评论') ?></p>
 				</div>
 			</div>
-</li>				
+		</div>
+</li>		
 <? endforeach ?>
 <? endif ?>

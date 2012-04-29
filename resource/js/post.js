@@ -32,4 +32,28 @@ $(function() {
 			}
 		);
 	});
+	
+	$("button[name='post']").attr('disabled', 'disabled');
+	$("textarea[name='post_content']").keyup(function() {
+		if($(this).val() != '') {
+			$("button[name='post']").removeAttr('disabled');
+		} else {
+			$("button[name='post']").attr('disabled', 'disabled');
+		}
+	});
+	$("button[name='post']").click(function() {
+		content = $("textarea[name='post_content']").val();
+		$.post(SITE_URL + "post/add", {
+			ajax: 1,
+			content: content
+		}, function(data) {
+			if(data == '0') {
+				alert('发表失败');
+			} else {
+				$("textarea[name='post_content']").val('');
+				$("#feed_1").prepend(data);
+			}
+		}
+		);
+	});
 });

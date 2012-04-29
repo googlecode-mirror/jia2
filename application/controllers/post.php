@@ -14,6 +14,8 @@
 		}
 		
 		function add() {
+			$this->_require_ajax();
+			$this->_require_login();
 			$this->_auth('add', 'post', $this->session->userdata('id'));
 			$content = $this->input->post('content');
 			if(trim($content)) {
@@ -23,9 +25,43 @@
 				'content' => trim($this->input->post('content')),
 				'time' => time()
 			);
-				$this->Post_model->insert($post);
+				$post_id = $this->Post_model->insert($post);
+				if($post_id) {
+					$post = $this->Post_model->get_info($post_id, array('user' => array('owner_id', 'id')));
+					?>
+					<li class="feed_a">
+						<div class="img_block">
+							<?=anchor('personal/profile/' . $post['user'][0]['id'], '<img src="'. avatar_url($post['user'][0]['avatar']) .'" >','class="head_pic"') ?>
+						</div>
+						<div class="feed_main">
+							<div class="f_info">
+								<a href="<?=site_url('personal/profile/' . $post['user'][0]['id']) ?>"><?=$post['user'][0]['name']?></a>
+								<span class="f_do"><?=$post['content']?></span>
+							</div>
+							<div class="f_summary">
+								<p class="f_pm">
+									<span>22:06</span>
+									<span><a>收起评论</a></span>
+									<span><a>评论</a></span>
+								</p>
+							</div>
+								<div class="feeds_comment_box">
+									<ul class="comment">
+									</ul>
+									<div>
+										<p><?=form_textarea(array('name' => 'comment_content', 'post_id'=>$post['id'], 'type' => 'personal', 'cols' => 50, 'rows' => 2)) ?></p>
+										<p><?=form_button('comment', '评论') ?></p>
+									</div>
+								</div>
+						</div>
+					</li>
+					<?
+				} else {
+					echo 0; exit;
+				}
+			} else {
+				echo 0; exit;
 			}
-			redirect();
 		}
 		
 		function edit($id = 1) {
@@ -45,7 +81,7 @@
 				exit();
 			}
 			$post = $this->Post_model->get_info($post_id);
-			$owner_id = $post[0]['owner_id'];
+			$owner_id = $post['owner_id'];
 			if($this->input->post('content') != '') {
 				$comment = array(
 					'post_id' => $this->input->post('post_id'),
