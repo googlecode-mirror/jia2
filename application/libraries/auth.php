@@ -307,7 +307,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 				}
 				// 社长
 				$corporation = $this->CI->Corporation_model->get_info($this->owner_id);
-				if($this->request_user == $corporation[0]['user_id']) {
+				if($this->request_user == $corporation['user_id']) {
 					$identity = 'co_master';
 					parent::get_access($operation, $identity);
 					return;

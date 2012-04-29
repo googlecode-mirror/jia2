@@ -34,12 +34,12 @@
 						</li>
 					<? endforeach?>
 					<? endif?>
-			</ul>
-			<div>
-				<?=form_textarea('content') ?>
-				<?=form_submit('submit', '评论') ?>
+				</ul>
+				<div>
+					<p><?=form_textarea(array('name' => 'comment_content', 'post_id'=>$post['id'], 'type' => 'personal', 'cols' => 50, 'rows' => 2)) ?></p>
+					<p><?=form_button('comment', '评论') ?></p>
+				</div>
 			</div>
-		</div>
 </li>				
 <? endforeach ?>
 <? endif ?>

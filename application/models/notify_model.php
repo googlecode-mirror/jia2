@@ -36,6 +36,6 @@
 		}
 		
 		function delete() {
-			
+			// do nothing here
 		}
 	}

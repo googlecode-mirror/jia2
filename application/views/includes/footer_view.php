@@ -1,7 +1,7 @@
 	<div class="footer">
 			<p align="center">
-				地址：成都信息工程学院 | 邮编:610000 | E-Mail：Tiramisu101111@gmail.com
+				地址：成都信息工程学院 | 邮编:610225
 				<br/>
-				© Copyright 2011 周丽 All Rights Reserved
+				© Copyright 2011 <a href="https://code.google.com/p/jia2/">Jia2</a> All Rights Reserved
 			</p>
 		</div>

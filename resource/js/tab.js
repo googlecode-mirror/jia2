@@ -2,6 +2,7 @@
  * @author Tiramisu
  */
 
+/*
 function scrollDoor() {
 }
 
@@ -41,3 +42,4 @@ window.onload = function() {
 	SDmodel.sd(["01", "02", "03", "04"], ["search_result_01", "search_result_02", "search_result_03", "search_result_04"], "sd01", "sd02");//搜索页面
 	
 }
+*/
