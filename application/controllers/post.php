@@ -5,12 +5,34 @@
 			$this->load->model('Post_model');
 		}
 		// 默认调用_view 方法
-		function index($param = '') {
-			$this->_view();
+		function index($post_id = '') {
+			if(is_numeric($post_id)) {
+				$this->_view($post_id);
+			} else {
+				static_view('抱歉，你访问的页面不存在');
+			}
 		}
 		
-		function _view() {
-			echo '查看帖子';
+		function _view($post_id) {
+			$join = array(
+				'user' => array('owner_id', 'id'),
+				'comment' => array('id', 'post_id'),
+				'comment.user' => array('user_id', 'id')
+			);
+			$post = $this->Post_model->get_info($post_id, $join);
+			if($post) {
+				$data['title'] = mb_substr($post['content'], 0, 5);
+				$data['main_content'] = 'post_single_view';
+				// 活动post
+				if($post['type'] == $this->config->item('post_type_activity')) {
+					$data['post']['activity'][0] = $post;
+				} else {
+					$data['post']['personal'][0] = $post;
+				}
+				$this->load->view('includes/template_view', $data);
+			} else {
+				static_view('抱歉，你访问的页面不存在');
+			}
 		}
 		
 		function add() {

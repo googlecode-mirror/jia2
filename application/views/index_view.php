@@ -57,8 +57,6 @@ $(document).ready(function(){
 					</div>
 				</ul></div>
 	</div>
-<script>
-</script>
 	<div id="feeds_container" class="feeds">
 		<ul id="feed_1">
 			<?=$this->load->view('post/user_posts_view') ?>
@@ -68,5 +66,4 @@ $(document).ready(function(){
 			<?=$this->load->view('post/co_posts_view') ?>
 		</ul>
 	</div>
-</div>
 </div>
