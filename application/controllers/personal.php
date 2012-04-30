@@ -73,7 +73,7 @@
 			$data['info'] = $this->User_model->get_info((int)$this->session->userdata('id'));
 			$data['main_content'] = 'personal/setting_view';
 			$data['slider_bar_view'] = 'includes/slider_bar_view';
-			$data['js'] = array('tab.js','personal/setting.js');
+			$data['js'] = array('personal/setting.js');
 			$this->load->view('includes/template_view', $data);
 		}
 		

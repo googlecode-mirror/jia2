@@ -371,16 +371,17 @@ require_once APPPATH . 'libraries/jiadb.php';
 			if($this->owner_id == $this->CI->session->userdata('id')) {
 				$identity = 'self';
 				parent::get_access($operation, $identity);
-				if($this->access = 0) {
+				if($this->access == 0) {
 					return;
 				}
+				$this->access = 0;
 			}
-			
 			if($this->CI->session->userdata('type') == 'register') {
 				$identity = 'register';
 			}
 			
 			// 再判断对于当前po有没有权限
+			$this->owner_id = $this->master_id;
 			if($this->type == 'personal') {
 				if($this->request_user == $this->master_id) {
 					$identity = 'po_master';
