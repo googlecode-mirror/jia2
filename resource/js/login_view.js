@@ -24,5 +24,13 @@ $(function() {
                    }, 'json'
                 );
                 return false;
+        });
+        $("input[name='submit']").ajaxStart(function() {
+			$(this).val('正在登录');
+			$(this).attr('disabled', 'disabled');
+        });
+        $("input[name='submit']").ajaxComplete(function() {
+        	$(this).val('登录');
+        	$(this).removeAttr('disabled');
         })
 });
