@@ -1,4 +1,6 @@
 <?php
+
+// 错误提示视图方法
 if ( ! function_exists('static_view')) {
 	function static_view($message, $title = '出错了～', $url = '') {
 		$CI =& get_instance();
@@ -11,6 +13,7 @@ if ( ! function_exists('static_view')) {
 	}
 }
 
+// 自动跳转视图方法
 if( ! function_exists('jump_view')) {
 	function jump_view($message, $url = '', $title = 'Error') {
 		$CI =& get_instance();
@@ -23,6 +26,7 @@ if( ! function_exists('jump_view')) {
 	}
 }
 
+// 生成头像链接方法
 if( ! function_exists('avatar_url')) {
 	/**
 	 * @param string from db
@@ -34,6 +38,7 @@ if( ! function_exists('avatar_url')) {
 	}
 }
 
+// 统计满足条件的表记录总数
 if(! function_exists('count_rows')) {
 	function count_rows($table, $where = array()) {
 		$CI = &get_instance();
@@ -50,5 +55,15 @@ if(! function_exists('count_rows')) {
 			//若无限制条件则返回表的总行数
 			return $CI->db->count_all($table);
 		}
+	}
+}
+
+// 将时间戳转换为中国时间方法
+if(! function_exists('jdate')) {
+	function jdate($time) {
+		if(is_numeric($time))
+			return date('Y年m月d日 H:i:s', $time);
+		else
+			return '获取时间失败';
 	}
 }

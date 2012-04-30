@@ -16,18 +16,18 @@
 			switch($type) {
 				case 'letter':
 					$data['title'] = '站内信';
-					$data['letter'] = $this->_letter();
+					$data['letters'] = $this->_letter();
 					$this->load->view('includes/template_view', $data);
 					break;
 				case 'message':
 					$data['title'] = '消息';
-					$data['message'] = $this->_message();
+					$data['messages'] = $this->_message();
 					$this->load->view('includes/template_view', $data);
 					break;
 				case 'request':
 					$data['title'] = '请求';
 					$this->_request();
-					$data['request'] = $this->_request();
+					$data['requests'] = $this->_request();
 					$this->load->view('includes/template_view', $data);
 					break;
 				default:

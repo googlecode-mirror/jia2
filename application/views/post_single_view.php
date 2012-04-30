@@ -1,7 +1,7 @@
 <div class="post_main">
-	<?=if(!empty($post['activity'])): ?>
-		<? $this->load->view('co_posts_view') ?>
+	<? if(!empty($post['activity'])): ?>
+		<? $this->load->view('post/co_posts_view') ?>
 	<? else: ?>
-		<? $this->load->view('user_post_view') ?>
+		<? $this->load->view('post/user_posts_view') ?>
 	<? endif ?>
 </div>

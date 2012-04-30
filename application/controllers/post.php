@@ -20,14 +20,17 @@
 				'comment.user' => array('user_id', 'id')
 			);
 			$post = $this->Post_model->get_info($post_id, $join);
+			$this->_auth('view', 'post', $post['owner_id']);
 			if($post) {
+				$data['js'] = 'post.js';
+				$data['css'] = 'home.css';
 				$data['title'] = mb_substr($post['content'], 0, 5);
 				$data['main_content'] = 'post_single_view';
 				// 活动post
-				if($post['type'] == $this->config->item('post_type_activity')) {
-					$data['post']['activity'][0] = $post;
+				if($post['type_id'] == $this->config->item('post_type_activity')) {
+					$data['posts']['activity'][0] = $post;
 				} else {
-					$data['post']['personal'][0] = $post;
+					$data['posts']['personal'][0] = $post;
 				}
 				$this->load->view('includes/template_view', $data);
 			} else {
@@ -62,7 +65,7 @@
 							</div>
 							<div class="f_summary">
 								<p class="f_pm">
-									<span><?=date('Y-m-d H:i:s', $post['time']) ?></span>
+									<span><?=jdate($post['time']) ?></span>
 									<span><a>收起评论</a></span>
 									<span><a>评论</a></span>
 								</p>
@@ -104,12 +107,13 @@
 			}
 			$post = $this->Post_model->get_info($post_id);
 			$owner_id = $post['owner_id'];
+			$time = time();
 			if($this->input->post('content') != '') {
 				$comment = array(
 					'post_id' => $this->input->post('post_id'),
 					'user_id' => $this->session->userdata('id'),
 					'content' => $this->input->post('content'),
-					'time' => time()
+					'time' => $time
 				);
 				$comment_id = $this->Post_model->insert_comment($comment);
 				if(!($type == 'personal' && $owner_id == $this->session->userdata('id'))) {
@@ -117,9 +121,9 @@
 					$notify = array(
 						'user_id' => $this->session->userdata('id'),
 						'receiver' => $owner_id,
-						'content' => '评论了你的' . anchor('personal/profile?post_id=' . $this->input->post('post_id'), '新鲜事'),
+						'content' => '评论了你的' . anchor('post/' . $post_id, '新鲜事'),
 						'type' => 'message',
-						'time' => time()
+						'time' => $time
 					);
 					$this->Notify_model->insert($notify);
 				}
@@ -134,7 +138,7 @@
 							<span class="f_do"><?=$comment['content']?></span>
 						</div>
 						<p class="f_pm">
-							<span><?=date('Y-m-d H:i:s', $comment['time']) ?></span>
+							<span><?=jdate($comment['time']) ?></span>
 							<span><a>回复</a></span>
 						</p>
 						</div>
