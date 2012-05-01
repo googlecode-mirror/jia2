@@ -1,24 +1,14 @@
-<script>
-			$(document).ready(function(){
-				$(".setting>ul").hide();
-				$(".setting").hover(function(){
-						$("ul",this).slideDown("fast");
-					},function(){
-						$("ul",this).slideUp("fast");
-					});
-			});
-		</script>
 <div id="header">
 	<div id="head">
 		<div class="left" id="head_nav">
 			<?=anchor('', 'Jia2网Logo') ?>
-			<?=anchor('', '首页', '') ?><?=anchor('personal', '个人主页', '') . anchor('', '社团之家', '')?>
+			<?=anchor('', '首页', '') ?><?=anchor('personal', '个人主页', '') . anchor('corporation', '社团之家', '')?>
 		</div>
 		<span class="search left">
 				<?=form_open('search') ?>
-				<?=form_input(array('id' => 'textfield', 'maxlength' => 50, 'class' => 'keywords', 'name' => 'keywords')) ?>
 				<?=form_hidden('offset', 0) ?>
-				<?=form_submit('buton', '', 'class="button"') ?>
+				<?=form_input(array('id' => 'nav_search_content', 'maxlength' => 50, 'class' => 'keywords', 'name' => 'keywords')) ?>
+				<?=form_submit('submit', '', 'class="button" id="nav_search_submit"') ?>
 	            <?=form_close() ?>
 			</span>
 		<div class="right">
