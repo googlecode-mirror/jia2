@@ -14,7 +14,7 @@ body{
 	_height:100%;*/ 
 }
 #content{
-	min-height: 600px;
+	min-hei/ght: 600px;
 }
 h3{
 	padding-bottom:10px;
@@ -149,6 +149,7 @@ a.creat_button{
 	line-height:30px;
 	display:block;
 	font-weight:normal;
+	color:#444;
 }
 .search_item ul li a:hover{
 	text-decoration: none;
@@ -343,7 +344,7 @@ li.feed_a{
 }
 
 /*****搜索*******/
-.search{
+#searchform{
 	float:left;
 	background:#fff;
 	display:inline-block;
@@ -353,21 +354,20 @@ li.feed_a{
 	border: 1px solid #C6C7C6;
 	margin-left:10px;
 }
-.search .keywords {float:left;border: 0; width:155px; background:none; line-height:21px; height:21px; color:#bab9b9; }
-.search .button {float:left;margin:0;width:25px;height:21px;cursor:pointer;border-left:1px solid #cacaca; background:url(../img/toolbar.png) -91px -26px;}
+#searchform #nav_search_content {float:left;border: 0; width:155px; background:none; line-height:21px; height:21px; color:#bab9b9; }
+#searchform #nav_search_submit {float:left;margin:0;width:25px;height:21px;cursor:pointer;border-left:1px solid #cacaca; background:url(../img/toolbar.png) -91px -26px;}
 
 /**************container******************/
 #container{
 	padding-top: 28px;
-	padding-bottom: 15px;
+	padding-bottom: 50px;
 	overflow:auto;
+	border: 1px solid #000;
 }
 #main{
 	font-size: 12px;
 	float: left;
 	width: 610px;
-/*	height:auto;*/
-	overflow:visible;
 	padding-left:10px;
 	padding-right:40px;
 	border-right:1px solid #c6c7c6;
@@ -381,22 +381,25 @@ li.feed_a{
 	padding:0 10px;
 	color:#c6c7c6;
 }
+.user_head_box{
+	bor/der-top:1px solid #c6c7c6;
+}
 .user_head_box img {
-	width: 180px;
-	height: 180px;
-	border:10px solid #586067;
+	width: 100px;
+	height: 100px;
+	border:1px solid #c7c7c7;
 	border-radius: 3px;
 	display:block;
 	margin-bottom:30px;
-	-webkit-box-shadow:-1px 2px 5px #666;
-	-moz-box-shadow:-1px 2px 5px #666;
+	-webkit-bo/x-shadow:-1px 2px 5px #666;
+	-moz-box/-shadow:-1px 2px 5px #666;
 }
 .user_head_box .user_name{
 	display: block;
 	font-size:24px;
 	font-weight:bold;
 	color:#586067;
-	border-left: 10px solid #586067;
+	border-left: 1px solid #c6c7c6;
 	padding-left: 10px;
 	font-family:'Microsoft YaHei', Arial;
 }

@@ -1,17 +1,12 @@
 <script>
-	window.onload = function() {
-		var SDmodel = new scrollDoor();
-		SDmodel.sd(["01", "02", "03", "04"], ["search_result_01", "search_result_02", "search_result_03", "search_result_04"], "sd01", "sd02");
-	}
+	window.onload = searchtab;
 </script>
 <div id="main">
 	<h3>&nbsp;搜索&nbsp;“张晖”<span>找到100+条结果</span></h3>
 	<div id="search_box">
 		<div id="search-bar">
-			<?=form_input('keywords','','class="serch_input"')
-			?>
-			<?=form_button('search', '搜索','class="serch_button"')
-			?>
+			<?=form_input('keywords','','class="serch_input"')?>
+			<?=form_button('search', '搜索','class="serch_button"')?>
 		</div>
 	</div>
 	<div class="search_item">

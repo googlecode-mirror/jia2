@@ -18,10 +18,10 @@
 </div>
 <!-- 	发表说说	 -->
 <div id="popup1" class="popup_block">
-<form id="pub">
+<form id="pub" class="form">
 	<div><textarea  rows="2" name="mytext"></textarea></div>
 	<div class="input">
-		<input type="button" value="发布" class="button_pub"/>
+		<input type="button" value="发布" class="button"/>
 	</div>
 </form>   
 </div>

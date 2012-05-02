@@ -6,7 +6,7 @@
 .tab_cont_box{height: auto; overflow:hidden;  margin:0;  padding:0px 10px;}
 
 #guest_tab{
-	width:100%;
+	width:890px;
 	background:#fff;
 	padding-left:10px;
 }
@@ -24,10 +24,10 @@
 .box_1{
 	width:180px;
 	border:1px solid #ccc;
-	padding:15px;
+	padding:14px;
 	background:#fff;
 	float:left;
-	margin:10px 
+	margin:5px 
 }
 .box_1 a img{
 	display:block;

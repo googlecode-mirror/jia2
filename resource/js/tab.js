@@ -31,7 +31,15 @@ scrollDoor.prototype = {
 		return oid;
 	}
 }
-window.onload = function(){
+function setingtab(){
 	var SDmodel = new scrollDoor();
+	SDmodel.sd(["s01", "s02", "s03","s04"], ["c01", "c02", "c03","c04"], "sd01", "sd02");//设置页面
 }
-
+function searchtab(){
+	var SDmodel = new scrollDoor();
+	SDmodel.sd(["01", "02", "03", "04"], ["search_result_01", "search_result_02", "search_result_03", "search_result_04"], "sd01", "sd02");//搜索
+}
+function posttab(){
+	var SDmodel = new scrollDoor();
+	SDmodel.sd(["po1", "po2", "po3"], ["f_01", "f_02", "f_03"], "sd01", "sd02");//post
+}

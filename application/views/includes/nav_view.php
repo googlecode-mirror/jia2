@@ -5,7 +5,7 @@
 			<?=anchor('', '首页', '') ?><?=anchor('personal', '个人主页', '') . anchor('corporation', '社团之家', '')?>
 		</div>
 		<span class="search left">
-				<?=form_open('search') ?>
+				<?=form_open('search','id="searchform"') ?>
 				<?=form_hidden('offset', 0) ?>
 				<?=form_input(array('id' => 'nav_search_content', 'maxlength' => 50, 'class' => 'keywords', 'name' => 'keywords')) ?>
 				<?=form_submit('submit', '', 'class="button" id="nav_search_submit"') ?>
