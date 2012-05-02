@@ -14,7 +14,7 @@ body{
 	_height:100%;*/ 
 }
 #content{
-	min-hei/ght: 600px;
+	min-height: 600px;
 }
 h3{
 	padding-bottom:10px;
@@ -40,8 +40,10 @@ h3 span,h4 span {
 p{
 	font-size: 13px;
 }
-form{clear:both;}
-.clear{
+.p_1{
+	margin-bottom:10px;
+}
+form,.clear{
 	clear:both;
 }
 .hidden{
@@ -362,7 +364,6 @@ li.feed_a{
 	padding-top: 28px;
 	padding-bottom: 50px;
 	overflow:auto;
-	border: 1px solid #000;
 }
 #main{
 	font-size: 12px;

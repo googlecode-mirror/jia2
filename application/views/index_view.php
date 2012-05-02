@@ -2,10 +2,10 @@
 <div id="main">
 <div class="post_top">
 	<form id="pub">
-		<div id="pub_text"><textarea cols="80" rows="2" name="post_content" onfocus="javascript:ResizeTextarea(this,2);" onclick="javascript:ResizeTextarea(this,2);" onkeyup="javascript:ResizeTextarea(this,2);"></textarea></div>
-		<div class="input">
+		<div id="pub_text"><textarea cols="80" rows="3" name="post_content" onfocus="javascript:ResizeTextarea(this,3);" onclick="javascript:ResizeTextarea(this,3);" onkeyup="javascript:ResizeTextarea(this,2);"></textarea></div>
+		<a class="input">发布
 			<?=form_button('post', '发布') ?>
-		</div>
+		</a>
 	</form>
 </div>
 <div class="post_main">
