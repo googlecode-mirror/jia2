@@ -1,11 +1,6 @@
 <script>
 	window.onload = setingtab;
 </script>
-<script language="javascript">
-			$(function(){
-				$('.form').jqTransform({imgPath:'jqtransformplugin/img/'});
-			});
-		</script>
 <div id="main">
 				<div class="search_item">
 						<ul>
