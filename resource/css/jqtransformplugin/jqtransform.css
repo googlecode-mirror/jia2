@@ -1,7 +1,8 @@
 form.jqtransformdone label{
-	margin-top:4px;
 	margin-right: 8px;
 	display: block;
+	height:30px;
+	line-height:30px;
 	float:left;
 }
 /* -------------

@@ -41,10 +41,9 @@
 					</div>
 					<div id="c02" class="hidden">
 						<h4 class="set_title">设置新头像</h4>
-							支持JPG、JPEG、GIF和PNG文件，最大2M。
-						</p>
+						<p class="p_1">	支持JPG、JPEG、GIF和PNG文件，最大2M。	</p>
 						<?=form_open_multipart('personal/do_setting') ?>
-						<?=form_upload('userfile','class="button"') ?>
+						<a class="input-file">上传头像<?=form_upload('userfile','') ?></a>
 						<?=form_hidden('setting', 'avatar') ?>
 						<?=form_submit('submit', '上传') ?>
 						<?=form_close() ?>
@@ -72,8 +71,9 @@
 						<ul id="pass_setting">
 						<?=form_open('personal/do_setting','class="form"')?>
 						<?=form_hidden('setting', 'privacy') ?>
-							<li ><label>浏览权限: </label><?=form_dropdown('post', array('guest' => '所有人', 'register' => '注册用户', 'follower' => '仅粉丝', 'self' => '仅自己'), $privacy['post']) ?></li>
-							<li ><label>评论权限: </label><?=form_dropdown('comment', array('register' => '注册用户','follower' => '仅粉丝', 'self' => '仅自己'), $privacy['comment']) ?></li>
+							<li ><label>浏览权限: </label><?=form_dropdown('post', array('guest' => '所有人&nbsp;', 'register' => '注册用户', 'follower' => '仅粉丝', 'self' => '仅自己'), $privacy['post']) ?></li>
+							<li ><label>评论权限: </label><?=form_dropdown('comment', array('register' => '注册用户&nbsp;','follower' => '仅粉丝', 'self' => '仅自己'), $privacy['comment']) ?></li>
+							<li class="hidden"><label>浏览权限: </label><?=form_dropdown('post', array('guest' => '所有人&nbsp;', 'self' => '仅自己'), $privacy['post']) ?></li>
 							<li class="li_c"><?=form_submit('submit', '更新','class="button"') ?></li>
 						<?=form_close() ?>
 						</ul>

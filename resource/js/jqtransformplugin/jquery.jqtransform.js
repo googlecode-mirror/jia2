@@ -247,7 +247,7 @@
 			/* Now add the html for the select */
 			$wrapper.prepend('<div><span></span><a href="#" class="jqTransformSelectOpen"></a></div><ul></ul>');
 			var $ul = $('ul', $wrapper).css('width',$select.width()).hide();
-			$('span').css('width','40px');
+			$('span').css('width','60px');
 			/* Now we add the options */
 			$('option', this).each(function(i){
 				var oLi = $('<li><a href="#" index="'+ i +'">'+ $(this).html() +'</a></li>');

@@ -44,7 +44,7 @@ function ResizeTextarea(a,row){
 
 $(document).ready(function(){
 	$("textarea").hover(function(){
-		$(this).css("border-color","#676767");
+		$(this).css("border-color","#d8ecfb");
 	},function(){
 		$(this).css("border-color","#E1E1E1");
 	});
