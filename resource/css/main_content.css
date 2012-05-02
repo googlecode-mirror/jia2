@@ -11,7 +11,7 @@ textarea{
 	background-color: white;
 	overflow:hidden;
 }
-#pub textarea{
+#pub_text textarea{
 	width:599px;
 	max-width:600px;
 	ma/x-height:50px;
@@ -199,4 +199,28 @@ span.profile_info{
 /*****association-pro**********/
 .asso_info{
 	margin-top:5px;
+}
+/***********************setting******/
+#modify{
+	float: right;
+}
+.set_title{
+	padding-bottom:10px;
+	margin-bottom:20px;
+	margin-top:20px;
+	border-bottom: 1px solid #c7c7c7;
+}
+.user_setting li{
+	margin:10px 20px;
+	height:30px;
+}
+.user_setting .li_1{
+	margin:10px 20px;
+	height:20px;
+}
+.user_setting .li_b{
+	padding-left:45px;
+}
+.user_setting .li_c{
+	padding-left:63px;
 }
