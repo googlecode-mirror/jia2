@@ -8,7 +8,9 @@
 		}
 		// 社团之家~？
 		function index() {
-			static_view('这里将展示社团综合信息', '社团之家');
+			$data['title'] = '社团之家';
+			$data['main_content'] = 'corporation/index_view';
+			$this->load->view('includes/template_view', $data);
 		}
 		
 		function profile($corporation_id = '') {
