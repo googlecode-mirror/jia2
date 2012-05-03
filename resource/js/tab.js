@@ -41,5 +41,13 @@ function searchtab(){
 }
 function posttab(){
 	var SDmodel = new scrollDoor();
-	SDmodel.sd(["po1", "po2", "po3"], ["f_01", "f_02", "f_03"], "sd01", "sd02");//post
+	SDmodel.sd(["po1", "po2", "po3"], ["po_1", "po_2", "po_3"], "sd01", "sd02");//post
+}
+function cotab(){
+	var SDmodel = new scrollDoor();
+	SDmodel.sd(["co-1", "co-2"], ["feed_1", "feed_2"], "sd01", "sd02");//我的社团
+}
+function coprotab(){
+	var SDmodel = new scrollDoor();
+	SDmodel.sd(["co-01", "co-02", "co-03"], ["co_01", "co_02", "co_03"], "sd01", "sd02");//社团主页
 }

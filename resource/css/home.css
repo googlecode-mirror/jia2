@@ -51,6 +51,7 @@ form,.clear{
 }
 .left {	float: left;}
 .right{float: right;}
+.block{display:block;margin-top:10px;}
 iframe[name=mainiframe]{
 	width:610px;
 	overflow:visible;
@@ -85,6 +86,19 @@ iframe[name=mainiframe]{
 img.btn_close {
 	float: right; 
 	margin: -55px -55px 0 0;
+}
+#inline_pub{
+	position:relative;
+	overflow: auto;
+	min-height:100px;
+}
+.inline_textarea{
+	position:absolute;
+	top:0;
+}
+.inline_button{
+	position:absolute;
+	top:60px;
 }
 /************************a_style*******/
 a {
