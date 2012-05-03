@@ -1,3 +1,11 @@
+/***社团***/
+.operate{
+	margin: 15px 0 5px;
+}
+.creat_act{
+	margin-top:10px;
+}
+
 /***文件上传***/
 .input-file,.input{
 	display:inline-block;

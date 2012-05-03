@@ -49,6 +49,8 @@ form,.clear{
 .hidden{
 	display:none;
 }
+.left {	float: left;}
+.right{float: right;}
 iframe[name=mainiframe]{
 	width:610px;
 	overflow:visible;
@@ -98,9 +100,10 @@ a:hover {color: #26709A;	text-decor/ation: underline;}
 a:active {}
 a.active {font-weight:bold;}
 
-#head_nav a {
+#head_nav a,.right a{
 	text-s/hadow: 1px 1px 1px #000;
 	padding: 0px 10px;
+	color: #999;
 	
 }
 #head_nav a:hover {
@@ -133,7 +136,7 @@ a.a_sty_02{
 }
 /*-a_按钮-*/
 a.creat_button{
-	display:block;
+	display:inline-block;
 	width:90px;
 	text-align:center;
 	height:30px;
@@ -329,8 +332,7 @@ li.feed_a{
 	width: 100%;
 	font-weight: bold;
 }
-.left {	float: left;}
-.right{float: right;}
+
 .setting{
 	float:left;
 	position:relative;
