@@ -1,9 +1,12 @@
+<script>
+	window.onload = posttab;
+</script>
 <? $this->load->view('includes/slider_bar_view') ?>
 <div id="main">
 <div class="post_top">
 	<form id="pub">
 		<div id="pub_text"><textarea cols="80" rows="3" name="post_content" onfocus="javascript:ResizeTextarea(this,3);" onclick="javascript:ResizeTextarea(this,3);" onkeyup="javascript:ResizeTextarea(this,2);"></textarea></div>
-		<a class="input">发布
+		<a class="pub_button">发布
 			<?=form_button('post', '发布') ?>
 		</a>
 	</form>
@@ -26,8 +29,11 @@
 	</div>
 	<div id="feeds_container" class="feeds">
 		<ul id="feed_1">
-			<?=$this->load->view('post/user_posts_view') ?>
-			
+			<div id="po_1">
+				<?=$this->load->view('post/user_posts_view') ?>
+			</div>
+			<div id="po_2" class="hidden">只显示活动日志</div>
+			<div id="po_3" class="hidden">只显示图片</div>
 		</ul>
 		<ul id="feed_2" class="hidden">
 			<?=$this->load->view('post/co_posts_view') ?>

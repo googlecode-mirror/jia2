@@ -18,10 +18,10 @@
 </div>
 <!-- 	发表说说	 -->
 <div id="popup1" class="popup_block">
-<form id="pub" class="form">
-	<div><textarea  rows="2" name="mytext"></textarea></div>
-	<div class="input">
-		<input type="button" value="发布" class="button"/>
+<form id="inline_pub">
+	<div class="inline_textarea"><textarea  cols="60" rows="2" name="mytext"></textarea></div>
+	<div class="inline_button">
+		<?=form_button('post', '发布') ?>
 	</div>
 </form>   
 </div>

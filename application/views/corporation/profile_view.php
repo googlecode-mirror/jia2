@@ -1,3 +1,6 @@
+<script>
+	window.onload = coprotab;
+</script>
 <div>
 	<a href="<?=site_url('corporation/profile/' . $info['id'])?>" class="head_pic"><img src="<?=avatar_url($info['avatar'], 'corporation', 'big') ?>" /> <div class="clear"></div><h4><?=$info['name']
 	?></h4> </a>
@@ -99,4 +102,10 @@
 		</ul>
 	</div>
 	<div id="feeds_container" class="feeds"></div>
+		<div id="co_01">活动日志&nbsp
+		</div>
+		<div id="co_02" class="hidden">活动相册&nbsp
+		</div>
+		<div id="co_03" class="hidden">状态&nbsp
+		</div>
 	</div>

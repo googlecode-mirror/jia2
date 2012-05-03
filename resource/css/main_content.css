@@ -1,3 +1,22 @@
+/*****通知******/
+.delete-all{
+	margin-top:20px;
+	border: 1px solid #E1E1E1;
+	border-width: 1px 0;
+	overflow: auto;
+	height:20px;
+	line-height: 20px;
+	padding:5px 20px;
+}
+.mes_li{
+	overflow: auto;
+	padding:10px 20px;
+	border-bottom: 1px solid #C6C7C6;
+	vertical-align: top;
+}
+.mes_li a{vertical-align: top;}
+.mes_li,.mes_li a{font-size:13px;}
+.mes_li>div{margin-right:10px;}
 /***社团***/
 .operate{
 	margin: 15px 0 5px;
@@ -7,7 +26,7 @@
 }
 
 /***文件上传***/
-.input-file,.input{
+.input-file,.pub_button {
 	display:inline-block;
 	height:30px;
 	line-height:30px;
@@ -18,7 +37,7 @@
 	position:relative;
 	color: #666;
 }
-.input-file input,.input button{
+.input-file input,.pub_button button{
 	opacity:0;
 	filter:alpha(opacity=0);
 	font-size:100px;

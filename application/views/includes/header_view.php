@@ -10,6 +10,7 @@
         <link rel="stylesheet" type="text/css" href="<?=site_url('resource/css/jqtransformplugin/jqtransform.css')?>" />
 	    <script type="text/javascript" src="<?=site_url('resource/js/jquery.js') ?>"></script>
 	    <script type="text/javascript" src="<?=site_url('resource/js/global.js') ?>"></script>
+	    <script type="text/javascript" src="<?=site_url('resource/js/tab.js') ?>"></script>
 	    <script type="text/javascript" src="<?=site_url('resource/js/inline_window.js') ?>"></script>
  		<script type="text/javascript" src="<?=site_url('resource/js/jqtransformplugin/jquery.jqtransform.js') ?>"></script>
 		<script language="javascript">
