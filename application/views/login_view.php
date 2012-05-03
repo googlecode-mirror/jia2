@@ -1,4 +1,3 @@
-	<div class="bg">
 			<div class="login">
 				<div class="title">
 					Jia2网logo_<span>登录</span>
@@ -27,5 +26,4 @@
 					</div>
 				<?=form_close() ?>
 			</div>
-		</div>
 	

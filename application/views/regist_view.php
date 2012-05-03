@@ -1,4 +1,3 @@
-<div class="bg">
 	<div class="login register">
     <div class="title">Jia2网logo_<span>注册</span></div>
     <?=form_open('index/do_regist', 'id = "reg"') ?>
@@ -28,4 +27,3 @@
     	<?=form_close() ?>
 	</div>
     </div>
-</div>
