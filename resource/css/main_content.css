@@ -18,7 +18,7 @@
 	position:relative;
 	color: #666;
 }
-.input-file input,button{
+.input-file input,.input button{
 	opacity:0;
 	filter:alpha(opacity=0);
 	font-size:100px;
