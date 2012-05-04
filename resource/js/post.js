@@ -2,7 +2,6 @@
  * ajax 发帖以及添加评论的js
  */
 $(function() {
-	$("button[name='comment']").attr('disabled', 'disabled');
 	$("textarea[name='comment_content']").keyup(function() {
 		$button = $(this).parent().next().children('button');
 		if($(this).val() != '') {
@@ -33,7 +32,6 @@ $(function() {
 		);
 	});
 	
-	$("button[name='post']").attr('disabled', 'disabled');
 	$("textarea[name='post_content']").keyup(function() {
 		if($(this).val() != '') {
 			$("button[name='post']").removeAttr('disabled');

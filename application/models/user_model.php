@@ -14,10 +14,10 @@
 			if(!$info) {
 				return 1;
 			}
-			if($info[0]['pass'] != $pass) {
+			if($info['pass'] != $pass) {
 				return 2;
 			}
-			return $info[0];
+			return $info;
 		}
 		
 		function insert($email, $name, $pass) {
@@ -77,7 +77,11 @@
 					$field = 'email';
 				}
 			}
-			return $this->jiadb->fetchJoin(array($field => $param), $join);
+			$user = $this->jiadb->fetchJoin(array($field => $param), $join);
+			if($user) {
+				$user = $user[0];
+			}
+			return $user;
 		}
 		
 		/*

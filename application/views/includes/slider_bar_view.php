@@ -1,7 +1,7 @@
 <div id="sidebar">
 	<div class="user_head_box sidebar_nav">
-		<?=anchor('personal/profile/' . $info[0]['id'], '<img src="'. avatar_url($info[0]['avatar'], 'personal', 'big') .'" >','class="user_head"') ?>
-		<a href="" class="user_name"><?=$info[0]['name'] ?></a>
+		<?=anchor('personal/profile/' . $info['id'], '<img src="'. avatar_url($info['avatar'], 'personal', 'big') .'" >','class="user_head"') ?>
+		<a href="" class="user_name"><?=$info['name'] ?></a>
 	</div>
 	<div class="sidebar_nav">
 		<ul class="ul_sty_01">
