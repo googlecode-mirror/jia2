@@ -15,7 +15,10 @@
 		function fetch(array $where, array $limit = array(10, 0)) {
 			$where['type_id'] = $this->notify_type[$where['type']];
 			unset($where['type']);
-			return $this->jiadb->fetchJoin($where, array('user' => array('user_id', 'id')), array('time' => 'DESC'), $limit);
+			$join = array(
+				'user' => array('user_id', 'id')
+			);
+			return $this->jiadb->fetchJoin($where, $join, array('time' => 'DESC'), $limit);
 		}
 		
 		function insert(array $notify) {

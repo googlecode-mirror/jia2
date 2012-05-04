@@ -1,14 +1,14 @@
 <? $this->load->view('includes/slider_bar_view') ?>
 <div id="main">
-	<h3>&nbsp;<?=$info[0]['name'] ?>&nbsp;&nbsp;</h3>
+	<h3>&nbsp;<?=$info['name'] ?>&nbsp;&nbsp;</h3>
 	<p><span class="profile_info">位置&nbsp;<a>四川 成都</a></span>|
 		<span class="profile_info">在&nbsp;<a>成都信息工程大学</a></span>|
 		<span class="profile_info"><a href="">更多资料</a></span></p>
-		<? if($this->session->userdata('id') != $info[0]['id'] ): ?>
+		<? if($this->session->userdata('id') != $info['id'] ): ?>
 		<? if(in_array($this->session->userdata('id'), $followers)): ?>
-		<?=form_button(array('name' => 'follow', 'content' => '已关注', 'user_id' => $info[0]['id'], 'disabled' => 'disabled')) ?>
+		<?=form_button(array('name' => 'follow', 'content' => '已关注', 'user_id' => $info['id'], 'disabled' => 'disabled')) ?>
 		<? else: ?>
-		<?=form_button(array('name' => 'follow', 'content' => '关注', 'user_id' => $info[0]['id'])) ?>
+		<?=form_button(array('name' => 'follow', 'content' => '关注', 'user_id' => $info['id'])) ?>
 		<? endif ?>
 		<? endif ?>
 		
