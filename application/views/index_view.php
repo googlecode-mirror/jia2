@@ -5,7 +5,7 @@
 <div id="main">
 <div class="post_top">
 	<form id="pub">
-		<div id="pub_text"><textarea cols="80" rows="3" name="post_content" onfocus="javascript:ResizeTextarea(this,3);" onclick="javascript:ResizeTextarea(this,3);" onkeyup="javascript:ResizeTextarea(this,2);"></textarea></div>
+		<div id="pub_text"><textarea cols="80" rows="3" name="post_content" class="textarea_01" onfocus="javascript:ResizeTextarea(this,3);" onclick="javascript:ResizeTextarea(this,3);" onkeyup="javascript:ResizeTextarea(this,2);"></textarea></div>
 		<a class="pub_button">发布
 			<?=form_button('post', '发布', 'disabled="disabled"') ?>
 		</a>

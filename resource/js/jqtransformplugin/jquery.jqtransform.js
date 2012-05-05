@@ -217,9 +217,7 @@
 			if($.browser.safari){
 				$('#jqTransformTextarea-mm',oTable)
 					.addClass('jqTransformSafariTextarea')
-					.find('div')
-						.css('height',textarea.height())
-						.css('width',textarea.width())
+					
 				;
 			}
 		});

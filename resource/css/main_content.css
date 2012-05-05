@@ -46,7 +46,7 @@
 	right:0;
 }
 /***发布状态***/
-textarea{
+.textarea_01{
 	padding:2px 0 2px 4px;
 	margin-top:10px;
 	border:1px solid #E1E1E1;
@@ -55,7 +55,7 @@ textarea{
 	background-color: white;
 	overflow:hidden;
 }
-#pub_text textarea{
+#pub_text .textarea_01{
 	width:599px;
 	max-width:600px;
 	ma/x-height:50px;
@@ -248,7 +248,7 @@ span.profile_info{
 	margin-top:20px;
 	border-bottom: 1px solid #c7c7c7;
 }
-.user_setting li{
+.user_setting li,#add-corporation p{
 	margin:10px 20px;
 	height:30px;
 }
@@ -261,4 +261,8 @@ span.profile_info{
 }
 .user_setting .li_c{
 	padding-left:63px;
+}
+#add-corporation .li_c{
+	padding-left:65px;
+	margin-top:180px;
 }

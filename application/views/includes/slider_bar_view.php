@@ -11,7 +11,7 @@
 	</div>
 	<div class="sidebar_nav">
 		<ul class="ul_sty_02">
-			<li><a href="" target ="postiframe" class="a_sty_01"><i class="ico ico_say"></i>说说</a><a href="#?w=500" rel="popup1" class="a_sty_02">发表</a></li>
+			<li><a href="" target ="postiframe" class="a_sty_01"><i class="ico ico_say"></i>说说</a><a href="#?w=500" rel="popup1" class="a_sty_02 inline">发表</a></li>
 		</ul>
 	</div>
 	
