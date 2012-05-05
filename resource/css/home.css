@@ -83,9 +83,12 @@ iframe[name=mainiframe]{
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 }
-img.btn_close {
+.btn_close {
 	float: right; 
-	margin: -55px -55px 0 0;
+	margin: -40px -40px 0 0;
+	width:26px;
+	height:26px;
+	background:url(../img/pic_close.png)
 }
 #inline_pub{
 	position:relative;
@@ -99,6 +102,10 @@ img.btn_close {
 .inline_button{
 	position:absolute;
 	top:60px;
+}
+.form_li{
+	border: 1px solid #000;
+	overflow: visible;
 }
 /************************a_style*******/
 a {

@@ -1,6 +1,7 @@
 <script>
 	window.onload = coprotab;
 </script>
+		
 <div>
 	<a href="<?=site_url('corporation/profile/' . $info['id'])?>" class="head_pic"><img src="<?=avatar_url($info['avatar'], 'corporation', 'big') ?>" /> <div class="clear"></div><h4><?=$info['name']
 	?></h4> </a>
@@ -86,7 +87,7 @@
 			|
 			<span><a href="">退出社团</a></span>
 		</p>
-		<a href="" class="creat_button creat_act">创建活动</a>
+		<a href="#?w=500" rel="popup3" class="creat_button creat_act inline">创建活动</a>
 	</div>
 	<div class="search_item">
 		<ul>
@@ -109,3 +110,25 @@
 		<div id="co_03" class="hidden">状态&nbsp
 		</div>
 	</div>
+	
+<!-- 	创建	活动 -->
+<div id="popup2" class="popup_block">
+<div id="add-corporation">
+			<?=form_open('corporation/do_add','class="form"')?>
+				<p ><label>活动名称：</label><?=form_input('name') ?></p>
+				<p ><label>活动地点：</label><?=form_dropdown('gender', array('1'=> '川大江安', '0' => '川大望江')) ?></p>
+				<p class="hidden"><label>所在地：</label><?=form_dropdown('gender', array('0'=> '四川')) ?></p>
+				<p ><label>活动时间：</label><input type="text" size="30" id="datepicker" class=""/></p>
+				<p ><label>活动简介：</label><?=form_textarea(array('name' => 'comment', 'cols' => 30, 'rows' => 10)) ?></textarea></p>
+				<p class="li_c"><?=form_submit('submit', '保存','class="button"') ?></p>
+			<?=form_close() ?>
+			<script type="text/javascript">
+			$(document).ready(function(){
+				$(function() {
+					$("#datepicker").datepicker();
+				});
+			});
+			</script>
+	
+</div>  
+</div>

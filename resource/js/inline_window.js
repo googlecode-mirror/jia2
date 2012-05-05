@@ -4,7 +4,7 @@
 $(document).ready(function(){
 						   		   
 	//When you click on a link with class of poplight and the href starts with a # 
-	$('a.a_sty_02[href^=#]').click(function() {
+	$('a.inline[href^=#]').click(function() {
 		var popID = $(this).attr('rel'); //Get Popup Name
 		var popURL = $(this).attr('href'); //Get Popup href to define size
 				
@@ -14,7 +14,7 @@ $(document).ready(function(){
 		var popWidth = dim[0].split('=')[1]; //Gets the first query string value
 
 		//Fade in the Popup and add close button
-		$('#' + popID).fadeIn().css({ 'width': Number( popWidth ) }).prepend('<a href="#" class="close"><img src="images/close_pop.png" class="btn_close" title="Close Window" alt="Close" /></a>');
+		$('#' + popID).fadeIn().css({ 'width': Number( popWidth ) }).prepend('<a href="#" class="close"><span class="btn_close" title="Close Window" alt="Close" ></span></a>');
 		
 		//Define margin for center alignment (vertical + horizontal) - we add 80 to the height/width to accomodate for the padding + border width defined in the css
 		var popMargTop = ($('#' + popID).height() + 80) / 2;
