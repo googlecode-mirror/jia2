@@ -36,9 +36,9 @@
 					<? endforeach?>
 					<? endif?>
 				</ul>
-				<div>
-					<p><?=form_textarea(array('name' => 'comment_content', 'post_id'=>$post['id'], 'type' => 'personal', 'cols' => 50, 'rows' => 2)) ?></p>
-					<p><?=form_button('comment', '评论', 'disabled="disbaled"') ?></p>
+				<div class="comment_wrap">
+					<p><?=form_textarea(array('name' => 'comment_content', 'post_id'=>$post['id'], 'type' => 'personal', 'cols' => 50, 'rows' => 2,'class'=>'comment_textarea')) ?></p>
+					<p><?=form_button('comment', '评论', 'class="pub_button comment_button hidden"') ?></p>
 				</div>
 			</div>
 		</div>

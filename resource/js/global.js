@@ -67,3 +67,32 @@ $(function(){
 	});
 });
 
+//发布评论按钮
+$(function(){
+	$("#pub").hover(function(){
+		$(".pub_btn").fadeIn("slow").css("display","block");
+	},function(){
+		$(".pub_btn").fadeOut("slow");
+	});
+	$(".comment_wrap").hover(function(){
+		$(".comment_button").css("display","block").fadeTo("slow", 0.66);
+	},function(){
+		$(".comment_button").fadeOut("slow");
+	});
+})
+
+//输入框,
+$(function(){
+	$(".InputWrapper").hover(function(){
+		 $(this).addClass("InputWrapper_hover");
+	});
+	$(".InputWrapper").focus(function(){
+		 $(this).addClass("InputWrapper_focus");
+	});
+	$(".Textarea").hover(function(){
+		 $(this).addClass("Textarea-hover");
+	});
+	$(".Textarea").focus(function(){
+		 $(this).addClass("Textarea-focus");
+	});
+})

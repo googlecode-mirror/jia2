@@ -23,8 +23,8 @@
 					$data['info'] = $corporation_info;
 					$data['main_content'] = 'corporation/profile_view';
 					$data['title'] = $data['info']['name'];
-					$data['js'] = array('corporation/profile_view.js');
-					$data['css'] = 'corporation/profile.css';
+					$data['js'] = array('corporation/profile_view.js','corporation/jquery-1.3.2.min.js','corporation/jquery-ui-1.7.custom.min.js');
+					$data['css'] = 'corporation/jquery-ui-1.7.custom.css';
 					$this->load->view('includes/template_view', $data);
 				} else {
 					static_view('你要查看的社团不存在');
