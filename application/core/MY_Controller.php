@@ -52,9 +52,13 @@ require_once APPPATH . 'libraries/access.php';
 			}
 		}
 		
-		function _require_ajax() {
+		function _require_ajax($return = FALSE) {
 			if(!$this->input->post('ajax')) {
-				static_view('未定义操作');
+				if($return)
+					return FALSE;
+				else 
+					static_view('未定义操作');
 			}
+			return TRUE;
 		}
 	}
