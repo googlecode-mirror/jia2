@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>add_activity</title>
+		<!-- 		<script type="text/javascript" src="resource/js/calenderJS.js"></script> -->
+		<link rel="stylesheet" type="text/css" href="resource/css/home.css" />
+        <link rel="stylesheet" type="text/css" href="resource/css/main_content.css" />
+		<link type="text/css" href="resource/css/smoothness/jquery-ui-1.7.custom.css" rel="stylesheet" />
+		<script type="text/javascript" src="resource/js/jquery-1.3.2.min.js"></script>
+		<script type="text/javascript" src="resource/js/jquery-ui-1.7.custom.min.js"></script>
+	</head>
+	<body>
+		
+		<div id="add-corporation">
+			<form class="form">
+				<p><label>活动名称：</label>
+					<div class="InputWrapper"><div class="InputInner">
+						<input />
+					</div></div>
+				</p>
+				<p><label>活动地点：</label><section>1<option>1</option></section></p>
+				<p><label>活动时间：</label>
+					<div class="InputWrapper"><div class="InputInner">
+						<input type="text" id="datepicker_star" />
+					</div></div>
+					<div class="InputWrapper"><div class="InputInner">
+						<input type="text" id="datepicker_end" />
+					</div></div>
+				</p>
+				<p><label>活动简介：</label><textarea></textarea></p>
+				<p class="li_c"><?=form_submit('submit', '保存','class="button"') ?></p>
+			</form>
+			<script type="text/javascript">
+			$(document).ready(function(){
+				$(function() {
+					$("#datepicker_star").datepicker();
+					$("#datepicker_end").datepicker();
+				});
+			});
+			$("#datepicker_star").datepicker({ 
+				onSelect:function(dateText,inst){
+					$("#datepicker_end").datepicker("option","minDate",dateText); 
+				}
+			}); 
+			$("#datepicker_end").datepicker({ 
+				onSelect:function(dateText,inst){
+					$("#datepicker_star").datepicker("option","maxDate",dateText); 
+				}
+			}); 
+			</script>
+	
+</div>  
+	</body>
+</html>

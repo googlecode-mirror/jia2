@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>manage</title>
+		<link rel="stylesheet" type="text/css" href="resource/css/home.css" />
+        <link rel="stylesheet" type="text/css" href="resource/css/main_content.css" />
+        <script type="text/javascript" src="resource/js/tab.js"></script>
+        <script>
+	window.onload = copro_m_tab;
+</script>
+	</head>
+	<body>
+		<div class="search_item">
+		<ul>
+			<li class="sd01" id="coo-01">
+				<a href="#" id="active">设置协会信息&nbsp;</a>
+			</li>
+			<li class="sd02" id="coo-02">
+				<a href="#">管理协会成员&nbsp;(6)</a>
+			</li>
+		</ul>
+		</div>
+		<div id="feeds_container" class="feeds"></div>
+			<div id="coo_01">
+				<ul>
+				<form class="form">
+				<li><label>协会名称：</label>
+					<div class="InputWrapper"><div class="InputInner">
+						<input />
+					</div></div>
+				</li>
+				<li><label>协会类型：</label><section>1<option>1</option></section></li>
+				<li><label>所在学校：</label><section>1<option>1</option></section></li>
+				<li><label>协会简介：</label><textarea></textarea></li>
+				<li class="li_c"><?=form_submit('submit', '保存','class="button"') ?></li>
+				</form>
+				</ul>
+			</div>
+			<div id="coo_02" class="hidden">
+				<div id="manage">
+					<a class="a-img"><img /></a>
+					<span>管理员:</span><a>管理员名字</a>
+				</div>
+				<ul id="member">
+					<li>
+						<a class="a-img"><img /></a>
+						<p class="operate">
+							<span>
+								<a>设置为管理员</a>
+								 | 
+								 <a>删除</a> 
+							</span>
+						</p>
+					</li><li>
+						<a class="a-img"><img /></a>
+						<p class="operate">
+							<span>
+								<a>设置为管理员</a>
+								 | 
+								 <a>删除</a> 
+							</span>
+						</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
