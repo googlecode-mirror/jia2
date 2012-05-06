@@ -25,6 +25,7 @@
 					$data['title'] = $data['info']['name'];
 					$data['js'] = array('corporation/profile_view.js','corporation/jquery-1.3.2.min.js','corporation/jquery-ui-1.7.custom.min.js');
 					$data['css'] = 'corporation/jquery-ui-1.7.custom.css';
+					$data['followers'] = $this->Corporation_model->get_followers($corporation_id);
 					$this->load->view('includes/template_view', $data);
 				} else {
 					static_view('你要查看的社团不存在');
@@ -94,6 +95,18 @@
 			$corporation_id = $this->input->post('id');
 			$user_id = $this->session->userdata('id');
 			if($this->Corporation_model->follow($user_id, $corporation_id)) {
+				echo 1;
+			} else {
+				echo 0;
+			}
+		}
+		
+		function unfollow() {
+			$this->_require_login();
+			$this->_require_ajax();
+			$corporation_id = $this->input->post('id');
+			$user_id = $this->session->userdata('id');
+			if($this->Corporation_model->follow($user_id, $corporation_id, TRUE)) {
 				echo 1;
 			} else {
 				echo 0;

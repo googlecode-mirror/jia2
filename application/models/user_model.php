@@ -152,13 +152,14 @@
 			if($unfollow) {
 				$this->db->where($meta_array);
 				$this->db->delete('user_meta', $meta_array);
+				return TRUE;
 			} else {
 				// 被关注者的黑名单
 				$following_blockers = $this->get_blockers($following_id);
 				// 关注者的黑名单
 				$follower_blockers = $this->get_blockers($user_id);
 				// 需要满足 关注者不在被关注者的黑名单内同时 被关注者也不在关注者的黑名单内
-				if(in_array($user_id, $following_blockers) || in_array($following_id, $follower_blockers)) {
+				if($following_blockers && (in_array($user_id, $following_blockers) || in_array($following_id, $follower_blockers))) {
 					return FALSE;
 				} else {
 					$this->insert_meta($meta_array);

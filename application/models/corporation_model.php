@@ -90,8 +90,9 @@
 			if($unfollow) {
 				$this->db->where($user_meta);
 				$this->db->delete('user_meta', $user_meta);
+				return TRUE;
 			} else {
-				$blocker = $this->get_meta('blocker', $corporation_id);
+				$blocker = $this->get_blockers($corporation_id);
 				if(in_array($user_id, $blocker)) {
 					return FALSE;
 				} else {

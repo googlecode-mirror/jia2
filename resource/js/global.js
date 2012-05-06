@@ -68,6 +68,7 @@ $(function(){
 });
 
 //发布评论按钮
+/*
 $(function(){
 	$("#pub").hover(function(){
 		$(".pub_btn").fadeIn("slow").css("display","block");
@@ -81,6 +82,7 @@ $(function(){
 	});
 })
 
+*/
 //输入框,
 $(function(){
 	$(".InputWrapper").hover(function(){

@@ -218,11 +218,23 @@
 				// 发条通知
 				$notify = array(
 					'user_id' => $this->user_id,
-					'receiver' => $following_id,
+					'receiver_id' => $following_id,
 					'content' => '关注了你',
 					'time' => time(),
 					'type' => 'message'
 				);
+				$this->Notify_model->insert($notify);
+				echo 1;
+			} else {
+				echo 0;
+			}
+		}
+		
+		function unfollow() {
+			$this->_require_login();
+			$this->_require_ajax();
+			$following_id = $this->input->post('user_id');
+			if($this->User_model->follow($this->user_id, $following_id, TRUE)) {
 				echo 1;
 			} else {
 				echo 0;

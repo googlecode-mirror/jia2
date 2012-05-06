@@ -1,3 +1,13 @@
+function request_letter(box) {
+	$.post(SITE_URL + 'notify?type=letter', {
+		ajax: 1,
+		box: box
+	}, function(data) {
+		//alert($("#letter_" + box + "_content"));
+		$("#letter_" + box + "_content").remove();
+		$("#letter_box").prepend(data);
+	});
+}
 $(function() {
 	$("#write_letter").click(function() {
 		$("#write_letter_area").toggle();
@@ -34,12 +44,28 @@ $(function() {
 			}
 		}, 'json');
 	});
-	
+
 	// 默认请求收件箱
-	$.post(SITE_URL + 'notify?type=letter', {
-		ajax: 1,
-		box: 'in'
-	}, function(data) {
-		$("#letter_box").empty
+	request_letter('in');
+	
+	$("#in_box").click(function() {
+		alert($("#letter_in_content").length);
+		if($("#letter_in_content").length > 0) {
+			$("#letter_in_content").show();
+			$("#letter_out_content").hide();
+			return false;
+		} else {
+			request_letter('in');
+		}		
+	});
+	$("#out_box").click(function() {
+		alert($("#letter_out_content").length);
+		if($("#letter_out_content").length > 0) {
+			$("#letter_out_content").show();
+			$("#letter_in_content").hide();
+			return false;
+		} else {
+			request_letter('out');
+		}
 	});
 });
