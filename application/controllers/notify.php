@@ -21,13 +21,14 @@
 						$box = $this->input->post('box');
 						if($box != 'in' && $box != 'out')
 							static_view('你请求的数据不存在');
-						$data['info'] = $this->User_model->get_info($this->session->userdata('id'));
-						$data['letters'] = $this->_letter($this->input->post('box'));
-						$this->load->view('notify/letter_' . $box . '_view', $data);
+						$letter['info'] = $this->User_model->get_info($this->session->userdata('id'));
+						$letter['letters'] = $this->_letter($box);
+						$this->load->view('notify/letter_' . $box . '_view', $letter);
+					} else {
+						$data['title'] = '站内信';
+						$data['js'] = 'personal/letter.js';
+						$this->load->view('includes/template_view', $data);
 					}
-					$data['title'] = '站内信';
-					$data['js'] = 'personal/letter.js';
-					$this->load->view('includes/template_view', $data);
 					break;
 				case 'message':
 					$data['title'] = '消息';
@@ -53,15 +54,12 @@
 			return $this->Notify_model->fetch($where);
 		}
 		
-		function _letter() {
-			$letter_type = $this->input->get('letter');
+		function _letter($box) {
 			$where = array('type' => 'letter');
-			if($letter_type == 'in' || TRUE) {
+			if($box == 'in') {
 				$where['receiver_id']  = $this->session->userdata('id');
-			} elseif($letter_type == 'out') {
-				$where['user_id'] = $this->session->userdata('id');
 			} else {
-				static_view('抱歉，你访问的页面不存在');
+				$where['user_id'] = $this->session->userdata('id');
 			}
 			return $this->Notify_model->fetch($where);
 		}

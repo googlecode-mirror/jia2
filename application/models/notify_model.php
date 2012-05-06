@@ -14,10 +14,16 @@
 		
 		function fetch(array $where, array $limit = array(10, 0)) {
 			$where['type_id'] = $this->notify_type[$where['type']];
+			$type = $where['type'];
 			unset($where['type']);
 			$join = array(
 				'user' => array('user_id', 'id')
 			);
+			if($type == 'letter' && empty($where['receiver_id'])) {
+				$join['user'] = array(
+					'receiver_id', 'id'
+				);
+			}
 			return $this->jiadb->fetchJoin($where, $join, array('time' => 'DESC'), $limit);
 		}
 		

@@ -1,5 +1,6 @@
-<? if(!empty($letter)): ?>
-	<ul id="letter_out_content">
+<div id="letter_out_content">
+<? if(!empty($letters)): ?>
+	<ul>
 	<? foreach($letters as $letter): ?>
 		<li class="mes_li">
 			<div class="left">
@@ -14,5 +15,6 @@
 	<? endforeach ?>
 	</ul>
 <?else: ?>
-<p>收件箱为空</p>
+<p>发件箱为空</p>
 <? endif?>
+</div>

@@ -5,9 +5,16 @@
 <div>
 	<a href="<?=site_url('corporation/profile/' . $info['id'])?>" class="head_pic"><img src="<?=avatar_url($info['avatar'], 'corporation', 'big') ?>" /> <div class="clear"></div>
 		<h4><?=$info['name']?></h4> </a>
-	<?=form_button(array('name' => 'follow', 'content' => '关注', 'id' => $info['id']))
-	?>
-	<div class="admin-options">
+		<? if($this->session->userdata('id')): ?>
+			<? if(in_array($this->session->userdata('id'), $followers)): ?>
+				<?=form_button(array('name' => 'follow', 'content' => '已关注', 'id' => $info['id'], 'disabled' => 'disabled'))?>
+				<?=form_button(array('name' => 'unfollow', 'content' => '取消关注', 'id' => $info['id']))?>
+			<? else:?>
+				<?=form_button(array('name' => 'follow', 'content' => '关注', 'id' => $info['id']))?>
+				
+			<? endif?>
+		<? endif ?>
+		<div class="admin-options">
 		<p>
 			<?=anchor('activity/add/' . $info['id'], '创建活动')
 			?>

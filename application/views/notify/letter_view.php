@@ -36,5 +36,5 @@
 	<p ><?=form_button('submit', '发送', 'id="send_letter" disabled="disabled"') ?></p>
 </div>
 <?=form_close() ?>
-<p><a id="in_box">收件箱</a><a id="out_box">发件箱</a></p>
+<p><a id="in_box">收件箱</a>&nbsp;&nbsp;<a id="out_box">发件箱</a></p>
 <div id="letter_box"></div>

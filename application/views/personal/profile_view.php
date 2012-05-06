@@ -7,6 +7,7 @@
 		<? if($this->session->userdata('id') != $info['id'] ): ?>
 		<? if(in_array($this->session->userdata('id'), $followers)): ?>
 		<?=form_button(array('name' => 'follow', 'content' => '已关注', 'user_id' => $info['id'], 'disabled' => 'disabled')) ?>
+		<?=form_button(array('name' => 'unfollow', 'content' => '取消关注', 'user_id' => $info['id'])) ?>
 		<? else: ?>
 		<?=form_button(array('name' => 'follow', 'content' => '关注', 'user_id' => $info['id'])) ?>
 		<? endif ?>

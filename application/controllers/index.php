@@ -13,8 +13,8 @@
 				$data['title'] = '首页';
 				$data['posts'] = $this->Post_model->post_string($this->session->userdata('id'));
 				$data['info'] = $this->User_model->get_info($this->session->userdata('id'));
-				$data['css'] = array('home.css');
-				$data['js'] = array('post.js','tab.js');
+				//$data['css'] = array('home.css');
+				$data['js'] = array('post.js');
 				$data['main_content'] = 'index_view';
 				$this->load->view('includes/template_view', $data);
 			}

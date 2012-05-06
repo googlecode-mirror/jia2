@@ -30,7 +30,7 @@
 			</tbody>
 		</table>
 		</div>
-		<?=form_button('post', '发布', 'class="pub_button pub_btn  hidden"') ?>
+		<?=form_button('post', '发布', 'class="pub_button pub_btn"') ?>
 	</form>
 </div>
 <div class="post_main">
