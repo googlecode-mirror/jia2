@@ -51,7 +51,7 @@
 			<h4 class="set_title">设置新头像</h4>
 			<p class="p_1">	支持JPG、JPEG、GIF和PNG文件，最大2M。	</p>
 			<?=form_open_multipart('personal/do_setting') ?>
-			<a class="input-file">上传头像<?=form_upload('userfile','') ?></a>
+			<a><?=form_upload('userfile') ?></a>
 			<?=form_hidden('setting', 'avatar') ?>
 			<?=form_submit('submit', '上传') ?>
 			<?=form_close() ?>
