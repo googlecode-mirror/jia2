@@ -16,9 +16,17 @@
 			$data['main_content'] = 'notify_view';
 			switch($type) {
 				case 'letter':
+					// ajax 请求
+					if($this->_require_ajax(TRUE)) {
+						$box = $this->input->post('box');
+						if($box != 'in' && $box != 'out')
+							static_view('你请求的数据不存在');
+						$data['info'] = $this->User_model->get_info($this->session->userdata('id'));
+						$data['letters'] = $this->_letter($this->input->post('box'));
+						$this->load->view('notify/letter_' . $box . '_view', $data);
+					}
 					$data['title'] = '站内信';
 					$data['js'] = 'personal/letter.js';
-					$data['letters'] = $this->_letter();
 					$this->load->view('includes/template_view', $data);
 					break;
 				case 'message':

@@ -34,4 +34,12 @@ $(function() {
 			}
 		}, 'json');
 	});
+	
+	// 默认请求收件箱
+	$.post(SITE_URL + 'notify?type=letter', {
+		ajax: 1,
+		box: 'in'
+	}, function(data) {
+		$("#letter_box").empty
+	});
 });
