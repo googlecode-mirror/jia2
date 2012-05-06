@@ -5,10 +5,32 @@
 <div id="main">
 <div class="post_top">
 	<form id="pub">
-		<div id="pub_text"><textarea cols="80" rows="3" name="post_content" class="textarea_01" onfocus="javascript:ResizeTextarea(this,3);" onclick="javascript:ResizeTextarea(this,3);" onkeyup="javascript:ResizeTextarea(this,2);"></textarea></div>
-		<a class="pub_button">发布
-			<?=form_button('post', '发布', 'disabled="disabled"') ?>
-		</a>
+		<div id="pub_text">
+			<table class="Textarea">
+			<tbody>
+				<tr>
+					<td id="Textarea-tl"></td>
+					<td id="Textarea-tm"></td>
+					<td id="Textarea-tr"></td>
+				</tr>
+				<tr>
+					<td id="Textarea-ml"></td>
+					<td id="Textarea-mm" class="">
+						<div>
+							<?=form_textarea(array('name' => 'post_content', 'id' => "post_content")) ?>
+						</div>
+					</td>
+					<td id="Textarea-mr"></td>
+				</tr>
+				<tr>
+					<td id="Textarea-bl"></td>
+					<td id="Textarea-bm"></td>
+					<td id="Textarea-br"></td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<?=form_button('post', '发布', 'class="pub_button pub_btn  hidden"') ?>
 	</form>
 </div>
 <div class="post_main">

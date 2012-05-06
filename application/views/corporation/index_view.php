@@ -25,7 +25,7 @@
 		<li class="feed_a">
 			<div class="img_block"><img src="" /></div>
 			<div class="feed_main">
-				<h3 class="asso_name"><a href="association-pro.html">启明拓展协会</a><span>日志(6)</span><span>相册(6)</span><span>说说(20)</span></h3>
+				<h3 class="asso_name"><a href="<?=site_url('corporation/association-pro.html')?>">启明拓展协会</a><span>活动(6)</span><span>相册(6)</span><span>说说(20)</span></h3>
 				<ul class="asso_ul">
 					<li><a href="">启明拓展协会最新活动安排</a></li>
 					<li><a href="">启明拓展协会的活动日志</a></li>
@@ -36,7 +36,7 @@
 		<li class="feed_a">
 			<div class="img_block"><img src="" /></div>
 			<div class="feed_main">
-				<h3 class="asso_name"><a href="association-pro.html">启明拓展协会</a><span>日志(6)</span><span>相册(6)</span><span>说说(20)</span></h3>
+				<h3 class="asso_name"><a href="<?=site_url('corporation/association-pro.html')?>">启明拓展协会</a><span>活动(6)</span><span>相册(6)</span><span>说说(20)</span></h3>
 				<ul class="asso_ul">
 					<li><a href="">启明拓展协会最新活动安排</a></li>
 					<li><a href="">启明拓展协会的活动日志</a></li>
@@ -55,12 +55,49 @@
 <div id="popup2" class="popup_block">
 <div id="add-corporation">
 			<?=form_open('corporation/do_add','class="form"')?>
-				<p ><label>社团名字：</label><?=form_input('name') ?></p>
-				<p ><label>所属学校：</label><?=form_dropdown('gender', array('1'=> '川大江安', '0' => '川大望江')) ?></p>
-				<p class="hidden"><label>所在地：</label><?=form_dropdown('gender', array('0'=> '四川')) ?></p>
-				<p ><label>分配社长：</label><?=form_input('master') ?></p>
-				<p ><label>社团简介：</label><?=form_textarea(array('name' => 'comment', 'cols' => 30, 'rows' => 10)) ?></textarea></p>
-				<p class="li_c"><?=form_submit('submit', '保存','class="button"') ?></p>
+				<span ><label>社团名字：</label>
+					<div class="InputWrapper">
+					<div class="InputInner">
+							<?=form_input('name') ?>
+					</div>
+					</div>
+				</span>
+				<span ><label>所属学校：</label>
+					<?=form_dropdown('gender',array('1'=> '川大江安', '0' => '川大望江')) ?>
+				</span>
+				<span ><label>分配社长：</label>
+					<div class="InputWrapper">
+					<div class="InputInner">
+							<?=form_input('master') ?>
+					</div>
+					</div>
+				</span>
+				<span ><label>社团简介：</label>
+					<table class="Textarea">
+					<tbody>
+						<tr>
+							<td id="Textarea-tl"></td>
+							<td id="Textarea-tm"></td>
+							<td id="Textarea-tr"></td>
+						</tr>
+						<tr>
+							<td id="Textarea-ml"></td>
+							<td id="Textarea-mm" class="">
+								<div>
+									<?=form_textarea(array('name' => 'content')) ?>
+								</div>
+							</td>
+							<td id="Textarea-mr"></td>
+						</tr>
+						<tr>
+							<td id="Textarea-bl"></td>
+							<td id="Textarea-bm"></td>
+							<td id="Textarea-br"></td>
+						</tr>
+					</tbody>
+				</table>
+				</span>
+				<p class="li_d"><?=form_submit('submit', '保存','class="pub_button"') ?></p>
 			<?=form_close() ?>
 	
 </div>  

@@ -17,25 +17,237 @@
 .mes_li a{vertical-align: top;}
 .mes_li,.mes_li a{font-size:13px;}
 .mes_li>div{margin-right:10px;}
-/***社团***/
-.operate{
-	margin: 15px 0 5px;
+
+#write_letter_area{
+	margin-top:20px;
 }
-.creat_act{
-	margin-top:10px;
+#write_letter_area p{
+	width:250px;
 }
 
-/***文件上传***/
-.input-file,.pub_button {
-	display:inline-block;
-	height:30px;
-	line-height:30px;
-	padding:0px 20px;
-	background:#ddd;
-	text-align:center;
-	overflow:hidden;
+label{
+	margin-top:4px;
+	margin-right: 8px;
+	display: block;
+	float:left;
+}
+/* -------------
+ * Inputs
+ * ------------- */
+.InputWrapper {
+	background: transparent url(../img/input/input_text_left.gif) no-repeat left top;
+	height: 31px;
+	width:200px;
+	padding: 0px;
+	float:left;
+}
+
+.InputInner {
+	background: transparent url(../img/input/input_text_right.gif) no-repeat top right;
+	padding: 0px;
+	margin: 0px;
+}
+
+.InputInner input {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	line-height: 18px;
+	vertical-align: middle;
+	height: 31px;
+	width:100%;
+	color:#404040;	
+	border: none;
+	padding: 4px 0px 0px 0px;
+	height: 31px;
+	margin:0px 0px 0px 7px;
+	background:transparent;
+}
+
+/*  IE6 */
+* html .InputInner div input {
+	padding: 6px 0 0 0;
+	margin: 0 0 0 -8px;
+	height:24px;
+}
+/* Ie7 */
+*+ html .InputInnerinput {
+	padding: 6px 0 0 0;
+	margin-left:-10px;
+	height:24px;
+}
+
+/*hover*/
+.InputWrapper_hover{ background-position: left -31px ;}
+.InputWrapper_hover div.InputInner{ background-position: right -31px ;}
+
+/*focus*/
+.InputWrapper_focus{ background-position: left -62px ;}
+.InputWrapper_focus .InputInner{ background-position: right -62px ;}
+
+/* -------------
+ * Textarea
+ * ------------- */
+table {border-spacing:0;border-collapse:collapse;}
+table td{padding:0;}
+table.Textarea td#Textarea-mm textarea{
+	font-size: 12px;
+	line-height: 16px;
+}
+
+table.Textarea td{
+	font-size: 1px;
+	line-height: 1px;
+	width: 5px;
+	height: 5px;
+	margin: 0;
+	padding: 0;
+}
+table.Textarea{}
+table.Textarea tr{
+/*border: 1px solid red;*/
+
+}
+table.Textarea textarea{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+}
+table.Textarea td#Textarea-tl{background: url(../img/textarea/textarea_tl.gif) no-repeat top left;}
+table.Textarea td#Textarea-tm{background: url(../img/textarea/textarea_tm.gif) repeat-x top left;}
+table.Textarea td#Textarea-tr{background: url(../img/textarea/textarea_tr.gif) no-repeat top left;}
+
+table.Textarea td#Textarea-ml{background: url(../img/textarea/textarea_ml.gif) repeat-y top left;}
+table.Textarea td#Textarea-mm{background: url(../img/textarea/textarea-mm.gif) repeat;}
+table.Textarea td#Textarea-mr{background: url(../img/textarea/textarea_mr.gif) repeat-y top left;}
+
+table.Textarea td#Textarea-bl{background: url(../img/textarea/textarea_bl.gif) no-repeat top left;}
+table.Textarea td#Textarea-bm{background: url(../img/textarea/textarea_bm.gif) repeat-x top left;}
+table.Textarea td#Textarea-br{background: url(../img/textarea/textarea_br.gif) no-repeat top left;}
+
+/*hover*/
+table.Textarea-hover td#Textarea-tl{background-position:0px -5px;}
+table.Textarea-hover td#Textarea-tm{background-position:0px -5px;}
+table.Textarea-hover td#Textarea-tr{background-position:0px -5px;}
+table.Textarea-hover td#Textarea-ml{background-position:-5px 0px;}
+table.Textarea-hover td#Textarea-mm{background-image: url(../img/textarea/textarea-mm-hover.gif);}
+table.Textarea-hover td#Textarea-mr{background-position:-5px 0px;}
+table.Textarea-hover td#Textarea-bl{background-position:0px -5px;}
+table.Textarea-hover td#Textarea-bm{background-position:0px -5px;}
+table.Textarea-hover td#Textarea-br{background-position:0px -5px;}
+
+/*focus*/
+table.Textarea-focus td#Textarea-tl{background-position:0px -10px;}
+table.Textarea-focus td#Textarea-tm{background-position:0px -10px;}
+table.Textarea-focus td#Textarea-tr{background-position:0px -10px;}
+table.Textarea-focus td#Textarea-ml{background-position:-10px 0px;}
+table.Textarea-focus td#Textarea-mm{background-image: url(../img/textarea/textarea-mm-focus.gif);}
+table.Textarea-focus td#Textarea-mr{background-position: -10px 0px;}
+table.Textarea-focus td#Textarea-bl{background-position:0px -10px;}
+table.Textarea-focus td#Textarea-bm{background-position:0px -10px;}
+table.Textarea-focus td#Textarea-br{background-position:0px -10px;}
+
+/* -------------
+ * Selects
+ * ------------- */
+.SelectWrapper {
+	width: 105px;
 	position:relative;
-	color: #666;
+	height: 31px;
+	background: url(../img/select_left.gif) no-repeat top left;
+	float:left;
+}
+
+.SelectWrapper div span {
+	font-size: 12px;
+	float: none;
+	position: absolute;
+	white-space: nowrap;
+	height: 31px;
+	line-height: 15px;
+	width: 65px;
+	padding: 8px 0 0 7px;
+	overflow: hidden;
+	cursor:pointer;
+	/*border: 1px solid #CCCCCC;*/
+/*	border-right: none;*/
+}
+
+.SelectWrapper  a.SelectOpen {
+	display: block;
+	position: absolute;
+	right: 0px;
+	width: 31px;
+	height: 31px;
+	background: url(../img/select_right.gif) no-repeat center center;
+}
+
+.SelectWrapper ul {
+	position: absolute;
+	top: 30px;
+	left: 0px;
+	list-style: none;
+	background-color: #FFF;
+	border: solid 1px #CCC;
+	display: none;
+	margin: 0px;
+	padding: 0px;
+	height: 150px;
+	overflow: auto;
+	overflow-y: auto;
+	z-index:10;
+}
+.SelectWrapper ul li{
+	height:20px;
+	margin:0;
+}
+.SelectWrapper ul a {
+	display: block;
+	padding: 5px;
+	margin:2px auto;
+	text-decoration: none;
+	color:#333;
+	background-color: #FFF;
+	font-size: 12px;
+}
+
+.SelectWrapper ul a.selected {
+	background: #EDEDED;
+	color: #333;
+}
+
+.SelectWrapper ul a:hover, .SelectWrapper ul a.selected:hover {
+	background:#3582c4;
+	color: #fff;
+}
+
+/******button******/
+.button{margin:0;padding:0;}
+.pub_button,#write_letter,#send_letter{
+	position:relative;
+	display: block;
+	height: 28px;
+	line-height: 29px;
+	overflow: hidden;
+	font-size: 12px;
+	font-weight: bold;
+	color: #515B65;
+	border: 1px solid #c6c7c6;
+	border-radius: 2px;
+	background-image: url(../img/button_bg.png);
+	background-repeat: repeat-x;
+	background-position: 0 -348px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+	padding:0 15px;
+	margin-top:5px;
+}
+.pub_button:hover,#write_letter:hover,#send_letter:hover{
+	background-position: 0 -377px;
+}
+.comment_button{
+	height: 24px;
+	line-height: 24px;
+	padding:0 10px;
 }
 .input-file input,.pub_button button{
 	opacity:0;
@@ -45,8 +257,15 @@
 	top:0;
 	right:0;
 }
+
+#post_content{
+	width:599px;
+	height:50px;
+	ma/x-height:50px;
+	max-width:600px;
+}
 /***发布状态***/
-.textarea_01{
+.textarea_01,comment_textarea{
 	padding:2px 0 2px 4px;
 	margin-top:10px;
 	border:1px solid #E1E1E1;
@@ -63,7 +282,7 @@
 .input{
 	margin-top:4px; 
 }
-
+.comment_textarea{margin-top:5px;}
 /**feeds****/
 .feeds {
 	font-size: 12px;
@@ -248,7 +467,7 @@ span.profile_info{
 	margin-top:20px;
 	border-bottom: 1px solid #c7c7c7;
 }
-.user_setting li,#add-corporation p{
+.user_setting li{
 	margin:10px 20px;
 	height:30px;
 }
@@ -256,13 +475,42 @@ span.profile_info{
 	margin:10px 20px;
 	height:20px;
 }
-.user_setting .li_b{
+.li_b{
 	padding-left:45px;
 }
-.user_setting .li_c{
+
+.li_c{
 	padding-left:63px;
 }
-#add-corporation .li_c{
-	padding-left:65px;
-	margin-top:180px;
+
+/************************社团***/
+.operate{
+	margin: 15px 0 5px;
 }
+.creat_act{
+	margin-top:10px;
+}
+#write_letter_area{
+	overflow:hidden;
+}
+#write_letter_area p,#add-corporation span{
+	font-size:14px;
+	padding:5px 0;
+	overflow:hidden;
+	display: block;
+	width:100%;
+}
+#write_letter_area .li_b{
+	margin-top:10px;
+}
+#add-corporation .li_d{
+	padding-left:75px;
+	width:100px;
+}
+#add-corporation input{
+	width:100%;
+}
+#add-corporation label,#add-corporation .InputWrapper{
+	float:left;
+}
+
