@@ -87,6 +87,9 @@ label{
 /* -------------
  * Textarea
  * ------------- */
+.mytextarea{
+	
+}
 table {border-spacing:0;border-collapse:collapse;}
 table td{padding:0;}
 table.Textarea td#Textarea-mm textarea{
@@ -118,7 +121,7 @@ table.Textarea td#Textarea-tm{background: url(../img/textarea/textarea_tm.gif) r
 table.Textarea td#Textarea-tr{background: url(../img/textarea/textarea_tr.gif) no-repeat top left;}
 
 table.Textarea td#Textarea-ml{background: url(../img/textarea/textarea_ml.gif) repeat-y top left;}
-table.Textarea td#Textarea-mm{background: url(../img/textarea/textarea-mm.gif) repeat;}
+table.Textarea td#Textarea-mm{background:#fff url(../img/textarea/textarea-mm.gif) repeat;}
 table.Textarea td#Textarea-mr{background: url(../img/textarea/textarea_mr.gif) repeat-y top left;}
 
 table.Textarea td#Textarea-bl{background: url(../img/textarea/textarea_bl.gif) no-repeat top left;}
@@ -321,15 +324,18 @@ table.Textarea-focus td#Textarea-br{background-position:0px -10px;}
 }
 .feed_main{
 	float:left;
-	width:540px;
-	bor/der:1px solid #C6C7C6;
+	width:520px;
+	background:#F2F2F2;
+	border-radius:4px;
+	padding:10px;
 }
 
 .f_info,.f_ct,p.f_pm,.textarea_comm{
 	margin-bottom:10px;
 }
 .feeds_comment_box{
-	border-top:1px solid #C6C7C6;
+	border-top:1px solid #e1e1e1;
+	padding-top:10px;
 }
 
 .comment li .img_block img{
@@ -493,6 +499,10 @@ span.profile_info{
 #write_letter_area{
 	overflow:hidden;
 }
+#write_letter_area li.li_input{
+	display:block;
+	height:40px;
+}
 #write_letter_area p,#add-corporation span{
 	font-size:14px;
 	padding:5px 0;
@@ -500,8 +510,9 @@ span.profile_info{
 	display: block;
 	width:100%;
 }
-#write_letter_area .li_b{
+#write_letter_area .li_d{
 	margin-top:10px;
+	padding-left:70px;
 }
 #add-corporation .li_d{
 	padding-left:75px;
@@ -514,3 +525,32 @@ span.profile_info{
 	float:left;
 }
 
+/************************letter***/
+.letter_content{
+	margin-top:10px;
+	border-top:1px solid #C6C7C6;
+}
+.tab_title{
+	border-bottom:1px solid #C6C7C6;
+	overflow:hidden;
+}
+.s01,.s02{
+	padding:0 20px;
+	height:27px;
+	line-height:27px;
+	text-align:center;
+	float:left;
+}
+a#in_box, a#out_box{
+	font-size: 12px;
+	color:#515B65;
+}
+.s01{
+	background:#ebebeb;
+}
+.s02{
+	background: #f1f1f1;
+}
+.tab_content{
+	padding:20px;
+}

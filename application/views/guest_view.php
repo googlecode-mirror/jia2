@@ -5,7 +5,7 @@ window.onload = function(){
 }
 </script>
 
-<div class="container">
+<div class="container gs_con">
 	<div class="content_top">
 		<div  class="tab" id="guest_tab"> 
 			<ul>

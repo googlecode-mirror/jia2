@@ -1,22 +1,3 @@
-// //页面最小高度
-// var winHeight = 0;
-// var Height = 0;
-// function findDimensions()
-// {
-	// if(window.innerHeight)
-		// winHeight = window.innerHeight;
-	// else if((document.body) && (document.body.clientHeight))
-		// winHeight = document.body.clientHeight;
-	// if(document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth) {
-		// winHeight = document.documentElement.clientHeight;
-	// }
-	// alert(winHeight);
-	// document.getElementById("body").style.height = winHeight+"px";
-	// Height=winHeight-1000;
-	// alert('content:'+Height);
-	// document.getElementById("content").style.height =Height+"px";
-// }
-// // window.onload = findDimensions;
 
 //发布文本框
 var agt = navigator.userAgent.toLowerCase();

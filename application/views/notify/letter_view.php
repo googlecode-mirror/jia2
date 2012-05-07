@@ -1,15 +1,21 @@
 <?=form_open('')?>
 <?=form_button('letter', '写站内信','id="write_letter"') ?>
 <div id="write_letter_area" style="display:none">
-	<p><label>收信人</label></p>
+<!-- 	<p><label>收信人</label></p>
 	<p><div class="InputWrapper">
 			<div class="InputInner">
 					<?=form_input('receiver', '', 'id="receiver"') ?>
 			</div>
-	</div></p>
+	</div></p> -->
+	<li class="li_input"><label>收信人：</label>
+					<div class="InputWrapper"><div class="InputInner">
+							<?=form_input('receiver', '', 'id="receiver"') ?>
+					</div></div>
+				</li>
 	
-	<p><label>內&nbsp;&nbsp;容</label></p>
-	<p><table class="Textarea">
+	<li ><label>內&nbsp;&nbsp;容：</label>
+		<div class="mytextarea">
+		<table class="Textarea">
 			<tbody>
 				<tr>
 					<td id="Textarea-tl"></td>
@@ -31,10 +37,22 @@
 					<td id="Textarea-br"></td>
 				</tr>
 			</tbody>
-		</table>
-	</p>
-	<p ><?=form_button('submit', '发送', 'id="send_letter" disabled="disabled"') ?></p>
+		</table></div>
+	</li>
+	<li class="li_d"><?=form_button('submit', '发送', 'id="send_letter" disabled="disabled"') ?></li>
 </div>
 <?=form_close() ?>
-<p><a id="in_box">收件箱</a>&nbsp;&nbsp;<a id="out_box">发件箱</a></p>
-<div id="letter_box"></div>
+<div class="letter_content">
+			<div class="tab_title">
+				<div class="s01" id="t_01">
+					<a href="#" id="in_box">普通邮件</a>
+				</div>
+				<div class="s02" id="t_02">
+					<a href="#" id="out_box">发件箱</a>
+				</div>
+			</div>
+			<div class="tab_content">
+				<div id="letter_box" class="clear"></div>
+			</div>
+			
+</div>

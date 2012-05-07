@@ -176,6 +176,7 @@ a.creat_button{
 	display:block;
 	font-weight:normal;
 	color:#444;
+	font-size:13px;
 }
 .search_item ul li a:hover{
 	text-decoration: none;
@@ -226,15 +227,16 @@ li {
 }
 /*-------post-------*/
 li.feed_a{
-	border-bottom: 1px solid #C6C7C6;
+	bor/der-bottom: 1px solid #C6C7C6;
 	overflow:hidden;
 	padding:10px 0;
+	margin-bottom:10px;
 }
 .feeds_comment_box li{
 	margin:10px 0;
 	width:510px;
 	overflow:hidden;
-	border-bottom:1px dashed #C6C7C6;
+	border-bottom:1px dashed #e1e1e1;
 }
 .feeds_comment_box li:last-child{
 	border:none;
@@ -242,7 +244,7 @@ li.feed_a{
 /*--------ul li a 选项卡----------*/
 .search_item ul{
 	border-bottom:1px solid #c6c7c6;
-	padding-top:20px;
+	margin-top:20px;
 	overflow: hidden;
 }
 .search_item ul li{ 
@@ -278,13 +280,11 @@ li.feed_a{
 .asso_list_a_img{
 	margin:0 15px;
 	padding:5px 10px;
-	bor/der:1px solid #C6C7C6;
 }
 .asso_list_a_name{
 	width:70px;
 	margin:0 15px;
 	text-align:center;
-	bor/der:1px solid #C6C7C6;
 }
 /*-asso_list_01-*/
 .asso_list_01 li{
@@ -392,9 +392,11 @@ li.feed_a{
 	font-size: 12px;
 	float: left;
 	width: 610px;
-	padding-left:10px;
-	padding-right:40px;
-	border-right:1px solid #c6c7c6;
+	padding:20px;
+	padding-bottom:10px;
+	border: 1px solid #E1E1E1;
+	border-radius:4px;
+	background:#fff;
 	font-size:12px;
 }
 
