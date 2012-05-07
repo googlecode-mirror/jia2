@@ -10,6 +10,18 @@
 		function index() {
 			$data['title'] = '社团之家';
 			$data['main_content'] = 'corporation/index_view';
+			$where = array();
+			$limit = '';
+			$this->jiadb->_table = 'corporation';$this->jiadb->_table = 'corporation';
+			if($this->session->userdata('id')) {
+				$following_cos = $this->User_model->get_following_co($this->session->userdata('id'));
+				$data['f_num'] = count($following_cos);
+				if($data['f_num'] > 0) {
+					$data['f_cos_info'] = $this->jiadb->fetchAll(array('id' => $following_cos));
+				}
+			} else {
+				
+			}
 			$this->load->view('includes/template_view', $data);
 		}
 		
