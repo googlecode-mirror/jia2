@@ -128,6 +128,18 @@
 			return $this->jiadb->fetchMeta($return, $where);
 		}
 		
+		// 获取关注的社团
+		function get_following_co($user_id, $meta_table = 'corporation') {
+			$this->jiadb->_table = 'user';
+			$return = 'meta_value';
+			$where = array(
+				'meta_key' => 'follower',
+				'meta_table' => $meta_table,
+				'user_id' => $user_id
+			);
+			return $this->jiadb->fetchMeta($return, $where);
+		}
+		
 		function get_blockers($user_id) {
 			$this->jiadb->_table = 'user';
 			$reutrn = 'meta_value';
