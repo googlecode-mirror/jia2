@@ -45,7 +45,7 @@
 						<a href="">活动图片</a>
 					</li>
 					<div class="right">
-					<li><a href="">刷新</a></li>
+						<li><a href="" id="refresh">刷新</a></li>
 					</div>
 				</ul></div>
 	</div>

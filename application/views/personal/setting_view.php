@@ -5,7 +5,7 @@
 	<div class="search_item">
 			<ul>
 				<li class="sd01" id="s01">
-					<a href="#" id="active">资料设置</a>
+					<a href="#">资料设置</a>
 				</li>
 				<li class="sd02" id="s02">
 				<a href="#">头像设置</a>
@@ -36,13 +36,13 @@
 					</div></div>
 				</li>
 				<li ><label>性别：</label>
-					<?=form_dropdown('gender', array('1'=> '男淫', '0' => '女淫')) ?></li>
+					<?=form_dropdown('gender', array('1'=> '男淫', '0' => '女淫'),'class="SelectWrapper"') ?></li>
 				<li ><label>学校：</label>
 					<div class="InputWrapper"><div class="InputInner">
 							<?=form_input('name') ?>
 					</div></div></li>
-				<li ><label>省份：</label><?=form_dropdown('gender', array('0'=> '四川', '1' => '重庆','2'=> '贵州', '3' => '云南')) ?>
-						  <?=form_dropdown('gender', array('0'=> '四川', '1' => '重庆','2'=> '贵州', '3' => '云南')) ?></li>
+				<li ><label>省份：</label><?=form_dropdown('gender', array('0'=> '四川', '1' => '重庆','2'=> '贵州', '3' => '云南'),'class="SelectWrapper"') ?>
+						  <?=form_dropdown('gender', array('0'=> '四川', '1' => '重庆','2'=> '贵州', '3' => '云南'),'class="SelectWrapper"') ?></li>
 				<li class="li_b"><?=form_submit('submit', '保存','class="pub_button"') ?></li>
 			<?=form_close() ?>
 			</ul>
@@ -51,9 +51,13 @@
 			<h4 class="set_title">设置新头像</h4>
 			<p class="p_1">	支持JPG、JPEG、GIF和PNG文件，最大2M。	</p>
 			<?=form_open_multipart('personal/do_setting') ?>
-			<a><?=form_upload('userfile') ?></a>
+			
+			<span href="" class="btn-blue">
+				浏览
+				<?=form_upload('userfile') ?>
+			</span>
 			<?=form_hidden('setting', 'avatar') ?>
-			<?=form_submit('submit', '上传') ?>
+			<?=form_submit('submit', '上传','class="pub_button file_btn"') ?>
 			<?=form_close() ?>
 			
 			<h4 class="set_title">当前头像</h4>
@@ -91,8 +95,8 @@
 			<ul id="pass_setting">
 			<?=form_open('personal/do_setting','class="form"')?>
 			<?=form_hidden('setting', 'privacy') ?>
-				<li ><label>浏览权限: </label><?=form_dropdown('post', array('guest' => '所有人&nbsp;', 'register' => '注册用户', 'follower' => '仅粉丝', 'self' => '仅自己'), $privacy['post']) ?></li>
-				<li ><label>评论权限: </label><?=form_dropdown('comment', array('register' => '注册用户&nbsp;','follower' => '仅粉丝', 'self' => '仅自己'), $privacy['comment']) ?></li>
+				<li ><label>浏览权限: </label><?=form_dropdown('post', array('guest' => '所有人&nbsp;', 'register' => '注册用户', 'follower' => '仅粉丝', 'self' => '仅自己'), $privacy['post'],'class="SelectWrapper"') ?></li>
+				<li ><label>评论权限: </label><?=form_dropdown('comment', array('register' => '注册用户&nbsp;','follower' => '仅粉丝', 'self' => '仅自己'), $privacy['comment'],'class="SelectWrapper"') ?></li>
 				<li class="hidden"><label>浏览权限: </label><?=form_dropdown('post', array('guest' => '所有人&nbsp;', 'self' => '仅自己'), $privacy['post']) ?></li>
 				<li class="li_c"><?=form_submit('submit', '更新','class="pub_button"') ?></li>
 			<?=form_close() ?>
@@ -100,4 +104,8 @@
 		</div>
 	</div>
 </div>
-			
+<script>
+$(function(){
+		
+		});	  
+</script>			

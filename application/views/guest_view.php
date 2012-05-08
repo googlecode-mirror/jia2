@@ -1,7 +1,7 @@
 <script>
 window.onload = function(){
 	var SDmodel = new scrollDoor();
-	SDmodel.sd(["t1", "t2", "t3"], ["a1", "a2", "a3"], "sd01", "sd02");
+	SDmodel.sd(["t1", "t2", "t3"], ["a1", "a2", "a3"], "sd1", "sd2");
 }
 </script>
 
@@ -9,13 +9,13 @@ window.onload = function(){
 	<div class="content_top">
 		<div  class="tab" id="guest_tab"> 
 			<ul>
-				<li class="sd01" id="t1">
+				<li class="sd1" id="t1">
 					<a href="#">全部</a>
 				</li><li>|</li>
-				<li class="sd02" id="t2">
+				<li class="sd2" id="t2">
 					<a href="#">社团</a>
 				</li><li>|</li>
-				<li class="sd02" id="t3">
+				<li class="sd2" id="t3">
 					<a href="#">活动</a>
 				</li>
 			</ul>
