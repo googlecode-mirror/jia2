@@ -18,6 +18,9 @@
 .mes_li,.mes_li a{font-size:13px;}
 .mes_li>div{margin-right:10px;}
 
+.write_letter_form{
+	margin-top:30px;
+}
 #write_letter_area{
 	margin-top:20px;
 }
@@ -153,77 +156,20 @@ table.Textarea-focus td#Textarea-br{background-position:0px -10px;}
 /* -------------
  * Selects
  * ------------- */
+/*select[name="myselect"]{
+	opacity:0;
+	filter:alpha(opacity=0);
+	font-size:100px;
+	position:absolute;
+	top:0;
+	right:0;
+}*/
 .SelectWrapper {
-	width: 105px;
+	width: 100px;
 	position:relative;
-	height: 31px;
-	background: url(../img/select_left.gif) no-repeat top left;
+	height: 25px;
 	float:left;
 }
-
-.SelectWrapper div span {
-	font-size: 12px;
-	float: none;
-	position: absolute;
-	white-space: nowrap;
-	height: 31px;
-	line-height: 15px;
-	width: 65px;
-	padding: 8px 0 0 7px;
-	overflow: hidden;
-	cursor:pointer;
-	/*border: 1px solid #CCCCCC;*/
-/*	border-right: none;*/
-}
-
-.SelectWrapper  a.SelectOpen {
-	display: block;
-	position: absolute;
-	right: 0px;
-	width: 31px;
-	height: 31px;
-	background: url(../img/select_right.gif) no-repeat center center;
-}
-
-.SelectWrapper ul {
-	position: absolute;
-	top: 30px;
-	left: 0px;
-	list-style: none;
-	background-color: #FFF;
-	border: solid 1px #CCC;
-	display: none;
-	margin: 0px;
-	padding: 0px;
-	height: 150px;
-	overflow: auto;
-	overflow-y: auto;
-	z-index:10;
-}
-.SelectWrapper ul li{
-	height:20px;
-	margin:0;
-}
-.SelectWrapper ul a {
-	display: block;
-	padding: 5px;
-	margin:2px auto;
-	text-decoration: none;
-	color:#333;
-	background-color: #FFF;
-	font-size: 12px;
-}
-
-.SelectWrapper ul a.selected {
-	background: #EDEDED;
-	color: #333;
-}
-
-.SelectWrapper ul a:hover, .SelectWrapper ul a.selected:hover {
-	background:#3582c4;
-	color: #fff;
-}
-
 /******button******/
 .button{margin:0;padding:0;}
 .pub_button,#write_letter,#send_letter{
@@ -251,14 +197,6 @@ table.Textarea-focus td#Textarea-br{background-position:0px -10px;}
 	height: 24px;
 	line-height: 24px;
 	padding:0 10px;
-}
-.input-file input,.pub_button button{
-	opacity:0;
-	filter:alpha(opacity=0);
-	font-size:100px;
-	position:absolute;
-	top:0;
-	right:0;
 }
 
 #post_content{
@@ -365,57 +303,39 @@ span.profile_info{
 
 /***********************search*******/
 #search_box{
-	width:600px;
+	width:590px;
 	height:30px;
 	padding:10px;
 	background:#ebebeb;
-	border:1px solid #d4d5d4;
-}
-#search_box a.ad_search{
-	display:block;
-	float:right;
-	width:80px;
-	height:30px;
-	line-height: 30px;
-	border-left:1px solid #c6c7c6;
-	marg/in-left:20px;
-	font-size: 14px;
-	text-align:center;
-	cursor: pointer;
+	border:1px solid #e1e1e1;
+	border-radius: 3px;
+	vertical-align:baseline;
 }
 .serch_input{
+	float:left;
+	margin-right:10px;
 	width:400px;
 	height:30px;
 	line-height: 30px;
-	vertical-align:middle;
 	background:#fff;
-	border:1px solid #c6c7c6;
+	border:1px solid #e1e1e1;
+	border-radius: 3px;
 	padding-left:2px;
 	color:#B8B8B8;
 }
-.serch_button{
-	width:80px;
-	height:30px;
-	line-height: 30px;
-	text-align:center;
-	background:#005eac;
-	border:none;
-	color: #fff;
-	font-weight:bold;
-	vertical-align:middle;
-}
+
 .search_result{
 	float:left;
-	width:600px;
+	width:590px;
 	padding:10px;
-	background:#f3faff;
+	background:#f2f2f2;
 	margin-top:10px;
 	
 }
 .search_result ul li{
 	overflow: hidden;
 	padding:10px 0;
-	border-bottom:1px solid #ccc;
+	border-bottom:1px solid #DFDFDF;
 }
 .search_result .head_pic,.search_result img{
 	display:block;
@@ -488,7 +408,39 @@ span.profile_info{
 .li_c{
 	padding-left:63px;
 }
-
+input[type="file"]{
+	opacity:0;
+	filter:alpha(opacity=0);
+	font-size:100px;
+	position:absolute;
+	top:0;
+	right:0;
+}
+.btn-blue {
+	position: relative;
+	display: inline-block;
+	float:left;
+	margin-right:20px;
+	height: 28px;
+	line-height: 29px;
+	overflow: hidden;
+	font-size: 12px;
+	font-weight: bold;
+	color: white;
+	text-sh/adow: 0 1px #0F4775;
+	border: 1px solid #207AC5;
+	border-radius: 2px;
+	background-color: #2782CE;
+	background-image: url(../img/button_bg.png);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+	padding:0 30px;
+}
+.btn-blue:hover{
+	background-position: 0 -30px;
+}
+.file_btn{
+	height:30px;
+}
 /************************社团***/
 .operate{
 	margin: 15px 0 5px;
@@ -512,7 +464,7 @@ span.profile_info{
 }
 #write_letter_area .li_d{
 	margin-top:10px;
-	padding-left:70px;
+	padding-left:54px;
 }
 #add-corporation .li_d{
 	padding-left:75px;

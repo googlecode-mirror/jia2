@@ -1,4 +1,4 @@
-<?=form_open('')?>
+<?=form_open('','class="write_letter_form"')?>
 <?=form_button('letter', '写站内信','id="write_letter"') ?>
 <div id="write_letter_area" style="display:none">
 <!-- 	<p><label>收信人</label></p>
@@ -55,4 +55,5 @@
 				<div id="letter_box" class="clear"></div>
 			</div>
 			
+</div>
 </div>

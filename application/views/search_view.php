@@ -6,7 +6,7 @@
 	<div id="search_box">
 		<div id="search-bar">
 			<?=form_input('keywords','','class="serch_input"')?>
-			<?=form_button('search', '搜索','class="serch_button"')?>
+			<?=form_button('search', '搜索','class="btn-blue"')?>
 		</div>
 	</div>
 	<div class="search_item">
