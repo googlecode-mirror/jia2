@@ -95,7 +95,7 @@
 							<td id="Textarea-br"></td>
 						</tr>
 					</tbody>
-				</table>
+					</table>
 				</span>
 				<p class="li_d"><?=form_submit('submit', '保存','class="pub_button"') ?></p>
 			<?=form_close() ?>

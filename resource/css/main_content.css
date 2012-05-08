@@ -397,7 +397,7 @@ span.profile_info{
 	margin:10px 20px;
 	height:30px;
 }
-.user_setting .li_1{
+.user_setting .li_1,#user_info .li_1{
 	margin:10px 20px;
 	height:20px;
 }
@@ -455,7 +455,7 @@ input[type="file"]{
 	display:block;
 	height:40px;
 }
-#write_letter_area p,#add-corporation span{
+#write_letter_area p,#add-corporation form>span,#coo_01 form>span{
 	font-size:14px;
 	padding:5px 0;
 	overflow:hidden;
