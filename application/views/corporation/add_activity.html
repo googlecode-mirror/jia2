@@ -15,40 +15,64 @@
 		
 		<div id="add-corporation">
 			<form class="form">
-				<p><label>活动名称：</label>
+				<span ><label>活动名称：</label>
 					<div class="InputWrapper"><div class="InputInner">
 						<input />
 					</div></div>
-				</p>
-				<p><label>活动地点：</label><section>1<option>1</option></section></p>
-				<p><label>活动时间：</label>
+				</span>
+				<span ><label>活动地点：</label><?=form_dropdown('gender',array('1'=> '川大江安', '0' => '川大望江')) ?></span>
+				<span ><label>活动时间：</label>
 					<div class="InputWrapper"><div class="InputInner">
-						<input type="text" id="datepicker_star" />
+						<input type="text" id="from" />
 					</div></div>
 					<div class="InputWrapper"><div class="InputInner">
-						<input type="text" id="datepicker_end" />
+						<input type="text" id="to" />
 					</div></div>
-				</p>
-				<p><label>活动简介：</label><textarea></textarea></p>
+				</span>
+				<span ><label>活动简介：</label>
+					<table class="Textarea">
+					<tbody>
+						<tr>
+							<td id="Textarea-tl"></td>
+							<td id="Textarea-tm"></td>
+							<td id="Textarea-tr"></td>
+						</tr>
+						<tr>
+							<td id="Textarea-ml"></td>
+							<td id="Textarea-mm" class="">
+								<div>
+									<?=form_textarea(array('name' => 'content')) ?>
+								</div>
+							</td>
+							<td id="Textarea-mr"></td>
+						</tr>
+						<tr>
+							<td id="Textarea-bl"></td>
+							<td id="Textarea-bm"></td>
+							<td id="Textarea-br"></td>
+						</tr>
+					</tbody>
+					</table>
+				</span>
 				<p class="li_c"><?=form_submit('submit', '保存','class="button"') ?></p>
 			</form>
 			<script type="text/javascript">
-			$(document).ready(function(){
-				$(function() {
-					$("#datepicker_star").datepicker();
-					$("#datepicker_end").datepicker();
-				});
-			});
-			$("#datepicker_star").datepicker({ 
-				onSelect:function(dateText,inst){
-					$("#datepicker_end").datepicker("option","minDate",dateText); 
-				}
-			}); 
-			$("#datepicker_end").datepicker({ 
-				onSelect:function(dateText,inst){
-					$("#datepicker_star").datepicker("option","maxDate",dateText); 
-				}
-			}); 
+			$(function() {  
+	        	var dates = $( "#from, #to" ).datepicker({  
+	            defaultDate: "+1w",  
+	            changeMonth: true,  
+	            numberOfMonths: 1,  
+	            onSelect: function( selectedDate ) {  
+	                var option = this.id == "from" ? "minDate" : "maxDate",  
+	                    instance = $( this ).data( "datepicker" ),  
+	                    date = $.datepicker.parseDate(  
+	                        instance.settings.dateFormat ||  
+	                        $.datepicker._defaults.dateFormat,  
+	                        selectedDate, instance.settings );  
+	                dates.not( this ).datepicker( "option", option, date );  
+	            	}  
+	        	});  
+	    	});  
 			</script>
 	
 </div>  
