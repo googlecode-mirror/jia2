@@ -2,10 +2,23 @@
 	window.onload = coprotab;
 </script>
 		
-<div>
-	<a href="<?=site_url('corporation/profile/' . $info['id'])?>" class="head_pic"><img src="<?=avatar_url($info['avatar'], 'corporation', 'big') ?>" /> <div class="clear"></div>
-		<h4><?=$info['name']?></h4> </a>
-		<? if($this->session->userdata('id')): ?>
+<div>	
+		<div class="admin-options">
+		<p>
+			<?=anchor('activity/add/' . $info['id'], '创建活动')?>
+		</p>
+		<p>
+			<?=anchor('corporation/setting/' . $info['id'], '社团设置')
+			?>
+		</p>
+	</div>
+</div>
+<div id="sidebar">
+	<div class="user_head_box sidebar_nav">
+		<a href="<?=site_url('corporation/profile/' . $info['id'])?>" class="user_head"> <img id="" title="修改头像" src="<?=avatar_url($info['avatar'], 'corporation', 'big') ?>" /> </a>
+		<a href="" class="user_name"><?=$info['name']?></a>
+	</div>
+	<? if($this->session->userdata('id')): ?>
 			<? if(in_array($this->session->userdata('id'), $followers)): ?>
 				<?=form_button(array('name' => 'follow', 'content' => '已关注', 'id' => $info['id'], 'disabled' => 'disabled'))?>
 				<?=form_button(array('name' => 'unfollow', 'content' => '取消关注', 'id' => $info['id']))?>
@@ -14,27 +27,11 @@
 				
 			<? endif?>
 		<? endif ?>
-		<div class="admin-options">
-		<p>
-			<?=anchor('activity/add/' . $info['id'], '创建活动')
-			?>
-		</p>
-		<p>
-			<?=anchor('corporation/setting' . $info['id'], '社团设置')
-			?>
-		</p>
-	</div>
-</div>
-<div id="sidebar">
-	<div class="user_head_box sidebar_nav">
-		<a href="" class="user_head"> <img id="" title="修改头像" src="images/head_pic/user02.jpg" /> </a>
-		<a href="" class="user_name">启明拓展</a>
-	</div>
 	<div class="sidebar_nav">
 		<h4><strong>协会信息</strong></h4>
 		<ul class="asso_info">
 			<li>
-				管理员：<a href="#">刘晨曦</a>
+				社长：<a href="#">刘晨曦</a>
 			</li>
 			<li>
 				分　类：<a href="#">情感</a>  <a href="">象牙塔</a>
@@ -79,7 +76,7 @@
 </div>
 <div id="main">
 	<div class="asso_intro_box">
-		<h3>启明拓展协会<span> (20个成员)</span></h3>
+		<h3><?=$info['name'] ?><span> (20个成员)</span></h3>
 		<p>
 			在这里，你可以晒一晒你学习中的作品；
 			<br />
@@ -94,7 +91,10 @@
 			|
 			<span><a href="">退出社团</a></span>
 		</p>
+		<?=anchor('activity/add/' . $info['id'], '创建活动')?>
+		<!--
 		<a href="#?w=500" rel="popup3" class="creat_button creat_act inline">创建活动</a>
+		-->
 	</div>
 	<div class="search_item">
 		<ul>
@@ -123,7 +123,7 @@
 <div id="add-corporation">
 			<?=form_open('corporation/do_add','class="form"')?>
 				<p ><label>活动名称：</label><?=form_input('name') ?></p>
-				<p ><label>活动地点：</label><?=form_dropdown('gender', array('1'=> '川大江安', '0' => '川大望江')) ?></p>
+				<p ><label>活动地点：</label><?=form_dropdown('school', array('1'=> '川大江安', '0' => '川大望江')) ?></p>
 				<p class="hidden"><label>所在地：</label><?=form_dropdown('gender', array('0'=> '四川')) ?></p>
 				<p ><label>活动时间：</label><input type="text" size="30" id="datepicker" class=""/></p>
 				<p ><label>活动简介：</label><?=form_textarea(array('name' => 'comment', 'cols' => 30, 'rows' => 10)) ?></textarea></p>

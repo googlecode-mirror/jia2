@@ -4,6 +4,7 @@
 		function __construct() {
 			parent::__construct();
 			$this->load->model('Corporation_model');
+			$this->load->model('User_model');
 			$this->jiadb = new Jiadb();
 		}
 		// 社团之家~？
@@ -12,17 +13,32 @@
 			$data['main_content'] = 'corporation/index_view';
 			$where = array();
 			$limit = '';
-			$this->jiadb->_table = 'corporation';$this->jiadb->_table = 'corporation';
+			$this->jiadb->_table = 'corporation';
 			if($this->session->userdata('id')) {
 				$following_cos = $this->User_model->get_following_co($this->session->userdata('id'));
 				$data['f_num'] = count($following_cos);
 				if($data['f_num'] > 0) {
-					$data['f_cos_info'] = $this->jiadb->fetchAll(array('id' => $following_cos));
+					$data['corporations'] = $this->jiadb->fetchAll(array('id' => $following_cos));
 				}
-			} else {
-				
 			}
 			$this->load->view('includes/template_view', $data);
+		}
+		
+		// 列出所有社团
+		function list_all($id = '') {
+			$this->jiadb->_table = 'corporation';
+			if(!empty($id) && is_numeric($id)) {
+				$corporation = $this->Corporation_model->get_info($id);
+				if($corporation) {
+					$data['corporations'][0] = $corporation;
+				} else {
+					static_view();
+				}
+			} elseif(empty($id)) {
+				$data['corporations'] = $this->jiadb->fetchAll('', '', 20);
+			} else {
+				static_view();
+			}
 		}
 		
 		function profile($corporation_id = '') {
@@ -88,8 +104,8 @@
 		
 		function setting($id = '') {
 			$this->_require_login();
-			if($id = '' || !is_numeric($id)) {
-				static_view('未定义操作', '未定义操作');
+			if($id == '' || !is_numeric($id)) {
+				static_view('抱歉，您访问的页面不存在');
 			} else {
 				$corporation_info = $this->Corporation_model->get_info($id);
 				if($corporation_info) {

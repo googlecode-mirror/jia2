@@ -11,7 +11,10 @@ $(function() {
 		}
 	});
 	$("button[name='comment']").click(function() {
-		$comment = $(this).parent().prev().children('textarea');
+		//$comment = $(this).parent().prev().children('textarea');
+		$comment = $(this).parent().prev("p").children("textarea");
+		alert($comment.val());
+		return false;
 		content = $comment.val();
 		post_id = $comment.attr('post_id');
 		type = $comment.attr('type');

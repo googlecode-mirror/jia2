@@ -1,3 +1,8 @@
+<?
+	/*
+	 * 收件箱视图
+	 */
+?>
 <div id="letter_in_content">
 <? if(!empty($letters)): ?>
 	<ul>

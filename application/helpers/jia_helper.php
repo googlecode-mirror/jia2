@@ -2,7 +2,7 @@
 
 // 错误提示视图方法
 if ( ! function_exists('static_view')) {
-	function static_view($message, $title = '出错了～', $url = '') {
+	function static_view($message = '抱歉，您访问的页面不存在', $title = '404 Not Found', $url = '') {
 		$CI =& get_instance();
 		$data['main_content'] = 'static_view';
 		$data['message'] = $message;

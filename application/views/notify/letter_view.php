@@ -45,7 +45,7 @@
 <div class="letter_content">
 			<div class="tab_title">
 				<div class="s01" id="t_01">
-					<a href="#" id="in_box">普通邮件</a>
+					<a href="#" id="in_box">收件箱</a>
 				</div>
 				<div class="s02" id="t_02">
 					<a href="#" id="out_box">发件箱</a>
