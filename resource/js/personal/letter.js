@@ -3,7 +3,6 @@ function request_letter(box) {
 		ajax: 1,
 		box: box
 	}, function(data) {
-		//alert($("#letter_" + box + "_content"));
 		$("#letter_" + box + "_content").remove();
 		$("#letter_box").prepend(data);
 	});
@@ -49,7 +48,6 @@ $(function() {
 	request_letter('in');
 	
 	$("#in_box").click(function() {
-		alert($("#letter_in_content").length);
 		if($("#letter_in_content").length > 0) {
 			$("#letter_in_content").show();
 			$("#letter_out_content").hide();
@@ -59,7 +57,6 @@ $(function() {
 		}		
 	});
 	$("#out_box").click(function() {
-		alert($("#letter_out_content").length);
 		if($("#letter_out_content").length > 0) {
 			$("#letter_out_content").show();
 			$("#letter_in_content").hide();

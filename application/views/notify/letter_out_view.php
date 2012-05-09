@@ -1,3 +1,8 @@
+<?
+	/*
+	 * 发件箱视图
+	 */
+?>
 <div id="letter_out_content">
 <? if(!empty($letters)): ?>
 	<ul>

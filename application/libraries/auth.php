@@ -215,7 +215,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 				}
 				// 社长
 				$corporation = $this->CI->Corporation_model->get_info($this->owner_id);
-				if($this->request_user == $corporation[0]['user_id']) {
+				if($this->request_user == $corporation['user_id']) {
 					$identity = 'co_master';
 					parent::get_access($operation, $identity);
 					return;
@@ -339,7 +339,10 @@ require_once APPPATH . 'libraries/jiadb.php';
 		function __construct($owner_id, $post_id = '') {
 			parent::__construct($owner_id);
 			$this->table = 'comment_auth';
+			echo 'here';
+			var_dump($post_id);
 			if(!empty($post_id)) {
+				echo 'here';
 				$this->post_id = $post_id;
 				$this->CI->load->model('Post_model');
 				$post = $this->CI->Post_model->get_info($post_id);

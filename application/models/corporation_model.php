@@ -3,7 +3,7 @@
 		protected $jiadb;
 		function __construct() {
 			parent::__construct();
-			$this->jiadb = new Jiadb('Corporation');
+			$this->jiadb = new Jiadb('corporation');
 		}
 		
 		function get_info($id, $join = array()) {
