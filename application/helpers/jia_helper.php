@@ -15,7 +15,7 @@ if ( ! function_exists('static_view')) {
 
 // 自动跳转视图方法
 if( ! function_exists('jump_view')) {
-	function jump_view($message, $url = '', $title = 'Error') {
+	function jump_view($message, $url = '', $title = 'forward') {
 		$CI =& get_instance();
 		$data['main_content'] = 'jump_view';
 		$data['message'] = $message;

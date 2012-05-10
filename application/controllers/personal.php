@@ -252,4 +252,24 @@
 				echo 0;
 			}
 		}
+		
+		// 驳回请求
+		function reject_request($request_id) {
+			$this->_require_login();
+			$this->_require_ajax();
+			$request = $this->Notify_model->get_info();
+			$json_array = array(
+				'success' => 0,
+				'message' => ''
+			);
+			// 判断数据是否存在，是否是请求，接受者是否为当前用户
+			if($request && $request['type_id'] == $this->config->item('notify_type_request') && $request['receiver_id'] == $this->session->userdata('id')) {
+				$this->db->where('id', $request['id']);
+				$this->db->delete('notify');
+				$json_array['success'] = 1;
+				$json_array['message'] = '成功';
+			} else {
+				$json_array['message'] = '失败';
+			}
+		}
 	}

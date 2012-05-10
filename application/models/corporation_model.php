@@ -132,6 +132,7 @@
 		}
 		
 		function join_member($corporation_id, $member_id, $unjoin = FALSE) {
+			$corporation = $this->get_info($corporation_id);
 			$meta_array = array(
 				'meta_key' => 'member',
 				'meta_table' => 'user',
@@ -144,12 +145,22 @@
 				$blockers = $this->get_blockers($corporation_id);
 				$members = $this->get_members($corporation_id);
 				if(!empty($blockers) && in_array($member_id, $blockers)) {
-					return FALSE;
+					return 1;
 				} elseif(!in_array($member_id, $members)) {
 					$this->db->insert('corporation_meta', $meta_array);
 					// 加入社团会自动关注这个社团
 					$this->follow($member_id, $corporation_id);
-					return TRUE;
+					$message = array(
+						'content' => '添加了你为' . anchor('corporation/profile/' . $corporation['id'], $corporation['name']) . '社团的成员',
+						'type' => 'message',
+						'user_id' => $this->session->userdata('id'),
+						'recevier_id' => $member_id,
+						'time' => time()
+					);
+					$this->Notify_model->insert($message);
+					return 3;
+				} else {
+					return 2;
 				}
 			}
 		}
