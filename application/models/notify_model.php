@@ -44,7 +44,9 @@
 			}
 		}
 		
-		function delete() {
+		function delete($notify_id) {
 			// do nothing here
+			$this->db->where('id', $notify_id);
+			$this->db->delete('notify');
 		}
 	}

@@ -18,20 +18,33 @@
 		<a href="<?=site_url('corporation/profile/' . $info['id'])?>" class="user_head"> <img id="" title="修改头像" src="<?=avatar_url($info['avatar'], 'corporation', 'big') ?>" /> </a>
 		<a href="" class="user_name"><?=$info['name']?></a>
 	</div>
+	<p>
 	<? if($this->session->userdata('id')): ?>
-			<? if(in_array($this->session->userdata('id'), $followers)): ?>
-				<?=form_button(array('name' => 'follow', 'content' => '已关注', 'id' => $info['id'], 'disabled' => 'disabled'))?>
-				<?=form_button(array('name' => 'unfollow', 'content' => '取消关注', 'id' => $info['id']))?>
-			<? else:?>
-				<?=form_button(array('name' => 'follow', 'content' => '关注', 'id' => $info['id']))?>
-				
-			<? endif?>
-		<? endif ?>
+		<? if(in_array($this->session->userdata('id'), $followers)): ?>
+			<?=form_button(array('name' => 'follow', 'content' => '已关注', 'id' => $info['id'], 'disabled' => 'disabled'))?>
+			<?=form_button(array('name' => 'unfollow', 'content' => '取消关注', 'id' => $info['id']))?>
+		<? else:?>
+			<?=form_button(array('name' => 'follow', 'content' => '关注', 'id' => $info['id']))?>
+			
+		<? endif?>
+	<? endif ?>
+	</p>
+	<p>
+	<? if($this->session->userdata('id')): ?>
+		<? if(in_array($this->session->userdata('id'), $members)): ?>
+			<?=form_button(array('name' => 'join', 'content' => '已加入', 'id' => $info['id'], 'disabled' => 'disabled'))?>
+			<?=form_button(array('name' => 'unjoin', 'content' => '退出社团', 'id' => $info['id']))?>
+		<? else:?>
+			<?=form_button(array('name' => 'join', 'content' => '请求加入', 'id' => $info['id']))?>
+			
+		<? endif?>
+	<? endif ?>
+	</p>
 	<div class="sidebar_nav">
 		<h4><strong>协会信息</strong></h4>
 		<ul class="asso_info">
 			<li>
-				社长：<a href="#">刘晨曦</a>
+				社长：<?=anchor('personal/profile/' . $info['user'][0]['id'], $info['user'][0]['name']) ?>
 			</li>
 			<li>
 				分　类：<a href="#">情感</a>  <a href="">象牙塔</a>
@@ -41,11 +54,11 @@
 			</li>
 		</ul>
 		<p class="f-aaa">
-			2011-10-24由 刘晨曦 创建
+			2011-10-24由 <?=$info['user'][0]['name'] ?> 创建
 		</p>
 	</div>
 	<div class="sidebar_nav">
-		<h4>协会成员</h4>
+		<h4>协会成员<?=count($members) ?></h4>
 		<ul class="asso_list asso_list_01">
 			<li>
 				<a class="asso_list_a_img"><img src="images/head_pic/user02.jpg" /></a>
@@ -78,11 +91,7 @@
 	<div class="asso_intro_box">
 		<h3><?=$info['name'] ?><span> (20个成员)</span></h3>
 		<p>
-			在这里，你可以晒一晒你学习中的作品；
-			<br />
-			在这里，你可以征询问题，一起和高水平的伙伴交流切磋；
-			<br />
-			在这里，你可以发表你的学习心得，同时也帮助他人一起进步。
+			<?=$info['comment'] ?>
 		</p>
 		<p class="operate">
 			<span>以加入社团</span>

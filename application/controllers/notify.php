@@ -1,10 +1,16 @@
 <?php
 	class Notify extends  MY_Controller {
-		
+		private $jiadb;
 		function __construct() {
 			parent::__construct();
 			$this->load->model('Notify_model');
 			$this->load->model('User_model');
+			$this->jiadb = new Jiadb('notify');
+		}
+		
+		function get_info($notify_id) {
+			$notify = $this->jiadb->fetchAll(array('id' => $notify_id));
+			return $notify;
 		}
 		
 		function index() {
