@@ -40,7 +40,8 @@
 					$this->_auth('add', 'activity', $corporation_id);
 					$data['title'] = '创建活动';
 					$data['main_content'] = 'activity/add_view';
-					$data['js'] = array('jquery-ui-1.7.custom.min.js');
+					$data['css'] = array('corporation/jquery-ui-1.7.custom.css');
+					$data['js'] = array('corporation/jquery-ui-1.7.custom.min.js');
 					$data['corporation'] = $corporation_info;
 					$this->load->view('includes/template_view', $data);
 				} else {
