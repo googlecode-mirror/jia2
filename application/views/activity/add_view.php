@@ -9,20 +9,20 @@
 	<?=form_close() ?>
 </div> -->
 
-<div id="add-activity">
+<div id="add-corporation">
 			<?=form_open('activity/do_add/' . $corporation['id']) ?>
 				<span ><label>活动名称：</label>
 					<div class="InputWrapper"><div class="InputInner">
-						<input />
+						<?=form_input('name') ?>
 					</div></div>
 				</span>
-				<span ><label>活动地点：</label> <?=form_input('address') ?></span>
+				<span ><label>活动地点：</label> <div class="InputWrapper"><div class="InputInner"><?=form_input('address') ?></div></div></span>
 				<span ><label>活动时间：</label>
 					<div class="InputWrapper"><div class="InputInner">
-						<?=form_input('start_time','id="from"') ?>
+						<?=form_input('start_time', '', 'id="from"') ?>
 					</div></div>
 					<div class="InputWrapper"><div class="InputInner">
-						<?=form_input('deadline','id="to"') ?>
+						<?=form_input('deadline','', 'id="to"') ?>
 					</div></div>
 				</span>
 				<span ><label>活动简介：</label>
@@ -50,7 +50,7 @@
 					</tbody>
 					</table>
 				</span>
-				<p class="li_c"><?=form_submit('submit', '保存','class="button"') ?></p>
+				<p class="li_d"><?=form_submit('submit', '保存','class="pub_button"') ?></p>
 			<?=form_close() ?>
 			<script type="text/javascript">
 			$(function() {  
