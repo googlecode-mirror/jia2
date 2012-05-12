@@ -9,7 +9,7 @@
 </div> -->
 
 <!-- 	创建	社团 -->
-<div id="popup2" class="popup_block">
+<div id="main">
 <div id="add-corporation">
 			<?=form_open('corporation/do_add','class="form"')?>
 				<span ><label>社团名字：</label>
