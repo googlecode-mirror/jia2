@@ -3,13 +3,15 @@
 	<?=print_r($info) ?>
 </pre>
 -->
-<h2><?=anchor('corporation/profile/' . $info['corporation'][0]['id'], $info['corporation'][0]['name']) . '的' . $info['user'][0]['name'] . '童鞋发起了 ' . $info['name'] ?></h2>
+<h2 class="ac_title"><?=anchor('corporation/profile/' . $info['corporation'][0]['id'], $info['corporation'][0]['name']) . '的' . $info['user'][0]['name'] . '童鞋发起了 ' . $info['name'] ?></h2>
+<div class="ac_01">
 <h3>活动时间</h3>
-<p><?=$info['start_time'] . '-' . $info['deadline'] ?></p>
+<p><?=jdate($info['start_time']) . '-' . jdate($info['deadline']) ?></p>
+</div><div class="ac_01">
 <h3>活动地点</h3>
-<p><?=$info['address'] ?></p>
-<h3>活动详情</h3>
+<p><?=$info['address'] ?></p></div>
+<h3>活动详情</h3><div class="ac_01">
 <p><?=$info['comment'] ?></p>
-<div class="admin-options">
+<div class="admin-options"></div>
 	<?=anchor('activity/edit/' . $info['id'], '编辑活动') ?>
 </div>
