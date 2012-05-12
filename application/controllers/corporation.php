@@ -58,6 +58,7 @@
 					$this->jiadb->_table = 'user';
 					$data['followers_info'] = $data['followers'] ? $this->jiadb->fetchAll(array('id' => $data['followers'])) : array();
 					$data['members'] = $this->Corporation_model->get_members($corporation_id);
+					$data['members'][] = $data['info']['user_id'];
 					$data['members_info'] = $data['members'] ? $this->jiadb->fetchAll(array('id' => $data['members'])) : array();
 					$this->load->view('includes/template_view', $data);
 				} else {
