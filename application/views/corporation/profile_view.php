@@ -2,16 +2,7 @@
 	window.onload = coprotab;
 </script>
 		
-<div>	
-		<div class="admin-options">
-		<p>
-			<?=anchor('activity/add/' . $info['id'], '创建活动')?>
-		</p>
-		<p>
-			<?=anchor('corporation/setting/' . $info['id'], '社团设置')
-			?>
-		</p>
-	</div>
+<div>
 </div>
 <div id="sidebar">
 	<div class="user_head_box sidebar_nav">
@@ -76,11 +67,7 @@
 			<?=$info['comment'] ?>
 		</p>
 		<p class="operate">
-			<span>以加入社团</span>
-			|
-			<span><a href="">管理社团</a></span>
-			|
-			<span><a href="">退出社团</a></span>
+			<span><?=anchor('corporation/setting/' . $info['id'], '社团设置') ?></span>
 		</p>
 		<?=anchor('activity/add/' . $info['id'], '创建活动')?>
 		<!--

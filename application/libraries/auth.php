@@ -339,8 +339,6 @@ require_once APPPATH . 'libraries/jiadb.php';
 		function __construct($owner_id, $post_id = '') {
 			parent::__construct($owner_id);
 			$this->table = 'comment_auth';
-			echo 'here';
-			var_dump($post_id);
 			if(!empty($post_id)) {
 				echo 'here';
 				$this->post_id = $post_id;
