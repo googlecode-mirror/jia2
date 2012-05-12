@@ -1,4 +1,4 @@
-<div id="add-corporation">
+<!-- <div id="add-corporation">
 	<?=form_open('corporation/do_add') ?>
 	<p>社团名字：<?=form_input('name') ?> </p>
 	<p>所属学校：<?=form_dropdown('school', $schools) ?></p>
@@ -6,8 +6,10 @@
 	<p>分配社长：<?=form_input('master') ?></p>
 	<p><?=form_submit('submit', '创建') ?></p>
 	<?=form_close() ?>
-</div>
+</div> -->
 
+<!-- 	创建	社团 -->
+<div id="popup2" class="popup_block">
 <div id="add-corporation">
 			<?=form_open('corporation/do_add','class="form"')?>
 				<span ><label>社团名字：</label>
@@ -50,8 +52,10 @@
 							<td id="Textarea-br"></td>
 						</tr>
 					</tbody>
-				</table>
+					</table>
 				</span>
 				<p class="li_d"><?=form_submit('submit', '保存','class="pub_button"') ?></p>
 			<?=form_close() ?>
+	
 </div>  
+</div>

@@ -10,9 +10,8 @@ body{
 	overflow:auto;
 	bo/rder: 10px solid #000;
 	font/-family:'Microsoft YaHei', Arial;
-	/*min-height: 100%;
-	_height:100%;*/ 
 }
+#content{min-height:500px;overflow: auto;}
 input,button,select,textarea{outline:none}
 textarea{resize:none}
 h3{
