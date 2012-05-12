@@ -154,9 +154,24 @@
 			return $activity_result;
 		}
 		
+		/**
+		 * @param $extend string "following" "follower" "blocker"
+		 */
 		// 返回json格式的数据，用于表单自动完成
 		function user_json() {
 			$this->_require_ajax();
 			$this->_require_login();
+			$extend = $this->input->post('extend');
+			switch ($extent) {
+				case 'following':
+					
+					break;
+				case 'follower':
+					
+					break;
+				case 'blocker':
+					
+					break;
+			}
 		}
 	}

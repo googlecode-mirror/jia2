@@ -1,4 +1,4 @@
-<? if(array_key_exists('personal', $posts)):?>
+<? if(!empty($posts['personal'])):?>
 <? foreach ($posts['personal'] as $post):?>
 <li class="feed_a">
 	<div class="img_block">
@@ -18,7 +18,7 @@
 		</div>
 			<div class="feeds_comment_box">
 				<ul class="comment">
-					<? if(array_key_exists('comment', $post)):?>
+					<? if(!empty($post['comment'])):?>
 					<? foreach($post['comment'] as $comment):?>
 						<li>
 							<div class="img_block"><?=anchor('personal/profile/' . $comment['user'][0]['id'], '<img src="'. avatar_url($comment['user'][0]['avatar']) .'" >','class="head_pic"') ?></div>
