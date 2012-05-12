@@ -7,7 +7,6 @@
         <title><?=(empty($title) ? '未定义标题' : $title) . ' | 加加社团' ?></title>
         <link rel="stylesheet" type="text/css" href="<?=site_url('resource/css/home.css') ?>" />
         <link rel="stylesheet" type="text/css" href="<?=site_url('resource/css/main_content.css') ?>" />
-        <link rel="stylesheet" type="text/css" href="<?=site_url('resource/css/jqtransformplugin/jqtransform.css')?>" />
 	    <script type="text/javascript" src="<?=site_url('resource/js/jquery.js') ?>"></script>
 	    <script type="text/javascript" src="<?=site_url('resource/js/global.js') ?>"></script>
 	    <script type="text/javascript" src="<?=site_url('resource/js/tab.js') ?>"></script>
