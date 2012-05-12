@@ -139,7 +139,6 @@
 						</div>
 						<p class="f_pm">
 							<span><?=jdate($comment['time']) ?></span>
-							<span><a>回复</a></span>
 						</p>
 						</div>
 					</li>

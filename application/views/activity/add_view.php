@@ -57,7 +57,8 @@
 	        	var dates = $( "#from, #to" ).datepicker({  
 	            defaultDate: "+1w",  
 	            changeMonth: true,  
-	            numberOfMonths: 1,  
+	            numberOfMonths: 1,
+	            altFormat: "yy-mm-dd",
 	            onSelect: function( selectedDate ) {  
 	                var option = this.id == "from" ? "minDate" : "maxDate",  
 	                    instance = $( this ).data( "datepicker" ),  
@@ -65,7 +66,7 @@
 	                        instance.settings.dateFormat ||  
 	                        $.datepicker._defaults.dateFormat,  
 	                        selectedDate, instance.settings );  
-	                dates.not( this ).datepicker( "option", option, date );  
+	                dates.not( this ).datepicker( "option", option, date );
 	            	}  
 	        	});  
 	    	});  

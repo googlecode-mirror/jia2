@@ -1,3 +1,10 @@
+/***********h活动**********/
+
+.ac_01,.ac_title{
+	margin-bottom:10px;
+	padding-bottom:10px;
+	border-bottom: 1px solid #e1e1e1;
+}
 /*****通知******/
 .delete-all{
 	margin-top:20px;
