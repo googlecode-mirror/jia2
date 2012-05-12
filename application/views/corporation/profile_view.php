@@ -60,30 +60,12 @@
 	<div class="sidebar_nav">
 		<h4>协会成员<?=count($members) ?></h4>
 		<ul class="asso_list asso_list_01">
+		<? foreach($members_info as $member): ?>
 			<li>
-				<a class="asso_list_a_img"><img src="images/head_pic/user02.jpg" /></a>
-				<a class="asso_list_a_name">零之动</a>
+				<a class="asso_list_a_img" href="<?=site_url('personal/profile/' . $member['id']) ?>"><img src="<?=avatar_url($member['avatar'], 'personal', 'tiny') ?>" /></a>
+				<a class="asso_list_a_name"><?=$member['name'] ?></a>
 			</li>
-			<li>
-				<a class="asso_list_a_img"><img src="images/head_pic/user02.jpg" /></a>
-				<a class="asso_list_a_name">零之动</a>
-			</li>
-			<li>
-				<a class="asso_list_a_img"><img src="images/head_pic/user02.jpg" /></a>
-				<a class="asso_list_a_name">零之动</a>
-			</li>
-			<li>
-				<a class="asso_list_a_img"><img src="images/head_pic/user02.jpg" /></a>
-				<a class="asso_list_a_name">动漫</a>
-			</li>
-			<li>
-				<a class="asso_list_a_img"><img src="images/head_pic/user02.jpg" /></a>
-				<a class="asso_list_a_name">动漫</a>
-			</li>
-			<li>
-				<a class="asso_list_a_img"><img src="images/head_pic/user02.jpg" /></a>
-				<a class="asso_list_a_name">动漫</a>
-			</li>
+		<? endforeach ?>
 		</ul>
 	</div>
 </div>

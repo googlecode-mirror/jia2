@@ -13,11 +13,8 @@ $(function(){
 			$("#nav_search_submit").removeAttr('disabled');
 		}
 	});
-});
-
-
-//输入框
-$(function(){
+	
+	// 输入框
 	$(".InputWrapper").hover(function(){
 		 $(this).addClass("InputWrapper_hover");
 	});
@@ -30,4 +27,15 @@ $(function(){
 	$(".Textarea").focus(function(){
 		 $(this).addClass("Textarea-focus");
 	});
-})
+});
+
+function index_user(extend) {
+	$.post(
+		SITE_UTL + 'search/user_json',
+		{
+			extent: extend,
+		}, function(data) {
+			$("#search_input")
+		}, 'json'
+	);
+}
