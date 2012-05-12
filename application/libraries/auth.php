@@ -340,7 +340,6 @@ require_once APPPATH . 'libraries/jiadb.php';
 			parent::__construct($owner_id);
 			$this->table = 'comment_auth';
 			if(!empty($post_id)) {
-				echo 'here';
 				$this->post_id = $post_id;
 				$this->CI->load->model('Post_model');
 				$post = $this->CI->Post_model->get_info($post_id);
