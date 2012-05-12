@@ -155,23 +155,37 @@
 		}
 		
 		/**
-		 * @param $extend string "following" "follower" "blocker"
+		 * @param $extend string "following" "follower" "blocker" "all"
 		 */
 		// 返回json格式的数据，用于表单自动完成
 		function user_json() {
 			$this->_require_ajax();
 			$this->_require_login();
 			$extend = $this->input->post('extend');
+			$this->jiadb->_table = 'user';
+			$user_info = array();
 			switch ($extent) {
 				case 'following':
-					
+					$following = $this->User_model->get_following($this->sesssion->userdata('id'));
+					$user_info = $this->jiadb->fetchAll(array('id' => $following));
 					break;
 				case 'follower':
-					
+					$follower = $this->User_model->get_following($this->sesssion->userdata('id'));
+					$user_info = $this->jiadb->fetchAll(array('id' => $follower));
 					break;
 				case 'blocker':
-					
+					$blocker = $this->User_model->get_following($this->sesssion->userdata('id'));
+					$user_info = $this->jiadb->fetchAll(array('id' => $blocker));
+					break;
+				default :
+					$following = $this->User_model->get_following($this->sesssion->userdata('id'));
+					$follower = $this->User_model->get_following($this->sesssion->userdata('id'));
+					$blocker = $this->User_model->get_following($this->sesssion->userdata('id'));
+					$user = array_merge($following, $follower, $blocker);
+					$user = array_unique($user);
+					$user_info = $this->jiadb->fetchAll(array('id' => $user));
 					break;
 			}
+			echo json_encode($user_info);
 		}
 	}
