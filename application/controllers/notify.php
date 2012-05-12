@@ -1,6 +1,6 @@
 <?php
 	class Notify extends  MY_Controller {
-		private $jiadb;
+		public $jiadb;
 		function __construct() {
 			parent::__construct();
 			$this->load->model('Notify_model');
