@@ -13,6 +13,7 @@ $(function() {
 	$("button[name='comment']").click(function() {
 		//$comment = $(this).parent().prev().children('textarea');
 		$comment = $(this).parent().prev("p").find("textarea");
+		$button = $(this);
 		content = $comment.val();
 		post_id = $comment.attr('post_id');
 		type = $comment.attr('type');
@@ -27,7 +28,7 @@ $(function() {
 					alert('由于对方隐私设置，你不能评论~');
 				} else {
 					$comment.val('');
-					$(this).parent().parent().prev("ul").append(data);
+					$button.parent().parent().prev().append(data);
 				}
 			}
 		);
