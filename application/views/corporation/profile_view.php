@@ -37,15 +37,9 @@
 			<li>
 				社长：<?=anchor('personal/profile/' . $info['user'][0]['id'], $info['user'][0]['name']) ?>
 			</li>
-			<li>
-				分　类：<a href="#">情感</a>  <a href="">象牙塔</a>
-			</li>
-			<li>
-				编　号：00001
-			</li>
 		</ul>
 		<p class="f-aaa">
-			2011-10-24由 <?=$info['user'][0]['name'] ?> 创建
+			由 <?=$info['user'][0]['name'] ?> 创建
 		</p>
 	</div>
 	<div class="sidebar_nav">
@@ -62,7 +56,7 @@
 </div>
 <div id="main">
 	<div class="asso_intro_box">
-		<h3><?=$info['name'] ?><span> (20个成员)</span></h3>
+		<h3><?=$info['name'] ?><span> (<?=count($members) ?>个成员)</span></h3>
 		<p>
 			<?=$info['comment'] ?>
 		</p>
