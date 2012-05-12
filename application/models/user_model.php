@@ -39,8 +39,8 @@
 			$join = array(
 				'user_type' => array('type_id', 'id')
 			);
-			$info = $this->get_info((int)$user_id, $join);
-			return $info[0];
+			$info = $this->get_info($user_id, $join);
+			return $info;
 		}
 		
 		function update($where = array(), $row = array()) {
