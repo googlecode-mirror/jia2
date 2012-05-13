@@ -1,38 +1,19 @@
 <script>
 	window.onload = setingtab;
 </script>
-<script language="javascript"> 
-    var url=location.href;
-    //url='http://jia2.localhost/personal/setting#avatar';
-    alert(url);
-    var arr = url.split('#');
-    var right=arr[1];
-    alert(arr);
-    // switch(right){
-    // case 'info':
-    // case 'avatar':
-         // $("#s02").addClass("sd01").removeClass("sd02");
-         // $("#s01").addClass("sd02");
-         // $("#s03").addClass("sd02");
-         // $("#s04").addClass("sd02");
-         // break;
-   // default: $("#s04").addClass("sd02");
-         // break;
-	// }
-</script> 
 <div id="main">
 	<div class="search_item">
 			<ul>
-				<li class="sd01" id="s01">
+				<li id="s01" class="sd01">
 					<a href="#">资料设置</a>
 				</li>
-				<li class="sd02" id="s02">
+				<li id="s02" class="sd02" >
 				<a href="#">头像设置</a>
 				</li>
-				<li class="sd02" id="s03">
+				<li id="s03" class="sd02" >
 					<a href="#">账户设置</a>
 				</li>
-				<li class="sd02" id="s04">
+				<li id="s04" class="sd02" >
 					<a href="#">隐私设置</a>
 				</li>
 			</ul>
@@ -123,8 +104,33 @@
 		</div>
 	</div>
 </div>
-<script>
-$(function(){
-		
-		});	  
-</script>			
+<script language="javascript"> 
+    var url=location.href;
+    url="http://jia2.localhost/personal/setting#avatar";
+    var str = url.substr(1);
+    var strs = str.split("#");
+    var name=strs[1];
+    
+    switch(name){
+    case 'avatar':
+     	 $("#s01").removeClass("sd01").addClass("sd02");
+         $("#s02").removeClass("sd02").addClass("sd01");
+         $("#c01").css("display","none");
+         $("#c02").css("display","block");
+         break;
+    case 'pass':
+   		 $("#s01").removeClass("sd01").addClass("sd02");
+         $("#s03").removeClass("sd02").addClass("sd01");
+         $("#c01").css("display","none");
+         $("#c03").css("display","block");
+         break;
+    case 'privacy':
+     	 $("#s01").removeClass("sd01").addClass("sd02");
+         $("#s04").removeClass("sd02").addClass("sd01");
+         $("#c01").css("display","none");
+         $("#c04").css("display","block");
+         break;
+    default: 
+         break;
+	}
+</script> 		
