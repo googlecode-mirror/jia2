@@ -34,6 +34,12 @@
 					<? endforeach?>
 					<? endif?>
 				</ul>
+				<div class="extend_link">
+				<? $a_link = site_url('post/' . $post['id']) ?>
+				<? if(current_url() != $a_link): ?>
+					<?=anchor('post/' . $post['id'], '查看全部评论>>') ?>
+				<? endif ?>
+				</div>
 				<div class="comment_wrap">
 					<p>
 						<table class="Textarea">
@@ -59,7 +65,7 @@
 				</tr>
 			</tbody>
 		</table></p>
-					<p><?=form_button('comment', '评论', 'class="pub_button comment_button hidden"') ?></p>
+					<p><?=form_button('comment', '评论', 'class="pub_button comment_button"') ?></p>
 				</div>
 			</div>
 		</div>

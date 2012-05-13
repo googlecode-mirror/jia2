@@ -48,18 +48,18 @@ $(function() {
 	request_letter('in');
 	
 	$("#in_box").click(function() {
+		$("#letter_out_content").hide();
 		if($("#letter_in_content").length > 0) {
 			$("#letter_in_content").show();
-			$("#letter_out_content").hide();
 			return false;
 		} else {
 			request_letter('in');
 		}		
 	});
 	$("#out_box").click(function() {
+		$("#letter_in_content").hide();
 		if($("#letter_out_content").length > 0) {
 			$("#letter_out_content").show();
-			$("#letter_in_content").hide();
 			return false;
 		} else {
 			request_letter('out');

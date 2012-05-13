@@ -15,6 +15,27 @@
 			}
 		}
 		
+		function get_trends($corporation_id, $limit = array(10, 0)) {
+			$this->jiadb->_table = 'post';
+			$join_co = array(
+				'corporation' => array('owner_id', 'id'),
+				'post_meta' => array('id', 'post_id'),
+				'comment' => array('id', 'post_id', 5),
+				'comment.user' => array('user_id', 'id')
+			);
+			return $this->jiadb->fetchJoin(array('owner_id' =>$corporation_id, 'type_id' => $this->config->item('post_type_activity')), $join_co, array('time' => 'desc'), $limit);
+		}
+		
+		function get_activities($corporation_id, $limit = array(10, 0)) {
+			$this->jiadb->_table = 'activity';
+			$join = array(
+				'corporation' => array('corporation_id', 'id'),
+				'comment' => array('id', 'post_id', 5),
+				'comment.user' => array('user_id', 'id')
+			);
+			return $this->jiadb->fetchJoin(array('corporation_id' => $corporation_id), $join, array('time' => 'DESC'), $limit);
+		}
+		
 		function get_followers($corporation_id) {
 			$this->jiadb->_table = 'user';
 			$return = 'user_id';

@@ -69,6 +69,7 @@
 							'user_id' => $this->session->userdata('id'),
 							'corporation_id' => $corporation_info['id'],
 							'name' => $name,
+							'time' => time(),
 							'start_time' => strtotime($start_time),
 							'deadline' => strtotime($deadline),
 							'address' => $address,

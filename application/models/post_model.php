@@ -66,7 +66,7 @@
 		
 		// 根据条件筛选信息
 		function fetch($where = array(), $order = array('time' => 'desc'), $limit = array(20, 0)) {
-			// 改方法会加入对转载文章的原文读取
+			// 该方法会加入对转载文章的原文读取
 			$join = array(
 				'user' => array('owner_id', 'id'),
 				'comment' => array('id', 'post_id', 5),

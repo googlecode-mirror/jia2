@@ -40,69 +40,23 @@
 			$offset = $this->input->post('offsect') ? $this->input->post('offsect') : 0;
 			switch ($object) {
 				case 'user':
-					// 搜索用户
-					$user_result = $this->_user();
-					$user_rows = $user_result['rows'];
-					unset($user_result['rows']);
-					foreach($user_result as $row) {
-					?>
-					<li>
-						<div>
-							<h3><?=$row['name'] ?></h3>
-							<img src="<?=$row['avatar']?>" />
-						</div>
-					</li>
-					<?
-					}
+					$json_array['user_result'] = $this->_user();
 					break;
 				case 'corporation':
 					// 搜索社团
+					$json_array['corporation_result'] = $this->_corporation();
 					break;
 				case 'activity':
 					// 搜索社团
+					$json_array['activity_result'] = $this->_activity();
 					break;
 				default:
 					// 三个都搜索
-					$user_result = $this->_user();
-					$user_rows = $user_result['rows'];
-					$corporation_result = $this->_corporation();
-					$corporation_rows = $corporation_result['rows'];
-					$activity_result = $this->_activity();
-					$activity_result = $corporation_result['rows'];
-					unset($corporation_result['rows']);
-					unset($user_result['rows']);
-					unset($activity_result['rows']);
-					foreach($user_result as $row) {
-					?>
-					<li>
-						<div>
-							<h3><?=$row['name'] ?></h3>
-							<img src="<?=avatar_url($row['avatar'], 'personal', 'big') ?>" />
-						</div>
-					</li>
-					<?
-					}
-					foreach($corporation_result as $row) {
-					?>
-					<li>
-						<div>
-							<h3><?=$row['name'] ?></h3>
-							<img src="<?=avatar_url($row['avatar'], 'corporation', 'big') ?>" />
-						</div>
-					</li>
-					<?
-					}
-					foreach($activity_result as $row) {
-					?>
-					<li>
-						<div>
-							<h3><?=$row['name'] ?></h3>
-							<img src="<?=avatar_url($row['corporation'][0]['avatar'], 'corporation', 'big') ?>" />
-						</div>
-					</li>
-					<?
-					}
-					break;
+					$json_array['user_result'] = $this->_user();
+					$json_array['corporation_result'] = $this->_corporation();
+					$json_array['activity_result'] = $this->_activity();
+
+					
 			}
 		}
 
