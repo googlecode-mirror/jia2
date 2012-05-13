@@ -5,16 +5,16 @@
 	<div class="search_item">
 			<ul>
 				<li id="s01" class="sd01">
-					<a href="#">资料设置</a>
+					<a href="#info">资料设置</a>
 				</li>
 				<li id="s02" class="sd02" >
-				<a href="#">头像设置</a>
+				<a href="#avatar">头像设置</a>
 				</li>
 				<li id="s03" class="sd02" >
-					<a href="#">账户设置</a>
+					<a href="#account">账户设置</a>
 				</li>
 				<li id="s04" class="sd02" >
-					<a href="#">隐私设置</a>
+					<a href="#privacy">隐私设置</a>
 				</li>
 			</ul>
 	</div>
@@ -106,7 +106,6 @@
 </div>
 <script language="javascript"> 
     var url=location.href;
-    url="http://jia2.localhost/personal/setting#avatar";
     var str = url.substr(1);
     var strs = str.split("#");
     var name=strs[1];
@@ -118,7 +117,7 @@
          $("#c01").css("display","none");
          $("#c02").css("display","block");
          break;
-    case 'pass':
+    case 'account':
    		 $("#s01").removeClass("sd01").addClass("sd02");
          $("#s03").removeClass("sd02").addClass("sd01");
          $("#c01").css("display","none");
