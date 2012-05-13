@@ -11,6 +11,7 @@ body{
 	bo/rder: 10px solid #000;
 	font/-family:'Microsoft YaHei', Arial;
 }
+a{cursor: pointer}
 #content{min-height:500px;overflow: auto;}
 input,button,select,textarea{outline:none}
 textarea{resize:none}

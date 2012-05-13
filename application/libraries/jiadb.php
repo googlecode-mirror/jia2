@@ -59,8 +59,8 @@
 		 * @param array
 		 * @param array like following:
 		 * $join = array(
-		 * 		'joined_table1' => array('current_table_field', 'joined_table1_field'),
-		 * 		'joined_table2' => array('current_table_field', 'joined_table2_field')
+		 * 		'joined_table1' => array('current_table_field', 'joined_table1_field', 'limit'),
+		 * 		'joined_table2' => array('current_table_field', 'joined_table2_field', 'limit')
 		 * )
 		 * @param array
 		 * @param array
@@ -72,17 +72,18 @@
 			$original_table = $this->_table;
 			if($result && $join) {
 				foreach ($join as $table => $field) {
+					$limit = empty($field[2]) ? '' : $field[2];
 					$table = explode('.', $table);
 					foreach ($result as $key => $row) {
 						if(array_key_exists(1, $table) && array_key_exists($table[0], $row)) {
 							$this->_table = $table[1];
 							foreach ($row[$table[0]] as $sub_key => $sub_row) {
-								$tmp = $this->fetchAll(array($field[1] => $sub_row[$field[0]]));
+								$tmp = $this->fetchAll(array($field[1] => $sub_row[$field[0]]), '', $limit);
 								$result[$key][$table[0]][$sub_key][$table[1]] = $tmp;
 							}
 						} elseif(!array_key_exists(1, $table)) {
 							$this->_table = $table[0];
-							$tmp = $this->fetchAll(array($field[1] => $row[$field[0]]));
+							$tmp = $this->fetchAll(array($field[1] => $row[$field[0]]), '', $limit);
 							if($tmp) {
 								$result[$key][$table[0]] = $tmp;
 							}

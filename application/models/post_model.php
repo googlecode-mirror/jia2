@@ -48,18 +48,18 @@
 			$following_user[] = $user_id;
 			$join_user = array(
 				'user' => array('owner_id', 'id'),
-				'comment' => array('id', 'post_id'),
+				'comment' => array('id', 'post_id', 5),
 				'comment.user' => array('user_id', 'id')
 			);
-			$posts['personal'] = $this->jiadb->fetchJoin(array('owner_id' => $following_user, 'type_id' => $this->post_type['personal']), $join_user, array('time' => 'desc'), array(20, 0));
+			$posts['personal'] = $this->jiadb->fetchJoin(array('owner_id' => $following_user, 'type_id' => $this->post_type['personal']), $join_user, array('time' => 'desc'), array(10, 0));
 			if($following_co) {
 				$join_co = array(
 					'corporation' => array('owner_id', 'id'),
 					'post_meta' => array('id', 'post_id'),
-					'comment' => array('id', 'post_id'),
+					'comment' => array('id', 'post_id', 5),
 					'comment.user' => array('user_id', 'id')
 				);
-				$posts['activity'] = $this->jiadb->fetchJoin(array('owner_id' =>$following_co, 'type_id' => $this->post_type['activity']), $join_co, array('time' => 'desc'), array(20,0));
+				$posts['activity'] = $this->jiadb->fetchJoin(array('owner_id' =>$following_co, 'type_id' => $this->post_type['activity']), $join_co, array('time' => 'desc'), array(10,0));
 			}
 			return $posts;
 		}
@@ -69,7 +69,7 @@
 			// 改方法会加入对转载文章的原文读取
 			$join = array(
 				'user' => array('owner_id', 'id'),
-				'comment' => array('id', 'post_id'),
+				'comment' => array('id', 'post_id', 5),
 				'comment.user' => array('user_id', 'id')
 			);
 			$posts = $this->jiadb->fetchJoin($where, $join, $order, $limit);

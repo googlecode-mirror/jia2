@@ -1,4 +1,4 @@
-<? if(array_key_exists('activity', $posts)):?>
+<? if(!empty($posts['activity'])):?>
 <? foreach ($posts['activity'] as $post):?>
 <li class="feed_a">
 	<div class="img_block">

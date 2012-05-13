@@ -2,6 +2,15 @@
  * ajax 发帖以及添加评论的js
  */
 $(function() {
+	$(".col-c").click(function() {
+		$comments = $(this).parent().parent().parent().next();
+		$comments.slideToggle();
+		if($(this).text() == '展开评论') {
+			$(this).text('收起评论');
+		} else {
+			$(this).text('展开评论');
+		}
+	});
 	$("textarea[name='comment_content']").keyup(function() {
 		$button = $(this).parent().next().children('button');
 		if($(this).val() != '') {

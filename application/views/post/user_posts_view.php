@@ -12,8 +12,7 @@
 		<div class="f_summary">
 			<p class="f_pm">
 				<span><?=jdate($post['time']) ?></span>
-				<span><a>收起评论</a></span>
-				<span><a>评论</a></span>
+				<span><a class="col-c">收起评论</a></span>
 			</p>
 		</div>
 			<div class="feeds_comment_box">
