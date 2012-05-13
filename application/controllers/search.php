@@ -35,7 +35,7 @@
 		function do_search() {
 			$this->_require_ajax();
 			$object = $this->input->post('object');
-			$keywords = $this->input->post('keywords');
+			$keywords = trim($this->input->post('keywords'));
 			$limit = 10;
 			$offset = $this->input->post('offsect') ? $this->input->post('offsect') : 0;
 			switch ($object) {
@@ -62,7 +62,7 @@
 
 		//搜索用户
 		function _user() {
-			$keywords = $this->input->post('keywords');
+			$keywords = trim($this->input->post('keywords'));
 			$offset = $this->input->post('offset');
 			$this->jiadb->_table = 'user';
 			$where = array('name REGEXP' => $keywords);
@@ -77,7 +77,7 @@
 		
 		// 搜索社团
 		function _corporation() {
-			$keywords = $this->input->post('keywords');
+			$keywords = trim($this->input->post('keywords'));
 			$offset = $this->input->post('offset');
 			$this->jiadb->_table = 'corporation';
 			$where = array('name REGEXP' => $keywords);
@@ -92,7 +92,7 @@
 		
 		// 搜索活动
 		function _activity() {
-			$keywords = $this->input->post('keywords');
+			$keywords = trim($this->input->post('keywords'));
 			$offset = $this->input->post('offset');
 			$this->jiadb->_table = 'activity';
 			$where = array('name REGEXP' => $keywords);

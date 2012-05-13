@@ -52,11 +52,9 @@
 				<li class="feed_a">
 					<div class="img_block"><img src="<?=avatar_url($corporation['avatar'], 'corporation', 'big') ?>" /></div>
 						<div class="feed_main">
-						<h3 class="asso_name"><a href="<?=site_url('corporation/profile/' . $corporation['id'])?>"><?=$corporation['name'] ?></a><span>活动(6)</span><span>相册(6)</span><span>说说(20)</span></h3>
+						<h3 class="asso_name"><a href="<?=site_url('corporation/profile/' . $corporation['id'])?>"><?=$corporation['name'] ?></a></h3>
 						<ul class="asso_ul">
-							<li><a href="">启明拓展协会最新活动安排</a></li>
-							<li><a href="">启明拓展协会的活动日志</a></li>
-							<li><a href="">感谢群众还记得我</a></li>
+							<li><a><?=$corporation['comment'] ?></a></li>
 						</ul>
 					</div>
 				</li>

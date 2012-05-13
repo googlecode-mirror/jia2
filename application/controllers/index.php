@@ -12,7 +12,11 @@
 			} else {
 				$data['title'] = '首页';
 				$data['posts'] = $this->Post_model->post_string($this->session->userdata('id'));
-				$data['info'] = $this->User_model->get_info($this->session->userdata('id'));
+				$join = array(
+					'school' => array('school_id', 'id'),
+					'province' => array('province_id', 'id')
+				);
+				$data['info'] = $this->User_model->get_info($this->session->userdata('id'), $join);
 				//$data['css'] = array('home.css');
 				$data['js'] = array('post.js');
 				$data['main_content'] = 'index_view';

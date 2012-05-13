@@ -11,7 +11,7 @@
 <h3>活动地点</h3>
 <p><?=$info['address'] ?></p></div>
 <h3>活动详情</h3><div class="ac_01">
-<p><?=$info['comment'] ?></p>
+<p><?=$info['detail'] ?></p>
 <div class="admin-options"></div>
 	<?=anchor('activity/edit/' . $info['id'], '编辑活动') ?>
 </div>

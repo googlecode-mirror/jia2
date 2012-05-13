@@ -15,16 +15,7 @@
 	<div class="search_item">
 						<ul>
 							<li class="sd01" id="01">
-								<a href="#" id="active">全部结果&nbsp;100+</a>
-							</li>
-							<li class="sd02" id="02">
-								<a href="#">人名&nbsp;100+</a>
-							</li>
-							<li class="sd02" id="03">
-								<a href="#">社团&nbsp;0</a>
-							</li>
-							<li class="sd02" id="04">
-								<a href="#">活动&nbsp;0</a>
+								<a href="#" id="active">搜索结果&nbsp;</a>
 							</li>
 						</ul>
 				</div>
@@ -70,13 +61,4 @@
 			<? endforeach?>
 			<? endif?>
 		</ul>
-	</div>
-	<div id="search_result_02" class="hidden search_result">
-		<h4>人名 <span>100+条结果</span></h4>
-	</div>
-	<div id="search_result_03" class="hidden search_result">
-		<h4>社团 <span>100+条结果</span></h4>
-	</div>
-	<div id="search_result_04" class="hidden search_result">
-		<h4>活动 <span>100+条结果</span></h4>
 	</div>
