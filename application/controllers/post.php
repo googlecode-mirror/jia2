@@ -115,11 +115,11 @@
 					'time' => $time
 				);
 				$comment_id = $this->Post_model->insert_comment($comment);
-				if(!($type == 'personal' && $owner_id == $this->session->userdata('id'))) {
+				if($type == 'personal' && $owner_id != $this->session->userdata('id')) {
 					// 插入一条通知
 					$notify = array(
 						'user_id' => $this->session->userdata('id'),
-						'receiver' => $owner_id,
+						'receiver_id' => $owner_id,
 						'content' => '评论了你的' . anchor('post/' . $post_id, '新鲜事'),
 						'type' => 'message',
 						'time' => $time

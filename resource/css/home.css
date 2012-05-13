@@ -187,8 +187,10 @@ a.creat_button{
 	background: url(../img/tab_0.png) no-repeat;
 }
 .sd01{
-	background: url(../img/tab_0.png) no-repeat;
-	
+	background: url(../img/tab_1.png) no-repeat;	
+}
+a.active{
+	background: url(../img/tab_1.png) no-repeat;	
 }
 .sd01 a{font-weight:bold;}
 .sd02{
@@ -215,11 +217,11 @@ a#refresh:hover, a#refresh:active{
 	font-size:13px;
 	background: url(../img/tab_1.png) no-repeat;
 }
-#notify_menu  ul li a:hover{
+ul li a:hover{
 	text-decoration: none;
 	background: url(../img/tab_1.png) no-repeat;
 }
-#notify_menu  ul li a#active,#notify_menu  ul li a#active:hover{
+ul li a#active,#notify_menu  ul li a#active:hover{
 	background: url(../img/tab_0.png) no-repeat;
 	font-weight:bold;
 }

@@ -20,26 +20,26 @@
 	</div>
 	<div class="tab_cont_box user_setting">
 		<div id="c01">
-			<h4 class="set_title"><span>某某</span>，你好！<a id="modify" href="#">修改</a></h4>
+			<h4 class="set_title"><span><?=$info['name'] ?></span>，你好！<a id="modify" href="#">修改</a></h4>
 			<ul id="user_info">
-				<li class="li_1">姓名：<span>tiramisu</span></li>
-				<li class="li_1">性别：<span>女</span></li>
-				<li class="li_1">学校：<span>成都信息工程学院</span></li>
-				<li class="li_1">省份：<span>四川省</span></li>
+				<li class="li_1">姓名：<span><?=$info['name'] ?></span></li>
+				<li class="li_1">性别：<span><?=$info['gender'] == 1 ? '男' : '女' ?></span></li>
+				<li class="li_1">学校：<span><?=$info['school'][0]['name']?></span></li>
+				<li class="li_1">省份：<span><?=$info['province'][0]['name']?></span></li>
 			</ul>
 			<ul id="user_info_form" class="hidden">
 			<?=form_open('personal/do_setting','class="form"')?>
 			<?=form_hidden('setting', 'info') ?>
 				<li ><label>姓名：</label>
 					<div class="InputWrapper"><div class="InputInner">
-							<?=form_input('name') ?>
+							<?=form_input('name', $info['name']) ?>
 					</div></div>
 				</li>
 				<li ><label>性别：</label>
-					<?=form_dropdown('gender', array('1'=> '男淫', '0' => '女淫'),'class="SelectWrapper"') ?></li>
+					<?=form_dropdown('gender', array('1'=> '男', '0' => '女'),'class="SelectWrapper"') ?></li>
 				<li ><label>学校：</label>
 					<div class="InputWrapper"><div class="InputInner">
-							<?=form_input('name') ?>
+							<?=form_input('school', $info['school'][0]['name']) ?>
 					</div></div></li>
 				<li ><label>省份：</label><?=form_dropdown('gender', array('0'=> '四川', '1' => '重庆','2'=> '贵州', '3' => '云南'),'class="SelectWrapper"') ?>
 						  <?=form_dropdown('gender', array('0'=> '四川', '1' => '重庆','2'=> '贵州', '3' => '云南'),'class="SelectWrapper"') ?></li>
@@ -106,7 +106,7 @@
 </div>
 <script language="javascript"> 
     var url=location.href;
-    url="http://jia2.localhost/personal/setting#avatar";
+    //url="http://jia2.localhost/personal/setting#avatar";
     var str = url.substr(1);
     var strs = str.split("#");
     var name=strs[1];
@@ -116,18 +116,24 @@
      	 $("#s01").removeClass("sd01").addClass("sd02");
          $("#s02").removeClass("sd02").addClass("sd01");
          $("#c01").css("display","none");
+         $("#c03").css("display","none");
+         $("#c04").css("display","none");
          $("#c02").css("display","block");
          break;
-    case 'pass':
+    case 'account':
    		 $("#s01").removeClass("sd01").addClass("sd02");
          $("#s03").removeClass("sd02").addClass("sd01");
          $("#c01").css("display","none");
+         $("#c02").css("display","none");
+         $("#c04").css("display","none");
          $("#c03").css("display","block");
          break;
     case 'privacy':
      	 $("#s01").removeClass("sd01").addClass("sd02");
          $("#s04").removeClass("sd02").addClass("sd01");
          $("#c01").css("display","none");
+         $("#c02").css("display","none");
+         $("#c03").css("display","none");
          $("#c04").css("display","block");
          break;
     default: 

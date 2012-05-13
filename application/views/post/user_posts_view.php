@@ -1,5 +1,5 @@
-<? if(!empty($posts['personal'])):?>
-<? foreach ($posts['personal'] as $post):?>
+<? if(!empty($posts)):?>
+<? foreach ($posts as $post):?>
 <li class="feed_a">
 	<div class="img_block">
 		<?=anchor('personal/profile/' . $post['user'][0]['id'], '<img src="'. avatar_url($post['user'][0]['avatar']) .'" >','class="head_pic"') ?>
