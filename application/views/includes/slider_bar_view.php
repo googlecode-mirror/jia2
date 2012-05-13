@@ -5,13 +5,10 @@
 	</div>
 	<div class="sidebar_nav">
 		<ul class="ul_sty_01">
-			<li><a href ="post.html" target ="postiframe" class="a_sty_01 active"><i class="ico ico_newthings"></i>社团动态</a></li>
-			<li><a href="post2.html" target ="postiframe"  class="a_sty_01"><i class="ico ico_active"></i>好友动态</a></li>
-		</ul>
-	</div>
-	<div class="sidebar_nav">
-		<ul class="ul_sty_02">
-			<li><a href="" target ="postiframe" class="a_sty_01"><i class="ico ico_say"></i>说说</a><a href="#?w=500" rel="popup1" class="a_sty_02 inline">发表</a></li>
+			<li><a class="a_sty_01 active"><i class="ico ico_newthings"></i>姓名：<?=$info['name'] ?></a></li>
+			<li><a class="a_sty_01 active"><i class="ico ico_newthings"></i>性别：<?=$info['gender'] == 1 ? '男' : '女' ?></a></li>
+			<li><a class="a_sty_01 active"><i class="ico ico_newthings"></i>学校：<?=$info['school'][0]['name']?></a></li>
+			<li><a class="a_sty_01 active"><i class="ico ico_newthings"></i>省份：<?=$info['province'][0]['name']?></a></li>
 		</ul>
 	</div>
 	

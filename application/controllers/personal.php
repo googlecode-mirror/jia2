@@ -19,7 +19,11 @@
 			}
 			$id = $id ? $id : $this->session->userdata('id');
 			$this->_auth('view', 'post', $id);
-			$data['info'] = $this->User_model->get_info((int)$id);
+			$join = array(
+				'school' => array('school_id', 'id'),
+				'province' => array('province_id', 'id')
+			);
+			$data['info'] = $this->User_model->get_info((int)$id, $join);
 			$data['followers'] = $this->User_model->get_followers($id);
 			$data['title'] = '个人主页-' . $data['info']['name'];
 			$data['followers'] = $this->User_model->get_followers($id);
