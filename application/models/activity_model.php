@@ -27,15 +27,14 @@
 					'owner_id' => $activity['corporation_id'],
 					'type' => 'activity',
 					'content' => '发起了一个活动',
-					'time' => time(),
+					'time' => time()
 				);
 				$post_meta = array(
 					'meta_key' => 'activity',
 					'meta_value' => $activity_id,
 					'meta_table' => 'activity',
 				);
-				$post_id = $this->Post_model->insert('post', $post);
-				$post_meta['post_id'] = $post_id;
+				$post_meta['post_id'] = $this->Post_model->insert($post);
 				$this->db->insert('post_meta', $post_meta);
 				return $activity_id;
 			} else {
