@@ -36,17 +36,11 @@
 <div class="post_main">
 				<div class="search_item"><ul>
 					<li class="sd01" id="po1">
-						<a href="" id="active">全部</a>
+						<a href="" id="active">好友动态</a>
 					</li>
 					<li class="sd02" id="po2">
-						<a href="">活动日志</a>
+						<a href="">社团动态</a>
 					</li>
-					<li class="sd02" id="po3">
-						<a href="">活动图片</a>
-					</li>
-					<div class="right">
-						<li><a href="" id="refresh">刷新</a></li>
-					</div>
 				</ul></div>
 	</div>
 	<div id="feeds_container" class="feeds">

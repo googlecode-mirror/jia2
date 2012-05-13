@@ -158,7 +158,7 @@
 		 * @param $extend string "following" "follower" "blocker" "all"
 		 */
 		// 返回json格式的数据，用于表单自动完成
-		function user_json() {
+		function user_search() {
 			$this->_require_ajax();
 			$this->_require_login();
 			$extend = $this->input->post('extend');
@@ -186,6 +186,7 @@
 					$user_info = $this->jiadb->fetchAll(array('id' => $user));
 					break;
 			}
-			echo json_encode($user_info);
+			$data['users'] = $user_info;
+			$this->load->view('search_user_view', $data);
 		}
 	}
