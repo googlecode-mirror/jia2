@@ -179,7 +179,6 @@ a.creat_button{
 	display:block;
 	float:left;
 	display:block;
-	font-weight:normal;
 	color:#444;
 	font-size:13px;
 }
@@ -189,7 +188,9 @@ a.creat_button{
 }
 .sd01{
 	background: url(../img/tab_0.png) no-repeat;
+	
 }
+.sd01 a{font-weight:bold;}
 .sd02{
 	background: url(../img/tab_1.png) no-repeat;
 }

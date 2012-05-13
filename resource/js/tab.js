@@ -8,10 +8,7 @@ function scrollDoor() {
 scrollDoor.prototype = {
 	sd : function(menus, divs, openClass, closeClass) {
 		var _this = this;
-		if(menus.length != divs.length) {
-			alert("菜单层数量和内容层数量不一样!");
-			return false;
-		}
+		
 		for(var i = 0; i < menus.length; i++) {
 			
 			_this.$(menus[i]).value = i;
@@ -31,6 +28,10 @@ scrollDoor.prototype = {
 		return oid;
 	}
 }
+function posttab(){
+		var SDmodel = new scrollDoor();
+		SDmodel.sd(["po1", "po2"], ["feed_1", "feed_2"], "sd01", "sd02");
+		}//post
 function setingtab(){
 	var SDmodel = new scrollDoor();
 	SDmodel.sd(["s01", "s02", "s03","s04"], ["c01", "c02", "c03","c04"], "sd01", "sd02");//设置页面
@@ -39,10 +40,7 @@ function searchtab(){
 	var SDmodel = new scrollDoor();
 	SDmodel.sd(["01", "02", "03", "04"], ["search_result_01", "search_result_02", "search_result_03", "search_result_04"], "sd01", "sd02");//搜索
 }
-function posttab(){
-	var SDmodel = new scrollDoor();
-	SDmodel.sd(["po1", "po2", "po3"], ["po_1", "po_2", "po_3"], "sd01", "sd02");//post
-}
+
 function cotab(){
 	var SDmodel = new scrollDoor();
 	SDmodel.sd(["co-1", "co-2"], ["feed_1", "feed_2"], "sd01", "sd02");//我的社团
