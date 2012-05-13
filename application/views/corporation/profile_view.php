@@ -71,22 +71,12 @@
 	<div class="search_item">
 		<ul>
 			<li class="sd01" id="co-01">
-				<a href="#" id="active">活动日志&nbsp;(2)</a>
-			</li>
-			<li class="sd02" id="co-02">
-				<a href="#">活动相册&nbsp;(6)</a>
-			</li>
-			<li class="sd02" id="co-03">
-				<a href="#">状态&nbsp;(6)</a>
+				<a href="#" id="active">社团动态&nbsp;(2)</a>
 			</li>
 		</ul>
 	</div>
 	<div id="feeds_container" class="feeds"></div>
 		<div id="co_01">活动日志&nbsp
-		</div>
-		<div id="co_02" class="hidden">活动相册&nbsp
-		</div>
-		<div id="co_03" class="hidden">状态&nbsp
 		</div>
 	</div>
 	
