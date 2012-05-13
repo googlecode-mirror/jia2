@@ -1,5 +1,9 @@
-<? if(!empty($posts['activity'])):?>
-<? foreach ($posts['activity'] as $post):?>
+<script type="text/javascript">
+	$(".sd01 a").removeAttr('id');
+	$(".sd02 a").attr('id', 'active');
+</script>
+<? if(!empty($posts)):?>
+<? foreach ($posts as $post):?>
 <li class="feed_a">
 	<div class="img_block">
 		<?=anchor('corporation/profile/' . $post['corporation'][0]['id'], '<img src="'. avatar_url($post['corporation'][0]['avatar'], 'corporation') .'">', 'class="head_pic"') ?>
@@ -11,9 +15,8 @@
 		</div>
 		<div class="f_summary">
 			<p class="f_pm">
-				<span>22:06</span>
-				<span><a>收起评论</a></span>
-				<span><a>评论</a></span>
+				<span><?=jdate($post['time']) ?></span>
+				<span><a class="col-c">收起评论</a></span>
 			</p>
 			<div class="feeds_comment_box">
 				<ul class="comment">
@@ -27,18 +30,47 @@
 								<span class="f_do"><?=$comment['content']?></span>
 							</div>
 							<p class="f_pm">
-								<span>04月18日   22:06</span>
-								<span><a>回复</a></span>
+								<span><?=jdate($comment['time']) ?></span>
 							</p>
 							</div>
 						</li>
 					<? endforeach?>
 					<? endif?>
+					</ul>
+					<div class="extend_link">
+					<? $a_link = site_url('post/' . $post['id']) ?>
+					<? if(current_url() != $a_link): ?>
+						<?=anchor('post/' . $post['id'], '查看全部评论>>') ?>
+					<? endif ?>
+					</div>
 			</ul>
-			<div>
-				<?=form_textarea('content') ?>
-				<?=form_submit('submit', '评论') ?>
-			</div>
+			<div class="comment_wrap">
+					<p>
+						<table class="Textarea">
+			<tbody>
+				<tr>
+					<td id="Textarea-tl"></td>
+					<td id="Textarea-tm"></td>
+					<td id="Textarea-tr"></td>
+				</tr>
+				<tr>
+					<td id="Textarea-ml"></td>
+					<td id="Textarea-mm" class="">
+						<div>
+							<?=form_textarea(array('name' => 'comment_content', 'post_id'=>$post['id'], 'type' => 'activity', 'cols' => 50, 'rows' =>1,'class'=>'comment_textarea')) ?>
+						</div>
+					</td>
+					<td id="Textarea-mr"></td>
+				</tr>
+				<tr>
+					<td id="Textarea-bl"></td>
+					<td id="Textarea-bm"></td>
+					<td id="Textarea-br"></td>
+				</tr>
+			</tbody>
+		</table></p>
+					<p><?=form_button('comment', '评论', 'class="pub_button comment_button"') ?></p>
+				</div>
 		</div>
 </li>				
 <? endforeach ?>
