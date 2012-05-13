@@ -25,7 +25,7 @@
 		}
 		
 		// 列出所有社团
-		function list_all($id = '') {
+		function list_all($id = '', $page = '') {
 			$this->jiadb->_table = 'corporation';
 			if(!empty($id) && is_numeric($id)) {
 				$corporation = $this->Corporation_model->get_info($id);
@@ -35,7 +35,16 @@
 					static_view();
 				}
 			} elseif(empty($id)) {
-				$data['corporations'] = $this->jiadb->fetchAll('', '', 20);
+				if(is_numeric($page)) {
+					$limit = array($this->config->item('page_size'), $this->config->item('page_size') * ($page-1));
+				} else {
+					$limit = array($this->config->item('page_size'), );
+				}
+				$limit = array($this->config->item('page_size'), 0);
+				$data['title'] = '所有社团';
+				$data['corporations'] = $this->jiadb->fetchAll('', '', $limit);
+				$data['main_content'] = 'corporation/list_view';
+				$this->load->view('includes/template_view', $data);
 			} else {
 				static_view();
 			}
@@ -60,6 +69,8 @@
 					$data['members'] = $this->Corporation_model->get_members($corporation_id);
 					$data['members'][] = $data['info']['user_id'];
 					$data['members_info'] = $data['members'] ? $this->jiadb->fetchAll(array('id' => $data['members'])) : array();
+					$data['posts']['activity'] = $this->Corporation_model->get_trends($corporation_id);
+					$data['activities'] = $this->Corporation_model->get_activities($corporation_id);
 					$this->load->view('includes/template_view', $data);
 				} else {
 					static_view('你要查看的社团不存在');
@@ -96,7 +107,7 @@
 					'name' => $name,
 					'school_id' => $school_id,
 					'user_id' => $user_id,
-					'comment' => $comment
+					'detail' => $comment
 				);
 				if($corporation_id = $this->Corporation_model->insert($corporation)) {
 					redirect('corporation/profile/' . $corporation_id);

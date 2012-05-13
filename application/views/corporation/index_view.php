@@ -47,7 +47,7 @@
 		
 	</ul>
 	<ul id="feed_2" class="hidden">
-		<? if($corporations): ?>
+		<? if(!empty($corporations)): ?>
 			<? foreach($corporations as $corporation):?>
 				<li class="feed_a">
 					<div class="img_block"><img src="<?=avatar_url($corporation['avatar'], 'corporation', 'big') ?>" /></div>

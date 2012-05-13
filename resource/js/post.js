@@ -37,7 +37,7 @@ $(function() {
 					alert('由于对方隐私设置，你不能评论~');
 				} else {
 					$comment.val('');
-					$button.parent().parent().prev().append(data);
+					$button.parent().parent().prev().prev().append(data);
 				}
 			}
 		);

@@ -43,7 +43,7 @@
 		</p>
 	</div>
 	<div class="sidebar_nav">
-		<h4>协会成员<?=count($members) ?></h4>
+		<h4>协会成员（<?=count($members) ?>）</h4>
 		<ul class="asso_list asso_list_01">
 		<? foreach($members_info as $member): ?>
 			<li>
@@ -70,8 +70,8 @@
 	</div>
 	<div class="search_item">
 		<ul>
-			<li class="sd01" id="co-01">
-				<a href="#" id="active">社团动态&nbsp;(2)</a>
+			<li class="sd01">
+				<a>社团动态&nbsp;(2)</a>
 			</li>
 		</ul>
 	</div>

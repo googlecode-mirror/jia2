@@ -75,7 +75,7 @@
 					$limit = empty($field[2]) ? '' : $field[2];
 					$table = explode('.', $table);
 					foreach ($result as $key => $row) {
-						if(array_key_exists(1, $table) && array_key_exists($table[0], $row)) {
+						if(!empty($table[1]) && !empty($row[$table[0]])) {
 							$this->_table = $table[1];
 							foreach ($row[$table[0]] as $sub_key => $sub_row) {
 								$tmp = $this->fetchAll(array($field[1] => $sub_row[$field[0]]), '', $limit);

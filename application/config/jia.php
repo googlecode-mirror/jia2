@@ -6,7 +6,7 @@
 	// 转发类po的id
 	$config['post_type_forward'] = 2;
 	// 每页显示的信息数量
-	$config['page_size'] = 20;
+	$config['page_size'] = 10;
 	// 个人头像上传相对路径
 	$config['personal_avatar_path'] = 'data/avatar/personal/';
 	// 个人照片上传路径
