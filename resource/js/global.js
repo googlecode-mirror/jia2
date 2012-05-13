@@ -13,6 +13,12 @@ $(function(){
 			$("#nav_search_submit").removeAttr('disabled');
 		}
 	});
+	$("#in_search").attr('disabled', 'disabled');
+	$("#in_search_content").keyup(function() {
+		if($(this).val != '') {
+			$("#in_search").removeAttr('disabled');
+		}
+	});
 	
 	// 输入框
 	$(".InputWrapper").hover(function(){
