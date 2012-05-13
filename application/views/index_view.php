@@ -1,5 +1,5 @@
 <script>
-	window.onload = posttab;
+	window.onload =posttab;
 </script>
 <? $this->load->view('includes/slider_bar_view') ?>
 <div id="main">
@@ -36,20 +36,16 @@
 <div class="post_main">
 				<div class="search_item"><ul>
 					<li class="sd01" id="po1">
-						<a href="" id="active">好友动态</a>
+						<a href="#" id="active">好友动态</a>
 					</li>
 					<li class="sd02" id="po2">
-						<a href="">社团动态</a>
+						<a href="#">社团动态</a>
 					</li>
 				</ul></div>
 	</div>
 	<div id="feeds_container" class="feeds">
 		<ul id="feed_1">
-			<div id="po_1">
-				<?=$this->load->view('post/user_posts_view') ?>
-			</div>
-			<div id="po_2" class="hidden">只显示活动日志</div>
-			<div id="po_3" class="hidden">只显示图片</div>
+			<?=$this->load->view('post/user_posts_view') ?>
 		</ul>
 		<ul id="feed_2" class="hidden">
 			<?=$this->load->view('post/co_posts_view') ?>

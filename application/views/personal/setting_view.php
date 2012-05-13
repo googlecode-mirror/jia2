@@ -1,6 +1,25 @@
 <script>
 	window.onload = setingtab;
 </script>
+<script language="javascript"> 
+    var url=location.href;
+    //url='http://jia2.localhost/personal/setting#avatar';
+    alert(url);
+    var arr = url.split('#');
+    var right=arr[1];
+    alert(arr);
+    // switch(right){
+    // case 'info':
+    // case 'avatar':
+         // $("#s02").addClass("sd01").removeClass("sd02");
+         // $("#s01").addClass("sd02");
+         // $("#s03").addClass("sd02");
+         // $("#s04").addClass("sd02");
+         // break;
+   // default: $("#s04").addClass("sd02");
+         // break;
+	// }
+</script> 
 <div id="main">
 	<div class="search_item">
 			<ul>
