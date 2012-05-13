@@ -1,3 +1,6 @@
+<script>
+	window.onload =posttab;
+</script>
 <? $this->load->view('includes/slider_bar_view') ?>
 <div id="main">
 <div class="post_top">
@@ -32,24 +35,20 @@
 </div>
 <div class="post_main">
 				<div class="search_item"><ul>
-					<li class="sd01">
-						<a href="<?=site_url() ?>" id="active">好友动态</a>
+					<li class="sd01" id="po1">
+						<a href="#" id="active">好友动态</a>
 					</li>
-					<li class="sd02">
-						<a href="<?=site_url('?type=corporation') ?>">社团动态</a>
+					<li class="sd02" id="po2">
+						<a href="#">社团动态</a>
 					</li>
 				</ul></div>
 	</div>
 	<div id="feeds_container" class="feeds">
 		<ul id="feed_1">
-			<? if($this->input->get('type') != 'corporation'): ?>
-				<? $this->load->view('post/user_posts_view') ?>
-			<? endif ?>
+			<?=$this->load->view('post/user_posts_view') ?>
 		</ul>
 		<ul id="feed_2" class="hidden">
-			<? if($this->input->get('type') == 'corporation'): ?>
-				<? $this->load->view('post/co_posts_view') ?>
-			<? endif ?>
+			<?=$this->load->view('post/co_posts_view') ?>
 		</ul>
 	</div>
 </div>
