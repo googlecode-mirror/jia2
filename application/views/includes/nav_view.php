@@ -14,7 +14,7 @@
 		<div class="right">
 			<? if($this->session->userdata('type') != 'guest'): ?>
 			<div class="setting">
-				<?=anchor('notify', '通知', '') ?>
+				<?=anchor('notify?type=message', '通知', '') ?>
 				<ul class="drop_box" >
 					<li><a id="letter_notify" href="<?=site_url('notify?type=letter') ?>">站内信</a></li>
 					<li><a id="request_notify" href="<?=site_url('notify?type=request') ?>">请求</a></li>

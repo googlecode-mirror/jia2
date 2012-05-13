@@ -14,11 +14,20 @@
 		}
 		
 		function _view($post_id) {
-			$join = array(
-				'user' => array('owner_id', 'id'),
-				'comment' => array('id', 'post_id'),
-				'comment.user' => array('user_id', 'id')
-			);
+			$post = $this->Post_model->get_info($post_id);
+			if($post['type_id'] == $this->config->item('post_type_activity')) {
+				$join = array(
+					'corporation' => array('owner_id', 'id'),
+					'comment' => array('id', 'post_id'),
+					'comment.user' => array('user_id', 'id')
+				);
+			} else {
+				$join = array(
+					'user' => array('owner_id', 'id'),
+					'comment' => array('id', 'post_id'),
+					'comment.user' => array('user_id', 'id')
+				);
+			}
 			$post = $this->Post_model->get_info($post_id, $join);
 			$this->_auth('view', 'post', $post['owner_id']);
 			if($post) {
@@ -115,7 +124,7 @@
 					'time' => $time
 				);
 				$comment_id = $this->Post_model->insert_comment($comment);
-				if(!($type == 'personal' && $owner_id == $this->session->userdata('id'))) {
+				if($type == 'personal' && $owner_id == $this->session->userdata('id')) {
 					// 插入一条通知
 					$notify = array(
 						'user_id' => $this->session->userdata('id'),

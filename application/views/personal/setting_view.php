@@ -20,12 +20,12 @@
 	</div>
 	<div class="tab_cont_box user_setting">
 		<div id="c01">
-			<h4 class="set_title"><span>某某</span>，你好！<a id="modify" href="#">修改</a></h4>
+			<h4 class="set_title"><span><?=$info['name'] ?></span>，你好！<a id="modify" href="#">修改</a></h4>
 			<ul id="user_info">
-				<li class="li_1">姓名：<span>tiramisu</span></li>
-				<li class="li_1">性别：<span>女</span></li>
-				<li class="li_1">学校：<span>成都信息工程学院</span></li>
-				<li class="li_1">省份：<span>四川省</span></li>
+				<li class="li_1">姓名：<span><?=$info['name'] ?></span></li>
+				<li class="li_1">性别：<span><?=$info['gender'] == 1 ? '男' : '女' ?></span></li>
+				<li class="li_1">学校：<span><?=$info['school'][0]['name']?></span></li>
+				<li class="li_1">省份：<span><?=$info['province'][0]['name']?></span></li>
 			</ul>
 			<ul id="user_info_form" class="hidden">
 			<?=form_open('personal/do_setting','class="form"')?>

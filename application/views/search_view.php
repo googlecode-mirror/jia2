@@ -1,24 +1,21 @@
-<script>
-	window.onload = searchtab;
-</script>
 <div id="main">
 	<h3>&nbsp;搜索&nbsp;<span id="searh_key">“<?=$this->input->post('keywords') ?>”</span></h3>
 	<div id="search_box">
 		<div id="search-bar">
 			<?=form_open('search') ?>
 			<?=form_hidden('offset', 0) ?>
-			<?=form_input('keywords','','class="serch_input"')?>
-			<?=form_submit('submit', '搜索','class="btn-blue"')?>
+			<?=form_input('keywords','','class="serch_input" id="in_search_content"')?>
+			<?=form_submit('submit', '搜索','class="btn-blue" id="in_search"')?>
 			<?=form_close() ?>
 		</div>
 	</div>
 	<div class="search_item">
-						<ul>
-							<li class="sd01" id="01">
-								<a href="#" id="active">搜索结果&nbsp;</a>
-							</li>
-						</ul>
-				</div>
+			<ul>
+				<li class="sd01" id="01">
+					<a href="#" id="active">搜索结果&nbsp;</a>
+				</li>
+			</ul>
+	</div>
 	<div id="search_result_01" class="search_result">
 		<h4>人名 <span><?=$user_rows?>条结果</span></h4>
 		<ul id="user-result">
