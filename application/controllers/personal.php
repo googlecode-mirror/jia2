@@ -71,13 +71,10 @@
 			}
 			$privacy['post'] = $privacy['post'] ? $privacy['post'] : 'self';
 			$privacy['comment'] = $privacy['comment'] ? $privacy['comment'] : 'self';
-			$join = array(
-				'school' => array('school_id', 'id'),
-				'province' => array('province_id', 'id')
-			);
+			$data['info'] = $this->User_model->get_info((int)$this->session->userdata('id'));
 			$data['title'] = '账户设置';
 			$data['privacy'] = $privacy;
-			$data['info'] = $this->User_model->get_info((int)$this->session->userdata('id'), $join);
+			$data['info'] = $this->User_model->get_info((int)$this->session->userdata('id'));
 			$data['main_content'] = 'personal/setting_view';
 			$data['slider_bar_view'] = 'includes/slider_bar_view';
 			$data['js'] = array('personal/setting.js','tab.js');

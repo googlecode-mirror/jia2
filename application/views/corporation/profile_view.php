@@ -16,6 +16,7 @@
 			<?=form_button(array('name' => 'unfollow', 'content' => '取消关注', 'id' => $info['id']))?>
 		<? else:?>
 			<?=form_button(array('name' => 'follow', 'content' => '关注', 'id' => $info['id']))?>
+			
 		<? endif?>
 	<? endif ?>
 	</p>
