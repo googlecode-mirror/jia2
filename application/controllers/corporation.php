@@ -16,9 +16,14 @@
 			$this->jiadb->_table = 'corporation';
 			if($this->session->userdata('id')) {
 				$following_cos = $this->User_model->get_following_co($this->session->userdata('id'));
+				$join_cos = $this->User_model->get_join_co($this->session->userdata('id'));
+				$data['j_num'] = count($join_cos);
 				$data['f_num'] = count($following_cos);
 				if($data['f_num'] > 0) {
-					$data['corporations'] = $this->jiadb->fetchAll(array('id' => $following_cos));
+					$data['f_corporations'] = $this->jiadb->fetchAll(array('id' => $following_cos));
+				}
+				if($data['j_num'] > 0) {
+					$data['j_corporations'] = $this->jiadb->fetchAll(array('id' => $join_cos));
 				}
 			}
 			$this->load->view('includes/template_view', $data);
@@ -107,7 +112,7 @@
 					'name' => $name,
 					'school_id' => $school_id,
 					'user_id' => $user_id,
-					'detail' => $comment
+					'comment' => $comment
 				);
 				if($corporation_id = $this->Corporation_model->insert($corporation)) {
 					redirect('corporation/profile/' . $corporation_id);

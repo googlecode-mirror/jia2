@@ -140,6 +140,22 @@
 			return $this->jiadb->fetchMeta($return, $where);
 		}
 		
+		function get_join_co($user_id, $meta_table = 'user') {
+			$this->jiadb->_table = 'corporation';
+			$return = 'corporation_id';
+			$where = array(
+				'meta_key' => 'member',
+				'meta_table' => $meta_table,
+				'meta_value' => $user_id
+			);
+			$corporations =  $this->jiadb->fetchMeta($return, $where);
+			$ma_co = $this->jiadb->fetchAll(array('user_id' => $user_id));
+			if($ma_co) {
+				$corporations[] = $ma_co[0]['id'];
+			}
+			return $corporations;
+		}
+		
 		function get_blockers($user_id) {
 			$this->jiadb->_table = 'user';
 			$reutrn = 'meta_value';

@@ -73,7 +73,7 @@
 							'start_time' => strtotime($start_time),
 							'deadline' => strtotime($deadline),
 							'address' => $address,
-							'comment' => $comment
+							'detail' => $comment
 						);
 						$activity_id = $this->Activity_model->insert($activity);
 						if($activity_id) {

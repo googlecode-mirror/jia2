@@ -20,7 +20,7 @@
 					</div>
 				</span>
 				<span ><label>所属学校：</label>
-					<?=form_dropdown('gender',array('1'=> '川大江安', '0' => '川大望江')) ?>
+					<?=form_dropdown('school',array('1'=> '四川大学', '2' => '成都信息工程学院')) ?>
 				</span>
 				<span ><label>分配社长：</label>
 					<div class="InputWrapper">
@@ -41,7 +41,7 @@
 							<td id="Textarea-ml"></td>
 							<td id="Textarea-mm" class="">
 								<div>
-									<?=form_textarea(array('name' => 'content')) ?>
+									<?=form_textarea(array('name' => 'comment')) ?>
 								</div>
 							</td>
 							<td id="Textarea-mr"></td>

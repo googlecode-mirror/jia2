@@ -23,12 +23,13 @@
 				unset($corporation_result['rows']);
 				unset($user_result['rows']);
 				$data['user_result'] = $user_result;
-				$data['user_rows'] = $user_rows;
 				$data['corporation_result'] = $corporation_result;
-				$data['corporation_rows'] = $corporation_rows;
 				$data['activity_result'] = $activity_result;
-				$data['activity_rows'] = $activity_rows;
+				
 			}
+			$data['corporation_rows'] = !empty($corporation_rows) ? $corporation_rows : 0;
+			$data['activity_rows'] = !empty($activity_rows) ? $activity_rows : 0;
+			$data['user_rows'] = !empty($user_rows) ? $user_rows : 0;
 			$this->load->view('includes/template_view', $data);
 		}
 		
