@@ -478,6 +478,10 @@ li.feed_a{
 button[name="request_more"] {
 	width:100%;
 }
+.loading {
+	display:none;
+	text-align:center;
+}
 /*.ico{
 	width: 16px;
 	height: 16px;
