@@ -109,7 +109,6 @@
 			//$owner_id = $this->input->post('owner_id');
 			$type = $this->input->post('type');
 			$post_id = $this->input->post('post_id');
-			 echo $this->_auth('add', 'comment', $this->session->userdata('id'), TRUE, $post_id);exit;
 			if(!$this->_auth('add', 'comment', $this->session->userdata('id'), TRUE, $post_id)) {
 				echo 0;
 				exit();
