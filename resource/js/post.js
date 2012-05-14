@@ -50,6 +50,7 @@ $(function() {
 			$("button[name='post']").attr('disabled', 'disabled');
 		}
 	});
+	
 	$("button[name='post']").click(function() {
 		content = $("textarea[name='post_content']").val();
 		$.post(SITE_URL + "post/add", {
@@ -63,6 +64,27 @@ $(function() {
 				$("#feed_1").prepend(data);
 			}
 		}
+		);
+	});
+	
+	$("button[name='request_more']").click(function() {
+		$button = $(this);
+		page = Number($(this).attr('page'));
+		type = $(this).attr('po_type');
+		$.post(
+			SITE_URL + 'index/ajax_trends', {
+				ajax: 1,
+				page: page + 1,
+				type: type
+			}, function(data) {
+				if(data != "0") {
+					$button.attr('page', page+1);
+					$button.before(data);
+				} else {
+					$button.attr('disabled', 'disabled');
+					$button.text('没有更多了亲~');
+				}
+			}
 		);
 	});
 });

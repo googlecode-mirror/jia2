@@ -41,25 +41,49 @@
 		}
 		
 		// 获取个人信息流方法
-		function post_string($user_id) {
+		function post_string($user_id, $type = '', $page = 1) {
+			$page_size = $this->config->item('page_size');
 			$following_user = $this->User_model->get_following($user_id);
 			$following_co = $this->User_model->get_following($user_id, 'corporation');
 			// 这里以后还要加入社团以及活动的owner_id
 			$following_user[] = $user_id;
-			$join_user = array(
-				'user' => array('owner_id', 'id'),
-				'comment' => array('id', 'post_id', 5),
-				'comment.user' => array('user_id', 'id')
-			);
-			$posts['personal'] = $this->jiadb->fetchJoin(array('owner_id' => $following_user, 'type_id' => $this->post_type['personal']), $join_user, array('time' => 'desc'), array(10, 0));
-			if($following_co) {
-				$join_co = array(
-					'corporation' => array('owner_id', 'id'),
-					'post_meta' => array('id', 'post_id'),
-					'comment' => array('id', 'post_id', 5),
-					'comment.user' => array('user_id', 'id')
-				);
-				$posts['activity'] = $this->jiadb->fetchJoin(array('owner_id' =>$following_co, 'type_id' => $this->post_type['activity']), $join_co, array('time' => 'desc'), array(10,0));
+			switch ($type) {
+				case 'activity':
+					if($following_co) {
+						$join_co = array(
+							'corporation' => array('owner_id', 'id'),
+							'post_meta' => array('id', 'post_id'),
+							'comment' => array('id', 'post_id', 5),
+							'comment.user' => array('user_id', 'id')
+						);
+						$posts = $this->jiadb->fetchJoin(array('owner_id' =>$following_co, 'type_id' => $this->post_type['activity']), $join_co, array('time' => 'desc'), array($page_size, ($page-1) * $page_size));
+					}
+					break;
+				case 'personal':
+					$join_user = array(
+						'user' => array('owner_id', 'id'),
+						'comment' => array('id', 'post_id', 5),
+						'comment.user' => array('user_id', 'id')
+					);
+					$posts = $this->jiadb->fetchJoin(array('owner_id' => $following_user, 'type_id' => $this->post_type['personal']), $join_user, array('time' => 'desc'), array($page_size, ($page-1) * $page_size));
+					break;
+				default:
+					$join_user = array(
+						'user' => array('owner_id', 'id'),
+						'comment' => array('id', 'post_id', 5),
+						'comment.user' => array('user_id', 'id')
+					);
+					$posts['personal'] = $this->jiadb->fetchJoin(array('owner_id' => $following_user, 'type_id' => $this->post_type['personal']), $join_user, array('time' => 'desc'), array($page_size, ($page-1) * $page_size));
+					if($following_co) {
+						$join_co = array(
+							'corporation' => array('owner_id', 'id'),
+							'post_meta' => array('id', 'post_id'),
+							'comment' => array('id', 'post_id', 5),
+							'comment.user' => array('user_id', 'id')
+						);
+						$posts['activity'] = $this->jiadb->fetchJoin(array('owner_id' =>$following_co, 'type_id' => $this->post_type['activity']), $join_co, array('time' => 'desc'), array($page_size, ($page-1) * $page_size));
+					}
+					break;
 			}
 			return $posts;
 		}

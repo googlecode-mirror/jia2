@@ -475,6 +475,9 @@ li.feed_a{
 	overflow: hidden;
 }
 
+button[name="request_more"] {
+	width:100%;
+}
 /*.ico{
 	width: 16px;
 	height: 16px;

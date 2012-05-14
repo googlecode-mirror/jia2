@@ -40,6 +40,7 @@
 					<?=anchor('post/' . $post['id'], '查看全部评论>>') ?>
 				<? endif ?>
 				</div>
+				<? if($this->session->userdata('type') != 'guest'): ?>
 				<div class="comment_wrap">
 					<p>
 						<table class="Textarea">
@@ -67,6 +68,9 @@
 		</table></p>
 					<p><?=form_button('comment', '评论', 'class="pub_button comment_button"') ?></p>
 				</div>
+				<? else: ?>
+				<?=anchor('index/login?jump=' . uri_string(), '登录后才能发表评论') ?>
+				<? endif ?>
 			</div>
 		</div>
 </li>		

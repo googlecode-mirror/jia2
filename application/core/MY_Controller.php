@@ -25,7 +25,7 @@ require_once APPPATH . 'libraries/access.php';
 			$auth->get_access($operation);
 			if(!$auth->access && !$return) {
 				static_view('貌似你没有该权限哦~', '需要权限');
-			} else {
+			} elseif($return) {
 				return $auth->access;
 			}
 		}
