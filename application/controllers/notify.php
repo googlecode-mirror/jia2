@@ -58,7 +58,16 @@
 				'receiver_id' => $this->session->userdata('id'),
 				'type' => 'message'
 			);
-			return $this->Notify_model->fetch($where);
+			$messages = $this->Notify_model->fetch($where);
+			if($messages) {
+				foreach ($messages as $message) {
+					$message_id[] = $message['id'];
+				}
+				$this->Notify_model->mark_as_read($message_id);
+				return $messages;
+			} else {
+				return FALSE;
+			}
 		}
 		
 		function _letter($box) {
@@ -68,7 +77,16 @@
 			} else {
 				$where['user_id'] = $this->session->userdata('id');
 			}
-			return $this->Notify_model->fetch($where);
+			$letters = $this->Notify_model->fetch($where);
+			if($letters) {
+				foreach ($letters as $letter) {
+					$letter_id[] = $letter['id'];
+				}
+				$this->Notify_model->mark_as_read($letter_id);
+				return $letters;
+			} else {
+				return FALSE;
+			}
 		}
 		
 		function _request() {
@@ -76,7 +94,16 @@
 				'receiver_id' => $this->session->userdata('id'),
 				'type' => 'request'
 			);
-			return $this->Notify_model->fetch($where);
+			$requests = $this->Notify_model->fetch($where);
+			if($requests) {
+				foreach ($requests as $request) {
+					$request_id[] = $request['id'];
+				}
+				$this->Notify_model->mark_as_read($request_id);
+				return $requests;
+			} else {
+				return FALSE;
+			}
 		}
 		
 		function check() {
