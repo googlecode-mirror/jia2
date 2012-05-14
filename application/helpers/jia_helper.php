@@ -60,9 +60,11 @@ if(! function_exists('count_rows')) {
 
 // 将时间戳转换为中国时间方法
 if(! function_exists('jdate')) {
-	function jdate($time) {
-		if(is_numeric($time))
+	function jdate($time, $with_hour = TRUE) {
+		if(is_numeric($time) && $with_hour)
 			return date('Y年m月d日 H:i:s', $time);
+		elseif(is_numeric($time) && !$with_hour)
+			return date('Y年m月d日', $time);
 		else
 			return '获取时间失败';
 	}

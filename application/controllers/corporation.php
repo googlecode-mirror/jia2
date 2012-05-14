@@ -66,7 +66,7 @@
 					$data['info'] = $corporation_info;
 					$data['main_content'] = 'corporation/profile_view';
 					$data['title'] = $data['info']['name'];
-					$data['js'] = array('corporation/profile_view.js','corporation/jquery-1.3.2.min.js','corporation/jquery-ui-1.7.custom.min.js');
+					$data['js'] = array('corporation/profile_view.js', 'post.js');
 					$data['css'] = 'corporation/jquery-ui-1.7.custom.css';
 					$data['followers'] = $this->Corporation_model->get_followers($corporation_id);
 					$this->jiadb->_table = 'user';
@@ -141,22 +141,22 @@
 		
 		function management($corporation_id) {
 			$this->_require_login();
-			$corporation = $this->Corporation->get_info($corporation_id);
+			$corporation = $this->Corporation_model->get_info($corporation_id);
 			if($corporation) {
-				$this->_auth('edit', 'corporation', $this->session->userdata('id'));
+				$this->_auth('edit', 'corporation', $corporation_id);
 				$type = $this->input->get('type');
 				switch ($type) {
 					case 'member':
-						static_view('成员管理');
+						static_view('改功能暂未实现', '成员管理');
 						break;
 					case 'admin':
-						static_view('管理员管理');
+						static_view('改功能暂未实现' ,'管理员管理');
 						break;
 					case 'blocker':
-						static_view('黑名单管理');
+						static_view('改功能暂未实现' ,'黑名单管理');
 						break;
 					case 'follower':
-						static_view('粉丝管理');
+						static_view('改功能暂未实现' ,'粉丝管理');
 						break;
 					default:
 						static_view();
@@ -192,9 +192,10 @@
 		}
 		
 		// 请求加入社团
-		function request_join($corporation_id) {
+		function request_join() {
 			$this->_require_login();
 			$this->_require_ajax();
+			$corporation_id = $this->input->post('co_id');
 			$corporation = $this->Corporation_model->get_info($corporation_id);
 			$json_array = array(
 				'success' => 0,
@@ -207,7 +208,7 @@
 				} else {
 					$request = array(
 						'user_id' => $this->session->userdata('id'),
-						'content' => '请求加入 '. anchor('corporation/profile/' . $corporation_id, $corporation['name']) .' 社团' . '|||' . anchor('corporation/add_member/' . $corporation_id . '/' . $this->session->user_data('id')),
+						'content' => '请求加入 '. anchor('corporation/profile/' . $corporation_id, $corporation['name']) .' 社团' . '|||' . site_url('corporation/add_member/' . $corporation_id . '/' . $this->session->userdata('id')),
 						'receiver_id' => $corporation['user_id'],
 						'type' => 'request',
 						'time' => time()
@@ -219,29 +220,34 @@
 			} else {
 				$json_array['message'] = '该社团不存在！';
 			}
+			echo json_encode($json_array);
 		}
 		
 		function add_member($corporation_id, $user_id) {
 			$this->_require_login();
-			$request_id = $this->input->post('request_id');
+			$request_id = $this->input->get('request_id');
 			if(empty($request_id))
 				static_view('');
 			if(is_numeric($corporation_id) && is_numeric($user_id)) {
 				$request = $this->Notify_model->get_info($request_id);
 				if($request['type_id'] != $this->config->item('notify_type_request') || $request['user_id'] != $user_id)
 					static_view();
-				$this->_auth('edit', 'corporation', $this->userdata('id'));
+				$this->_auth('edit', 'corporation', $corporation_id);
 				$corporation = $this->Corporation_model->get_info($corporation_id);
 				if(!$corporation)
 					static_view();
-				$this->_auth('edit', 'corporation', $this->session->userdata('id'));
+				$this->_auth('edit', 'corporation', $corporation_id);
 				$code = $this->Corporation_model->join_member($corporation_id, $user_id);
 				if($code == 1) {
 					static_view('添加会员失败，该用户在社团黑名单内 ' . anchor('corporation/management/' . $corporation_id . '?type=blocker', '管理社团黑名单'));
 				} elseif($code == 2) {
+					$this->db->where('id', $request_id);
+					$this->db->delete('notify');
 					static_view('该会员已是社团成员 ' . anchor('corporation/management/' . $corporation_id . '?type=member', '管理社团成员'));
 				} elseif($code == 3) {
 					$this->Notify_model->delete($request_id);
+					$this->db->where('id', $request_id);
+					$this->db->delete('notify');
 					static_view('添加会员成功！你可以' . anchor('personal/notify?type=request', '查看请求') . '或者' . anchor('corporation/management/' . $corporation_id . '?type=member', '管理社团成员'));
 				}
 			} else {

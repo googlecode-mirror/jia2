@@ -12,6 +12,16 @@
 			);
 		}
 		
+		function get_info($notify_id) {
+			$this->jiadb->_table = 'notify';
+			$notify = $this->jiadb->fetchAll(array('id' => $notify_id));
+			if($notify) {
+				return $notify[0];
+			} else {
+				return FALSE;
+			}
+		}
+		
 		function fetch(array $where, array $limit = array(10, 0)) {
 			$where['type_id'] = $this->notify_type[$where['type']];
 			$type = $where['type'];

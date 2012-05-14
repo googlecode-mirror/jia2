@@ -23,10 +23,10 @@
 	<p>
 	<? if($this->session->userdata('id')): ?>
 		<? if(in_array($this->session->userdata('id'), $members)): ?>
-			<?=form_button(array('name' => 'join', 'content' => '已加入', 'id' => $info['id'], 'disabled' => 'disabled'))?>
-			<?=form_button(array('name' => 'unjoin', 'content' => '退出社团', 'id' => $info['id']))?>
+			<?=form_button(array('name' => 'join', 'content' => '已加入', 'co_id' => $info['id'], 'disabled' => 'disabled'))?>
+			<?=form_button(array('name' => 'unjoin', 'content' => '退出社团', 'co_id' => $info['id']))?>
 		<? else:?>
-			<?=form_button(array('name' => 'join', 'content' => '请求加入', 'id' => $info['id']))?>
+			<?=form_button(array('name' => 'join', 'content' => '请求加入', 'co_id' => $info['id'], 'id' => 'join'))?>
 			
 		<? endif?>
 	<? endif ?>
@@ -70,13 +70,43 @@
 	</div>
 	<div class="search_item">
 		<ul>
-			<li class="sd01">
-				<a>社团动态&nbsp;(2)</a>
+			<li class="sd01" id="co-01">
+				<a href="#">社团动态&nbsp;(<?=count($posts['activity']) ?>)</a>
+			</li>
+			<li class="sd02" id="co-02">
+				<a href="#">社团活动&nbsp;(<?=count($activities) ?>)</a>
+			</li>
+			<li class="sd03" id="co-03">
+				<a href="#">社团相册&nbsp;</a>
 			</li>
 		</ul>
 	</div>
 	<div id="feeds_container" class="feeds"></div>
-		<div id="co_01">活动日志&nbsp
+		<div id="co_01">
+			<?=$this->load->view('post/co_posts_view') ?>
+		</div>
+		<div id="co_02" class="hidden">
+			<ul>
+				<? foreach ($activities as $activity):?>
+				<li class="feed_a">
+				<div class="img_block">
+					<?=anchor('corporation/profile/' . $info['id'], '<img src="'. avatar_url($info['avatar'], 'corporation', 'tiny') .'" >','class="head_pic"') ?>
+				</div>
+				<div class="feed_main">
+					<div class="f_info">
+						<a href="<?=site_url('corporation/profile/' . $info['id']) ?>"><?=$info['name']?></a><br>
+						<span class="f_do"><?=$activity['detail']?></span>
+					</div>
+					<div class="f_summary">
+						<p class="f_pm">
+							<span><?=jdate($activity['start_time'], FALSE) ?> => <?=jdate($activity['deadline'], FALSE) ?></span>
+						</p>
+					</div>
+				</li>
+				<? endforeach ?>
+			</ul>
+		</div>
+		<div id="co_03" class="hidden">改功能暂未实现
 		</div>
 	</div>
 	

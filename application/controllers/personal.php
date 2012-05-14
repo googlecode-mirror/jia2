@@ -262,10 +262,11 @@
 		}
 		
 		// 驳回请求
-		function reject_request($request_id) {
+		function reject_request() {
 			$this->_require_login();
 			$this->_require_ajax();
-			$request = $this->Notify_model->get_info();
+			$request_id = $this->input->post('request_id');
+			$request = $this->Notify_model->get_info($request_id);
 			$json_array = array(
 				'success' => 0,
 				'message' => ''
@@ -279,5 +280,6 @@
 			} else {
 				$json_array['message'] = '失败';
 			}
+			echo json_encode($json_array);
 		}
 	}
