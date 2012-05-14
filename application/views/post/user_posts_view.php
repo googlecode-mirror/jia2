@@ -40,33 +40,37 @@
 					<?=anchor('post/' . $post['id'], '查看全部评论>>') ?>
 				<? endif ?>
 				</div>
+				<? if($this->session->userdata('type') != 'guest'): ?>
 				<div class="comment_wrap">
 					<p>
 						<table class="Textarea">
-			<tbody>
-				<tr>
-					<td id="Textarea-tl"></td>
-					<td id="Textarea-tm"></td>
-					<td id="Textarea-tr"></td>
-				</tr>
-				<tr>
-					<td id="Textarea-ml"></td>
-					<td id="Textarea-mm" class="">
-						<div>
-							<?=form_textarea(array('name' => 'comment_content', 'post_id'=>$post['id'], 'type' => 'personal', 'cols' => 50, 'rows' =>1,'class'=>'comment_textarea')) ?>
-						</div>
-					</td>
-					<td id="Textarea-mr"></td>
-				</tr>
-				<tr>
-					<td id="Textarea-bl"></td>
-					<td id="Textarea-bm"></td>
-					<td id="Textarea-br"></td>
-				</tr>
-			</tbody>
-		</table></p>
+				<tbody>
+					<tr>
+						<td id="Textarea-tl"></td>
+						<td id="Textarea-tm"></td>
+						<td id="Textarea-tr"></td>
+					</tr>
+					<tr>
+						<td id="Textarea-ml"></td>
+						<td id="Textarea-mm" class="">
+							<div>
+								<?=form_textarea(array('name' => 'comment_content', 'post_id'=>$post['id'], 'type' => 'personal', 'cols' => 50, 'rows' =>1,'class'=>'comment_textarea')) ?>
+							</div>
+						</td>
+						<td id="Textarea-mr"></td>
+					</tr>
+					<tr>
+						<td id="Textarea-bl"></td>
+						<td id="Textarea-bm"></td>
+						<td id="Textarea-br"></td>
+					</tr>
+				</tbody>
+			</table></p>
 					<p><?=form_button('comment', '评论', 'class="pub_button comment_button"') ?></p>
 				</div>
+				<? else: ?>
+				<?=anchor('index/login?jump=' . uri_string(), '登录后才能发表评论') ?>
+				<? endif ?>
 			</div>
 		</div>
 </li>		
