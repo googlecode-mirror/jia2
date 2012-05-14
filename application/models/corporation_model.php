@@ -175,7 +175,7 @@
 						'content' => '添加了你为' . anchor('corporation/profile/' . $corporation['id'], $corporation['name']) . '社团的成员',
 						'type' => 'message',
 						'user_id' => $this->session->userdata('id'),
-						'recevier_id' => $member_id,
+						'receiver_id' => $member_id,
 						'time' => time()
 					);
 					$this->Notify_model->insert($message);

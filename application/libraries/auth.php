@@ -176,6 +176,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 				$blockers = $this->CI->Corporation_model->get_blockers($this->owner_id);
 				if(in_array($this->request_user, $blockers)) {
 					$identity = 'blocker';
+					
 					parent::get_access($operation, $identity);
 					return;
 				}
@@ -183,7 +184,6 @@ require_once APPPATH . 'libraries/jiadb.php';
 				if($this->access) {
 					return;
 				}
-				
 				// 社团粉丝
 				$cos = $this->CI->Corporation_model->get_followers($this->owner_id);
 				if(in_array($this->owner_id, $cos)) {
@@ -193,7 +193,6 @@ require_once APPPATH . 'libraries/jiadb.php';
 						return;
 					}
 				}
-				
 				// 社团成员
 				$members = $this->CI->Corporation_model->get_members($this->owner_id);
 				if(in_array($this->request_user, $members)) {
@@ -203,11 +202,11 @@ require_once APPPATH . 'libraries/jiadb.php';
 						return;
 					}
 				}
-				
 				// 社团管理员
 				$administrators = $this->CI->Corporation_model->get_admin($this->owner_id);
 				if(in_array($this->request_user, $administrators)) {
 					$identity = 'co_admin';
+					echo 'here';
 					parent::get_access($operation, $identity);
 					if($this->access) {
 						return;
