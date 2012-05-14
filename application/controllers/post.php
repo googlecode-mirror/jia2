@@ -129,7 +129,7 @@
 					$notify = array(
 						'user_id' => $this->session->userdata('id'),
 						'receiver_id' => $owner_id,
-						'content' => '评论了你的' . anchor('post/' . $post_id, '新鲜事'),
+						'content' => '评论了你的' . anchor('post/' . $post_id, '动态'),
 						'type' => 'message',
 						'time' => $time
 					);
