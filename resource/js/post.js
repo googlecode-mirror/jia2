@@ -69,6 +69,8 @@ $(function() {
 	
 	$("button[name='request_more']").click(function() {
 		$button = $(this);
+		$button.prev().show();
+		$button.attr('disabled', 'disabled');
 		page = Number($(this).attr('page'));
 		type = $(this).attr('po_type');
 		$.post(
@@ -79,9 +81,12 @@ $(function() {
 			}, function(data) {
 				if(data != "0") {
 					$button.attr('page', page+1);
-					$button.before(data);
+					$button.prev().hide();
+					$button.prev().before(data);
+					$button.removeAttr('disabled');
 				} else {
 					$button.attr('disabled', 'disabled');
+					$button.prev().hide();
 					$button.text('没有更多了亲~');
 				}
 			}

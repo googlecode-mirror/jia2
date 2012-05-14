@@ -46,11 +46,13 @@
 	<div id="feeds_container" class="feeds">
 		<ul id="feed_1">
 			<?=$this->load->view('post/user_posts_view') ?>
+			<div class="loading"><img src="<?=site_url('resource/img/loading.gif') ?>"></img></div>
 			<?=form_button('request_more', '加载更多', 'page="1" po_type="personal" class="pub_button"') ?>
 		</ul>
 			
 		<ul id="feed_2" class="hidden">
 			<?=$this->load->view('post/co_posts_view') ?>
+			<div class="loading"><img src="<?=site_url('resource/img/loading.gif') ?>"></img></div>
 			<?=form_button('request_more', '加载更多', 'page="1" po_type="activity" class="pub_button"') ?>
 		</ul>
 	</div>
