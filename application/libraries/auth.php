@@ -341,6 +341,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 			if(!empty($post_id)) {
 				$this->post_id = $post_id;
 				$this->CI->load->model('Post_model');
+				$this->CI->load->model('Corporation_model');
 				$post = $this->CI->Post_model->get_info($post_id);
 				$this->type = $this->CI->config->item('post_type_personal') == $post['type_id'] ? 'personal' : 'activity';
 				$this->master_id = $post['owner_id'];
