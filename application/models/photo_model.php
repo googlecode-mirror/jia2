@@ -14,9 +14,9 @@
 			  		'overwrite' => TRUE,
 			  		'file_name'	=> $param['filename']
 			 );
-			$this->upload->initialize($config);
 			switch ($param['mode']) {
 				case 'avatar':
+					$this->upload->initialize($config);
 					if($this->upload->do_upload()) {
 						$image_data = $this->upload->data();
 						$thumb_tiny = array(
@@ -52,13 +52,29 @@
 						}
 					break;
 				case 'request':
-					if(is_array($param['filed'])) {
-						foreach ($param['filed'] as $field) {
-							
+					if(is_array($param['field'])) {
+						$filename = array();
+						foreach ($param['field'] as $field) {
+							$config['file_name'] = $field . '_' . $this->session->userdata('id');
+							$this->upload->initialize($config);
+							if($this->upload->do_upload($field)) {
+								$data = $this->upload->data();
+								$filename[$field] = $data['file_name'];
+							} else {
+								static_view('上传失败！', '上传失败');
+							}
 						}
 					} else {
-						
+						$config['file_name'] = $param['filed'] . '_' . $this->session->userdata('id');
+						$this->upload->initialize($config);
+						if($this->upload->do_upload($param['filed'])) {
+							$data = $this->upload->data();
+							$filename = $data['file_name'];
+						} else {
+							static_view('上传失败！', '上传失败');
+						}
 					}
+					return $filename;
 					break;
 			}
 		}
@@ -76,17 +92,13 @@
 			}
 		}
 		
-		function save_request_cap($mode = 'corporation', $filename) {
+		function save_request_cap($mode = 'corporation') {
 			$param = array(
 				'upload_path' => $this->config->item($mode . '_request'),
 				'mode' => 'request',
-				'filename' => $filename,
+				'filename' => 'tmp',
 				'field' => array('id_card_cap', 'st_card_cap')
 			);
-			if($this->upload($param)) {
-				return $param['filename'];
-			} else {
-				return FALSE;
-			}
+			return $this->upload($param);
 		}
 	}
