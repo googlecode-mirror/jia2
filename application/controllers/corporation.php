@@ -234,7 +234,31 @@
 				$corporation_info = $this->Corporation_model->get_info($id);
 				if($corporation_info) {
 					$this->_auth('edit', 'corporation', $id);
-					static_view('社团设置页面');
+					$submit = $this->input->post('submit');
+					if($submit) {
+						$setting = $this->input->post('setting');
+						switch ($setting) {
+							case 'avatar':
+								$this->load->model('Photo_model');
+								$result = $this->Photo_model->set_avatar('corporation', $corporation_info['id']);
+								if($result) {
+									$this->Corporation_model->update(array('id' => $corporation_info['id']), array('avatar' => $result));
+									redirect('corporation/setting/' . $corporation_info['id']);
+								} else {
+									static_view('不好意思亲~ 上传失败了, 要不然' . anchor('personal/setting', '再试一次?'));
+								}
+								break;
+							
+							default:
+								
+								break;
+						}
+					} else {
+						$data['title'] = '社团设置';
+						$data['info'] = $corporation_info;
+						$data['main_content'] = 'corporation/setting_view';
+						$this->load->view('includes/template_view', $data);
+					}
 				} else {
 					static_view('社团不存在');
 				}
