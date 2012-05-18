@@ -1,14 +1,3 @@
-<!-- <div id="add-corporation">
-	<?=form_open('corporation/do_add') ?>
-	<p>社团名字：<?=form_input('name') ?> </p>
-	<p>所属学校：<?=form_dropdown('school', $schools) ?></p>
-	<p>社团简介：<?=form_textarea('comment') ?></p>
-	<p>分配社长：<?=form_input('master') ?></p>
-	<p><?=form_submit('submit', '创建') ?></p>
-	<?=form_close() ?>
-</div> -->
-
-<!-- 	创建	社团 -->
 <div id="main">
 <div id="add-corporation">
 			<?=form_open('corporation/do_add','class="form"')?>
@@ -20,7 +9,7 @@
 					</div>
 				</span>
 				<span ><label>所属学校：</label>
-					<?=form_dropdown('school',array('1'=> '四川大学', '2' => '成都信息工程学院')) ?>
+					<?=form_dropdown('school', $schools) ?>
 				</span>
 				<span ><label>分配社长：</label>
 					<div class="InputWrapper">
