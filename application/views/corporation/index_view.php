@@ -2,7 +2,7 @@
 	window.onload = cotab;
 </script>
 <div id="main">
-	<a href="<?=site_url('corporation/add') ?>" class="creat_button button"><i>+</i> 创建社团</a>
+	<a href="<?=site_url('corporation/request_add') ?>" class="creat_button button"><i>+</i> 申请创建社团</a>
 	<!-- <a href="#?w=500" rel="popup2"  class="creat_button button inline"><i>+</i> 创建社团</a> -->
 	<div id="search_box">
 		<div id="search-bar">

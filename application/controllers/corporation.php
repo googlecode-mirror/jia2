@@ -220,7 +220,7 @@
 				jump_view('提交申请成功，页面将跳转到' . anchor('corporation', '社团之家'), site_url('corporation'), '提交申请成功');
 			} else {
 				$data['title'] = '申请创建社团';
-				$data['js'] = 'corporation/add.js';
+				$data['js'] = array('jquery.validate.min.js', 'corporation/add.js');
 				$data['main_content'] = 'corporation/request_add_view';
 				$this->load->view('includes/template_view', $data);
 			}
