@@ -15,6 +15,11 @@
 			}
 		}
 		
+		function update($where = array(), $row = array()) {
+			$this->db->where($where);
+			$this->db->update('corporation', $row);
+		}
+		
 		function get_trends($corporation_id, $limit = array(10, 0)) {
 			$this->jiadb->_table = 'post';
 			$join_co = array(
