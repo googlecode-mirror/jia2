@@ -55,7 +55,7 @@
 				'meta_key' => 'member',
 				'corporation_id' => $corporation_id
 			);
-			return $this->jiadb->fetchMeta($return);
+			return $this->jiadb->fetchMeta($return, $where);
 		}
 		
 		function get_admin($corporation_id) {

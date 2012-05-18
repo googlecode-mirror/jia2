@@ -74,8 +74,10 @@
 					$data['members'] = $this->Corporation_model->get_members($corporation_id);
 					$data['members'][] = $data['info']['user_id'];
 					$data['members_info'] = $data['members'] ? $this->jiadb->fetchAll(array('id' => $data['members'])) : array();
-					$data['posts']['activity'] = $this->Corporation_model->get_trends($corporation_id);
-					$data['activities'] = $this->Corporation_model->get_activities($corporation_id);
+					$posts = $this->Corporation_model->get_trends($corporation_id);
+					$data['posts']['activity'] = $posts ? $posts : array();
+					$activities = $this->Corporation_model->get_activities($corporation_id);
+					$data['activities'] =  $activities ? $activities : array();
 					$this->load->view('includes/template_view', $data);
 				} else {
 					static_view('你要查看的社团不存在');
@@ -141,7 +143,9 @@
 					$data['co_name'] = $request['co_name'];
 					$data['master'] = $request['user'][0]['name'];
 					$data['school'] = $request['user'][0]['school'][0]['name'];
-					$data['main_content'] = 'corporation/request_add_view';
+					$data['title'] = '创建社团';
+					$data['request_id'] = $request['id'];
+					$data['main_content'] = 'corporation/add_from_request_view';
 					$this->load->view('includes/template_view', $data);
 				}
 			} else {
@@ -176,26 +180,48 @@
 		// 请求创建社团
 		function request_add() {
 			$this->_require_login();
+			$this->jiadb->_table = 'corporation_request';
+			$requests = $this->jiadb->fetchAll(array('user_id' => $this->session->userdata('id')));
+			if($requests)
+				static_view('你已经申请过创建社团了，请勿重复申请');
 			$submit = $this->input->post('submit');
 			if(!empty($submit)) {
 				$this->load->model('Photo_model');
+				// 判断证件照
+				$caps = $this->Photo_model->save_request_cap();
+				$id_card_cap = $caps['id_card_cap'];
+				$st_card_cap = $caps['st_card_cap'];
 				$id_card_number = $this->input->post('id_card_number');
 				$st_card_number = $this->input->post('st_card_number');
 				$co_name = $this->input->post('co_name');
-				// 判断证件照
-				
+				$comment = $this->input->post('comment');
+				$request = array(
+					'user_id' => $this->session->userdata('id'),
+					'id_card_number' => $id_card_number,
+					'st_card_number' => $st_card_number,
+					'id_card_cap' => $id_card_cap,
+					'st_card_cap' => $st_card_cap,
+					'comment' => $comment,
+					'co_name' => $co_name,
+					'time' => time()
+				);
+				$this->db->insert('corporation_request', $request);
+				$request_id = $this->db->insert_id();
 				// 增加一条提醒
+				$this->load->model('Notify_model');
 				$notify = array(
 					'user_id' => $this->session->userdata('id'),
 					'receiver_id' => 1,
-					'content' => '申请创建社团'
+					'time' => time(),
+					'content' => '申请创建社团 ' . anchor('admin/admin/co_request/' . $request_id, '审核'),
+					'type' => 'message'
 				);
-				$comment = $this->input->post('comment');
-				static_view('已提交表单');
+				$this->Notify_model->insert($notify);
+				jump_view('提交申请成功，页面将跳转到' . anchor('corporation', '社团之家'), site_url('corporation'), '提交申请成功');
 			} else {
 				$data['title'] = '申请创建社团';
 				$data['js'] = 'corporation/add.js';
-				$data['main_content'] = 'corporation/request_add';
+				$data['main_content'] = 'corporation/request_add_view';
 				$this->load->view('includes/template_view', $data);
 			}
 		}
@@ -329,7 +355,6 @@
 			} else {
 				static_view();
 			}
-				
 		}
 		
 		function delete_member() {
