@@ -99,9 +99,54 @@
 			$data['main_content'] = 'corporation/add_view';
 			$this->load->view('includes/template_view', $data);
 		}
-		
+		/**
+		 * @param $request_id 申请id
+		 */
 		function add_from_request($request_id) {
-			
+			$this->_require_login();
+			if(!is_numeric($request_id))
+				static_view();
+			$this->jiadb->_table = 'corporation_request';
+			$join = array(
+				'user' => array('user_id', 'id'),
+				'user.school' => array('school_id', 'id')
+			);
+			$request = $this->jiadb->fetchJoin(array('id' => $request_id, 'status' => 1), $join);
+			// 改请求存在，以及被通过了
+			if($request) {
+				$request = $request[0];
+				if($request['user'][0]['id'] != $this->session->userdata('id'))
+					static_view('抱歉, 你没有该权限', '权限不足');
+				$co_name = $request['co_name'];
+				$submit = $this->input->post('submit');
+				if($submit) {
+					$comment = $this->input->post('comment');
+					$name = $request['co_name'];
+					$school_id = $request['user'][0]['school'][0]['id'];
+					$corporation = array(
+						'name' => $name,
+						'school_id' => $school_id,
+						'user_id' => $request['user'][0]['id'],
+						'comment' => $comment
+					);
+					if($corporation_id = $this->Corporation_model->insert($corporation)) {
+						// 删除该条请求
+						$this->db->where('id', $request_id);
+						$this->db->delete('corporation_request');
+						static_view('创建社团成功' . anchor('corporation/profile/' . $corporation_id, '社团主页'), '创建社团成功');
+					} else {
+						static_view('貌似没有创建成功~， 要不然' . anchor(current_url(), '再试一次？'), '创建社团失败');
+					}
+				} else {
+					$data['co_name'] = $request['co_name'];
+					$data['master'] = $request['user'][0]['name'];
+					$data['school'] = $request['user'][0]['school'][0]['name'];
+					$data['main_content'] = 'corporation/request_add_view';
+					$this->load->view('includes/template_view', $data);
+				}
+			} else {
+				static_view();
+			}
 		}
 		
 		function do_add() {
@@ -128,6 +173,7 @@
 			}
 		}
 		
+		// 请求创建社团
 		function request_add() {
 			$this->_require_login();
 			$submit = $this->input->post('submit');
@@ -148,6 +194,7 @@
 				static_view('已提交表单');
 			} else {
 				$data['title'] = '申请创建社团';
+				$data['js'] = 'corporation/add.js';
 				$data['main_content'] = 'corporation/request_add';
 				$this->load->view('includes/template_view', $data);
 			}

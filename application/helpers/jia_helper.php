@@ -38,6 +38,17 @@ if( ! function_exists('avatar_url')) {
 	}
 }
 
+if( ! function_exists('card_cap')) {
+	/**
+	 * @param string from db
+	 * @param string ting or big
+	 */
+	function card_cap($filename, $obj = 'corporation') {
+		$CI =& get_instance();
+		return site_url($CI->config->item($obj . '_request') . '/' . $filename);
+	}
+}
+
 // 统计满足条件的表记录总数
 if(! function_exists('count_rows')) {
 	function count_rows($table, $where = array()) {

@@ -14,7 +14,7 @@
 			  		'overwrite' => TRUE,
 			  		'file_name'	=> $param['filename']
 			 );
-			 $this->upload->initialize($config);
+			$this->upload->initialize($config);
 			switch ($param['mode']) {
 				case 'avatar':
 					if($this->upload->do_upload()) {
@@ -51,8 +51,14 @@
 							return FALSE;
 						}
 					break;
-				case 'corporation':
-					
+				case 'request':
+					if(is_array($param['filed'])) {
+						foreach ($param['filed'] as $field) {
+							
+						}
+					} else {
+						
+					}
 					break;
 			}
 		}
@@ -61,7 +67,21 @@
 			$param = array(
 				'upload_path' => $this->config->item($mode . '_avatar_path'),
 				'mode' => 'avatar',
-				'filename' => $filename . '.jpg'
+				'filename' => $filename . '.jpg',
+			);
+			if($this->upload($param)) {
+				return $param['filename'];
+			} else {
+				return FALSE;
+			}
+		}
+		
+		function save_request_cap($mode = 'corporation', $filename) {
+			$param = array(
+				'upload_path' => $this->config->item($mode . '_request'),
+				'mode' => 'request',
+				'filename' => $filename,
+				'field' => array('id_card_cap', 'st_card_cap')
 			);
 			if($this->upload($param)) {
 				return $param['filename'];

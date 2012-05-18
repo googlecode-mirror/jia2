@@ -13,6 +13,8 @@
 	$config['personal_album_path'] = 'data/album/personal/';
 	// 社团头像上传路劲
 	$config['corporation_avatar_path'] = 'data/avatar/corporation/';
+	// 申请创建社团证件影印
+	$config['corporation_request'] = 'data/avatar/request/corporation/';
 	// 社团照片上传路径
 	$config['corporation_album_path'] = 'data/avatar/corporation/';
 	
