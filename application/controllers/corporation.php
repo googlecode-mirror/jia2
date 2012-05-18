@@ -100,6 +100,10 @@
 			$this->load->view('includes/template_view', $data);
 		}
 		
+		function add_from_request($request_id) {
+			
+		}
+		
 		function do_add() {
 			$this->_require_login();
 			$this->_auth('add', 'corporation', $this->session->userdata('id'));
@@ -121,6 +125,31 @@
 				}
 			} else {
 				static_view('请将表单填写完整', '创建社团失败', site_url('corporation/add'));
+			}
+		}
+		
+		function request_add() {
+			$this->_require_login();
+			$submit = $this->input->post('submit');
+			if(!empty($submit)) {
+				$this->load->model('Photo_model');
+				$id_card_number = $this->input->post('id_card_number');
+				$st_card_number = $this->input->post('st_card_number');
+				$co_name = $this->input->post('co_name');
+				// 判断证件照
+				
+				// 增加一条提醒
+				$notify = array(
+					'user_id' => $this->session->userdata('id'),
+					'receiver_id' => 1,
+					'content' => '申请创建社团'
+				);
+				$comment = $this->input->post('comment');
+				static_view('已提交表单');
+			} else {
+				$data['title'] = '申请创建社团';
+				$data['main_content'] = 'corporation/request_add';
+				$this->load->view('includes/template_view', $data);
 			}
 		}
 		
