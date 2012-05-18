@@ -9,7 +9,7 @@
 	<p><?=form_button('roger_that', '明白', 'id="roger_that" class="pub_button"') ?></p>
 </div>
 <div id="add-corporation" class="hidden" >
-	<?=form_open_multipart('corporation/request_add','class="form"')?>
+	<?=form_open_multipart('corporation/request_add','class="form" id="request_form"')?>
 		<span ><label>学号：</label>
 			<div class="InputWrapper">
 			<div class="InputInner">

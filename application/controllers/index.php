@@ -9,6 +9,8 @@
 		function index() {
 			if($this->session->userdata('type') == 'guest') {
 				$this->_guest();
+			} elseif($this->session->userdata('type') == 'admin') {
+				static_view('你好管理员！你或许需要'  . anchor('admin/admin/co_request', '管理申请'));
 			} else {
 				$data['title'] = '首页';
 				$data['posts'] = $this->Post_model->post_string($this->session->userdata('id'));
