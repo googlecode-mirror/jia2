@@ -17,8 +17,11 @@
 			</div>
 			</div>
 		</span>
-		<span class="btn-blue"><label>学生证照：</label>
-			浏览<?=form_upload('st_card_cap') ?>
+		<span ><label>学生证照：</label>
+			<a href="" class="btn-blue">
+				浏览
+				<?=form_upload('st_card_cap') ?>
+			</a>
 		</span>
 		<span ><label>身份证号：</label>
 			<div class="InputWrapper">
@@ -27,10 +30,13 @@
 			</div>
 			</div>
 		</span>
-		<span class="btn-blue"><label>身份证照：</label>
-				浏览<?=form_upload('id_card_cap') ?>
+		<span><label>身份证照：</label>
+			<a href="" class="btn-blue">
+				浏览
+				<?=form_upload('id_card_cap') ?>
+			</a>
 		</span>
-		<span ><label>申请创建社团名：</label>
+		<span ><label>创建社团名：</label>
 			<div class="InputWrapper">
 			<div class="InputInner">
 					<?=form_input('co_name') ?>

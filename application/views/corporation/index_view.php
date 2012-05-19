@@ -3,15 +3,12 @@
 </script>
 <div id="main">
 	<a href="<?=site_url('corporation/request_add') ?>" class="creat_button button"><i>+</i> 申请创建社团</a>
-	<!-- <a href="#?w=500" rel="popup2"  class="creat_button button inline"><i>+</i> 创建社团</a> -->
+	<span><?=anchor('corporation/list_all', '查看所有社团','class="creat_button btn_01"') ?></span>
 	<div id="search_box">
 		<div id="search-bar">
 			<input type="text" name="keywords" class="serch_input"/>
 			<button name="search" type="button" class="btn-blue">搜索</button>
 		</div>
-	</div>
-	<div>
-		<span><?=anchor('corporation/list_all', '查看所有社团') ?></span>
 	</div>
 	<div class="search_item">
 		<ul>
