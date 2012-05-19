@@ -1,18 +1,12 @@
 <?=form_open('','class="write_letter_form"')?>
 <?=form_button('letter', '写站内信','id="write_letter"') ?>
 <div id="write_letter_area" style="display:none">
-<!-- 	<p><label>收信人</label></p>
-	<p><div class="InputWrapper">
-			<div class="InputInner">
-					<?=form_input('receiver', '', 'id="receiver"') ?>
-			</div>
-	</div></p> -->
 	<li class="li_input"><label>收信人：</label>
-					<div class="InputWrapper"><div class="InputInner">
-							<?=form_input('receiver', '', 'id="receiver"') ?>
-					</div></div>
-				</li>
-	
+		<div class="InputWrapper"><div class="InputInner">
+				<?=form_input('receiver', '', 'id="receiver"') ?>
+		</div></div>
+		<span>此处需要填入收信人id，人个人主页的url最后的数字即是用户id</span>
+	</li>
 	<li ><label>內&nbsp;&nbsp;容：</label>
 		<div class="mytextarea">
 		<table class="Textarea">

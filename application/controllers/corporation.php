@@ -182,6 +182,11 @@
 			$this->_require_login();
 			$this->jiadb->_table = 'corporation_request';
 			$requests = $this->jiadb->fetchAll(array('user_id' => $this->session->userdata('id')));
+			$user_info = $this->User_model->get_info($this->session->userdata('id'));
+			if(!$user_info['school_id'])
+			 static_view('你需要先完善自己的学校信息' . anchor('personal/setting#info', '点此设置'), '申请创建社团');
+			if(!$user_info['province_id'])
+				static_view('你需要完善自己的省份信息' . anchor('personal/setting#info', '点此设置'), '申请创建社团');
 			if($requests)
 				static_view('你已经申请过创建社团了，请勿重复申请');
 			$submit = $this->input->post('submit');
