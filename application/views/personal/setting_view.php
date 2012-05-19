@@ -32,17 +32,14 @@
 			<?=form_hidden('setting', 'info') ?>
 				<li ><label>姓名：</label>
 					<div class="InputWrapper"><div class="InputInner">
-							<?=form_input('name') ?>
+							<?=form_input('name', $info['name']) ?>
 					</div></div>
 				</li>
 				<li ><label>性别：</label>
-					<?=form_dropdown('gender', array('1'=> '男淫', '0' => '女淫'),'class="SelectWrapper"') ?></li>
+					<?=form_dropdown('gender', array('1'=> '男', '0' => '女'),'class="SelectWrapper"') ?></li>
 				<li ><label>学校：</label>
-					<div class="InputWrapper"><div class="InputInner">
-							<?=form_input('name') ?>
-					</div></div></li>
-				<li ><label>省份：</label><?=form_dropdown('gender', array('0'=> '四川', '1' => '重庆','2'=> '贵州', '3' => '云南'),'class="SelectWrapper"') ?>
-						  <?=form_dropdown('gender', array('0'=> '四川', '1' => '重庆','2'=> '贵州', '3' => '云南'),'class="SelectWrapper"') ?></li>
+							<?=form_dropdown('school', $schools ,'class="SelectWrapper"') ?></li>
+				<li ><label>省份：</label><?=form_dropdown('province', $provinces ,'class="SelectWrapper"') ?></li>
 				<li class="li_b"><?=form_submit('submit', '保存','class="pub_button"') ?></li>
 			<?=form_close() ?>
 			</ul>

@@ -78,6 +78,20 @@
 				'school' => array('school_id', 'id'),
 				'province' => array('province_id', 'id')
 			);
+			$schools = array();
+			$this->jiadb->_table = 'school';
+			$school_result = $this->jiadb->fetchAll();
+			foreach ($school_result as $key => $row) {
+				$schools[$row['id']] = $row['name'];
+			}
+			$provinces = array();
+			$this->jiadb->_table = 'province';
+			$provinces_result = $this->jiadb->fetchAll();
+			foreach ($provinces_result as $key => $row) {
+				$provinces[$row['id']] = $row['name'];
+			}
+			$data['schools'] = $schools;
+			$data['provinces'] = $provinces;
 			$data['info'] = $this->User_model->get_info((int)$this->session->userdata('id'), $join);
 			$data['main_content'] = 'personal/setting_view';
 			$data['slider_bar_view'] = 'includes/slider_bar_view';
@@ -89,7 +103,6 @@
 			$this->_require_login();
 			$setting = $this->input->post('setting');
 			switch ($setting) {
-				
 				case 'avatar':
 					// 头像设置
 					$result = $this->Photo_model->set_avatar('personal', $this->user_id);
@@ -100,12 +113,23 @@
 						static_view('不好意思亲~ 上传失败了, 要不然' . anchor('personal/setting', '再试一次?'));
 					}
 					break;
-					
 				case 'info':
 				// 资料设置
 					$name = $this->input->post('name');
 					$gender = $this->input->post('gender');
-					
+					$school_id = $this->input->post('school');
+					$province_id = $this->input->post('province');
+					if($name && $gender && $school_id && $province_id) {
+						$info = array(
+							'name' => $name,
+							'gender' => $gender,
+							'school_id' => $school_id,
+							'province_id' => $province_id
+						);
+						$this->db->where('id', $this->session->userdata('id'));
+						$this->db->update('user', $info);
+						redirect('personal/setting');
+					}
 				case 'privacy':
 					// 隐私设置
 					$post = $this->input->post('post');
