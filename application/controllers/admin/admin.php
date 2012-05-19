@@ -40,7 +40,7 @@
 						$notify = array(
 							'user_id' => 1,
 							'content' => "你申请创建 $co_name 社团失败,",
-							'receiver_id' => $request['user_id'],
+							'receiver_id' => $request[0]['user_id'],
 							'type' => 'message',
 							'time' => time()
 						);
