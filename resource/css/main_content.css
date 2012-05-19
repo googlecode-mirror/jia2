@@ -231,7 +231,7 @@ form#request_form p.li_d{
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 	padding:0 30px;
 }
-a.btn-blue{color: #fff;}
+b.btn-blue{color: #fff;}
 .btn-blue:hover{
 	background-position: 0 -30px;
 }
