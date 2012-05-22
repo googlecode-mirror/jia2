@@ -94,7 +94,6 @@
 			<?=form_hidden('setting', 'privacy') ?>
 				<li ><label>浏览权限: </label><?=form_dropdown('post', array('guest' => '所有人&nbsp;', 'register' => '注册用户', 'follower' => '仅粉丝', 'self' => '仅自己'), $privacy['post'],'class="SelectWrapper"') ?></li>
 				<li ><label>评论权限: </label><?=form_dropdown('comment', array('register' => '注册用户&nbsp;','follower' => '仅粉丝', 'self' => '仅自己'), $privacy['comment'],'class="SelectWrapper"') ?></li>
-				<li class="hidden"><label>浏览权限: </label><?=form_dropdown('post', array('guest' => '所有人&nbsp;', 'self' => '仅自己'), $privacy['post']) ?></li>
 				<li class="li_c"><?=form_submit('submit', '更新','class="pub_button"') ?></li>
 			<?=form_close() ?>
 			</ul>
