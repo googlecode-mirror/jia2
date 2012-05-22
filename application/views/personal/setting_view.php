@@ -47,8 +47,7 @@
 		<div id="c02" class="hidden">
 			<h4 class="set_title">设置新头像</h4>
 			<p class="p_1">	支持JPG、JPEG、GIF和PNG文件，最大2M。	</p>
-			<?=form_open_multipart('personal/do_setting') ?>
-			
+			<?=form_open_multipart('personal/do_setting') ?>		
 			<span href="" class="btn-blue">
 				浏览
 				<?=form_upload('userfile') ?>
@@ -63,27 +62,27 @@
 		<div id="c03" class="hidden">
 			<h4 class="set_title">修改密码</h4>
 			<ul id="pass_setting">
-			<?=form_open('personal/do_setting','class="form"', 'id="pass"')?>
+			<?=form_open('personal/do_setting','class="form" id="pass"')?>
 			<?=form_hidden('setting', 'pass') ?>
 				<li><label>原  密  码: </label>
 					<div class="InputWrapper"><div class="InputInner">
 							<?=form_password('old_pass') ?>
-					</div></div>
+					</div></div><span class="prompt" id="old_pass_prompt"></span>
 				</li>
 				<span class="prompt" id="old_pass_prompt"></span>
 				<li><label>新  密  码: </label>
 					<div class="InputWrapper"><div class="InputInner">
 							<?=form_password('pass') ?>
-					</div></div>
+					</div></div><span class="prompt" id="pass_prompt"></span>
 				</li>
 				<span class="prompt" id="pass_prompt"></span>
 				<li><label>确认密码: </label>
 					<div class="InputWrapper"><div class="InputInner">
 							<?=form_password('pass_check') ?>
-					</div></div>
+					</div></div><span class="prompt" id="pass_check_prompt"></span>
 				</li>
 				<span class="prompt" id="pass_check_prompt"></span>
-				<li class="li_c"><?=form_submit('submit', '更新','class="pub_button"') ?></li>
+				<li class="li_c"><?=form_submit('submit', '修改','class="pub_button" id="pass_submit"') ?></li>
 			<?=form_close() ?>
 			</ul>
 		</div>

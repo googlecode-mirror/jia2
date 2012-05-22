@@ -4,7 +4,7 @@ $(function() {
 		$("#user_info_form").show();
 	});
 	
-	$("#pass input[name='submit']").click(function() {
+	$("#pass_submit").click(function() {
 		old_pass = $("#pass input[name='old_pass']").val();
 		pass = $("#pass input[name='pass']").val();
 		pass_check = $("#pass input[name='pass_check']").val();

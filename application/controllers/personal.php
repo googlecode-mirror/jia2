@@ -226,7 +226,6 @@
 						return;
 					}
 					$info = $this->User_model->get_info((int)$this->user_id);
-					$info = $info[0];
 					if($info['pass'] != md5($old_pass)) {
 						$json_array['old_pass'] = '原密码不正确';
 						echo json_encode($json_array);
@@ -236,6 +235,7 @@
 					$this->db->update('user', array('pass' => md5($pass)));
 					$json_array['verify'] = 1;
 					echo json_encode($json_array);
+					return;
 				break;
 			}
 			redirect('personal/setting');
