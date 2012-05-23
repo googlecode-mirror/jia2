@@ -3,17 +3,12 @@
 -- Server version:               5.5.16 - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-05-19 03:41:18
+-- Date/time:                    2012-05-23 09:48:25
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!40014 SET FOREIGN_KEY_CHECKS=0 */;
-
--- Dumping database structure for jia2
-CREATE DATABASE IF NOT EXISTS `jia2` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `jia2`;
-
 
 -- Dumping structure for table jia2.activity
 CREATE TABLE IF NOT EXISTS `activity` (
@@ -320,7 +315,7 @@ REPLACE INTO `comment_auth` (`id`, `owner_id`, `type_id`, `identity_id`, `operat
 	(24, 10, 1, 11, 4, 1),
 	(25, 11, 1, 2, 1, 1),
 	(26, 11, 1, 3, 1, 1),
-	(27, 11, 1, 3, 2, 1),
+	(27, 11, 1, 3, 2, 0),
 	(28, 11, 1, 5, 1, 1),
 	(29, 11, 1, 5, 2, 1),
 	(30, 11, 1, 5, 4, 1),
@@ -492,8 +487,8 @@ REPLACE INTO `corporation_meta` (`id`, `corporation_id`, `meta_table`, `meta_key
 CREATE TABLE IF NOT EXISTS `corporation_request` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `user_id` int(10) NOT NULL,
-  `id_card_number` int(10) NOT NULL,
-  `st_card_number` int(10) NOT NULL,
+  `id_card_number` tinytext NOT NULL,
+  `st_card_number` tinytext NOT NULL,
   `id_card_cap` varchar(50) NOT NULL,
   `st_card_cap` varchar(50) NOT NULL,
   `co_name` varchar(50) NOT NULL,
@@ -503,10 +498,12 @@ CREATE TABLE IF NOT EXISTS `corporation_request` (
   PRIMARY KEY (`id`),
   KEY `FK_corporation_request_user` (`user_id`),
   CONSTRAINT `FK_corporation_request_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='申请创建社团表';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='申请创建社团表';
 
--- Dumping data for table jia2.corporation_request: ~4 rows (approximately)
+-- Dumping data for table jia2.corporation_request: ~1 rows (approximately)
 /*!40000 ALTER TABLE `corporation_request` DISABLE KEYS */;
+REPLACE INTO `corporation_request` (`id`, `user_id`, `id_card_number`, `st_card_number`, `id_card_cap`, `st_card_cap`, `co_name`, `comment`, `time`, `status`) VALUES
+	(10, 11, '2147483647', '2009081059', 'id_card_cap_11.jpg', 'st_card_cap_11.jpg', '加加加社团', '日本和任何他哈特', '1337393260', 1);
 /*!40000 ALTER TABLE `corporation_request` ENABLE KEYS */;
 
 
@@ -550,9 +547,9 @@ CREATE TABLE IF NOT EXISTS `notify` (
   CONSTRAINT `fk_notify_notify_type1` FOREIGN KEY (`type_id`) REFERENCES `notify_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_notify_user1` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_notify_user2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.notify: ~31 rows (approximately)
+-- Dumping data for table jia2.notify: ~29 rows (approximately)
 /*!40000 ALTER TABLE `notify` DISABLE KEYS */;
 REPLACE INTO `notify` (`id`, `user_id`, `receiver_id`, `type_id`, `time`, `content`, `status`) VALUES
 	(1, 11, 13, 3, 1335754372, '评论了你的<a href="http://jia2.localhost/post/36">新鲜事</a>', 0),
@@ -578,7 +575,12 @@ REPLACE INTO `notify` (`id`, `user_id`, `receiver_id`, `type_id`, `time`, `conte
 	(22, 11, 13, 3, 1336912688, '关注了你', 0),
 	(33, 15, 11, 3, 1336928401, '添加了你为加加社团社团的成员', 0),
 	(35, 15, 13, 3, 1336928905, '添加了你为<a href="http://jia2.localhost/corporation/profile/8">加加社团</a>社团的成员', 0),
-	(36, 10, 15, 2, 1337325557, '请求加入 <a href="http://jia2.localhost/corporation/profile/8">加加社团</a> 社团|||http://jia2.localhost/corporation/add_member/8/10', 1);
+	(36, 10, 15, 2, 1337325557, '请求加入 <a href="http://jia2.localhost/corporation/profile/8">加加社团</a> 社团|||http://jia2.localhost/corporation/add_member/8/10', 1),
+	(45, 1, 1, 3, 1337370903, '申请创建社团 <a href="http://jia2.localhost/admin/admin/co_request/8">审核</a>', 1),
+	(46, 3, 1, 3, 1337393148, '申请创建社团 <a href="http://jia2.localhost/admin/admin/co_request/9">审核</a>', 1),
+	(47, 1, 1, 3, 1337393230, '你申请创建 坑爹社团 社团失败,', 1),
+	(48, 11, 1, 3, 1337393260, '申请创建社团 <a href="http://jia2.localhost/admin/admin/co_request/10">审核</a>', 1),
+	(49, 1, 11, 3, 1337393285, '你申请创建 加加加社团 社团成功,<a href="http://jia2.localhost/corporation/add_from_request/10">点此完成创建</a>', 0);
 /*!40000 ALTER TABLE `notify` ENABLE KEYS */;
 
 
@@ -717,7 +719,7 @@ REPLACE INTO `post_auth` (`id`, `owner_id`, `identity_id`, `operation_id`, `acce
 	(24, 10, 5, 1, 1),
 	(25, 10, 5, 2, 1),
 	(26, 10, 5, 4, 1),
-	(27, 11, 2, 1, 0),
+	(27, 11, 2, 1, 1),
 	(28, 11, 3, 1, 1),
 	(29, 11, 4, 1, 1),
 	(30, 11, 5, 1, 1),
@@ -4265,7 +4267,7 @@ REPLACE INTO `user` (`id`, `name`, `email`, `pass`, `type_id`, `school_id`, `pro
 	(1, 'admin', 'admin@jia2.cn', '7e9ff9da442d3d2f28145385f8e39e7a', 1, 1, 1, 'default.jpg', 1),
 	(3, 'Tuzki', 'rabbitzhang52@yahoo.com', 'e18d959268ead9d3caf501969715e3d0', 1, 1, 1, '3.jpg', 1),
 	(10, 'zhanghui', 'rabbitzhang52@gmail.com', 'e18d959268ead9d3caf501969715e3d0', 2, 2, 1, 'default.jpg', 1),
-	(11, '张晖', 'rabbitzhang52@qq.com', 'e18d959268ead9d3caf501969715e3d0', 1, 1, 1, '11.jpg', 1),
+	(11, '张尼玛', 'rabbitzhang52@qq.com', 'a51e47f646375ab6bf5dd2c42d3e6181', 1, 1, 1, '11.jpg', 1),
 	(13, '兔子张', 'rabbitzhang52@163.com', 'e18d959268ead9d3caf501969715e3d0', 2, 2, 1, '13.jpg', 1),
 	(14, '张三丰', 'ra@ra.com', 'e18d959268ead9d3caf501969715e3d0', 2, 1, 1, 'default.jpg', 1),
 	(15, '张无忌', 'tuzki@rabbit.com', 'e18d959268ead9d3caf501969715e3d0', 2, 2, 1, '15.jpg', 1);
