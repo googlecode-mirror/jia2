@@ -285,6 +285,23 @@
 			}
 		}
 		
+		// 个人管理（关注，被关注）
+		function mamage() {
+			$this->_require_login();
+			$opereation = $this->input->get('m');
+			switch ($opereation) {
+				case 'follower':
+					
+					break;
+				case 'following':
+					
+					break;
+				default:
+					static_view('抱歉，你访问的页面不存在');
+					break;
+			}
+		}
+		
 		// 驳回请求
 		function reject_request() {
 			$this->_require_login();
