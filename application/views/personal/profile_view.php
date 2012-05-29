@@ -12,7 +12,6 @@
 		<?=form_button(array('name' => 'follow', 'content' => '关注', 'user_id' => $info['id'])) ?>
 		<? endif ?>
 		<? endif ?>
-		
 	<div class="new_things">
 	<div  class="tab">
 	<ul  class="navlist" >

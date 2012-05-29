@@ -1,9 +1,15 @@
 <?php
 	class Search extends MY_Controller {
 		public $jiadb;
-		public $limit = 10;
+		public $limit;
+		private $join;
 		function __construct() {
 			parent::__construct();
+			$this->limit = $this->config->item('page_size');
+			$this->join = array(
+				'school' => array('school_id', 'id'),
+				'province' => array('province_id', 'id')
+			);
 			$this->jiadb = new Jiadb;
 		}
 		
@@ -67,7 +73,7 @@
 			$offset = $this->input->post('offset');
 			$this->jiadb->_table = 'user';
 			$where = array('name REGEXP' => $keywords);
-			$user_result = $this->jiadb->fetchAll($where, '', array($this->limit, $offset));
+			$user_result = $this->jiadb->fetchJoin($where, $this->join, '', array($this->limit, $offset));
 			if($user_result) {
 				$user_result['rows'] = count_rows('user', $where);
 			} else {
