@@ -1,12 +1,17 @@
 <?php
 	class Personal extends MY_Controller {
 		public $user_id;
+		private $join;
 		function __construct() {
 			parent::__construct();
 			$this->load->model('User_model');
 			$this->load->model('Post_model');
 			$this->load->model('Photo_model');
 			$this->user_id = $this->session->userdata('id');
+			$this->join = array(
+				'school' => array('school_id', 'id'),
+				'province' => array('province_id', 'id')
+			);
 		}
 		
 		function index() {
@@ -19,11 +24,7 @@
 			}
 			$id = $id ? $id : $this->session->userdata('id');
 			$this->_auth('view', 'post', $id);
-			$join = array(
-				'school' => array('school_id', 'id'),
-				'province' => array('province_id', 'id')
-			);
-			$data['info'] = $this->User_model->get_info((int)$id, $join);
+			$data['info'] = $this->User_model->get_info((int)$id, $this->join);
 			$data['followers'] = $this->User_model->get_followers($id);
 			$data['title'] = '个人主页-' . $data['info']['name'];
 			$data['followers'] = $this->User_model->get_followers($id);
@@ -74,10 +75,6 @@
 			$data['info'] = $this->User_model->get_info((int)$this->session->userdata('id'));
 			$data['title'] = '账户设置';
 			$data['privacy'] = $privacy;
-			$join = array(
-				'school' => array('school_id', 'id'),
-				'province' => array('province_id', 'id')
-			);
 			$schools = array();
 			$this->jiadb->_table = 'school';
 			$school_result = $this->jiadb->fetchAll();
@@ -92,7 +89,7 @@
 			}
 			$data['schools'] = $schools;
 			$data['provinces'] = $provinces;
-			$data['info'] = $this->User_model->get_info((int)$this->session->userdata('id'), $join);
+			$data['info'] = $this->User_model->get_info((int)$this->session->userdata('id'), $this->join);
 			$data['main_content'] = 'personal/setting_view';
 			$data['slider_bar_view'] = 'includes/slider_bar_view';
 			$data['js'] = array('personal/setting.js','tab.js');
@@ -169,7 +166,7 @@
 							);
 							break;
 						default:
-							static_view('亲, 请不要恶意篡改表单好嘛~, 给你个机会, ' . anchor('personal/setting#privacy', '重新设置'));
+							static_view('表单数据不正确' . anchor('personal/setting#privacy', '重新设置'));
 					}
 					// 评论权限设置
 					switch ($comment) {
@@ -261,7 +258,7 @@
 				echo 0;
 			}
 		}
-		
+		// 取消关注某人，ajax function
 		function unfollow() {
 			$this->_require_login();
 			$this->_require_ajax();
@@ -286,15 +283,35 @@
 		}
 		
 		// 个人管理（关注，被关注）
-		function mamage() {
+		function manage() {
 			$this->_require_login();
+			$user_id = $this->session->userdata('id');
 			$opereation = $this->input->get('m');
+			$limit = $this->config->item('page_size');
+			$offset = 0;
 			switch ($opereation) {
 				case 'follower':
-					
+					$followers = $this->User_model->get_followers($user_id);
+					if($this->_require_ajax(TRUE)) {
+						$offset = $this->input->post('offset');
+					}
+					$data['followers_num'] = count($followers);
+					$followers_now = array_slice($followers, $offset, $limit);
+					$this->jiadb->_table = 'user';
+					$data['followers'] = $this->jiadb->fetchJoin(array('id' => $followers_now), $this->join);
+					$data['title'] = '粉丝管理';
+					$data['main_content'] = 'personal/follower_view';
+					$this->load->view('includes/template_view', $data);
 					break;
 				case 'following':
-					
+					$this->jiadb->_table = 'user';
+					$following = $this->User_model->get_following($user_id);
+					$following_now = array_slice($following, $offset, $limit);
+					$data['following'] = $this->jiadb->fetchJoin(array('id' => $following_now), $this->join);
+					$data['following_num'] = count($following);
+					$data['title'] = '关注管理';
+					$data['main_content'] = 'personal/following_view';
+					$this->load->view('includes/template_view', $data);
 					break;
 				default:
 					static_view('抱歉，你访问的页面不存在');

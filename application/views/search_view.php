@@ -25,6 +25,9 @@
 				<?=anchor('personal/profile/' . $row['id'], '<img src="' . avatar_url($row['avatar'], 'personal', 'big') . '">', 'class="head_pic"')?>
 				<div class="li_mbox">
 					<h3><?=anchor('personal/profile/' . $row['id'], $row['name'])?></h3>
+					<p><?=$row['gender'] == 1 ? '男' : '女'?></p>
+					<p><?=$row['province'][0]['name'] ?></p>
+					<p><?=$row['school'][0]['name'] ?></p>
 				</div>
 			</li>
 			<? endforeach?>

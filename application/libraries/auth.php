@@ -206,7 +206,6 @@ require_once APPPATH . 'libraries/jiadb.php';
 				$administrators = $this->CI->Corporation_model->get_admin($this->owner_id);
 				if(in_array($this->request_user, $administrators)) {
 					$identity = 'co_admin';
-					echo 'here';
 					parent::get_access($operation, $identity);
 					if($this->access) {
 						return;
