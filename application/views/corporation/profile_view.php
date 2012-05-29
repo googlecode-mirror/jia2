@@ -6,7 +6,7 @@
 </div>
 <div id="sidebar">
 	<div class="user_head_box sidebar_nav">
-		<a href="<?=site_url('corporation/profile/' . $info['id'])?>" class="user_head"> <img id="" title="修改头像" src="<?=avatar_url($info['avatar'], 'corporation', 'big') ?>" /> </a>
+		<a href="<?=site_url('corporation/profile/' . $info['id'])?>" class="user_head"> <img id="" src="<?=avatar_url($info['avatar'], 'corporation', 'big') ?>" /> </a>
 		<a href="" class="user_name"><?=$info['name']?></a>
 	</div>
 	<p>
@@ -99,7 +99,7 @@
 					</div>
 					<div class="f_summary">
 						<p class="f_pm">
-							<span><?=jdate($activity['start_time'], FALSE) ?> => <?=jdate($activity['deadline'], FALSE) ?></span>
+							<span><?=jdate($activity['start_time'], FALSE) ?> 至 <?=jdate($activity['deadline'], FALSE) ?></span>
 						</p>
 					</div>
 				</li>

@@ -11,7 +11,7 @@
 			<li><a class="a_sty_01 active"><i class="ico ico_newthings"></i>省份：<?=$info['province'][0]['name']?></a></li>
 		</ul>
 	</div>
-	<? if($info['id'] = $this->session->userdata('id')): ?>
+	<? if($info['id'] == $this->session->userdata('id')): ?>
 	<div class="sidebar_nav">
 		<ul class="ul_sty_01">
 			<li><a class="a_sty_01 active" href="<?=site_url('personal/manage?m=follower') ?>"><i class="ico ico_newthings"></i>我的粉丝</a></li>
