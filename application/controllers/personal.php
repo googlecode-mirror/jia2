@@ -270,6 +270,28 @@
 			}
 		}
 		
+		// 请求关注
+		function request_follow() {
+			$this->_require_login();
+			$this->_require_ajax();
+			$follower_id = $this->input->post('user_id');
+			// 发一条请求关注的通知
+			$notify = array(
+				
+			);
+		}
+		// 移除粉丝
+		function remove_follower() {
+			$this->_require_login();
+			$this->_require_ajax();
+			$follower_id = $this->input->post('user_id');
+			// 相当于粉丝取消关注当前用户
+			if($this->User_model->follow($follower_id, $this->user_id, TRUE)) {
+				echo 1;
+			} else {
+				echo 0;
+			}
+		}
 		// 屏蔽某人
 		function block() {
 			$this->_require_login();
@@ -289,16 +311,19 @@
 			$opereation = $this->input->get('m');
 			$limit = $this->config->item('page_size');
 			$offset = 0;
+			$data['js'] = 'personal/manage.js';
 			switch ($opereation) {
 				case 'follower':
+					$this->jiadb->_table = 'user';
 					$followers = $this->User_model->get_followers($user_id);
 					if($this->_require_ajax(TRUE)) {
 						$offset = $this->input->post('offset');
 					}
 					$data['followers_num'] = count($followers);
-					$followers_now = array_slice($followers, $offset, $limit);
-					$this->jiadb->_table = 'user';
-					$data['followers'] = $this->jiadb->fetchJoin(array('id' => $followers_now), $this->join);
+					if($data['followers_num'] != 0) {
+						$followers_now = array_slice($followers, $offset, $limit);
+						$data['followers'] = $this->jiadb->fetchJoin(array('id' => $followers_now), $this->join);
+					}
 					$data['title'] = '粉丝管理';
 					$data['main_content'] = 'personal/follower_view';
 					$this->load->view('includes/template_view', $data);
@@ -306,9 +331,11 @@
 				case 'following':
 					$this->jiadb->_table = 'user';
 					$following = $this->User_model->get_following($user_id);
-					$following_now = array_slice($following, $offset, $limit);
-					$data['following'] = $this->jiadb->fetchJoin(array('id' => $following_now), $this->join);
 					$data['following_num'] = count($following);
+					if($data['following_num'] != 0) {
+						$following_now = array_slice($following, $offset, $limit);
+						$data['following'] = $this->jiadb->fetchJoin(array('id' => $following_now), $this->join);
+					}
 					$data['title'] = '关注管理';
 					$data['main_content'] = 'personal/following_view';
 					$this->load->view('includes/template_view', $data);

@@ -106,7 +106,7 @@
 				<? endforeach ?>
 			</ul>
 		</div>
-		<div id="co_03" class="hidden">改功能暂未实现
+		<div id="co_03" class="hidden">该功能暂未实现
 		</div>
 	</div>
 	
