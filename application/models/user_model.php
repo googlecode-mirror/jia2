@@ -101,7 +101,7 @@
 		 */
 		
 		// 获取粉丝
-		function get_followers($user_id) {
+		function get_followers($user_id, $order = array()) {
 			$this->jiadb->_table = 'user';
 			$return = 'user_id';
 			$where = array(
@@ -109,7 +109,7 @@
 				'meta_table' => 'user',
 				'meta_value' => $user_id
 			);
-			return $this->jiadb->fetchMeta($return, $where);
+			return $this->jiadb->fetchMeta($return, $where, $order);
 		}
 		
 		// 获取关注
@@ -117,7 +117,7 @@
 		 * @param int 
 		 * @param string user or corporation or activity
 		 */
-		function get_following($user_id, $meta_table = 'user') {
+		function get_following($user_id, $meta_table = 'user', $order = array()) {
 			$this->jiadb->_table = 'user';
 			$return = 'meta_value';
 			$where = array(
@@ -129,7 +129,7 @@
 		}
 		
 		// 获取关注的社团
-		function get_following_co($user_id, $meta_table = 'corporation') {
+		function get_following_co($user_id, $meta_table = 'corporation', $order = array()) {
 			$this->jiadb->_table = 'user';
 			$return = 'meta_value';
 			$where = array(
@@ -140,7 +140,7 @@
 			return $this->jiadb->fetchMeta($return, $where);
 		}
 		
-		function get_join_co($user_id, $meta_table = 'user') {
+		function get_join_co($user_id, $meta_table = 'user', $order = array()) {
 			$this->jiadb->_table = 'corporation';
 			$return = 'corporation_id';
 			$where = array(
@@ -156,7 +156,7 @@
 			return $corporations;
 		}
 		
-		function get_blockers($user_id) {
+		function get_blockers($user_id, $order = array()) {
 			$this->jiadb->_table = 'user';
 			$reutrn = 'meta_value';
 			$where = array(

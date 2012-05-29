@@ -11,6 +11,9 @@
 			<p><?=$row['province'][0]['name'] ?></p>
 			<p><?=$row['school'][0]['name'] ?></p>
 		</div>
+		<div>
+			<?=form_button('remove_follower', '移除粉丝', 'user_id="'.$row['id'].'"') ?>
+		</div>
 	</li>
 	<? endforeach?>
 	<? endif?>
