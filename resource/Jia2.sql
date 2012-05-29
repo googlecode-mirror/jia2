@@ -3,7 +3,7 @@
 -- Server version:               5.5.16 - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-05-23 09:48:25
+-- Date/time:                    2012-05-29 17:22:55
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `activity` (
 
 -- Dumping data for table jia2.activity: ~3 rows (approximately)
 /*!40000 ALTER TABLE `activity` DISABLE KEYS */;
-REPLACE INTO `activity` (`id`, `user_id`, `corporation_id`, `name`, `time`, `start_time`, `deadline`, `address`, `detail`) VALUES
+INSERT IGNORE INTO `activity` (`id`, `user_id`, `corporation_id`, `name`, `time`, `start_time`, `deadline`, `address`, `detail`) VALUES
 	(1, 3, 7, '坑爹社团的第一个活动', '1334592000', '1334592000', '1335801600', '宿舍', '没啥事，就单纯搅基'),
 	(11, 11, 8, '这是一个活动！哦亲！', '1336908308', '1335823200', '1336341600', '银杏大道', '耍！大家随便耍！好耍好吃！'),
 	(12, 11, 8, '这只是另一个活动', '1336924127', '1336428000', '1337551200', '常乐小区', '坐公交怎么样！！！');
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `activity_auth` (
 
 -- Dumping data for table jia2.activity_auth: ~36 rows (approximately)
 /*!40000 ALTER TABLE `activity_auth` DISABLE KEYS */;
-REPLACE INTO `activity_auth` (`id`, `owner_id`, `identity_id`, `operation_id`, `access`) VALUES
+INSERT IGNORE INTO `activity_auth` (`id`, `owner_id`, `identity_id`, `operation_id`, `access`) VALUES
 	(13, 7, 2, 1, 1),
 	(14, 7, 3, 1, 1),
 	(15, 7, 10, 1, 1),
@@ -129,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
 
 -- Dumping data for table jia2.comment: ~149 rows (approximately)
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-REPLACE INTO `comment` (`id`, `post_id`, `user_id`, `content`, `time`, `status`) VALUES
+INSERT IGNORE INTO `comment` (`id`, `post_id`, `user_id`, `content`, `time`, `status`) VALUES
 	(1, 15, 10, '泪流满面啊', '1333727643', 1),
 	(2, 15, 10, '而黄家坎', '1333728396', 1),
 	(3, 15, 10, '而黄家坎', '1333728403', 1),
@@ -301,7 +301,7 @@ CREATE TABLE IF NOT EXISTS `comment_auth` (
 
 -- Dumping data for table jia2.comment_auth: ~94 rows (approximately)
 /*!40000 ALTER TABLE `comment_auth` DISABLE KEYS */;
-REPLACE INTO `comment_auth` (`id`, `owner_id`, `type_id`, `identity_id`, `operation_id`, `access`) VALUES
+INSERT IGNORE INTO `comment_auth` (`id`, `owner_id`, `type_id`, `identity_id`, `operation_id`, `access`) VALUES
 	(14, 10, 1, 2, 1, 1),
 	(15, 10, 1, 3, 1, 1),
 	(16, 10, 1, 3, 2, 1),
@@ -416,7 +416,7 @@ CREATE TABLE IF NOT EXISTS `corporation` (
 
 -- Dumping data for table jia2.corporation: ~3 rows (approximately)
 /*!40000 ALTER TABLE `corporation` DISABLE KEYS */;
-REPLACE INTO `corporation` (`id`, `name`, `school_id`, `user_id`, `avatar`, `comment`) VALUES
+INSERT IGNORE INTO `corporation` (`id`, `name`, `school_id`, `user_id`, `avatar`, `comment`) VALUES
 	(7, '坑爹社团', 1, 11, '7.jpg', '坑爹不解释'),
 	(8, '加加社团', 2, 15, 'default.jpg', '我只是一个栗子~'),
 	(9, '坑爹社团', 1, 11, 'default.jpg', '我是坑爹社团的马甲');
@@ -441,7 +441,7 @@ CREATE TABLE IF NOT EXISTS `corporation_auth` (
 
 -- Dumping data for table jia2.corporation_auth: ~18 rows (approximately)
 /*!40000 ALTER TABLE `corporation_auth` DISABLE KEYS */;
-REPLACE INTO `corporation_auth` (`id`, `owner_id`, `identity_id`, `operation_id`, `access`) VALUES
+INSERT IGNORE INTO `corporation_auth` (`id`, `owner_id`, `identity_id`, `operation_id`, `access`) VALUES
 	(15, 7, 2, 1, 1),
 	(16, 7, 3, 1, 1),
 	(17, 7, 6, 1, 1),
@@ -470,6 +470,7 @@ CREATE TABLE IF NOT EXISTS `corporation_meta` (
   `meta_table` varchar(45) DEFAULT NULL,
   `meta_key` varchar(45) NOT NULL,
   `meta_value` text NOT NULL,
+  `add_time` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_corporation_meta_corporations1` (`corporation_id`),
   CONSTRAINT `fk_corporation_meta_corporation1` FOREIGN KEY (`corporation_id`) REFERENCES `corporation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -477,9 +478,9 @@ CREATE TABLE IF NOT EXISTS `corporation_meta` (
 
 -- Dumping data for table jia2.corporation_meta: ~2 rows (approximately)
 /*!40000 ALTER TABLE `corporation_meta` DISABLE KEYS */;
-REPLACE INTO `corporation_meta` (`id`, `corporation_id`, `meta_table`, `meta_key`, `meta_value`) VALUES
-	(1, 8, 'user', 'member', '11'),
-	(2, 8, 'user', 'member', '13');
+INSERT IGNORE INTO `corporation_meta` (`id`, `corporation_id`, `meta_table`, `meta_key`, `meta_value`, `add_time`) VALUES
+	(1, 8, 'user', 'member', '11', ''),
+	(2, 8, 'user', 'member', '13', '');
 /*!40000 ALTER TABLE `corporation_meta` ENABLE KEYS */;
 
 
@@ -502,7 +503,7 @@ CREATE TABLE IF NOT EXISTS `corporation_request` (
 
 -- Dumping data for table jia2.corporation_request: ~1 rows (approximately)
 /*!40000 ALTER TABLE `corporation_request` DISABLE KEYS */;
-REPLACE INTO `corporation_request` (`id`, `user_id`, `id_card_number`, `st_card_number`, `id_card_cap`, `st_card_cap`, `co_name`, `comment`, `time`, `status`) VALUES
+INSERT IGNORE INTO `corporation_request` (`id`, `user_id`, `id_card_number`, `st_card_number`, `id_card_cap`, `st_card_cap`, `co_name`, `comment`, `time`, `status`) VALUES
 	(10, 11, '2147483647', '2009081059', 'id_card_cap_11.jpg', 'st_card_cap_11.jpg', '加加加社团', '日本和任何他哈特', '1337393260', 1);
 /*!40000 ALTER TABLE `corporation_request` ENABLE KEYS */;
 
@@ -516,7 +517,7 @@ CREATE TABLE IF NOT EXISTS `identity` (
 
 -- Dumping data for table jia2.identity: ~11 rows (approximately)
 /*!40000 ALTER TABLE `identity` DISABLE KEYS */;
-REPLACE INTO `identity` (`id`, `name`) VALUES
+INSERT IGNORE INTO `identity` (`id`, `name`) VALUES
 	(1, 'admin'),
 	(2, 'guest'),
 	(3, 'register'),
@@ -547,11 +548,11 @@ CREATE TABLE IF NOT EXISTS `notify` (
   CONSTRAINT `fk_notify_notify_type1` FOREIGN KEY (`type_id`) REFERENCES `notify_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_notify_user1` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_notify_user2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.notify: ~29 rows (approximately)
+-- Dumping data for table jia2.notify: ~31 rows (approximately)
 /*!40000 ALTER TABLE `notify` DISABLE KEYS */;
-REPLACE INTO `notify` (`id`, `user_id`, `receiver_id`, `type_id`, `time`, `content`, `status`) VALUES
+INSERT IGNORE INTO `notify` (`id`, `user_id`, `receiver_id`, `type_id`, `time`, `content`, `status`) VALUES
 	(1, 11, 13, 3, 1335754372, '评论了你的<a href="http://jia2.localhost/post/36">新鲜事</a>', 0),
 	(2, 11, 13, 3, 1335757274, '评论了你的<a href="http://jia2.localhost/post/36">新鲜事</a>', 0),
 	(3, 11, 10, 3, 1335757292, '评论了你的<a href="http://jia2.localhost/post/19">新鲜事</a>', 1),
@@ -580,7 +581,14 @@ REPLACE INTO `notify` (`id`, `user_id`, `receiver_id`, `type_id`, `time`, `conte
 	(46, 3, 1, 3, 1337393148, '申请创建社团 <a href="http://jia2.localhost/admin/admin/co_request/9">审核</a>', 1),
 	(47, 1, 1, 3, 1337393230, '你申请创建 坑爹社团 社团失败,', 1),
 	(48, 11, 1, 3, 1337393260, '申请创建社团 <a href="http://jia2.localhost/admin/admin/co_request/10">审核</a>', 1),
-	(49, 1, 11, 3, 1337393285, '你申请创建 加加加社团 社团成功,<a href="http://jia2.localhost/corporation/add_from_request/10">点此完成创建</a>', 0);
+	(49, 1, 11, 3, 1337393285, '你申请创建 加加加社团 社团成功,<a href="http://jia2.localhost/corporation/add_from_request/10">点此完成创建</a>', 0),
+	(50, 13, 11, 3, 1338281269, '关注了你', 1),
+	(51, 13, 11, 3, 1338281429, '关注了你', 1),
+	(52, 13, 11, 3, 1338281872, '关注了你', 1),
+	(53, 3, 13, 3, 1338282926, '关注了你', 1),
+	(54, 3, 13, 3, 1338282989, '关注了你', 1),
+	(55, 3, 13, 3, 1338282997, '关注了你', 1),
+	(56, 3, 13, 3, 1338283051, '关注了你', 1);
 /*!40000 ALTER TABLE `notify` ENABLE KEYS */;
 
 
@@ -611,7 +619,7 @@ CREATE TABLE IF NOT EXISTS `notify_type` (
 
 -- Dumping data for table jia2.notify_type: ~3 rows (approximately)
 /*!40000 ALTER TABLE `notify_type` DISABLE KEYS */;
-REPLACE INTO `notify_type` (`id`, `name`, `comment`) VALUES
+INSERT IGNORE INTO `notify_type` (`id`, `name`, `comment`) VALUES
 	(1, 'letter', '站内信'),
 	(2, 'request', '请求'),
 	(3, 'message', '消息');
@@ -628,7 +636,7 @@ CREATE TABLE IF NOT EXISTS `operation` (
 
 -- Dumping data for table jia2.operation: ~4 rows (approximately)
 /*!40000 ALTER TABLE `operation` DISABLE KEYS */;
-REPLACE INTO `operation` (`id`, `name`, `comment`) VALUES
+INSERT IGNORE INTO `operation` (`id`, `name`, `comment`) VALUES
 	(1, 'view', '查看'),
 	(2, 'add', '添加'),
 	(3, 'edit', '编辑'),
@@ -654,7 +662,7 @@ CREATE TABLE IF NOT EXISTS `post` (
 
 -- Dumping data for table jia2.post: ~36 rows (approximately)
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-REPLACE INTO `post` (`id`, `type_id`, `owner_id`, `title`, `content`, `image`, `time`, `status`) VALUES
+INSERT IGNORE INTO `post` (`id`, `type_id`, `owner_id`, `title`, `content`, `image`, `time`, `status`) VALUES
 	(10, 1, 10, NULL, '测试第一篇帖子！！！！', NULL, '1333508483', 1),
 	(12, 1, 10, NULL, ' 测试第一篇帖子！！！！', NULL, '1333527676', 1),
 	(13, 1, 10, NULL, '这尼玛，要发一个试试喃！', NULL, '1333702854', 1),
@@ -712,7 +720,7 @@ CREATE TABLE IF NOT EXISTS `post_auth` (
 
 -- Dumping data for table jia2.post_auth: ~30 rows (approximately)
 /*!40000 ALTER TABLE `post_auth` DISABLE KEYS */;
-REPLACE INTO `post_auth` (`id`, `owner_id`, `identity_id`, `operation_id`, `access`) VALUES
+INSERT IGNORE INTO `post_auth` (`id`, `owner_id`, `identity_id`, `operation_id`, `access`) VALUES
 	(21, 10, 2, 1, 1),
 	(22, 10, 3, 1, 1),
 	(23, 10, 4, 1, 1),
@@ -760,7 +768,7 @@ CREATE TABLE IF NOT EXISTS `post_meta` (
 
 -- Dumping data for table jia2.post_meta: ~2 rows (approximately)
 /*!40000 ALTER TABLE `post_meta` DISABLE KEYS */;
-REPLACE INTO `post_meta` (`id`, `post_id`, `meta_table`, `meta_key`, `meta_value`) VALUES
+INSERT IGNORE INTO `post_meta` (`id`, `post_id`, `meta_table`, `meta_key`, `meta_value`) VALUES
 	(1, 54, 'activity', 'activity', '11'),
 	(2, 55, 'activity', 'activity', '12');
 /*!40000 ALTER TABLE `post_meta` ENABLE KEYS */;
@@ -776,7 +784,7 @@ CREATE TABLE IF NOT EXISTS `post_type` (
 
 -- Dumping data for table jia2.post_type: ~3 rows (approximately)
 /*!40000 ALTER TABLE `post_type` DISABLE KEYS */;
-REPLACE INTO `post_type` (`id`, `name`, `comment`) VALUES
+INSERT IGNORE INTO `post_type` (`id`, `name`, `comment`) VALUES
 	(1, 'personal', '个人'),
 	(2, 'forward', '转发'),
 	(3, 'activity', '活动');
@@ -792,7 +800,7 @@ CREATE TABLE IF NOT EXISTS `province` (
 
 -- Dumping data for table jia2.province: ~1 rows (approximately)
 /*!40000 ALTER TABLE `province` DISABLE KEYS */;
-REPLACE INTO `province` (`id`, `name`) VALUES
+INSERT IGNORE INTO `province` (`id`, `name`) VALUES
 	(1, '四川省');
 /*!40000 ALTER TABLE `province` ENABLE KEYS */;
 
@@ -810,7 +818,7 @@ CREATE TABLE IF NOT EXISTS `ps_region` (
 
 -- Dumping data for table jia2.ps_region: 3,408 rows
 /*!40000 ALTER TABLE `ps_region` DISABLE KEYS */;
-REPLACE INTO `ps_region` (`region_id`, `parent_id`, `region_name`, `region_type`) VALUES
+INSERT IGNORE INTO `ps_region` (`region_id`, `parent_id`, `region_name`, `region_type`) VALUES
 	(1, 0, '中国', 0),
 	(2, 1, '北京', 1),
 	(3, 1, '安徽', 1),
@@ -4234,7 +4242,7 @@ CREATE TABLE IF NOT EXISTS `school` (
 
 -- Dumping data for table jia2.school: ~2 rows (approximately)
 /*!40000 ALTER TABLE `school` DISABLE KEYS */;
-REPLACE INTO `school` (`id`, `name`, `province_id`) VALUES
+INSERT IGNORE INTO `school` (`id`, `name`, `province_id`) VALUES
 	(1, '四川大学', 1),
 	(2, '成都信息工程学院', 1);
 /*!40000 ALTER TABLE `school` ENABLE KEYS */;
@@ -4263,7 +4271,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 -- Dumping data for table jia2.user: ~7 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-REPLACE INTO `user` (`id`, `name`, `email`, `pass`, `type_id`, `school_id`, `province_id`, `avatar`, `gender`) VALUES
+INSERT IGNORE INTO `user` (`id`, `name`, `email`, `pass`, `type_id`, `school_id`, `province_id`, `avatar`, `gender`) VALUES
 	(1, 'admin', 'admin@jia2.cn', '7e9ff9da442d3d2f28145385f8e39e7a', 1, 1, 1, 'default.jpg', 1),
 	(3, 'Tuzki', 'rabbitzhang52@yahoo.com', 'e18d959268ead9d3caf501969715e3d0', 1, 1, 1, '3.jpg', 1),
 	(10, 'zhanghui', 'rabbitzhang52@gmail.com', 'e18d959268ead9d3caf501969715e3d0', 2, 2, 1, 'default.jpg', 1),
@@ -4281,27 +4289,25 @@ CREATE TABLE IF NOT EXISTS `user_meta` (
   `meta_table` varchar(45) DEFAULT NULL COMMENT '变化值对应的表，可以为空',
   `meta_key` varchar(11) NOT NULL COMMENT '变化的key可以指向任何表的索引',
   `meta_value` varchar(45) DEFAULT NULL COMMENT '可以为空',
+  `add_time` varchar(45) DEFAULT NULL COMMENT '数据添加时间',
   PRIMARY KEY (`id`),
   KEY `fk_user_meta_users1` (`user_id`),
   CONSTRAINT `fk_jia2_user_meta_jia2_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.user_meta: ~13 rows (approximately)
+-- Dumping data for table jia2.user_meta: ~11 rows (approximately)
 /*!40000 ALTER TABLE `user_meta` DISABLE KEYS */;
-REPLACE INTO `user_meta` (`id`, `user_id`, `meta_table`, `meta_key`, `meta_value`) VALUES
-	(1, 13, 'user', 'follower', '11'),
-	(3, 11, 'corporation', 'follower', '7'),
-	(4, 11, 'user', 'follower', '10'),
-	(5, 11, 'user', 'follower', '15'),
-	(6, 15, 'user', 'follower', '11'),
-	(7, 13, 'user', 'follower', '14'),
-	(8, 13, 'user', 'follower', '15'),
-	(9, 13, 'corporation', 'follower', '7'),
-	(10, 11, 'corporation', 'follower', '8'),
-	(11, 11, 'user', 'follower', '3'),
-	(12, 11, 'user', 'follower', '13'),
-	(13, 15, 'corporation', 'follower', '8'),
-	(14, 13, 'corporation', 'follower', '8');
+INSERT IGNORE INTO `user_meta` (`id`, `user_id`, `meta_table`, `meta_key`, `meta_value`, `add_time`) VALUES
+	(3, 11, 'corporation', 'follower', '7', NULL),
+	(4, 11, 'user', 'follower', '10', NULL),
+	(5, 11, 'user', 'follower', '15', NULL),
+	(6, 15, 'user', 'follower', '11', NULL),
+	(9, 13, 'corporation', 'follower', '7', NULL),
+	(10, 11, 'corporation', 'follower', '8', NULL),
+	(12, 11, 'user', 'follower', '13', NULL),
+	(13, 15, 'corporation', 'follower', '8', NULL),
+	(14, 13, 'corporation', 'follower', '8', NULL),
+	(17, 13, 'user', 'follower', '11', NULL);
 /*!40000 ALTER TABLE `user_meta` ENABLE KEYS */;
 
 
@@ -4314,7 +4320,7 @@ CREATE TABLE IF NOT EXISTS `user_type` (
 
 -- Dumping data for table jia2.user_type: ~2 rows (approximately)
 /*!40000 ALTER TABLE `user_type` DISABLE KEYS */;
-REPLACE INTO `user_type` (`id`, `name`) VALUES
+INSERT IGNORE INTO `user_type` (`id`, `name`) VALUES
 	(1, 'admin'),
 	(2, 'register');
 /*!40000 ALTER TABLE `user_type` ENABLE KEYS */;
