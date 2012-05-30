@@ -6,8 +6,11 @@
 	<span><?=anchor('corporation/list_all', '查看所有社团','class="creat_button btn_01"') ?></span>
 	<div id="search_box">
 		<div id="search-bar">
-			<input type="text" name="keywords" class="serch_input"/>
-			<button name="search" type="button" class="btn-blue">搜索</button>
+			<?=form_open('search') ?>
+			<?=form_hidden('offset', 0) ?>
+			<?=form_input('keywords','','class="serch_input" id="in_search_content"')?>
+			<?=form_submit('submit', '搜索','class="btn-blue" id="in_search"')?>
+			<?=form_close() ?>
 		</div>
 	</div>
 	<div class="search_item">

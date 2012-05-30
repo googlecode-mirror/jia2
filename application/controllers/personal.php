@@ -305,21 +305,27 @@
 		}
 		
 		// 个人管理（关注，被关注）
-		function manage() {
+		function manage($opereation, $page = 1) {
 			$this->_require_login();
 			$user_id = $this->session->userdata('id');
-			$opereation = $this->input->get('m');
 			$limit = $this->config->item('page_size');
-			$offset = 0;
+			$this->load->library('pagination');
+			$offset = ($page-1) * $limit;
+			$pg_config = array(
+				'base_url' => site_url('personal/manage/' . $opereation),
+				'per_page' => $limit,
+				'uri_segment' => 4,
+				'use_page_numbers' => TRUE
+			);
 			$data['js'] = 'personal/manage.js';
 			switch ($opereation) {
 				case 'follower':
 					$this->jiadb->_table = 'user';
 					$followers = $this->User_model->get_followers($user_id);
-					if($this->_require_ajax(TRUE)) {
-						$offset = $this->input->post('offset');
-					}
 					$data['followers_num'] = count($followers);
+					$pg_config['total_rows'] = $data['followers_num'];
+					$this->pagination->initialize($pg_config);
+					$data['pagination'] = $this->pagination->create_links();
 					if($data['followers_num'] != 0) {
 						$followers_now = array_slice($followers, $offset, $limit);
 						$data['followers'] = $this->jiadb->fetchJoin(array('id' => $followers_now), $this->join);
@@ -332,6 +338,9 @@
 					$this->jiadb->_table = 'user';
 					$following = $this->User_model->get_following($user_id);
 					$data['following_num'] = count($following);
+					$pg_config['total_rows'] = $data['following_num'];
+					$this->pagination->initialize($pg_config);
+					$data['pagination'] = $this->pagination->create_links();
 					if($data['following_num'] != 0) {
 						$following_now = array_slice($following, $offset, $limit);
 						$data['following'] = $this->jiadb->fetchJoin(array('id' => $following_now), $this->join);
