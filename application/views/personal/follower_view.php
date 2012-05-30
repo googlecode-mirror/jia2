@@ -16,6 +16,7 @@
 		</div>
 	</li>
 	<? endforeach?>
+	<?=$pagination ?>
 	<? endif?>
 </ul>
 </div>

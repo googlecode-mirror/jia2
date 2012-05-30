@@ -14,8 +14,8 @@
 	<? if($info['id'] == $this->session->userdata('id')): ?>
 	<div class="sidebar_nav">
 		<ul class="ul_sty_01">
-			<li><a class="a_sty_01 active" href="<?=site_url('personal/manage?m=follower') ?>"><i class="ico ico_newthings"></i>我的粉丝</a></li>
-			<li><a class="a_sty_01 active" href="<?=site_url('personal/manage?m=following') ?>"><i class="ico ico_newthings"></i>我的关注</a></li>
+			<li><a class="a_sty_01 active" href="<?=site_url('personal/manage/follower') ?>"><i class="ico ico_newthings"></i>我的粉丝</a></li>
+			<li><a class="a_sty_01 active" href="<?=site_url('personal/manage/following') ?>"><i class="ico ico_newthings"></i>我的关注</a></li>
 			<li><a class="a_sty_01 active" href="<?=site_url('') ?>"><i class="ico ico_newthings"></i>我的社团</a></li>
 			<li><a class="a_sty_01 active" href="<?=site_url('') ?>"><i class="ico ico_newthings"></i>我的活动</a></li>
 		</ul>
