@@ -22,9 +22,9 @@
 			<? if(isset($user_result)):?>
 			<? foreach($user_result as $row):?>
 			<li>
-				<?=anchor('personal/profile/' . $row['id'], '<img src="' . avatar_url($row['avatar'], 'personal', 'big') . '">', 'class="head_pic"')?>
+				<?=anchor_popup('personal/profile/' . $row['id'], '<img src="' . avatar_url($row['avatar'], 'personal', 'big') . '">', 'class="head_pic"')?>
 				<div class="li_mbox">
-					<h3><?=anchor('personal/profile/' . $row['id'], $row['name'])?></h3>
+					<h3><?=anchor_popup('personal/profile/' . $row['id'], $row['name'])?></h3>
 					<p><?=$row['gender'] == 1 ? '男' : '女'?></p>
 					<p><?=$row['province'][0]['name'] ?></p>
 					<p><?=$row['school'][0]['name'] ?></p>
@@ -38,9 +38,9 @@
 			<? if(isset($corporation_result)):?>
 			<? foreach($corporation_result as $row):?>
 			<li>
-				<?=anchor('corporation/profile/' . $row['id'], '<img src="' . avatar_url($row['avatar'], 'corporation', 'big') . '">', 'class="head_pic"')?>
+				<?=anchor_popup('corporation/profile/' . $row['id'], '<img src="' . avatar_url($row['avatar'], 'corporation', 'big') . '">', 'class="head_pic"')?>
 				<div class="li_mbox">
-					<h3><?=anchor('corporation/profile/' . $row['id'], $row['name'])?></h3>
+					<h3><?=anchor_popup('corporation/profile/' . $row['id'], $row['name'])?></h3>
 				</div>
 			</li>
 			<? endforeach?>
@@ -51,10 +51,10 @@
 			<? if(isset($activity_result)):?>
 			<? foreach($activity_result as $row):?>
 			<li>
-				<?=anchor('activity/view/' . $row['id'], '<img src="' . avatar_url($row['corporation'][0]['avatar'], 'corporation', 'big') . '">', 'class="head_pic"')
+				<?=anchor_popup('activity/view/' . $row['id'], '<img src="' . avatar_url($row['corporation'][0]['avatar'], 'corporation', 'big') . '">', 'class="head_pic"')
 				?>
 				<div class="li_mbox">
-					<h3><?=anchor('activity/view/' . $row['id'], $row['name'])
+					<h3><?=anchor_popup('activity/view/' . $row['id'], $row['name'])
 					?></h3>
 				</div>
 			</li>
