@@ -150,4 +150,57 @@
 			$data['users'] = $user_info;
 			$this->load->view('search_user_view', $data);
 		}
+		
+		// ajax自动完成表单
+		function ajax_aucomplate() {
+			$this->_require_ajax();
+			// 从哪里获取用户
+			$limit = $this->config->item('page_size');
+			$obj = $this->input->post('obj');
+			$json_array = array(
+				0 => array(
+					'label' => '没找到',
+					'value' => 0
+				)
+			);
+			switch ($obj) {
+				// 搜索用户
+				case 'user':
+					$from = $this->input->post('from');
+					$key = $this->input->post('key');
+					switch ($from) {
+						// 从所有用户中搜索
+						case 'all':
+							$this->db->like('name', $key, 'after');
+							$result = $this->db->get('user')->result_array();
+							if(count($result) > 0) {
+								$json_array = array();
+								foreach ($result as $key => $value) {
+									$json_array[$key]['label'] = $value['name'];
+									$json_array[$key]['value'] = $value['id'];
+								}
+							}
+							break;
+						// 从好友以及关注中搜索
+						default:
+							
+							break;
+					}
+					//var_dump($json_array);exit;
+					echo json_encode($json_array);
+					break;
+				
+				default:
+					
+					break;
+			}
+			$from = $this->input->post('from');
+			switch($from) {
+				case 'all':
+					//do something here
+				break;
+			default:
+				
+			}
+		}
 	}

@@ -32,7 +32,10 @@
 						$this->load->view('notify/letter_' . $box . '_view', $letter);
 					} else {
 						$data['title'] = '站内信';
-						$data['js'] = 'personal/letter.js';
+						$data['js'] = array(
+							'personal/letter.js',
+							'search.js'
+						);
 						$this->load->view('includes/template_view', $data);
 					}
 					break;
