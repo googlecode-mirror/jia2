@@ -390,4 +390,8 @@
 			$this->_require_login();
 			$this->_require_ajax();
 		}
+		
+		function blog() {
+			
+		}
 	}
