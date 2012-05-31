@@ -3,7 +3,7 @@
 -- Server version:               5.5.16 - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-05-29 17:22:55
+-- Date/time:                    2012-05-31 13:38:47
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -110,6 +110,19 @@ CREATE TABLE IF NOT EXISTS `activity_meta` (
 -- Dumping data for table jia2.activity_meta: ~0 rows (approximately)
 /*!40000 ALTER TABLE `activity_meta` DISABLE KEYS */;
 /*!40000 ALTER TABLE `activity_meta` ENABLE KEYS */;
+
+
+-- Dumping structure for table jia2.blog
+CREATE TABLE IF NOT EXISTS `blog` (
+  `owner_id` int(10) DEFAULT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  `content` text,
+  `add_time` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='日志';
+
+-- Dumping data for table jia2.blog: ~0 rows (approximately)
+/*!40000 ALTER TABLE `blog` DISABLE KEYS */;
+/*!40000 ALTER TABLE `blog` ENABLE KEYS */;
 
 
 -- Dumping structure for table jia2.comment
@@ -548,9 +561,9 @@ CREATE TABLE IF NOT EXISTS `notify` (
   CONSTRAINT `fk_notify_notify_type1` FOREIGN KEY (`type_id`) REFERENCES `notify_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_notify_user1` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_notify_user2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.notify: ~31 rows (approximately)
+-- Dumping data for table jia2.notify: ~37 rows (approximately)
 /*!40000 ALTER TABLE `notify` DISABLE KEYS */;
 INSERT IGNORE INTO `notify` (`id`, `user_id`, `receiver_id`, `type_id`, `time`, `content`, `status`) VALUES
 	(1, 11, 13, 3, 1335754372, '评论了你的<a href="http://jia2.localhost/post/36">新鲜事</a>', 0),
@@ -588,7 +601,8 @@ INSERT IGNORE INTO `notify` (`id`, `user_id`, `receiver_id`, `type_id`, `time`, 
 	(53, 3, 13, 3, 1338282926, '关注了你', 1),
 	(54, 3, 13, 3, 1338282989, '关注了你', 1),
 	(55, 3, 13, 3, 1338282997, '关注了你', 1),
-	(56, 3, 13, 3, 1338283051, '关注了你', 1);
+	(56, 3, 13, 3, 1338283051, '关注了你', 1),
+	(57, 3, 13, 3, 1338350031, '关注了你', 1);
 /*!40000 ALTER TABLE `notify` ENABLE KEYS */;
 
 
@@ -4293,7 +4307,7 @@ CREATE TABLE IF NOT EXISTS `user_meta` (
   PRIMARY KEY (`id`),
   KEY `fk_user_meta_users1` (`user_id`),
   CONSTRAINT `fk_jia2_user_meta_jia2_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table jia2.user_meta: ~11 rows (approximately)
 /*!40000 ALTER TABLE `user_meta` DISABLE KEYS */;
@@ -4307,7 +4321,8 @@ INSERT IGNORE INTO `user_meta` (`id`, `user_id`, `meta_table`, `meta_key`, `meta
 	(12, 11, 'user', 'follower', '13', NULL),
 	(13, 15, 'corporation', 'follower', '8', NULL),
 	(14, 13, 'corporation', 'follower', '8', NULL),
-	(17, 13, 'user', 'follower', '11', NULL);
+	(17, 13, 'user', 'follower', '11', NULL),
+	(18, 3, 'user', 'follower', '13', NULL);
 /*!40000 ALTER TABLE `user_meta` ENABLE KEYS */;
 
 
