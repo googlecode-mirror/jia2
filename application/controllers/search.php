@@ -163,11 +163,15 @@
 					'value' => 0
 				)
 			);
+			$key = $this->input->post('key');
+			if(trim($key) == '') {
+				exit();
+			}
 			switch ($obj) {
 				// 搜索用户
 				case 'user':
 					$from = $this->input->post('from');
-					$key = $this->input->post('key');
+					
 					switch ($from) {
 						// 从所有用户中搜索
 						case 'all':
@@ -187,7 +191,7 @@
 							break;
 					}
 					//var_dump($json_array);exit;
-					echo json_encode($json_array);
+					echo jia_json($json_array);
 					break;
 				
 				default:
@@ -201,6 +205,17 @@
 				break;
 			default:
 				
+			}
+		}
+		
+		function _extra_data($array) {
+			$length = $count($array);
+			foreach ($array as $key => $value) {
+				if($key == 0)
+					echo '[';
+					
+				if($key == $length - 1)
+					echo ']';
 			}
 		}
 	}

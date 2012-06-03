@@ -6,6 +6,7 @@
 	<li class="li_input"><label>收信人：</label>
 		<div class="InputWrapper"><div class="InputInner">
 				<?=form_input('receiver', '', 'id="receiver"') ?>
+				<?=form_hidden('receiver_id') ?>
 		</div></div>
 		<span>此处需要填入收信人id，人个人主页的url最后的数字即是用户id</span>
 	</li>
