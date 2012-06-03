@@ -8,6 +8,7 @@
 		<div id="search-bar">
 			<?=form_open('search') ?>
 			<?=form_hidden('offset', 0) ?>
+			<?=form_hidden('corporation', 1) ?>
 			<?=form_input('keywords','','class="serch_input" id="in_search_content"')?>
 			<?=form_submit('submit', '搜索','class="btn-blue" id="in_search"')?>
 			<?=form_close() ?>

@@ -29,7 +29,7 @@
 			$this->load->view('includes/template_view', $data);
 		}
 		
-		// 列出所有社团
+		// 列出全校社团
 		function list_all($id = '', $page = '') {
 			$this->jiadb->_table = 'corporation';
 			if(!empty($id) && is_numeric($id)) {
@@ -53,6 +53,17 @@
 			} else {
 				static_view();
 			}
+		}
+		
+		function list_by_school() {
+			$this->_require_login();
+			$limit = array($this->config->item('page_size'), 0);
+			$user_info = $this->User_model->get_info($this->session->userdata('id'), array('school' => array('school_id', 'id')));
+			$data['title'] = $user_info['school'][0]['name'] . '的社团';
+			$this->jiadb->_table = 'corporation';
+			$data['corporations'] = $this->jiadb->fetchAll(array('school_id' => $user_info['school'][0]['id']), '', $limit);
+			$data['main_content'] = 'corporation/list_view';
+			$this->load->view('includes/template_view', $data);
 		}
 		
 		function profile($corporation_id = '') {

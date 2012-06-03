@@ -1,14 +1,15 @@
 <div id="main">
-	<h3>&nbsp;搜索&nbsp;<span id="searh_key">“<?=$this->input->post('keywords') ?>”</span></h3>
+	<h3>&nbsp;搜索&nbsp;<span id="searh_key">“<?=trim($this->input->post('keywords')) ?>”</span></h3>
 	<div id="search_box">
 		<div id="search-bar">
 			<?=form_open('search') ?>
 			<?=form_hidden('offset', 0) ?>
 			<?=form_input('keywords','','class="serch_input" id="in_search_content"')?>
 			<?=form_submit('submit', '搜索','class="btn-blue" id="in_search"')?>
-			<?=form_close() ?>
 		</div>
 	</div>
+	<p><?=form_checkbox('user', 1, 'checked:checked') ?>用户<?=form_checkbox('corporation', 1) ?>社团<?=form_checkbox('activity', 1) ?>活动</p>
+		<?=form_close() ?>
 	<div class="search_item">
 			<ul>
 				<li class="sd01" id="01">
@@ -17,6 +18,7 @@
 			</ul>
 	</div>
 	<div id="search_result_01" class="search_result">
+		<? if(isset($user_result)): ?>
 		<h4>人名 <span><?=$user_rows?>条结果</span></h4>
 		<ul id="user-result">
 			<? if(isset($user_result)):?>
@@ -33,6 +35,8 @@
 			<? endforeach?>
 			<? endif?>
 		</ul>
+		<? endif ?>
+		<? if(isset($corporation_result)): ?>
 		<h4>社团 <span><?=$corporation_rows?>条结果</span></h4>
 		<ul id="corporation-result">
 			<? if(isset($corporation_result)):?>
@@ -46,6 +50,8 @@
 			<? endforeach?>
 			<? endif?>
 		</ul>
+		<? endif ?>
+		<? if(isset($activity_result)): ?>
 		<h4>活动 <span><?=$activity_rows?>条结果</span></h4>
 		<ul id="activity-result">
 			<? if(isset($activity_result)):?>
@@ -61,4 +67,5 @@
 			<? endforeach?>
 			<? endif?>
 		</ul>
+		<? endif ?>
 	</div>
