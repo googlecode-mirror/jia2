@@ -19,23 +19,22 @@
 			$data['css'] = array("main_content.css");
 			$data['js'] = array('search.js','tab.js');
 			if($this->input->post('keywords')) {
-				$user_result = $this->_user();
-				$user_rows = $user_result['rows'];
-				$corporation_result = $this->_corporation();
-				$corporation_rows = $corporation_result['rows'];
-				$activity_result = $this->_activity();
-				$activity_rows = $activity_result['rows'];
-				unset($activity_result['rows']);
-				unset($corporation_result['rows']);
-				unset($user_result['rows']);
-				$data['user_result'] = $user_result;
-				$data['corporation_result'] = $corporation_result;
-				$data['activity_result'] = $activity_result;
-				
+				if($this->input->post('user')) {
+					$data['user_result'] = $this->_user();
+					$data['user_rows'] = $data['user_result']['rows'];
+					unset($data['user_result']['rows']);
+				}
+				if($this->input->post('corporation')) {
+					$data['corporation_result'] = $this->_corporation();
+					$data['corporation_rows'] = $data['corporation_result']['rows'];
+					unset($data['corporation_result']['rows']);
+				}
+				if($this->input->post('activity')) {
+					$data['activity_result'] = $this->_activity();
+					$data['activity_rows'] = $data['activity_result']['rows'];
+					unset($data['activity_result']['rows']);
+				}
 			}
-			$data['corporation_rows'] = !empty($corporation_rows) ? $corporation_rows : 0;
-			$data['activity_rows'] = !empty($activity_rows) ? $activity_rows : 0;
-			$data['user_rows'] = !empty($user_rows) ? $user_rows : 0;
 			$this->load->view('includes/template_view', $data);
 		}
 		
