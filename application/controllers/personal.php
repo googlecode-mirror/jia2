@@ -308,7 +308,7 @@
 		function manage($opereation, $page = 1) {
 			$this->_require_login();
 			$user_id = $this->session->userdata('id');
-			$limit = $this->config->item('page_size');
+			$limit = 2;//$this->config->item('page_size');
 			$this->load->library('pagination');
 			$offset = ($page-1) * $limit;
 			$pg_config = array(
