@@ -1,3 +1,20 @@
+<script type="text/javascript" src="<?=base_url('resource/SWFUpload/swfupload.js') ?>"></script>
+<script>
+	var swfu;
+	
+window.onload = function () {
+	swfu = new SWFUpload({
+		upload_url : "http://www.swfupload.org/upload.php",
+		flash_url : "http://www.swfupload.org/swfupload.swf",
+		button_placeholder_id : "swfu-placeholder",
+		file_size_limit : "20480",
+		button_width: 200, //按钮宽度
+	    button_height: 20, //按钮高度
+	    button_text: ‘点我选择文件‘//按钮文字
+	});
+};
+</script>
+
 <div id="main">
 <div id="request_comment">
 	<p>申请细则：</p>
@@ -17,6 +34,8 @@
 			</div>
 			</div>
 		</span>
+		<div id="swfu-placeholder"></div>
+<div><input type="button" onclick="swfu.startUpload();" value="上传" /></div>
 		<span ><label>学生证照：</label>
 			<b href="" class="btn-blue">
 				浏览
