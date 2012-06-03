@@ -42,6 +42,27 @@ label{
 	float:left;
 }
 /* -------------
+ * Checkboxes
+ * ------------- */
+span.jqTransformCheckboxWrapper{
+	display:block;float:left;
+	margin-top:5px;
+}
+a.jqTransformCheckbox {
+	background: transparent url(img/checkbox.gif) no-repeat center top;
+	vertical-align: middle;
+	height: 19px;
+	width: 18px;
+	display:block;/*display: -moz-inline-block;*/
+}
+
+/* -------------
+ * Checked - Used for both Radio and Checkbox
+ * ------------- */
+a.jqTransformChecked { background-position: center bottom;}
+
+
+/* -------------
  * Inputs
  * ------------- */
 .InputWrapper {
@@ -212,7 +233,7 @@ form#request_form p.li_d{
 	line-height: 24px;
 	padding:0 10px;
 }
-.btn-blue {
+.btn-blue,#spanButtonPlaceHolder {
 	position: relative;
 	display: inline-block;
 	float:left;
@@ -544,4 +565,8 @@ a#in_box, a#out_box{
 
 #request_form textarea{
 	width:190px;
+}
+/***********/
+#chose_box{
+	margin-top:20px;
 }
