@@ -33,6 +33,11 @@ $(function(){
 	$(".Textarea").focus(function(){
 		 $(this).addClass("Textarea-focus");
 	});
+	
+	//搜索框
+	$("#nav_search_content").focus(function(){
+		$(this).val("");
+	})
 });
 
 function index_user(extend) {

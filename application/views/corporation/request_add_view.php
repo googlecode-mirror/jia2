@@ -1,18 +1,57 @@
 <script type="text/javascript" src="<?=base_url('resource/SWFUpload/swfupload.js') ?>"></script>
 <script>
-	var swfu;
-	
-window.onload = function () {
-	swfu = new SWFUpload({
-		upload_url : "http://www.swfupload.org/upload.php",
-		flash_url : "http://www.swfupload.org/swfupload.swf",
-		button_placeholder_id : "swfu-placeholder",
-		file_size_limit : "20480",
-		button_width: 200, //按钮宽度
-	    button_height: 20, //按钮高度
-	    button_text: ‘点我选择文件‘//按钮文字
-	});
-};
+// var swfu;
+// 	
+// window.onload = function () {
+	// swfu = new SWFUpload({
+		// upload_url : "http://www.swfupload.org/upload.php",
+		// flash_url : "http://www.swfupload.org/swfupload.swf",
+		// button_placeholder_id : "swfu-placeholder",
+		// file_size_limit : "20480",
+		// button_width: 200, //按钮宽度
+	    // button_height: 20, //按钮高度
+	    // button_text: ‘点我选择文件‘//按钮文字
+	// });
+// };
+
+		var swfu;
+
+		window.onload = function() {
+			var settings = {
+				flash_url : "http://www.swfupload.org/swfupload.swf",
+				upload_url : "http://www.swfupload.org/upload.php",
+				post_params: {"PHPSESSID" : ""},
+				file_size_limit : "100 MB",
+				file_types : "*.*",
+				file_types_description : "All Files",
+				file_upload_limit : 100,
+				file_queue_limit : 0,
+				custom_settings : {
+					progressTarget : "fsUploadProgress",
+					cancelButtonId : "btnCancel"
+				},
+				debug: false,
+
+				// Button settings
+				button_placeholder_id: "spanButtonPlaceHolder",
+				button_text: '<span class="theFont">Hello</span>',
+				button_text_style: ".theFont { font-size: 16; }",
+
+				// The event handler functions are defined in handlers.js
+				file_queued_handler : fileQueued,
+				file_queue_error_handler : fileQueueError,
+				file_dialog_complete_handler : fileDialogComplete,
+				upload_start_handler : uploadStart,
+				upload_progress_handler : uploadProgress,
+				upload_error_handler : uploadError,
+				upload_success_handler : uploadSuccess,
+				upload_complete_handler : uploadComplete,
+				queue_complete_handler : queueComplete	// Queue plugin event
+			};
+			swfu = new SWFUpload(settings);
+	     };
+
+
 </script>
 
 <div id="main">
@@ -27,7 +66,7 @@ window.onload = function () {
 </div>
 <div id="add-corporation" class="hidden" >
 	<?=form_open_multipart('corporation/request_add','class="form" id="request_form"')?>
-	<div id="swfu-placeholder"></div>
+	<div id="fsUploadProgress"></div>
 		<span ><label>学号：</label>
 			<div class="InputWrapper">
 			<div class="InputInner">
@@ -36,11 +75,12 @@ window.onload = function () {
 			</div>
 		</span>
 		<span ><label>学生证照：</label>
-			<b href="" class="btn-blue">
+			<b href="" class="btn-blue" id="spanButtonPlaceHolder">
 				浏览
-				<?=form_upload('st_card_cap') ?>
+<!-- 				<?=form_upload('st_card_cap') ?> -->
 			</b>
-			<input type="button" onclick="swfu.startUpload();" value="上传" class="pub_button file_btn file_btn1" width="100"/>
+			<input id="btnCancel" type="button" value="取消上传" onclick="swfu.cancelQueue();" class="pub_button file_btn file_btn1" disabled="disabled" />
+<!-- 			<input type="button" onclick="swfu.startUpload();" value="取消上传" class="pub_button file_btn file_btn1"/> -->
 			
 		</span>
 		<span ><label>身份证号：</label>

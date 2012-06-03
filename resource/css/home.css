@@ -422,7 +422,7 @@ li.feed_a{
 	border-radius:3px;
 	margin-left:10px;
 }
-#searchform #nav_search_content {float:left;border: 0; width:155px; background:none; line-height:21px; height:21px; color:#bab9b9; }
+#searchform #nav_search_content {float:left;border: 0; width:155px; background:none; line-height:21px; height:21px; color:#bab9b9; padding-left:4px;}
 #searchform #nav_search_submit {float:left;margin:0;width:25px;height:21px;cursor:pointer;border-left:1px solid #cacaca; background:url(../img/toolbar.png) -91px -26px;}
 
 /**************container******************/

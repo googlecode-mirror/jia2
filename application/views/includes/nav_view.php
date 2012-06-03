@@ -7,7 +7,7 @@
 		<span class="search left">
 				<?=form_open('search','id="searchform"') ?>
 				<?=form_hidden('offset', 0) ?>
-				<?=form_input(array('id' => 'nav_search_content', 'maxlength' => 50, 'class' => 'keywords', 'name' => 'keywords')) ?>
+				<?=form_input(array('id' => 'nav_search_content', 'maxlength' => 50, 'class' => 'keywords', 'name' => 'keywords','value'=>'社团/个人/活动')) ?>
 				<?=form_submit('submit', '', 'class="button" id="nav_search_submit"') ?>
 	            <?=form_close() ?>
 			</span>

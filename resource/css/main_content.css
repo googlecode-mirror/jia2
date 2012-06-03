@@ -531,7 +531,7 @@ a#in_box, a#out_box{
 #add-corporation{
 	position:relative;
 }
-#swfu-placeholder{
+#fsUploadProgress{
 	position:absolute;
 	right:20px;
 	height:40px;
