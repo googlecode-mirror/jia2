@@ -238,6 +238,7 @@ b.btn-blue{color: #fff;}
 .file_btn{
 	height:30px;
 }
+
 #post_content{
 	width:599px;
 	height:50px;
@@ -487,7 +488,7 @@ input[type="file"]{
 	width:100px;
 }
 #add-corporation input{
-	width:100%;
+/*	width:100%;*/
 }
 #add-corporation label,#add-corporation .InputWrapper{
 	float:left;
@@ -521,4 +522,26 @@ a#in_box, a#out_box{
 }
 .tab_content{
 	padding:20px;
+}
+/***********************/
+.file_btn1{
+	margin-top:0;
+}
+
+#add-corporation{
+	position:relative;
+}
+#swfu-placeholder{
+	position:absolute;
+	right:20px;
+	height:40px;
+	width:160px;
+	height:160px;
+	border:1px solid #e1e1e1;
+	border-radius:3px;
+	margin-left:110px;
+}
+
+#request_form textarea{
+	width:190px;
 }
