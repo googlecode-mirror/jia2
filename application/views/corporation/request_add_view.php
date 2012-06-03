@@ -1,4 +1,5 @@
 <script type="text/javascript" src="<?=base_url('resource/SWFUpload/swfupload.js') ?>"></script>
+<script type="text/javascript" src="<?=base_url('resource/SWFUpload/plugins/handlers.js') ?>"></script>
 <script>
 // var swfu;
 // 	
@@ -18,7 +19,7 @@
 
 		window.onload = function() {
 			var settings = {
-				flash_url : "http://www.swfupload.org/swfupload.swf",
+				flash_url : "<?=base_url('resource/SWFUpload/Flash/swfupload.swf') ?>",
 				upload_url : "http://www.swfupload.org/upload.php",
 				post_params: {"PHPSESSID" : ""},
 				file_size_limit : "100 MB",
@@ -34,8 +35,11 @@
 
 				// Button settings
 				button_placeholder_id: "spanButtonPlaceHolder",
-				button_text: '<span class="theFont">Hello</span>',
-				button_text_style: ".theFont { font-size: 16; }",
+				button_image_url: "<?=base_url('resource/img/button_bg.png') ?>",
+				button_width: "65",
+				button_height: "28",
+				button_text: '<b class="theFont">浏览</b>',
+				button_text_style: ".theFont { font-size: 12; font-weight: bold}",
 
 				// The event handler functions are defined in handlers.js
 				file_queued_handler : fileQueued,
@@ -75,9 +79,7 @@
 			</div>
 		</span>
 		<span ><label>学生证照：</label>
-			<b href="" class="btn-blue" id="spanButtonPlaceHolder">
-				浏览
-<!-- 				<?=form_upload('st_card_cap') ?> -->
+			<b href="#" class="btn-blue" id="spanButtonPlaceHolder">浏览
 			</b>
 			<input id="btnCancel" type="button" value="取消上传" onclick="swfu.cancelQueue();" class="pub_button file_btn file_btn1" disabled="disabled" />
 <!-- 			<input type="button" onclick="swfu.startUpload();" value="取消上传" class="pub_button file_btn file_btn1"/> -->
