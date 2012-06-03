@@ -27,6 +27,7 @@ window.onload = function () {
 </div>
 <div id="add-corporation" class="hidden" >
 	<?=form_open_multipart('corporation/request_add','class="form" id="request_form"')?>
+	<div id="swfu-placeholder"></div>
 		<span ><label>学号：</label>
 			<div class="InputWrapper">
 			<div class="InputInner">
@@ -34,13 +35,13 @@ window.onload = function () {
 			</div>
 			</div>
 		</span>
-		<div id="swfu-placeholder"></div>
-<div><input type="button" onclick="swfu.startUpload();" value="上传" /></div>
 		<span ><label>学生证照：</label>
 			<b href="" class="btn-blue">
 				浏览
 				<?=form_upload('st_card_cap') ?>
 			</b>
+			<input type="button" onclick="swfu.startUpload();" value="上传" class="pub_button file_btn file_btn1" width="100"/>
+			
 		</span>
 		<span ><label>身份证号：</label>
 			<div class="InputWrapper">
