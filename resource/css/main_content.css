@@ -44,23 +44,43 @@ label{
 /* -------------
  * Checkboxes
  * ------------- */
-span.jqTransformCheckboxWrapper{
-	display:block;float:left;
-	margin-top:5px;
+span.CheckboxWrapper,span.Checkitem{
+	display:block;
+	float:left;
+	b/order: 1px solid #000;
+	height: 19px;
+	width:18px;
+	ove/rflow: hidden;
+	position:relative;
 }
-a.jqTransformCheckbox {
-	background: transparent url(img/checkbox.gif) no-repeat center top;
+span.Checkitem{
+	line-height:19px;
+	width:30px;
+	margin-right:20px;
+	margin-left:5px;
+}
+.Checkbox {
+	background: transparent url(../img/checkbox.gif) no-repeat center top;
 	vertical-align: middle;
 	height: 19px;
 	width: 18px;
 	display:block;/*display: -moz-inline-block;*/
 }
 
-/* -------------
- * Checked - Used for both Radio and Checkbox
- * ------------- */
-a.jqTransformChecked { background-position: center bottom;}
-
+.Checked {
+	background: transparent url(../img/checkbox.gif) no-repeat center bottom;
+	vertical-align: middle;
+	height: 19px;
+	width: 18px;
+	display:block;
+}
+input.chbox{
+	opacity:0;
+	filter:alpha(opacity=0);
+	position:absolute;
+	top:20px;
+	right:1px;
+}
 
 /* -------------
  * Inputs
@@ -573,6 +593,7 @@ a#in_box, a#out_box{
 /***********/
 #chose_box{
 	margin-top:20px;
+	overflow: hidden;
 }
 
 span.swf_box{
