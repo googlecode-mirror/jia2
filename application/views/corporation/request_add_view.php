@@ -1,21 +1,9 @@
 <script type="text/javascript" src="<?=base_url('resource/SWFUpload/swfupload.js') ?>"></script>
 <script type="text/javascript" src="<?=base_url('resource/SWFUpload/plugins/handlers.js') ?>"></script>
 <script>
-// var swfu;
-// 	
-// window.onload = function () {
-	// swfu = new SWFUpload({
-		// upload_url : "http://www.swfupload.org/upload.php",
-		// flash_url : "http://www.swfupload.org/swfupload.swf",
-		// button_placeholder_id : "swfu-placeholder",
-		// file_size_limit : "20480",
-		// button_width: 200, //按钮宽度
-	    // button_height: 20, //按钮高度
-	    // button_text: ‘点我选择文件‘//按钮文字
-	// });
-// };
 
 		var swfu;
+		var swfu2;
 
 		window.onload = function() {
 			var settings = {
@@ -35,11 +23,13 @@
 
 				// Button settings
 				button_placeholder_id: "spanButtonPlaceHolder",
-				button_image_url: "<?=base_url('resource/img/button_bg.png') ?>",
-				button_width: "65",
-				button_height: "28",
-				button_text: '<b class="theFont">浏览</b>',
-				button_text_style: ".theFont { font-size: 12; font-weight: bold}",
+				button_image_url: "<?=base_url('resource/img/swfload_btn1.png') ?>",
+				button_width: "88",
+				button_height: "30",
+				// button_text: '<b class="theFont">浏览</b>',
+				// button_text_style: ".theFont {color: #ffffff; font-size: 12; font-weight: bold}",
+				button_text_left_padding:30,
+				button_text_top_padding:5,
 
 				// The event handler functions are defined in handlers.js
 				file_queued_handler : fileQueued,
@@ -53,9 +43,45 @@
 				queue_complete_handler : queueComplete	// Queue plugin event
 			};
 			swfu = new SWFUpload(settings);
+			
+			var settings2 = {
+				flash_url : "<?=base_url('resource/SWFUpload/Flash/swfupload.swf') ?>",
+				upload_url : "http://www.swfupload.org/upload.php",
+				post_params: {"PHPSESSID" : ""},
+				file_size_limit : "100 MB",
+				file_types : "*.*",
+				file_types_description : "All Files",
+				file_upload_limit : 100,
+				file_queue_limit : 0,
+				custom_settings : {
+					progressTarget : "fsUploadProgress2",
+					cancelButtonId : "btnCancel"
+				},
+				debug: false,
+
+				// Button settings
+				button_placeholder_id: "spanButtonPlaceHolder2",
+				button_image_url: "<?=base_url('resource/img/swfload_btn1.png') ?>",
+				button_width: "88",
+				button_height: "30",
+				// button_text: '<b class="theFont">浏览</b>',
+				// button_text_style: ".theFont {color: #ffffff; font-size: 12; font-weight: bold}",
+				button_text_left_padding:30,
+				button_text_top_padding:5,
+
+				// The event handler functions are defined in handlers.js
+				file_queued_handler : fileQueued,
+				file_queue_error_handler : fileQueueError,
+				file_dialog_complete_handler : fileDialogComplete,
+				upload_start_handler : uploadStart,
+				upload_progress_handler : uploadProgress,
+				upload_error_handler : uploadError,
+				upload_success_handler : uploadSuccess,
+				upload_complete_handler : uploadComplete,
+				queue_complete_handler : queueComplete	// Queue plugin event
+			};
+			swfu2 = new SWFUpload(settings2);
 	     };
-
-
 </script>
 
 <div id="main">
@@ -71,6 +97,7 @@
 <div id="add-corporation" class="hidden" >
 	<?=form_open_multipart('corporation/request_add','class="form" id="request_form"')?>
 	<div id="fsUploadProgress"></div>
+	<div id="fsUploadProgress2"></div>
 		<span ><label>学号：</label>
 			<div class="InputWrapper">
 			<div class="InputInner">
@@ -78,11 +105,9 @@
 			</div>
 			</div>
 		</span>
-		<span ><label>学生证照：</label>
-			<b href="#" class="btn-blue" id="spanButtonPlaceHolder">浏览
-			</b>
+		<span class="swf_box"><label>学生证照：</label>
+			<b href="#" class="btn-blue" id="spanButtonPlaceHolder" onclick="swfu.startUpload();">浏览	</b>
 			<input id="btnCancel" type="button" value="取消上传" onclick="swfu.cancelQueue();" class="pub_button file_btn file_btn1" disabled="disabled" />
-<!-- 			<input type="button" onclick="swfu.startUpload();" value="取消上传" class="pub_button file_btn file_btn1"/> -->
 			
 		</span>
 		<span ><label>身份证号：</label>
@@ -92,11 +117,10 @@
 			</div>
 			</div>
 		</span>
-		<span><label>身份证照：</label>
-			<b href="" class="btn-blue">
-				浏览
-				<?=form_upload('id_card_cap') ?>
-			</b>
+		<span class="swf_box"><label>身份证照：</label>
+			<b href="#" class="btn-blue" id="spanButtonPlaceHolder2">浏览</b>
+			<input id="btnCancel2" type="button" value="取消上传" onclick="swfu.cancelQueue();" class="pub_button file_btn file_btn1" disabled="disabled" />
+			
 		</span>
 		<span ><label>创建社团名：</label>
 			<div class="InputWrapper">

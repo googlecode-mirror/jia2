@@ -498,7 +498,7 @@ input[type="file"]{
 	padding:5px 0;
 	overflow:hidden;
 	display: block;
-	width:100%;
+/*	width:100%;*/
 }
 #write_letter_area .li_d{
 	margin-top:10px;
@@ -547,26 +547,34 @@ a#in_box, a#out_box{
 /***********************/
 .file_btn1{
 	margin-top:0;
+	float: right;
+	font-weight:normal;
 }
 
 #add-corporation{
 	position:relative;
 }
-#fsUploadProgress{
+#fsUploadProgress,#fsUploadProgress2{
 	position:absolute;
 	right:20px;
-	height:40px;
+	top:20px;
 	width:160px;
 	height:160px;
 	border:1px solid #e1e1e1;
 	border-radius:3px;
 	margin-left:110px;
 }
-
+#fsUploadProgress2{
+	top:200px;
+}
 #request_form textarea{
 	width:190px;
 }
 /***********/
 #chose_box{
 	margin-top:20px;
+}
+
+span.swf_box{
+	width:308px;
 }
