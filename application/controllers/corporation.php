@@ -200,13 +200,24 @@
 				static_view('你需要完善自己的省份信息' . anchor('personal/setting#info', '点此设置'), '申请创建社团');
 			if($requests)
 				static_view('你已经申请过创建社团了，请勿重复申请');
+			// 当get参数为上传图片时
 			$submit = $this->input->post('submit');
 			if(!empty($submit)) {
 				$this->load->model('Photo_model');
 				// 判断证件照
-				$caps = $this->Photo_model->save_request_cap();
-				$id_card_cap = $caps['id_card_cap'];
-				$st_card_cap = $caps['st_card_cap'];
+				//$caps = $this->Photo_model->save_request_cap();
+				$id_card_cap = $this->input->post('st_card_cap');
+				$st_card_cap = $this->input->post('id_card_cap');
+				$caps = array(
+					'st_card_cap' . '_' .$this->session->userdata('id') . '.jpg',
+					'id_card_cap' . '_' .$this->session->userdata('id') . '.jpg'
+				);
+				foreach ($caps as $value) {
+					//echo $this->config->item('corporation_request') . $value;exit;
+					if(!file_exists($this->config->item('corporation_request') . $value)) {
+						static_view('你需要先上传证件照');
+					}
+				}
 				$id_card_number = $this->input->post('id_card_number');
 				$st_card_number = $this->input->post('st_card_number');
 				$co_name = $this->input->post('co_name');
@@ -215,8 +226,8 @@
 					'user_id' => $this->session->userdata('id'),
 					'id_card_number' => $id_card_number,
 					'st_card_number' => $st_card_number,
-					'id_card_cap' => $id_card_cap,
-					'st_card_cap' => $st_card_cap,
+					'id_card_cap' => $caps[1],
+					'st_card_cap' => $caps[0],
 					'comment' => $comment,
 					'co_name' => $co_name,
 					'time' => time()
@@ -239,6 +250,38 @@
 				$data['js'] = array('jquery.validate.min.js', 'corporation/add.js');
 				$data['main_content'] = 'corporation/request_add_view';
 				$this->load->view('includes/template_view', $data);
+			}
+		}
+
+		function upload_cap() {
+			if(isset($_POST["PHPSESSID"])) {
+				session_id($_POST["PHPSESSID"]);
+				$this->session->set_userdata('id', $this->input->post('user'));
+				$this->session->set_userdata('file_name', $this->input->post('field') . '_' .$this->input->post('user'));
+				$this->load->model('Photo_model');
+				$this->Photo_model->save_request_cap();
+					/*
+					if ($image_id === false) {
+					   header("HTTP/1.1 500 Internal Server Error");
+					   echo "No ID";
+					   exit(0);
+					  }
+						$file_info = $this->session->userdata('file_info');
+					  if (!is_array($file_info) || !isset($file_info[$image_id])) {
+					   header("HTTP/1.1 404 Not found");
+					   exit(0);
+					  }
+					
+					  header("Content-type: image/jpeg") ;
+					  header("Content-Length: ".strlen($file_info[$image_id]));
+					  echo $file_info[$image_id];
+					  exit(0);
+					 * */
+				
+			} else {
+				 header("Content-type: image/jpeg") ;
+				 //readfile('/Users/rabbit/Documents/htdocs/PHP_proj/Jia2/data/request/corporation/id_card_cap_1.jpg');
+				 readfile($this->config->item('corporation_request') . $this->session->userdata('filename'));
 			}
 		}
 		
@@ -403,86 +446,6 @@
 		}
 		
 		function blog() {
-			
-		}
-		
-		function test() {
-			if (isset($_POST["PHPSESSID"])) {
-		session_id($_POST["PHPSESSID"]);
-	}
-
-	session_start();
-	ini_set("html_errors", "0");
-
-	// Check the upload
-	if (!isset($_FILES["Filedata"]) || !is_uploaded_file($_FILES["Filedata"]["tmp_name"]) || $_FILES["Filedata"]["error"] != 0) {
-		echo "ERROR:invalid upload";
-		exit(0);
-	}
-
-	// Get the image and create a thumbnail
-	$img = imagecreatefromjpeg($_FILES["Filedata"]["tmp_name"]);
-	if (!$img) {
-		echo "ERROR:could not create image handle ". $_FILES["Filedata"]["tmp_name"];
-		exit(0);
-	}
-
-	$width = imageSX($img);
-	$height = imageSY($img);
-
-	if (!$width || !$height) {
-		echo "ERROR:Invalid width or height";
-		exit(0);
-	}
-
-	// Build the thumbnail
-	$target_width = 100;
-	$target_height = 100;
-	$target_ratio = $target_width / $target_height;
-
-	$img_ratio = $width / $height;
-
-	if ($target_ratio > $img_ratio) {
-		$new_height = $target_height;
-		$new_width = $img_ratio * $target_height;
-	} else {
-		$new_height = $target_width / $img_ratio;
-		$new_width = $target_width;
-	}
-
-	if ($new_height > $target_height) {
-		$new_height = $target_height;
-	}
-	if ($new_width > $target_width) {
-		$new_height = $target_width;
-	}
-
-	$new_img = ImageCreateTrueColor(100, 100);
-	if (!@imagefilledrectangle($new_img, 0, 0, $target_width-1, $target_height-1, 0)) {	// Fill the image black
-		echo "ERROR:Could not fill new image";
-		exit(0);
-	}
-
-	if (!@imagecopyresampled($new_img, $img, ($target_width-$new_width)/2, ($target_height-$new_height)/2, 0, 0, $new_width, $new_height, $width, $height)) {
-		echo "ERROR:Could not resize image";
-		exit(0);
-	}
-
-	if (!isset($_SESSION["file_info"])) {
-		$_SESSION["file_info"] = array();
-	}
-
-	// Use a output buffering to load the image into a variable
-	ob_start();
-	imagejpeg($new_img);
-	$imagevariable = ob_get_contents();
-	ob_end_clean();
-
-	$file_id = md5($_FILES["Filedata"]["tmp_name"] + rand()*100000);
-	
-	$_SESSION["file_info"][$file_id] = $imagevariable;
-
-	echo "FILEID:" . $file_id;	// Return the file id to the script
 			
 		}
 	}
