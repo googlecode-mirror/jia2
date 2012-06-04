@@ -1,16 +1,11 @@
-<script type="text/javascript" src="<?=base_url('resource/SWFUpload/swfupload.js') ?>"></script>
-<script type="text/javascript" src="<?=base_url('resource/SWFUpload/plugins/handlers.js') ?>"></script>
-<script type="text/javascript" src="<?=base_url('resource/SWFUpload/plugins/swfupload.queue.js') ?>"></script>
-<script type="text/javascript" src="<?=base_url('resource/SWFUpload/plugins/fileprogress.js') ?>"></script>
+<script type="text/javascript" src="<?=base_url('resource/SwfUpload/js/swfupload/swfupload.js') ?>"></script>
+<script type="text/javascript" src="<?=base_url('resource/SwfUpload/js/swfupload/handlers.js') ?>"></script>
+<script type="text/javascript" src="<?=base_url('resource/SwfUpload/js/swfupload/fileprogress.js') ?>"></script>
 <script>
-
-		var swfu;
-		var swfu2;
-
 		window.onload = function() {
 			swfu = new SWFUpload({
                     // Backend Settings
-                    upload_url: "localhost/SwfUpload/upload.php",
+                    upload_url: "http://localhost/SwfUpload/upload.php",
                     post_params: {"PHPSESSID": "<?php echo session_id(); ?>"},
 
                     // File Upload Settings
@@ -43,7 +38,7 @@
                     button_cursor: SWFUpload.CURSOR.HAND,
 
                     // Flash Settings
-                    flash_url : "<?=base_url('resource/SWFUpload/Flash/swfupload.swf') ?>",
+                    flash_url : "<?=base_url('resource/SwfUpload/js/swfupload/swfupload.swf') ?>",
 
                     custom_settings : {
                         progressTarget : "fsUploadProgress",
