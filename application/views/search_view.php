@@ -28,20 +28,17 @@ $(function(){
 	</div>
 	<p id="chose_box">
 		<span class="CheckboxWrapper Checked">
-			<input type="checkbox" name="chbox" class="chbox" checked="checked"/>
+			<input type="checkbox" name="user" value="1" class="chbox" checked="checked"/>
 		</span>
 		<span class="Checkitem">用户</span>
 		<span class="CheckboxWrapper Checkbox">
-			<input type="checkbox" name="chbox" class="chbox"/>
+			<input type="checkbox" name="corporation" value="1" class="chbox"/>
 		</span>
 		<span class="Checkitem">社团</span>
 		<span class="CheckboxWrapper Checkbox">
-			<input type="checkbox" name="chbox" class="chbox"/>
+			<input type="checkbox" name="activity" value="1" class="chbox"/>
 		</span>
 		<span class="Checkitem">活动</span>
-		<!-- <?=form_checkbox('user', 1, 'checked:checked') ?>用户
-		<?=form_checkbox('corporation', 1) ?>社团
-		<?=form_checkbox('activity', 1) ?>活动 -->
 	</p>
 		<?=form_close() ?>
 	<div class="search_item">
