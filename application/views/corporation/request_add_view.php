@@ -3,50 +3,99 @@
 <script type="text/javascript" src="<?=base_url('resource/SwfUpload/js/swfupload/fileprogress.js') ?>"></script>
 <script>
 		window.onload = function() {
-			swfu = new SWFUpload({
-                    // Backend Settings
-                    upload_url: "http://localhost/SwfUpload/upload.php",
-                    post_params: {"PHPSESSID": "<?php echo session_id(); ?>"},
-
-                    // File Upload Settings
-                    file_size_limit : "2 MB",	// 2MB
-                    file_types : "*.jpg",
-                    file_types_description : "JPG Images",
-                    file_upload_limit : "0",
-
-                    // Event Handler Settings - these functions as defined in Handlers.js
-                    //  The handlers are not part of SWFUpload but are part of my website and control how
-                    //  my website reacts to the SWFUpload events.
-                    file_queued_handler : fileQueued,
-                    file_queue_error_handler : fileQueueError,
-                    file_dialog_complete_handler : fileDialogComplete,
-                    upload_progress_handler : uploadProgress,
-                    upload_error_handler : uploadError,
-                    upload_success_handler : uploadSuccess,
-                    upload_complete_handler : uploadComplete,
-
-                    // Button Settings
-                    button_image_url : "images/swfupload/SmallSpyGlassWithTransperancy_17x18.png",
-                    button_placeholder_id : "spanButtonPlaceholder",
-                    button_width: 180,
-                    button_height: 18,
-                    button_text : '<span class="button">选择图片<span class="btn_startupload">(最大 2 MB)</span></span>',
-                    button_text_style : '.button { font-family: Helvetica, Arial, sans-serif; font-size: 12px; }',
-                    button_text_top_padding: 0,
-                    button_text_left_padding: 18,
-                    button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
-                    button_cursor: SWFUpload.CURSOR.HAND,
-
-                    // Flash Settings
-                    flash_url : "<?=base_url('resource/SwfUpload/js/swfupload/swfupload.swf') ?>",
-
-                    custom_settings : {
-                        progressTarget : "fsUploadProgress",
-                        cancelButtonId : "btnCancel"
-                    },
-
-                    // Debug Settings
-                    debug: false
+				swfu1 = new SWFUpload({
+		            // Backend Settings
+		            upload_url: "<?=site_url('corporation/upload_cap') ?>",
+		            post_params: {"PHPSESSID": "<?=session_id() ?>", 'field':'st_card_cap', 'user':'<?=$this->session->userdata('id') ?>'},
+		
+		            // File Upload Settings
+		            file_size_limit : "2 MB",	// 2MB
+		            file_types : "*.jpg",
+		            file_types_description : "JPG Images",
+		            file_upload_limit : "0",
+		            file_post_name: "st_card_cap",
+		
+		            // Event Handler Settings - these functions as defined in Handlers.js
+		            //  The handlers are not part of SWFUpload but are part of my website and control how
+		            //  my website reacts to the SWFUpload events.
+		            file_queued_handler : fileQueued,
+		            file_queue_error_handler : fileQueueError,
+		            file_dialog_complete_handler : fileDialogComplete,
+		            upload_progress_handler : uploadProgress,
+		            upload_error_handler : uploadError,
+		            upload_success_handler : uploadSuccess,
+		            upload_complete_handler : uploadComplete,
+		
+		            // Button Settings
+		            button_image_url : "images/swfupload/SmallSpyGlassWithTransperancy_17x18.png",
+		            button_placeholder_id : "spanButtonPlaceholder1",
+		            button_width: 180,
+		            button_height: 18,
+		            button_text : '<span class="button">选择图片<span class="btn_startupload">(最大 2 MB)</span></span>',
+		            button_text_style : '.button { font-family: Helvetica, Arial, sans-serif; font-size: 12px; }',
+		            button_text_top_padding: 0,
+		            button_text_left_padding: 18,
+		            button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+		            button_cursor: SWFUpload.CURSOR.HAND,
+		
+		            // Flash Settings
+		            flash_url : "<?=base_url('resource/SwfUpload/js/swfupload/swfupload.swf') ?>",
+		
+		            custom_settings : {
+		                progressTarget : "fsUploadProgress1",
+		                cancelButtonId : "btnCancel1"
+		            },
+					prevent_swf_caching : false, 
+					preserve_relative_urls : false, 
+		            // Debug Settings
+		            debug: false
+                });
+                swfu2 = new SWFUpload({
+		            // Backend Settings
+		            upload_url: "<?=site_url('corporation/upload_cap') ?>",
+		            post_params: {"PHPSESSID": "<?=session_id() ?>", 'field':'id_card_cap', 'user':'<?=$this->session->userdata('id') ?>'},
+		
+		            // File Upload Settings
+		            file_size_limit : "2 MB",	// 2MB
+		            file_types : "*.jpg",
+		            file_types_description : "JPG Images",
+		            file_upload_limit : "0",
+		            file_post_name: "id_card_cap",
+		
+		            // Event Handler Settings - these functions as defined in Handlers.js
+		            //  The handlers are not part of SWFUpload but are part of my website and control how
+		            //  my website reacts to the SWFUpload events.
+		            file_queued_handler : fileQueued,
+		            file_queue_error_handler : fileQueueError,
+		            file_dialog_complete_handler : fileDialogComplete,
+		            upload_progress_handler : uploadProgress,
+		            upload_error_handler : uploadError,
+		            upload_success_handler : uploadSuccess,
+		            upload_complete_handler : uploadComplete,
+		
+		            // Button Settings
+		            button_image_url : "images/swfupload/SmallSpyGlassWithTransperancy_17x18.png",
+		            button_placeholder_id : "spanButtonPlaceholder2",
+		            button_width: 180,
+		            button_height: 18,
+		            button_text : '<span class="button">选择图片<span class="btn_startupload">(最大 2 MB)</span></span>',
+		            button_text_style : '.button { font-family: Helvetica, Arial, sans-serif; font-size: 12px; }',
+		            button_text_top_padding: 0,
+		            button_text_left_padding: 18,
+		            button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+		            button_cursor: SWFUpload.CURSOR.HAND,
+		
+		            // Flash Settings
+		            flash_url : "<?=base_url('resource/SwfUpload/js/swfupload/swfupload.swf') ?>",
+		
+		            custom_settings : {
+		                progressTarget : "fsUploadProgress2",
+		                cancelButtonId : "btnCancel2"
+		            },
+					prevent_swf_caching : false, 
+					preserve_relative_urls : false, 
+		            // Debug Settings
+		            debug: false
                 });
 	     };
 </script>
@@ -63,24 +112,27 @@
 </div>
 <div id="add-corporation" class="hidden" >
 	 <div id="content">
-        <h2>Swfupload PHP Ajax上传示例</h2>
-        <p>图片由SWFUpload上传，然后无刷新显示缩略图</p>
-        <form>
-            <div class="fieldset flash" id="fsUploadProgress">
+        	<h2>学生证照</h2>
+            <div class="fieldset flash" id="fsUploadProgress1">
                 <span class="legend">上传队列</span>
             </div>
             <div style="display: inline; border: solid 1px #7FAAFF; background-color: #C5D9FF; padding: 2px;">
-                <span id="spanButtonPlaceholder"></span>&nbsp;
-                <input type="button" value="开始上传" class="btn_startupload" onclick="swfu.startUpload();"/>
-                <input type="button" value="取消上传" id="btnCancel" onclick="swfu.startUpload();"/>
+                <span id="spanButtonPlaceholder1"></span>&nbsp;
+                <input type="button" value="开始上传" class="btn_startupload" onclick="swfu1.startUpload();"/>
+                <input type="button" value="取消上传" id="btnCancel1" onclick="swfu1.cancelUpload();"/>
             </div>
-        </form>
+         	<h2>身份证照</h2>
+            <div class="fieldset flash" id="fsUploadProgress2">
+                <span class="legend">上传队列</span>
+            </div>
+            <div style="display: inline; border: solid 1px #7FAAFF; background-color: #C5D9FF; padding: 2px;">
+                <span id="spanButtonPlaceholder2"></span>&nbsp;
+                <input type="button" value="开始上传" class="btn_startupload" onclick="swfu2.startUpload();"/>
+                <input type="button" value="取消上传" id="btnCancel2" onclick="swfu2.cancelUpload();"/>
+            </div>
         <div id="thumbnails"></div>
     </div>
-	<!--
-	<?=form_open_multipart('corporation/request_add','class="form" id="request_form"')?>
-	<div id="fsUploadProgress"></div>
-	<div id="fsUploadProgress2"></div>
+	<?=form_open('corporation/request_add','class="form" id="request_form"')?>
 		<span ><label>学号：</label>
 			<div class="InputWrapper">
 			<div class="InputInner">
@@ -88,28 +140,12 @@
 			</div>
 			</div>
 		</span>
-		<span class="swf_box"><label>学生证照：</label>
-			 <div class="fieldset flash" id="fsUploadProgress1">
-               <span class="legend">上传队列</span>
-             </div>
-			<b href="#" class="btn-blue" id="spanButtonPlaceHolder" onclick="swfu.startUpload();">选择	</b>
-			<input id="btnCancel" type="button" value="取消上传" onclick="swfu.cancelQueue();" class="pub_button file_btn file_btn1" disabled="disabled" />
-			
-		</span>
 		<span ><label>身份证号：</label>
 			<div class="InputWrapper">
 			<div class="InputInner">
 					<?=form_input('id_card_number') ?>
 			</div>
 			</div>
-		</span>
-		<span class="swf_box"><label>身份证照：</label>
-			 <div class="fieldset flash" id="fsUploadProgress2">
-              <span class="legend">上传队列</span>
-              </div>
-			<b href="#" class="btn-blue" id="spanButtonPlaceHolder2">选择</b>
-			<input id="btnCancel2" type="button" value="取消上传" onclick="swfu.cancelQueue();" class="pub_button file_btn file_btn1" disabled="disabled" />
-			
 		</span>
 		<span ><label>创建社团名：</label>
 			<div class="InputWrapper">
@@ -145,6 +181,5 @@
 		</span>
 		<p class="li_d"><?=form_submit('submit', '提交申请','class="pub_button"') ?></p>
 	<?=form_close() ?>
--->
 </div>  
 </div>

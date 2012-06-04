@@ -13,4 +13,5 @@
 	    <script type="text/javascript" src="<?=base_url('resource/js/inline_window.js') ?>"></script>
 		<script type="text/javascript">
         	SITE_URL = "<?=site_url() ?>";
+        	BASE_URL = "<?=base_url()?>";
         </script>

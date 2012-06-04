@@ -98,7 +98,12 @@ $mimes = array(	'hqx'	=>	'application/mac-binhex40',
 				'word'	=>	array('application/msword', 'application/octet-stream'),
 				'xl'	=>	'application/excel',
 				'eml'	=>	'message/rfc822',
-				'json' => array('application/json', 'text/json')
+				'json' => array('application/json', 'text/json'),
+				'gif'    =>    array('image/gif', 'application/octet-stream'),
+				'jpeg'    =>    array('image/jpeg', 'image/pjpeg', 'application/octet-stream'),
+				'jpg'    =>    array('image/jpeg', 'image/pjpeg', 'application/octet-stream'),
+				'jpe'    =>    array('image/jpeg', 'image/pjpeg', 'application/octet-stream'),
+				'png'    =>    array('image/png',  'image/x-png', 'application/octet-stream'), 
 			);
 
 

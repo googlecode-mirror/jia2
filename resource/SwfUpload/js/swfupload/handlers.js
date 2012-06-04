@@ -34,7 +34,7 @@ function fileQueueError(file, errorCode, message) {
                 break;
         }
 
-        addImage("images/swfupload/" + imageName);
+        addImage(BASE_URL + "resource/SwfUpload/images/swfupload/" + imageName);
 
     } catch (ex) {
         this.debug(ex);
@@ -89,11 +89,11 @@ function uploadSuccess(file, serverData) {
     try {
         var progress = new FileProgress(file,  this.customSettings.upload_target);
         if (serverData.substring(0, 7) === "FILEID:") {
-            addImage("thumbnail.php?id=" + serverData.substring(7));
+            addImage(SITE_URL + "corporation/upload_cap?id=" + serverData.substring(7));
             progress.setStatus("缩略图创建完毕.");
             progress.toggleCancel(false);
         } else {
-            addImage("images/swfupload/error.gif");
+            addImage(BASE_URL + "resource/SwfUpload/images/swfupload/error.gif");
             progress.setStatus("Error.");
             progress.toggleCancel(false);
             alert(serverData);
@@ -154,7 +154,7 @@ function uploadError(file, errorCode, message) {
         }
         if(errorCode != SWFUpload.UPLOAD_ERROR.FILE_CANCELLED)
         {
-            addImage("images/swfupload/" + imageName);
+            addImage(BASE_URL + "resource/SwfUpload/images/swfupload/" + imageName);
         }
 
     } catch (ex3) {
