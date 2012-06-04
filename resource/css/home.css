@@ -119,7 +119,7 @@ a:link { color: #26709A }
 a:visited { color: #26709A }
 a:hover {color: #26709A;	text-decor/ation: underline;}
 a:active {}
-a.active {font-weight:bold;}
+a.active{font-weight:bold;background:#dfdfdf;}
 
 #head_nav a,.right a{
 	text-s/hadow: 1px 1px 1px #000;
@@ -141,8 +141,9 @@ a.a_sty_01{
 	padding-left:10px;
 }
 a.a_sty_01:hover{
-	background:#dfdfdf;
+	background:#ededed;
 }
+a.active:hover {background:#dfdfdf;}
 a.a_sty_02{
 	font-size:12px;
 	position:absolute;

@@ -599,3 +599,23 @@ a#in_box, a#out_box{
 span.swf_box{
 	width:308px;
 }
+/*******分页**********/
+.pagination{
+	margin-top:5px;
+}
+.pagination a,.pagination strong{
+	display:block;
+	height:20px;
+	line-height: 20px;
+	padding: 0 10px;
+	border: 1px solid #ebebeb;
+	float: left;
+	margin-right:5px;
+}
+.pagination strong{
+	background: #0F4775;
+	color:#fff;
+}
+.flow_result{
+	background: #fff;
+}

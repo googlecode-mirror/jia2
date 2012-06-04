@@ -1,4 +1,5 @@
-<div id="search_result_01" class="search_result">
+<div id="main">
+<div  class="search_result flow_result">
 <h4>我的粉丝 <span><?=$followers_num?>个</span></h4>
 <ul id="user-result">
 	<? if(isset($followers)):?>
@@ -21,4 +22,5 @@
 	</div>
 	<? endif?>
 </ul>
+</div>
 </div>
