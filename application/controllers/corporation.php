@@ -405,4 +405,12 @@
 		function blog() {
 			
 		}
+		
+		function test() {
+			echo '<pre>';
+			print_r($_POST);
+			print_r($_GET);
+			echo '</pre>';
+			
+		}
 	}
