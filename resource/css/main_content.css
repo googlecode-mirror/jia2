@@ -572,20 +572,63 @@ a#in_box, a#out_box{
 }
 
 #add-corporation{
-	position:relative;
+/*	position:relative;*/
 }
-#fsUploadProgress,#fsUploadProgress2{
+
+#swf_wrap{
+	position:relative;
+	ove/rflow: hidden;
+}
+.swf_wrap_i{
+	height:32px;
+	margin-bottom:10px;
+	bo/rder:1px solid #000;
+}
+.swf_wrap_i label{
+	width:100px;
+	text-align:right;
+	font-size:14px;
+}
+.swf_upload_button{
+	display: inline; 
+	height:30px;
+	vertical-align:top;
+	bo/rder: solid 1px #7FAAFF; 
+}
+.btn_startupload,#btnCancel1,#btnCancel2{
+	padding:0;
+	margin:0;
+	height:30px;
+	line-height:30px;
+	vertical-align:top;
+	padding:0 10px;
+	border: solid 1px #e1e1e1;
+	border-radius:3px;
+	color:#999; 
+}
+#btn/Cancel1,#btnC/ancel2{
+	border:none;
+	background:none;
+}
+#fsUploadProgress1,#fsUploadProgress2{
 	position:absolute;
-	right:20px;
-	top:20px;
-	width:160px;
-	height:160px;
+	right:10px;
+	top:0px;
+	width:120px;
+	height:30px;
 	border:1px solid #e1e1e1;
 	border-radius:3px;
-	margin-left:110px;
 }
 #fsUploadProgress2{
-	top:200px;
+	top:40px;
+}
+#thumbnails{
+	border:1px solid #e1e1e1;
+	height:210px;
+	width:210px;
+	position:absolute;
+	right:10px;
+	top:90px;
 }
 #request_form textarea{
 	width:190px;
