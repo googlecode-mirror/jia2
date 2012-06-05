@@ -95,7 +95,8 @@
 			$data['info'] = $this->User_model->get_info((int)$this->session->userdata('id'), $this->join);
 			$data['main_content'] = 'personal/setting_view';
 			$data['slider_bar_view'] = 'includes/slider_bar_view';
-			$data['js'] = array('personal/setting.js','tab.js');
+			$data['css'] = array('corporation/jquery-ui-1.7.custom.css');
+			$data['js'] = array('personal/setting.js','tab.js', 'corporation/jquery-ui-1.7.custom.min.js');
 			$this->load->view('includes/template_view', $data);
 		}
 		
@@ -117,6 +118,8 @@
 				// 资料设置
 					$name = $this->input->post('name');
 					$gender = $this->input->post('gender');
+					$birthday = $this->input->post('birthday');
+					$description = $this->input->post('description');
 					$school_id = $this->input->post('school');
 					$province_id = $this->input->post('province');
 					if($name && $gender && $school_id && $province_id) {
@@ -124,7 +127,9 @@
 							'name' => $name,
 							'gender' => $gender,
 							'school_id' => $school_id,
-							'province_id' => $province_id
+							'province_id' => $province_id,
+							'birthday' => strtotime($birthday),
+							'description' => $description
 						);
 						$this->db->where('id', $this->session->userdata('id'));
 						$this->db->update('user', $info);

@@ -30,18 +30,49 @@
 			<ul id="user_info_form" class="hidden">
 			<?=form_open('personal/do_setting','class="form"')?>
 			<?=form_hidden('setting', 'info') ?>
-				<li ><label>姓名：</label>
+				<li><label>姓名：</label>
 					<div class="InputWrapper"><div class="InputInner">
 							<?=form_input('name', $info['name']) ?>
 					</div></div>
 				</li>
-				<li ><label>性别：</label>
+				<li><label>性别：</label>
 					<?=form_dropdown('gender', array('1'=> '男', '0' => '女'),'class="SelectWrapper"') ?></li>
-				<li ><label>学校：</label>
+				<li>
+					<label>生日：</label>
+					<div class="InputWrapper"><div class="InputInner">
+					<?=form_input('birthday', jdate($info['birthday']), 'id="birthday"') ?>
+					</div></div>
+				</li>
+				<li>
+					<label>个性签名：</label>
+					<div class="InputWrapper" style="width: 300px"><div class="InputInner">
+					<?=form_input('description', $info['description']) ?>
+					</div></div>
+				</li>
+				<li><label>学校：</label>
 							<?=form_dropdown('school', $schools ,'class="SelectWrapper"') ?></li>
-				<li ><label>省份：</label><?=form_dropdown('province', $provinces ,'class="SelectWrapper"') ?></li>
+				<li><label>省份：</label><?=form_dropdown('province', $provinces ,'class="SelectWrapper"') ?></li>
 				<li class="li_b"><?=form_submit('submit', '保存','class="pub_button"') ?></li>
 			<?=form_close() ?>
+			<script type="text/javascript">
+				$(function() {
+			    	var dates = $( "#birthday" ).datepicker({  
+			        defaultDate: "+1w",  
+			        changeMonth: true,  
+			        numberOfMonths: 1,
+			        altFormat: "yy-mm-dd",
+			        onSelect: function( selectedDate ) {  
+			            var option = this.id == "from" ? "minDate" : "maxDate",  
+			                instance = $( this ).data( "datepicker" ),  
+			                date = $.datepicker.parseDate(  
+			                    instance.settings.dateFormat ||  
+			                    $.datepicker._defaults.dateFormat,  
+			                    selectedDate, instance.settings );  
+			            dates.not( this ).datepicker( "option", option, date );
+			        	}  
+			    	});  
+				});  
+			</script>
 			</ul>
 		</div>
 		<div id="c02" class="hidden">

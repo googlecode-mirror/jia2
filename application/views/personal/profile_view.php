@@ -32,11 +32,13 @@
 <!-- 	个人资料 -->
 <div id="popup4" class="popup_block">
 	<h4 class="set_title"><span><?=$info['name'] ?></span></h4>
-			<ul id="user_info">
-				<li class="li_1">姓名：<span><?=$info['name'] ?></span></li>
-				<li class="li_1">性别：<span><?=$info['gender'] == 1 ? '男' : '女' ?></span></li>
-				<li class="li_1">学校：<span><?=$info['school'][0]['name']?></span></li>
-				<li class="li_1">省份：<span><?=$info['province'][0]['name']?></span></li>
-			</ul>
+		<ul id="user_info">
+			<li class="li_1">姓名：<span><?=$info['name'] ?></span></li>
+			<li class="li_1">性别：<span><?=$info['gender'] == 1 ? '男' : '女' ?></span></li>
+			<li class="li_1">生日：<span><?=jdate($info['birthday'], FALSE)?></span></li>
+			<li class="li_1">个性签名：<span><?=$info['description']?></span></li>
+			<li class="li_1">学校：<span><?=$info['school'][0]['name']?></span></li>
+			<li class="li_1">省份：<span><?=$info['province'][0]['name']?></span></li>
+		</ul>
 </div>  
 </div>
