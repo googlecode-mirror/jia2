@@ -595,7 +595,7 @@ a#in_box, a#out_box{
 	vertical-align:top;
 	bo/rder: solid 1px #7FAAFF; 
 }
-.btn_startupload,#btnCancel1,#btnCancel2{
+.btn_startupload,#btnCancel1,#btnCancel2,#btnCancel3{
 	padding:0;
 	margin:0;
 	height:30px;
@@ -624,8 +624,8 @@ a#in_box, a#out_box{
 }
 #thumbnails{
 	border:1px solid #e1e1e1;
-	height:210px;
-	width:210px;
+	height:200px;
+	width:200px;
 	position:absolute;
 	right:10px;
 	top:90px;
@@ -661,4 +661,56 @@ span.swf_box{
 }
 .flow_result{
 	background: #fff;
+}
+/*****社团相册**************/
+.photo_operate{
+	width:180px;
+	border: 1px solid #ebebeb;
+	float: right;
+	padding:10px;
+}
+#thumbnail{
+	width:180px;
+	height:180px;
+	border: 1px solid #ebebeb;
+	margin-bottom:20px;
+	background:url(../img/yulan.png) no-repeat;
+}
+#spanButtonPlaceholder3{
+	display:block;
+	width:150px;
+	height:30px;
+	line-height:30px;
+	text-align:center;
+	color:#fff;
+	margin-bottom:10px;
+	background:url(../img/swfload_btn2.png) no-repeat;
+}
+#fsUploadProgress3{
+	display:block;
+	margin:10px 0;
+}
+.photo_album_ul{
+	width:402px;
+	bor/der: 1px solid #ebebeb;
+	float: left;
+}
+.photo_album_ul li{
+	padding:10px;
+	float:left;
+	padding:1px;
+	margin-right:20px;
+	overflow:auto;
+}
+.photo_album_ul li a img{
+	width:100px;
+	height:100px;
+	border: 1px solid #ebebeb;
+}
+
+.photo_album_ul li p{
+	width:100px;
+	height:30px;
+	line-height: 30px;
+	text-align: center;
 }

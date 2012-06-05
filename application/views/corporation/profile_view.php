@@ -1,7 +1,63 @@
 <script>
-	window.onload = coprotab;
+		window.onload = coprotab;
 </script>
+<!-- <script type="text/javascript" src="<?=base_url('resource/SwfUpload/js/swfupload/swfupload.js') ?>"></script>
+<script type="text/javascript" src="<?=base_url('resource/SwfUpload/js/swfupload/handlers.js') ?>"></script>
+<script type="text/javascript" src="<?=base_url('resource/SwfUpload/js/swfupload/fileprogress.js') ?>"></script>
+<script>
+		window.onload = coprotab;
+		window.onload = function() {
+				swfu3 = new SWFUpload({
+		            // Backend Settings
+		            upload_url: "<?=site_url('corporation/upload_cap') ?>",
+		            post_params: {"PHPSESSID": "<?=session_id() ?>", 'field':'st_card_cap', 'user':'<?=$this->session->userdata('id') ?>'},
 		
+		            // File Upload Settings
+		            file_size_limit : "2 MB",	// 2MB
+		            file_types : "*.jpg",
+		            file_types_description : "JPG Images",
+		            file_upload_limit : "0",
+		            file_post_name: "st_card_cap",
+		
+		            // Event Handler Settings - these functions as defined in Handlers.js
+		            //  The handlers are not part of SWFUpload but are part of my website and control how
+		            //  my website reacts to the SWFUpload events.
+		            file_queued_handler : fileQueued,
+		            file_queue_error_handler : fileQueueError,
+		            file_dialog_complete_handler : fileDialogComplete,
+		            upload_progress_handler : uploadProgress,
+		            upload_error_handler : uploadError,
+		            upload_success_handler : uploadSuccess,
+		            upload_complete_handler : uploadComplete,
+		
+		            // Button Settings
+		            button_image_url : "<?=base_url('resource/img/swf_btn.png') ?>",
+		            button_placeholder_id : "spanButtonPlaceholder3",
+		            button_width: 200,
+		            button_height: 31,
+		            button_text : '<span class="button">选择图片<span class="btn_startupload">(最大 2 MB)</span></span>',
+		            button_text_style : '.button {font-size: 12px;color:#999999}',
+		            button_text_top_padding: 4,
+		            button_text_left_padding: 20,
+		            button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+		            button_cursor: SWFUpload.CURSOR.HAND,
+		
+		            // Flash Settings
+		            flash_url : "<?=base_url('resource/SwfUpload/js/swfupload/swfupload.swf') ?>",
+		
+		            custom_settings : {
+		                progressTarget : "fsUploadProgress1",
+		                cancelButtonId : "btnCancel1"
+		            },
+					prevent_swf_caching : false, 
+					preserve_relative_urls : false, 
+		            // Debug Settings
+		            debug: false
+                });
+             
+	     };
+</script>
+		 -->
 <div>
 </div>
 <div id="sidebar">
@@ -109,27 +165,36 @@
 		<div id="co_03" class="hidden">
 			<div class="photo_album_box">
 				<div class="photo_operate">
-					<span href="" class="btn-blue">
-						上传照片
-						<?=form_upload('userfile') ?>
-					</span>
-					<a href="#">创建相册</a>
+					<div id="thumbnail"></div>
+					<div class="swf_upload_button">
+		                <span id="spanButtonPlaceholder3">浏览</span>
+		                <input type="button" value="开始上传" class="btn_startupload" onclick="swfu3.startUpload();"/>
+		                <input type="button" value="取消上传" id="btnCancel3" onclick="swfu3.cancelUpload();"/>
+		            </div>
+		            <div class="fieldset flash" id="fsUploadProgress3">
+		            	上传列表
+		            </div>
+					<a href="#" >创建相册</a>
 				</div>
 				<ul class="photo_album_ul">
 						<li>
 							<a href=""><img src="" /></a>
-							<p>相册名/相片名</p>
+							<p>相册名</p>
 						</li>
 						<li>
 							<a href=""><img src="" /></a>
-							<p>相册名/相片名</p>
+							<p>相册名</p>
 						</li>
-					</ul>
+						<li>
+							<a href=""><img src="" /></a>
+							<p>相册名</p>
+						</li>
+				</ul>
 			</div>
 		</div>
 	</div>
 	
-<!-- 	创建	活动 -->
+<!--  	创建	活动 
 <div id="popup2" class="popup_block">
 <div id="add-corporation">
 			<?=form_open('corporation/do_add','class="form"')?>
@@ -149,4 +214,4 @@
 			</script>
 	
 </div>  
-</div>
+</div> -->
