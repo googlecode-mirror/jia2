@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.5.9)
 # Database: jia2
-# Generation Time: 2012-06-03 09:08:31 +0000
+# Generation Time: 2012-06-05 15:27:15 +0000
 # ************************************************************
 
 
@@ -323,7 +323,9 @@ VALUES
 	(148,37,11,'看看评论一哈喃','1336924309',1),
 	(149,36,13,'目测bug不少~','1336970610',1),
 	(150,55,13,'我来评论看看喃','1336972030',1),
-	(151,57,3,'这尼玛为什么没有作用了！？','1337353524',1);
+	(151,57,3,'这尼玛为什么没有作用了！？','1337353524',1),
+	(152,47,11,'评论','1338818100',1),
+	(153,46,11,'拼滚','1338818114',1);
 
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -368,7 +370,7 @@ VALUES
 	(24,10,1,11,4,1),
 	(25,11,1,2,1,1),
 	(26,11,1,3,1,1),
-	(27,11,1,3,2,0),
+	(27,11,1,3,2,1),
 	(28,11,1,5,1,1),
 	(29,11,1,5,2,1),
 	(30,11,1,5,4,1),
@@ -565,6 +567,7 @@ CREATE TABLE `corporation_meta` (
   `meta_table` varchar(45) DEFAULT NULL,
   `meta_key` varchar(45) NOT NULL,
   `meta_value` text NOT NULL,
+  `add_time` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_corporation_meta_corporations1` (`corporation_id`),
   CONSTRAINT `fk_corporation_meta_corporation1` FOREIGN KEY (`corporation_id`) REFERENCES `corporation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -573,10 +576,10 @@ CREATE TABLE `corporation_meta` (
 LOCK TABLES `corporation_meta` WRITE;
 /*!40000 ALTER TABLE `corporation_meta` DISABLE KEYS */;
 
-INSERT INTO `corporation_meta` (`id`, `corporation_id`, `meta_table`, `meta_key`, `meta_value`)
+INSERT INTO `corporation_meta` (`id`, `corporation_id`, `meta_table`, `meta_key`, `meta_value`, `add_time`)
 VALUES
-	(1,8,'user','member','11'),
-	(2,8,'user','member','13');
+	(1,8,'user','member','11',NULL),
+	(2,8,'user','member','13',NULL);
 
 /*!40000 ALTER TABLE `corporation_meta` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -692,7 +695,12 @@ VALUES
 	(46,3,1,3,1337393148,'申请创建社团 <a href=\"http://jia2.localhost/admin/admin/co_request/9\">审核</a>',1),
 	(47,1,1,3,1337393230,'你申请创建 坑爹社团 社团失败,',1),
 	(48,11,1,3,1337393260,'申请创建社团 <a href=\"http://jia2.localhost/admin/admin/co_request/10\">审核</a>',1),
-	(49,1,11,3,1337393285,'你申请创建 加加加社团 社团成功,<a href=\"http://jia2.localhost/corporation/add_from_request/10\">点此完成创建</a>',0);
+	(49,1,11,3,1337393285,'你申请创建 加加加社团 社团成功,<a href=\"http://jia2.localhost/corporation/add_from_request/10\">点此完成创建</a>',0),
+	(50,13,11,1,1338719723,'发给张尼玛',0),
+	(51,13,1,3,1338833152,'申请创建社团 <a href=\"http://jia2.localhost/admin/admin/co_request/1\">审核</a>',1),
+	(52,1,13,3,1338900159,'你申请创建 加加加社团 社团失败,',0),
+	(53,13,1,3,1338900210,'申请创建社团 <a href=\"http://jia2.localhost/admin/admin/co_request/2\">审核</a>',1),
+	(54,1,13,3,1338908346,'你申请创建 测试社团 社团失败,',1);
 
 /*!40000 ALTER TABLE `notify` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -4442,6 +4450,8 @@ CREATE TABLE `user` (
   `province_id` int(11) DEFAULT NULL,
   `avatar` varchar(50) DEFAULT 'default.jpg',
   `gender` int(11) NOT NULL DEFAULT '1',
+  `birthday` varchar(50) DEFAULT NULL,
+  `description` text COMMENT '简介',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `fk_users_entity_user_type` (`type_id`),
@@ -4455,15 +4465,15 @@ CREATE TABLE `user` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 
-INSERT INTO `user` (`id`, `name`, `email`, `pass`, `type_id`, `school_id`, `province_id`, `avatar`, `gender`)
+INSERT INTO `user` (`id`, `name`, `email`, `pass`, `type_id`, `school_id`, `province_id`, `avatar`, `gender`, `birthday`, `description`)
 VALUES
-	(1,'admin','admin@jia2.cn','7e9ff9da442d3d2f28145385f8e39e7a',1,1,1,'default.jpg',1),
-	(3,'Tuzki','rabbitzhang52@yahoo.com','e18d959268ead9d3caf501969715e3d0',1,1,1,'3.jpg',1),
-	(10,'zhanghui','rabbitzhang52@gmail.com','e18d959268ead9d3caf501969715e3d0',2,2,1,'default.jpg',1),
-	(11,'张尼玛','rabbitzhang52@qq.com','e18d959268ead9d3caf501969715e3d0',1,1,1,'11.jpg',1),
-	(13,'兔子张','rabbitzhang52@163.com','e18d959268ead9d3caf501969715e3d0',2,2,1,'13.jpg',1),
-	(14,'张三丰','ra@ra.com','e18d959268ead9d3caf501969715e3d0',2,1,1,'default.jpg',1),
-	(15,'张无忌','tuzki@rabbit.com','e18d959268ead9d3caf501969715e3d0',2,2,1,'15.jpg',1);
+	(1,'admin','admin@jia2.cn','7e9ff9da442d3d2f28145385f8e39e7a',1,1,1,'default.jpg',1,NULL,NULL),
+	(3,'Tuzki','rabbitzhang52@yahoo.com','e18d959268ead9d3caf501969715e3d0',1,1,1,'3.jpg',1,NULL,NULL),
+	(10,'zhanghui','rabbitzhang52@gmail.com','e18d959268ead9d3caf501969715e3d0',2,2,1,'default.jpg',1,NULL,NULL),
+	(11,'张尼玛','rabbitzhang52@qq.com','e18d959268ead9d3caf501969715e3d0',1,1,1,'11.jpg',1,'1339516800','我叫张尼玛'),
+	(13,'兔子张','rabbitzhang52@163.com','e18d959268ead9d3caf501969715e3d0',2,2,1,'13.jpg',1,NULL,NULL),
+	(14,'张三丰','ra@ra.com','e18d959268ead9d3caf501969715e3d0',2,1,1,'default.jpg',1,NULL,NULL),
+	(15,'张无忌','tuzki@rabbit.com','e18d959268ead9d3caf501969715e3d0',2,2,1,'15.jpg',1,NULL,NULL);
 
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -4480,6 +4490,7 @@ CREATE TABLE `user_meta` (
   `meta_table` varchar(45) DEFAULT NULL COMMENT '变化值对应的表，可以为空',
   `meta_key` varchar(11) NOT NULL COMMENT '变化的key可以指向任何表的索引',
   `meta_value` varchar(45) DEFAULT NULL COMMENT '可以为空',
+  `add_time` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_user_meta_users1` (`user_id`),
   CONSTRAINT `fk_jia2_user_meta_jia2_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -4488,21 +4499,21 @@ CREATE TABLE `user_meta` (
 LOCK TABLES `user_meta` WRITE;
 /*!40000 ALTER TABLE `user_meta` DISABLE KEYS */;
 
-INSERT INTO `user_meta` (`id`, `user_id`, `meta_table`, `meta_key`, `meta_value`)
+INSERT INTO `user_meta` (`id`, `user_id`, `meta_table`, `meta_key`, `meta_value`, `add_time`)
 VALUES
-	(1,13,'user','follower','11'),
-	(3,11,'corporation','follower','7'),
-	(4,11,'user','follower','10'),
-	(5,11,'user','follower','15'),
-	(6,15,'user','follower','11'),
-	(7,13,'user','follower','14'),
-	(8,13,'user','follower','15'),
-	(9,13,'corporation','follower','7'),
-	(10,11,'corporation','follower','8'),
-	(11,11,'user','follower','3'),
-	(12,11,'user','follower','13'),
-	(13,15,'corporation','follower','8'),
-	(14,13,'corporation','follower','8');
+	(1,13,'user','follower','11',NULL),
+	(3,11,'corporation','follower','7',NULL),
+	(5,11,'user','follower','15',NULL),
+	(6,15,'user','follower','11',NULL),
+	(7,13,'user','follower','14',NULL),
+	(8,13,'user','follower','15',NULL),
+	(9,13,'corporation','follower','7',NULL),
+	(10,11,'corporation','follower','8',NULL),
+	(11,11,'user','follower','3',NULL),
+	(12,11,'user','follower','13',NULL),
+	(13,15,'corporation','follower','8',NULL),
+	(14,13,'corporation','follower','8',NULL),
+	(15,11,'corporation','follower','10',NULL);
 
 /*!40000 ALTER TABLE `user_meta` ENABLE KEYS */;
 UNLOCK TABLES;
