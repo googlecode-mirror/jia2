@@ -49,3 +49,7 @@ function coprotab(){
 	var SDmodel = new scrollDoor();
 	SDmodel.sd(["co-01", "co-02", "co-03"], ["co_01", "co_02", "co_03"], "sd01", "sd02");//社团主页
 }
+function copro_m_tab(){
+	var SDmodel = new scrollDoor();
+	SDmodel.sd(["coo-01", "coo-02", "coo-03"], ["coo_01", "coo_02", "coo_03"], "sd01", "sd02");//社团设置
+}

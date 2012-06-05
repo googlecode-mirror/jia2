@@ -442,6 +442,7 @@ li.feed_a{
 	border-radius:4px;
 	background:#fff;
 	font-size:12px;
+	overflow: auto;
 }
 
 /*********sidebar*************/
