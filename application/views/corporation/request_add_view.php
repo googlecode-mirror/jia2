@@ -27,14 +27,14 @@
 		            upload_complete_handler : uploadComplete,
 		
 		            // Button Settings
-		            button_image_url : "images/swfupload/SmallSpyGlassWithTransperancy_17x18.png",
+		            button_image_url : "<?=base_url('resource/img/swf_btn.png') ?>",
 		            button_placeholder_id : "spanButtonPlaceholder1",
-		            button_width: 180,
-		            button_height: 18,
+		            button_width: 200,
+		            button_height: 31,
 		            button_text : '<span class="button">选择图片<span class="btn_startupload">(最大 2 MB)</span></span>',
-		            button_text_style : '.button { font-family: Helvetica, Arial, sans-serif; font-size: 12px; }',
-		            button_text_top_padding: 0,
-		            button_text_left_padding: 18,
+		            button_text_style : '.button {font-size: 12px;color:#999999}',
+		            button_text_top_padding: 4,
+		            button_text_left_padding: 20,
 		            button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
 		            button_cursor: SWFUpload.CURSOR.HAND,
 		
@@ -74,14 +74,14 @@
 		            upload_complete_handler : uploadComplete,
 		
 		            // Button Settings
-		            button_image_url : "images/swfupload/SmallSpyGlassWithTransperancy_17x18.png",
+		            button_image_url : "<?=base_url('resource/img/swf_btn.png') ?>",
 		            button_placeholder_id : "spanButtonPlaceholder2",
-		            button_width: 180,
-		            button_height: 18,
+		            button_width: 200,
+		            button_height: 31,
 		            button_text : '<span class="button">选择图片<span class="btn_startupload">(最大 2 MB)</span></span>',
-		            button_text_style : '.button { font-family: Helvetica, Arial, sans-serif; font-size: 12px; }',
-		            button_text_top_padding: 0,
-		            button_text_left_padding: 18,
+		            button_text_style : '.button  {font-size: 12px;color:#999999}',
+		            button_text_top_padding: 4,
+		            button_text_left_padding: 20,
 		            button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
 		            button_cursor: SWFUpload.CURSOR.HAND,
 		
@@ -111,25 +111,28 @@
 	<p><?=form_button('roger_that', '明白', 'id="roger_that" class="pub_button"') ?></p>
 </div>
 <div id="add-corporation" class="hidden" >
-	 <div id="content">
-        	<h2>学生证照</h2>
-            <div class="fieldset flash" id="fsUploadProgress1">
-                <span class="legend">上传队列</span>
-            </div>
-            <div style="display: inline; border: solid 1px #7FAAFF; background-color: #C5D9FF; padding: 2px;">
-                <span id="spanButtonPlaceholder1"></span>&nbsp;
+	 <div id="swf_wrap">
+	 	<div class="swf_wrap_i">
+        	<label>学生证照：</label>
+            <div class="swf_upload_button">
+                <span id="spanButtonPlaceholder1"></span>
                 <input type="button" value="开始上传" class="btn_startupload" onclick="swfu1.startUpload();"/>
                 <input type="button" value="取消上传" id="btnCancel1" onclick="swfu1.cancelUpload();"/>
             </div>
-         	<h2>身份证照</h2>
-            <div class="fieldset flash" id="fsUploadProgress2">
-                <span class="legend">上传队列</span>
+            <div class="fieldset flash" id="fsUploadProgress1">
             </div>
-            <div style="display: inline; border: solid 1px #7FAAFF; background-color: #C5D9FF; padding: 2px;">
-                <span id="spanButtonPlaceholder2"></span>&nbsp;
+         </div>
+         <div class="swf_wrap_i">
+         	<label>身份证照：</label>
+            <div class="swf_upload_button">
+                <span id="spanButtonPlaceholder2"></span>
                 <input type="button" value="开始上传" class="btn_startupload" onclick="swfu2.startUpload();"/>
                 <input type="button" value="取消上传" id="btnCancel2" onclick="swfu2.cancelUpload();"/>
             </div>
+            <div class="fieldset flash" id="fsUploadProgress2">
+<!--                 <span class="legend">上传队列</span> -->
+            </div>
+          </div>
         <div id="thumbnails"></div>
     </div>
 	<?=form_open('corporation/request_add','class="form" id="request_form"')?>

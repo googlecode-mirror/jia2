@@ -106,7 +106,26 @@
 				<? endforeach ?>
 			</ul>
 		</div>
-		<div id="co_03" class="hidden">该功能暂未实现
+		<div id="co_03" class="hidden">
+			<div class="photo_album_box">
+				<div class="photo_operate">
+					<span href="" class="btn-blue">
+						上传照片
+						<?=form_upload('userfile') ?>
+					</span>
+					<a href="#">创建相册</a>
+				</div>
+				<ul class="photo_album_ul">
+						<li>
+							<a href=""><img src="" /></a>
+							<p>相册名/相片名</p>
+						</li>
+						<li>
+							<a href=""><img src="" /></a>
+							<p>相册名/相片名</p>
+						</li>
+					</ul>
+			</div>
 		</div>
 	</div>
 	
