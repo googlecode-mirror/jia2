@@ -59,6 +59,8 @@
 			$this->_require_login();
 			$limit = array($this->config->item('page_size'), 0);
 			$user_info = $this->User_model->get_info($this->session->userdata('id'), array('school' => array('school_id', 'id')));
+			if(!$user_info['school_id'])
+				static_view('你需要先完善自己的学校信息' . anchor('personal/setting#info', '点此设置'), '申请创建社团');
 			$data['title'] = $user_info['school'][0]['name'] . '的社团';
 			$this->jiadb->_table = 'corporation';
 			$data['corporations'] = $this->jiadb->fetchAll(array('school_id' => $user_info['school'][0]['id']), '', $limit);

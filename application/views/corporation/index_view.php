@@ -3,7 +3,7 @@
 </script>
 <div id="main">
 	<a href="<?=site_url('corporation/request_add') ?>" class="creat_button button"><i>+</i> 申请创建社团</a>
-	<span><?=anchor('corporation/list_all', '查看所有社团','class="creat_button btn_01"') ?></span>
+	<span><?=anchor('corporation/list_by_school', '查看全校社团','class="creat_button btn_01"') ?></span>
 	<div id="search_box">
 		<div id="search-bar">
 			<?=form_open('search') ?>
