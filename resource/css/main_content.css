@@ -500,9 +500,6 @@ input[type="file"]{
 
 
 /************************社团***/
-.operate{
-	margin: 15px 0 5px;
-}
 .creat_act{
 	margin-top:10px;
 }
@@ -626,12 +623,19 @@ a#in_box, a#out_box{
 	border:1px solid #e1e1e1;
 	height:200px;
 	width:200px;
+	overflow:hidden;
 	position:absolute;
 	right:10px;
 	top:90px;
+	text-align: center;
+}
+#thumbnails img{
+	height:190px;
+	max-width:190px;
 }
 #request_form textarea{
 	width:190px;
+	
 }
 /***********/
 #chose_box{
@@ -663,6 +667,9 @@ span.swf_box{
 	background: #fff;
 }
 /*****社团相册**************/
+.photo_album_box{
+	overflow: hidden;
+}
 .photo_operate{
 	width:180px;
 	border: 1px solid #ebebeb;
@@ -713,4 +720,78 @@ span.swf_box{
 	height:30px;
 	line-height: 30px;
 	text-align: center;
+}
+/****留言*********/
+.h3_line{
+	border-bottom: 1px solid #ebebeb;
+	margin-bottom: 10px;
+}
+.massege_wrap,.massege,.massege ul li{
+	height:auto;
+	overflow:auto;
+}
+.massege ul li{
+	margin-bottom:10px;
+}
+.leave_massege{
+	clear:both;
+	margin-top:20px;
+}
+/*********协会设置******/
+
+#coo_02 a {
+	color: #999999;
+	cursor: pointer;
+}
+#coo_02 a:hover {
+	color: #666;
+	text-decoration: underline;
+}
+a.a-img {
+	display: block;
+	float: left;
+	width: 50px;
+	height: 50px;
+	vertical-align: bottom;
+}
+#coo_02 img {
+	width: 50px;
+	height: 50px;bord/
+	er-radius: 3px;
+}
+#coo_01 li {
+	height: 40px;
+	line-height: 40px;
+}
+#coo_02 {
+	padding: 20px;
+	font-size: 12px;
+}
+#manage {
+	border-bottom: 1px solid #e1e1e1;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+}
+p#manager_01 {
+	clear: both;
+	width: 50px;
+	padding-top: 5px;
+	text-align: center;
+}
+.operate {
+	float: left;
+	height: 50px;
+	padding-left: 5px;
+}
+.operate p {
+	height: 25px;
+	line-height: 25px;
+}
+ul#member li {
+	float: left;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+.btn_11 {
+	margin-left: 17px;
 }

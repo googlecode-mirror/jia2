@@ -58,8 +58,6 @@
 	     };
 </script>
 		 -->
-<div>
-</div>
 <div id="sidebar">
 	<div class="user_head_box sidebar_nav">
 		<a href="<?=site_url('corporation/profile/' . $info['id'])?>" class="user_head"> <img id="" src="<?=avatar_url($info['avatar'], 'corporation', 'big') ?>" /> </a>
@@ -116,10 +114,11 @@
 		<p>
 			<?=$info['comment'] ?>
 		</p>
-		<p class="operate">
-			<span><?=anchor('corporation/setting/' . $info['id'], '社团设置') ?></span>
+		<p class="">
+			<?=anchor('corporation/setting/' . $info['id'], '社团设置','class="creat_button creat_act inline"') ?>
+			<?=anchor('activity/add/' . $info['id'], '创建活动','class="creat_button creat_act inline"')?>
 		</p>
-		<?=anchor('activity/add/' . $info['id'], '创建活动')?>
+		
 		<!--
 		<a href="#?w=500" rel="popup3" class="creat_button creat_act inline">创建活动</a>
 		-->
@@ -190,9 +189,59 @@
 							<p>相册名</p>
 						</li>
 				</ul>
+		</div>
+		</div>
+		<!-- 	留言 -->
+	<div class="massege_wrap">
+		<h3 class="h3_line">最新留言</h3>
+		<div class="massege">
+			<ul>
+				<li>
+					<div class="img_block">
+						<a class="head_pic"><img src="" /></a>
+					</div>
+					<div class="feed_main">
+						<div class="f_info">
+							<a href="">留言者</a><br>
+							<span class="f_do">说什么随便说什么好了。。</span>
+						</div>
+						<div class="f_summary">
+							<p class="f_pm">
+								<span><?=jdate($activity['start_time'], FALSE) ?></span>
+							</p>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="img_block">
+						<a class="head_pic"><img src="" /></a>
+					</div>
+					<div class="feed_main">
+						<div class="f_info">
+							<a href="">留言者</a><br>
+							<span class="f_do">说什么随便说什么好了。。</span>
+						</div>
+						<div class="f_summary">
+							<p class="f_pm">
+								<span><?=jdate($activity['start_time'], FALSE) ?></span>
+							</p>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="leave_massege">
+			<div class="img_block">
+				<a class="head_pic"><img src="" /></a>
+			</div>
+			<div class="feed_main">
+				<div class="f_info">
+					<textarea></textarea>
+				</div>
 			</div>
 		</div>
 	</div>
+</div>	
 	
 <!--  	创建	活动 
 <div id="popup2" class="popup_block">
