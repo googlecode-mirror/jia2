@@ -1,6 +1,14 @@
 <script>
 		window.onload = coprotab;
 </script>
+<!-- 	社团资料 -->
+<div id="popup5" class="popup_block">
+	<h4 class="set_title"><span><?=$info['name'] ?></span></h4>
+			<ul id="user_info">
+				<li class="li_1">姓名：<span></span></li>
+				<li class="li_1">性别：<span></span></li>
+			</ul>
+</div>
 <div id="sidebar">
 	<div class="user_head_box sidebar_nav">
 		<a href="<?=site_url('corporation/profile/' . $info['id'])?>" class="user_head"> <img id="" src="<?=avatar_url($info['avatar'], 'corporation', 'big') ?>" /> </a>
@@ -37,6 +45,9 @@
 		</ul>
 		<p class="f-aaa">
 			由 <?=$info['user'][0]['name'] ?> 创建
+		</p>
+		<p>
+			<span class="profile_info"><a href="#?w=500" rel="popup5" class="inline">更多资料</a></span>
 		</p>
 	</div>
 	<div class="sidebar_nav">
