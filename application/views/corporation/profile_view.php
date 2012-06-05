@@ -116,6 +116,8 @@
 			</ul>
 		</div>
 		<div id="co_03" class="hidden">
+			建设中
+			<!--
 			<div class="photo_album_box">
 				<div class="photo_operate">
 					<div id="thumbnail"></div>
@@ -144,8 +146,10 @@
 						</li>
 				</ul>
 		</div>
+		-->
 		</div>
 		<!-- 	留言 -->
+		<!--
 	<div class="massege_wrap">
 		<h3 class="h3_line">最新留言</h3>
 		<div class="massege">
@@ -195,26 +199,27 @@
 			</div>
 		</div>
 	</div>
+-->
 </div>	
 	
 <!--  	创建	活动 
 <div id="popup2" class="popup_block">
 <div id="add-corporation">
-			<?=form_open('corporation/do_add','class="form"')?>
-				<p ><label>活动名称：</label><?=form_input('name') ?></p>
-				<p ><label>活动地点：</label><?=form_dropdown('school', array('1'=> '川大江安', '0' => '川大望江')) ?></p>
-				<p class="hidden"><label>所在地：</label><?=form_dropdown('gender', array('0'=> '四川')) ?></p>
-				<p ><label>活动时间：</label><input type="text" size="30" id="datepicker" class=""/></p>
-				<p ><label>活动简介：</label><?=form_textarea(array('name' => 'comment', 'cols' => 30, 'rows' => 10)) ?></textarea></p>
-				<p class="li_c"><?=form_submit('submit', '保存','class="button"') ?></p>
-			<?=form_close() ?>
-			<script type="text/javascript">
-			$(document).ready(function(){
-				$(function() {
-					$("#datepicker").datepicker();
-				});
-			});
-			</script>
+	<?=form_open('corporation/do_add','class="form"')?>
+		<p ><label>活动名称：</label><?=form_input('name') ?></p>
+		<p ><label>活动地点：</label><?=form_dropdown('school', array('1'=> '川大江安', '0' => '川大望江')) ?></p>
+		<p class="hidden"><label>所在地：</label><?=form_dropdown('gender', array('0'=> '四川')) ?></p>
+		<p ><label>活动时间：</label><input type="text" size="30" id="datepicker" class=""/></p>
+		<p ><label>活动简介：</label><?=form_textarea(array('name' => 'comment', 'cols' => 30, 'rows' => 10)) ?></textarea></p>
+		<p class="li_c"><?=form_submit('submit', '保存','class="button"') ?></p>
+	<?=form_close() ?>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$(function() {
+			$("#datepicker").datepicker();
+		});
+	});
+	</script>
 	
 </div>  
 </div> -->

@@ -77,9 +77,12 @@ if(! function_exists('jdate')) {
 		elseif(is_numeric($time) && !$with_hour)
 			return date('Y年m月d日', $time);
 		else
-			return '获取时间失败';
+			return '';
 	}
 }
+
+//将数组转换为json格式，兼容中文
+/*********************** jia_json start************************/
 
 if(! function_exists('jia_json')) {
 	function jia_json($array) {
@@ -107,3 +110,4 @@ function arrayRecursive(&$array, $function, $apply_to_keys_also = false)
         }
     }
 }
+/***************** jia_json end ***************************/
