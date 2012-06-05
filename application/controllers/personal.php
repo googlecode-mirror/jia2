@@ -25,9 +25,12 @@
 			$id = $id ? $id : $this->session->userdata('id');
 			$this->_auth('view', 'post', $id);
 			$data['info'] = $this->User_model->get_info((int)$id, $this->join);
-			$data['followers'] = $this->User_model->get_followers($id);
+			$followers = $this->User_model->get_followers($id);
+			$following = $this->User_model->get_following($id);
+			$data['followers'] = $followers;
+			$data['followers_num'] = $followers ? count($followers) : 0;
+			$data['following_num'] = $following ? count($following) : 0;
 			$data['title'] = '个人主页-' . $data['info']['name'];
-			$data['followers'] = $this->User_model->get_followers($id);
 			$post_id = $this->input->get('post_id');
 			if(!empty($post_id)) {
 				$post = array('personal' => $this->Post_model->fetch(array('owner_id' => $id, 'id' => $post_id)));
@@ -308,7 +311,7 @@
 		function manage($opereation, $page = 1) {
 			$this->_require_login();
 			$user_id = $this->session->userdata('id');
-			$limit = 2;//$this->config->item('page_size');
+			$limit = $this->config->item('page_size');
 			$this->load->library('pagination');
 			$offset = ($page-1) * $limit;
 			$pg_config = array(
