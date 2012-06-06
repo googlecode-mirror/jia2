@@ -10,7 +10,7 @@
 		
 		            // File Upload Settings
 		            file_size_limit : "2 MB",	// 2MB
-		            file_types : "*.jpg",
+		            file_types : "*.jpg;*.png;*.gif;*.jpeg",
 		            file_types_description : "JPG Images",
 		            file_upload_limit : "0",
 		            file_post_name: "st_card_cap",
@@ -57,7 +57,7 @@
 		
 		            // File Upload Settings
 		            file_size_limit : "2 MB",	// 2MB
-		            file_types : "*.jpg",
+		            file_types : "*.jpg;*.png;*.gif;*.jpeg",
 		            file_types_description : "JPG Images",
 		            file_upload_limit : "0",
 		            file_post_name: "id_card_cap",
