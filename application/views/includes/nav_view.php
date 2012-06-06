@@ -1,7 +1,7 @@
 <div id="header">
 	<div id="head">
 		<div class="left" id="head_nav">
-			<?=anchor('', 'Jia2网Logo') ?>
+			<?=anchor('', '<img width="60" height="30" src="'.base_url('resource/img/logo.jpg').'">', 'id="logo_img"') ?>
 			<?=anchor('', '首页', '') ?><?=anchor('personal', '个人主页', '') . anchor('corporation', '社团之家', '')?>
 		</div>
 		<span class="search left">
