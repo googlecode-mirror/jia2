@@ -262,27 +262,8 @@
 				$this->session->set_userdata('file_name', $this->input->post('field') . '_' .$this->input->post('user'));
 				$this->load->model('Photo_model');
 				$this->Photo_model->save_request_cap();
-					/*
-					if ($image_id === false) {
-					   header("HTTP/1.1 500 Internal Server Error");
-					   echo "No ID";
-					   exit(0);
-					  }
-						$file_info = $this->session->userdata('file_info');
-					  if (!is_array($file_info) || !isset($file_info[$image_id])) {
-					   header("HTTP/1.1 404 Not found");
-					   exit(0);
-					  }
-					
-					  header("Content-type: image/jpeg") ;
-					  header("Content-Length: ".strlen($file_info[$image_id]));
-					  echo $file_info[$image_id];
-					  exit(0);
-					 * */
-				
 			} else {
 				 header("Content-type: image/jpeg") ;
-				 //readfile('/Users/rabbit/Documents/htdocs/PHP_proj/Jia2/data/request/corporation/id_card_cap_1.jpg');
 				 readfile($this->config->item('corporation_request') . $this->session->userdata('filename'));
 			}
 		}
@@ -292,9 +273,28 @@
 			if($id == '' || !is_numeric($id)) {
 				static_view('抱歉，您访问的页面不存在');
 			} else {
-				$corporation_info = $this->Corporation_model->get_info($id);
+				$join = array(
+					'school' => array('school_id', 'id'),
+					'user' => array('user_id', 'id')
+				);
+				$corporation_info = $this->Corporation_model->get_info($id, $join);
 				if($corporation_info) {
 					$this->_auth('edit', 'corporation', $id);
+					$this->jiadb->_table = 'user';
+					$members = $this->Corporation_model->get_members($id);
+					if($members) {
+						$data['members'] = $this->jiadb->fetchJoin(array('id' => $members));
+						$data['members_num'] = count($members);
+					} else {
+						$data['members_num'] = 0;
+					}
+					$admins = $this->Corporation_model->get_admin($id);
+					if($admins) {
+						$data['admins'] = $this->jiadb->fetchJoin(array('id' => $admins));
+						$data['admins_num'] = count($admins);
+					} else {
+						$data['admins_num'] = 0;
+					}
 					$submit = $this->input->post('submit');
 					if($submit) {
 						$setting = $this->input->post('setting');
@@ -309,13 +309,19 @@
 									static_view('不好意思亲~ 上传失败了, 要不然' . anchor('personal/setting', '再试一次?'));
 								}
 								break;
-							
-							default:
+							case 'info':
 								
+								break;
+							case 'member':
+								
+								break;
+							default:
+								static_view('页面未找到');
 								break;
 						}
 					} else {
 						$data['title'] = '社团设置';
+						$data['js'] = 'corporation/setting.js';
 						$data['info'] = $corporation_info;
 						$data['main_content'] = 'corporation/setting_view';
 						$this->load->view('includes/template_view', $data);
@@ -325,7 +331,7 @@
 				}
 			}
 		}
-		
+		/*
 		function management($corporation_id) {
 			$this->_require_login();
 			$corporation = $this->Corporation_model->get_info($corporation_id);
@@ -353,7 +359,7 @@
 				static_view();
 			}
 		}
-		
+		*/
 		function follow() {
 			$this->_require_login();
 			$this->_require_ajax();
@@ -445,6 +451,19 @@
 		function delete_member() {
 			$this->_require_login();
 			$this->_require_ajax();
+			$corporation_id = $this->input->post('co_id');
+			$corporation_info = $this->Corporation_model->get_info($corporation_id);
+			if($corporation_info) {
+				$this->_auth('edit', 'corporation', $corporation_id);
+				$member_id = $this->input->post('member_id');
+				if($this->Corporation_model->join_member($corporation_id, $member_id, TRUE)) {
+					echo 1;
+				} else {
+					echo 0;
+				}
+			} else {
+				echo 0;
+			}
 		}
 		
 		function blog() {
