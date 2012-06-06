@@ -67,7 +67,7 @@ function uploadStart(file) {
 }
 
 function uploadProgress(file, bytesLoaded) {
-
+	$("#thumbnails").html('');
     try {
         var percent = Math.ceil((bytesLoaded / file.size) * 100);
 
