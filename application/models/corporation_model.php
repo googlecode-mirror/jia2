@@ -71,7 +71,7 @@
 				'meta_key' => 'admin',
 				'corporation_id' => $corporation_id
 			);
-			return $this->jiadb->fetchMeta($return);
+			return $this->jiadb->fetchMeta($return, $where);
 		}
 		
 		function get_blockers($corporation_id) {
@@ -167,6 +167,7 @@
 			);
 			if($unjoin) {
 				$this->db->delete('corporation_meta', $meta_array);
+				return TRUE;
 			} else {
 				$blockers = $this->get_blockers($corporation_id);
 				$members = $this->get_members($corporation_id);
