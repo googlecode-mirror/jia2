@@ -64,7 +64,7 @@
 </div>
 <div id="main">
 	<div class="asso_intro_box">
-		<h3><?=$info['name'] ?><span> (<?=count($members) ?>个成员)</span></h3>
+		<h3><?=$info['name'] ?><span> (<?=count($members) ?>个成员)</span><span><a href="#">(2)篇日志</a></span><span><a href="#">(2)个相册</a></span></h3>
 		<p>
 			<?=$info['comment'] ?>
 		</p>
@@ -86,7 +86,7 @@
 				<a href="#">社团活动&nbsp;(<?=count($activities) ?>)</a>
 			</li>
 			<li class="sd03" id="co-03">
-				<a href="#">社团相册&nbsp;</a>
+				<a href="#">留言&nbsp;</a>
 			</li>
 		</ul>
 	</div>
@@ -116,110 +116,60 @@
 			</ul>
 		</div>
 		<div id="co_03" class="hidden">
-			建设中
-			<!--
-			<div class="photo_album_box">
-				<div class="photo_operate">
-					<div id="thumbnail"></div>
-					<div class="swf_upload_button">
-		                <span id="spanButtonPlaceholder3">浏览</span>
-		                <input type="button" value="开始上传" class="btn_startupload" onclick="swfu3.startUpload();"/>
-		                <input type="button" value="取消上传" id="btnCancel3" onclick="swfu3.cancelUpload();"/>
-		            </div>
-		            <div class="fieldset flash" id="fsUploadProgress3">
-		            	上传列表
-		            </div>
-					<a href="#" >创建相册</a>
-				</div>
-				<ul class="photo_album_ul">
-						<li>
-							<a href=""><img src="" /></a>
-							<p>相册名</p>
-						</li>
-						<li>
-							<a href=""><img src="" /></a>
-							<p>相册名</p>
-						</li>
-						<li>
-							<a href=""><img src="" /></a>
-							<p>相册名</p>
-						</li>
+		<div class="massege_wrap">
+			<h3 class="h3_line">最新留言</h3>
+			<div class="massege">
+				<ul>
+					<li>
+						<div class="img_block">
+							<a class="head_pic"><img src="" /></a>
+						</div>
+						<div class="feed_main">
+							<div class="f_info">
+								<a href="">留言者</a>
+								<br>
+								<span class="f_do">说什么随便说什么好了。。</span>
+							</div>
+							<div class="f_summary">
+								<p class="f_pm">
+									<span><?=jdate($activity['start_time'], FALSE)
+										?></span>
+								</p>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="img_block">
+							<a class="head_pic"><img src="" /></a>
+						</div>
+						<div class="feed_main">
+							<div class="f_info">
+								<a href="">留言者</a>
+								<br>
+								<span class="f_do">说什么随便说什么好了。。</span>
+							</div>
+							<div class="f_summary">
+								<p class="f_pm">
+									<span><?=jdate($activity['start_time'], FALSE)
+										?></span>
+								</p>
+							</div>
+						</div>
+					</li>
 				</ul>
-		</div>
-		-->
-		</div>
-		<!-- 	留言 -->
-		<!--
-	<div class="massege_wrap">
-		<h3 class="h3_line">最新留言</h3>
-		<div class="massege">
-			<ul>
-				<li>
-					<div class="img_block">
-						<a class="head_pic"><img src="" /></a>
-					</div>
-					<div class="feed_main">
-						<div class="f_info">
-							<a href="">留言者</a><br>
-							<span class="f_do">说什么随便说什么好了。。</span>
-						</div>
-						<div class="f_summary">
-							<p class="f_pm">
-								<span><?=jdate($activity['start_time'], FALSE) ?></span>
-							</p>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="img_block">
-						<a class="head_pic"><img src="" /></a>
-					</div>
-					<div class="feed_main">
-						<div class="f_info">
-							<a href="">留言者</a><br>
-							<span class="f_do">说什么随便说什么好了。。</span>
-						</div>
-						<div class="f_summary">
-							<p class="f_pm">
-								<span><?=jdate($activity['start_time'], FALSE) ?></span>
-							</p>
-						</div>
-					</div>
-				</li>
-			</ul>
-		</div>
-		<div class="leave_massege">
-			<div class="img_block">
-				<a class="head_pic"><img src="" /></a>
 			</div>
-			<div class="feed_main">
-				<div class="f_info">
-					<textarea></textarea>
+			<div class="leave_massege">
+				<div class="img_block">
+					<a class="head_pic"><img src="" /></a>
+				</div>
+				<div class="feed_main">
+					<div class="f_info">
+						<textarea></textarea>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
--->
+		
 </div>	
 	
-<!--  	创建	活动 
-<div id="popup2" class="popup_block">
-<div id="add-corporation">
-	<?=form_open('corporation/do_add','class="form"')?>
-		<p ><label>活动名称：</label><?=form_input('name') ?></p>
-		<p ><label>活动地点：</label><?=form_dropdown('school', array('1'=> '川大江安', '0' => '川大望江')) ?></p>
-		<p class="hidden"><label>所在地：</label><?=form_dropdown('gender', array('0'=> '四川')) ?></p>
-		<p ><label>活动时间：</label><input type="text" size="30" id="datepicker" class=""/></p>
-		<p ><label>活动简介：</label><?=form_textarea(array('name' => 'comment', 'cols' => 30, 'rows' => 10)) ?></textarea></p>
-		<p class="li_c"><?=form_submit('submit', '保存','class="button"') ?></p>
-	<?=form_close() ?>
-	<script type="text/javascript">
-	$(document).ready(function(){
-		$(function() {
-			$("#datepicker").datepicker();
-		});
-	});
-	</script>
-	
-</div>  
-</div> -->

@@ -248,9 +248,9 @@ li {
 	text-align: -webkit-match-parent;
 }
 /*-下拉菜单-*/
-.drop_box{
+.drop_box,.drop_box2{
 	position:absolute;
-	left:-31px;
+	left:-41px;
 	font-size:12px;
 	width:80px;
 	text-align:center;
@@ -261,6 +261,11 @@ li {
 	border-top-left-radius: 3px;
 	border-bottom-left-radius: 3px;
 	border-bottom-right-radius: 3px;
+}
+.drop_box2{
+	left:-2px;
+	border-top-left-radius:none;
+	border-top-right-radius: 3px;
 }
 .drop_box li{
 	b/order: 1px solid #b8b8b8;
@@ -400,15 +405,22 @@ li.feed_a{
 	width: 100%;
 	font-weight: bold;
 }
-
+.right_nav{
+}
 .setting{
 	float:left;
 	position:relative;
-	width:50px;
+	width:42px;
+	margin-right:20px;
 	text-align: center;
+}
+.right .setting a{
+	padding:0 5px;
+	margin:0;
 }
 .setting:hover{
 	background:#fff;
+	width:40px;
 	border: 1px solid #b8b8b8;
 	border-width: 0 1px;
 	border-top-left-radius: 3px;
@@ -420,7 +432,7 @@ li.feed_a{
 	float:left;
 	background:#fff;
 	display:inline-block;
-	width:181px;
+	width:184px;
 	height:21px;
 	margin-top:10px;
 	border: 1px solid #C6C7C6;

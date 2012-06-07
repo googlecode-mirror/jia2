@@ -14,7 +14,7 @@
 				<?=form_submit('submit', '', 'class="button" id="nav_search_submit"') ?>
 	            <?=form_close() ?>
 			</span>
-		<div class="right">
+		<div class="right right_nav">
 			<? if($this->session->userdata('type') != 'guest'): ?>
 			<div class="setting">
 				<?=anchor('notify?type=message', '通知', '') ?>
@@ -26,7 +26,7 @@
 			</div>
 			<div class="setting">
 				<?=anchor('personal/setting', '设置', '') ?>
-				<ul class="drop_box" >
+				<ul class="drop_box drop_box2" >
 					<li><a href="<?=site_url('personal/setting#info') ?>" >资料修改</a></li>
 					<li><a href="<?=site_url('personal/setting#avatar') ?>" >头像修改</a></li>
 					<li><a href="<?=site_url('personal/setting#account') ?>" >账户设置</a></li>
