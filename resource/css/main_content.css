@@ -738,7 +738,10 @@ span.swf_box{
 	margin-top:20px;
 }
 /*********协会设置******/
-
+#more_info{
+	display:block;
+	margin-top:10px;
+}
 #coo_02 a {
 	color: #999999;
 	cursor: pointer;
@@ -796,6 +799,9 @@ ul#member li {
 	margin-left: 17px;
 }
 .progressContainer {
+	overflow: hidden;
+}
+#member{
 	overflow: hidden;
 }
 /*********社团更多资料*******/

@@ -74,7 +74,7 @@
 						</li>
 						<? endforeach ?>
 					<? endif ?>
-				
+				</ul>
 				<ul id="member">
 					<? if($members_num > 0): ?>
 						<? foreach($members as $member): ?>
@@ -92,8 +92,8 @@
 						<? endforeach ?>
 					<? endif ?>
 				</ul>
-				</div>
 			</div>
+			
 			<div id="coo_03" class="hidden">
 				<p class="p_1">	支持JPG、JPEG、GIF和PNG文件，最大2M。	</p>
 				<?=form_open_multipart('corporation/setting/' . $info['id']) ?>

@@ -47,7 +47,7 @@
 			由 <?=$info['user'][0]['name'] ?> 创建
 		</p>
 		<p>
-			<span class="profile_info"><a href="#?w=500" rel="popup5" class="inline">更多资料</a></span>
+			<a href="#?w=500" rel="popup5" class="inline" id="more_info">更多资料</a>
 		</p>
 	</div>
 	<div class="sidebar_nav">
