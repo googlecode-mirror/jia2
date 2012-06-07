@@ -7,12 +7,17 @@
 		</span>
 		<span ><label>活动地点：</label> <div class="InputWrapper"><div class="InputInner"><?=form_input('address') ?></div></div></span>
 		<span ><label>活动时间：</label>
+			<div id="start">
 			<div class="InputWrapper"><div class="InputInner">
 				<?=form_input('start_time', '', 'id="from"') ?>
-			</div></div>
+			</div></div></div>
+			<div id="conn">
+			-
+			</div>
+			<div id="end">
 			<div class="InputWrapper"><div class="InputInner">
 				<?=form_input('deadline','', 'id="to"') ?>
-			</div></div>
+			</div></div></div>
 		</span>
 		<span ><label>活动简介：</label>
 			<table class="Textarea">
