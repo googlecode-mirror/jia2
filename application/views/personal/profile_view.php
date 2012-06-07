@@ -13,20 +13,14 @@
 		<? endif ?>
 		<? endif ?>
 	<div class="new_things">
-	<div  class="tab">
-	<ul  class="navlist" >
-		<li class="sd01" id="mm01">
-		</li>
-	</ul>
-	</div>
-	<div class="clear"></div>
-	<div class="article_box">
-		<? $this->load->view('post/user_posts_view') ?>
-		<div id="cc02" class="hidden">
-			第二层内容
+		<div class="clear"></div>
+		<div class="article_box">
+			<? $this->load->view('post/user_posts_view') ?>
+			<div id="cc02" class="hidden">
+				第二层内容
+			</div>
 		</div>
 	</div>
-</div>
 </div>
 
 <!-- 	个人资料 -->
