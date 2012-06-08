@@ -28,7 +28,7 @@
 				'comment' => array('id', 'post_id', 5),
 				'comment.user' => array('user_id', 'id')
 			);
-			return $this->jiadb->fetchJoin(array('owner_id' =>$corporation_id, 'type_id' => $this->config->item('post_type_activity')), $join_co, array('time' => 'desc'), $limit);
+			return $this->jiadb->fetchJoin(array('owner_id' =>$corporation_id, 'type_id' => $this->config->item('entity_type_activity')), $join_co, array('time' => 'desc'), $limit);
 		}
 		
 		function get_activities($corporation_id, $limit = array(10, 0)) {

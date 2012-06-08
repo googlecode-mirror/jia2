@@ -8,7 +8,7 @@
 		
 		function login($param, $pass) {
 			$join = array(
-				'user_type' => array('type_id', 'id')
+				'entity_type' => array('type_id', 'id')
 			);
 			$info = $this->get_info($param, $join);
 			if(!$info) {
@@ -37,7 +37,7 @@
 			$comment_auth = Access_factory::get_access('comment');
 			$comment_auth->init($user_id, 'personal');
 			$join = array(
-				'user_type' => array('type_id', 'id')
+				'entity_type' => array('type_id', 'id')
 			);
 			$info = $this->get_info($user_id, $join);
 			return $info;

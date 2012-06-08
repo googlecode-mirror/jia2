@@ -423,7 +423,7 @@
 				static_view('');
 			if(is_numeric($corporation_id) && is_numeric($user_id)) {
 				$request = $this->Notify_model->get_info($request_id);
-				if($request['type_id'] != $this->config->item('notify_type_request') || $request['user_id'] != $user_id)
+				if($request['type_id'] != $this->config->item('entity_type_request') || $request['user_id'] != $user_id)
 					static_view();
 				$this->_auth('edit', 'corporation', $corporation_id);
 				$corporation = $this->Corporation_model->get_info($corporation_id);

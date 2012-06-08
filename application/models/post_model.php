@@ -1,13 +1,13 @@
 <?php
-	class Post_model extends CI_Model {
+	class Post_model extends MY_Model {
 		public $post_type;
 		protected $jiadb;
 		function __construct() {
 			parent::__construct();
 			$this->jiadb = new Jiadb('post');
-			$this->post_type['personal'] = $this->config->item('post_type_personal');
-			$this->post_type['forward'] = $this->config->item('post_type_forward');
-			$this->post_type['activity'] = $this->config->item('post_type_activity');
+			$this->post_type['personal'] = $this->config->item('entity_type_personal');
+			$this->post_type['forward'] = $this->config->item('entity_type_forward');
+			$this->post_type['activity'] = $this->config->item('entity_type_activity');
 		}
 		
 		function get_info($post_id, $join = array()) {
