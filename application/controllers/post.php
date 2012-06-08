@@ -15,7 +15,7 @@
 		
 		function _view($post_id) {
 			$post = $this->Post_model->get_info($post_id);
-			if($post['type_id'] == $this->config->item('post_type_activity')) {
+			if($post['type_id'] == $this->config->item('entity_type_activity')) {
 				$join = array(
 					'corporation' => array('owner_id', 'id'),
 					'comment' => array('id', 'post_id'),
@@ -36,7 +36,7 @@
 				$data['title'] = mb_substr($post['content'], 0, 5);
 				$data['main_content'] = 'post_single_view';
 				// 活动post
-				if($post['type_id'] == $this->config->item('post_type_activity')) {
+				if($post['type_id'] == $this->config->item('entity_type_activity')) {
 					$data['posts']['activity'][0] = $post;
 				} else {
 					$data['posts']['personal'][0] = $post;

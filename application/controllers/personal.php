@@ -374,7 +374,7 @@
 				'message' => ''
 			);
 			// 判断数据是否存在，是否是请求，接受者是否为当前用户
-			if($request && $request['type_id'] == $this->config->item('notify_type_request') && $request['receiver_id'] == $this->session->userdata('id')) {
+			if($request && $request['type_id'] == $this->config->item('entity_type_request') && $request['receiver_id'] == $this->session->userdata('id')) {
 				$this->db->where('id', $request['id']);
 				$this->db->delete('notify');
 				$json_array['success'] = 1;

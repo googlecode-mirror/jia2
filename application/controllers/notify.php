@@ -8,11 +8,6 @@
 			$this->jiadb = new Jiadb('notify');
 		}
 		
-		function get_info($notify_id) {
-			$notify = $this->jiadb->fetchAll(array('id' => $notify_id));
-			return $notify;
-		}
-		
 		function index() {
 			$this->_require_login();
 			$type = $this->input->get('type');
@@ -117,11 +112,11 @@
 				'status' => 1,
 				'receiver_id' => $user_id
 			);
-			$where['type_id'] = $this->config->item('notify_type_letter');
+			$where['type_id'] = $this->config->item('entity_type_letter');
 			$result['letter'] = count_rows('notify', $where);
-			$where['type_id'] = $this->config->item('notify_type_message');
+			$where['type_id'] = $this->config->item('entity_type_message');
 			$result['message'] = count_rows('notify', $where);
-			$where['type_id'] = $this->config->item('notify_type_request');
+			$where['type_id'] = $this->config->item('entity_type_request');
 			$result['request'] = count_rows('notify', $where);
 			echo json_encode($result);
 		}

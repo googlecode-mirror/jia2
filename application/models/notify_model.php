@@ -1,14 +1,14 @@
 <?php
-	class Notify_model extends CI_Model {
+	class Notify_model extends MY_Model {
 		public $jiadb;
-		private $notify_type;
+		public $notify_type;
 		function __construct() {
-			parent::__Construct();
+			parent::__construct();
 			$this->jiadb = new Jiadb('notify');
 			$this->notify_type = array(
-				'message' => $this->config->item('notify_type_message'),
-				'letter' => $this->config->item('notify_type_letter'),
-				'request' => $this->config->item('notify_type_request')
+				'message' => $this->config->item('entity_type_message'),
+				'letter' => $this->config->item('entity_type_letter'),
+				'request' => $this->config->item('entity_type_request')
 			);
 		}
 		

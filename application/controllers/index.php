@@ -239,7 +239,7 @@
 					default:
 						$session = array(
 							'id' => $result['id'],
-							'type' => $result['user_type'][0]['name'],
+							'type' => $result['entity_type'][0]['name'],
 							'name' => $result['name'],
 							'avatar' => $result['avatar'],
 						);
@@ -265,7 +265,7 @@
 					default:
 						$session = array(
 							'id' => $result['id'],
-							'type' => $result['user_type'][0]['name'],
+							'type' => $result['entity_type'][0]['name'],
 							'name' => $result['name'],
 							'avatar' => $result['avatar'],
 						);
@@ -307,7 +307,7 @@
 					echo json_encode($json_array);
 					$session = array(
 						'id' => $result['id'],
-						'type' => $result['user_type'][0]['name']
+						'type' => $result['entity_type'][0]['name']
 					);
 					$this->session->set_userdata($session);
 			}
@@ -319,5 +319,27 @@
 			delete_cookie('id');
 			delete_cookie('pass');
 			redirect('index/login');
+		}
+		
+		// 更新数据库
+		function update_db() {
+			$entity_result = $this->db->get('entity_type')->result_array();
+			foreach ($entity_result as $row) {
+				$entity[$row['name']] = $row['id'];
+			}
+			$entity_table = array(
+				'user',
+				'post',
+				'notify',
+			);
+			foreach ($entity_table as $table) {
+				$type = $table . '_type';
+				$sql = 'select ' . $table . '.id as pid, ' . $type . '.name as typename from ' . $table . ', ' . $type . ' where ' . $table . '.type_id = ' . $type . '.id';
+				$cur = $this->db->query($sql)->result_array();
+				foreach ($cur as $row) {
+					$sql = 'update ' . $table .' set type_id=' . $entity[$row['typename']] . ' where id=' . $row['pid'];
+					$this->db->query($sql);
+				}
+			}
 		}
 	}

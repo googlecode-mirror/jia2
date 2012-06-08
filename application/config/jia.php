@@ -1,10 +1,4 @@
 <?php
-	// 个人po的id
-	$config['post_type_personal'] = 1;
-	// 活动po的id
-	$config['post_type_activity'] = 3;
-	// 转发类po的id
-	$config['post_type_forward'] = 2;
 	// 每页显示的信息数量
 	$config['page_size'] = 10;
 	// 个人头像上传相对路径
@@ -18,7 +12,7 @@
 	// 社团照片上传路径
 	$config['corporation_album_path'] = 'data/avatar/corporation/';
 	
-	// 消息类型id
-	$config['notify_type_letter'] = 1;
-	$config['notify_type_request'] = 2;
-	$config['notify_type_message'] = 3;
+	// 部署模式
+	$config['deploy_mode'] = FALSE;
+	
+	// 更多配置项在钩子和 MY_Model中设置
