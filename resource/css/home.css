@@ -447,6 +447,7 @@ li.feed_a{
 	padding-top: 28px;
 	padding-bottom: 50px;
 	overflow:auto;
+	min-height:400px;
 }
 #main{
 	font-size: 12px;
