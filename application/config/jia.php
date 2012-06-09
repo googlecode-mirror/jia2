@@ -11,7 +11,10 @@
 	$config['corporation_request'] = 'data/request/corporation/';
 	// 社团照片上传路径
 	$config['corporation_album_path'] = 'data/avatar/corporation/';
-	
+	// 个人日志图片上传路劲
+	$config['personal_blog_path'] = 'data/blog/personal/';
+	// 社团日志图片上传路劲
+	$config['corporation_blog_path'] = 'data/blog/corporation/';
 	// 部署模式
 	$config['deploy_mode'] = FALSE;
 	

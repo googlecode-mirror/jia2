@@ -342,4 +342,13 @@
 				}
 			}
 		}
+		
+		//个人权限修正
+		function auth_revert() {
+			$this->_require_login();
+			$post_access = Access_factory::get_access('post');
+			$post_access->init($this->session->userdata('id'));
+			$comment_auth = Access_factory::get_access('comment');
+			$comment_auth->init($this->session->userdata('id'), 'personal');
+		}
 	}

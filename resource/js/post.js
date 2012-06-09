@@ -21,7 +21,7 @@ $(function() {
 	});
 	$("button[name='comment']").click(function() {
 		//$comment = $(this).parent().prev().children('textarea');
-		$comment = $(this).parent().prev("p").find("textarea");
+		$comment = $(this).parent().parent().find("textarea");
 		$button = $(this);
 		content = $comment.val();
 		post_id = $comment.attr('post_id');

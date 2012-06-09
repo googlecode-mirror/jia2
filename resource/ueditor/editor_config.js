@@ -25,8 +25,8 @@
      * 此处配置写法适用于UEditor小组成员开发使用，外部部署用户请按照上述说明方式配置即可，建议保留下面两行，以兼容可在具体每个页面配置window.UEDITOR_HOME_URL的功能。
      */
     var tmp = window.location.pathname;
-        URL = window.UEDITOR_HOME_URL||tmp.substr(0,tmp.lastIndexOf("\/")+1).replace("_examples/","").replace("website/","");//这里你可以配置成ueditor目录在您网站的相对路径或者绝对路径（指以http开头的绝对路径）
-
+       // URL = window.UEDITOR_HOME_URL||tmp.substr(0,tmp.lastIndexOf("\/")+1).replace("_examples/","").replace("website/","");//这里你可以配置成ueditor目录在您网站的相对路径或者绝对路径（指以http开头的绝对路径）
+		URL = BASE_URL + 'resource/ueditor/';
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。
      */
@@ -48,7 +48,7 @@
         //,fileFieldName:"upfile"                    //附件提交的表单名，若此处修改，需要在后台对应文件修改对应参数
 
          //远程抓取配置区
-        //,catchRemoteImageEnable:true               //是否开启远程图片抓取,默认开启
+        ,catchRemoteImageEnable:false               //是否开启远程图片抓取,默认开启
         ,catcherUrl:URL +"php/getRemoteImage.php"   //处理远程图片抓取的地址
         ,catcherPath:URL + "php/"                  //图片修正地址，同imagePath
         //,catchFieldName:"upfile"                   //提交到后台远程图片uri合集，若此处修改，需要在后台对应文件修改对应参数
@@ -87,8 +87,8 @@
                 'directionalityltr', 'directionalityrtl', '|', '', 'indent', '|',
                 'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',
                 'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright',
-                'imagecenter', '|', 'insertimage', 'emotion', 'insertvideo', 'attachment', 'map', 'gmap', 'insertframe','highlightcode','webapp','pagebreak', '|',
-                'horizontal', 'date', 'time', 'spechars','snapscreen', 'wordimage', '|',
+                'imagecenter', '|', 'insertimage', 'emotion', 'insertvideo', 'map', 'gmap','highlightcode','pagebreak', '|',
+                'horizontal', 'date', 'time', 'spechars', 'wordimage', '|',
                 'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|',
                 'print', 'preview', 'searchreplace','help']
         ]
@@ -121,7 +121,7 @@
         //,isShow : true    //默认显示编辑器
 
 
-        //,initialContent:'欢迎使用ueditor!'    //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
+        ,initialContent:''    //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
 
 
         //,autoClearinitialContent:false //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了

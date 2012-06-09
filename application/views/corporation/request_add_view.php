@@ -12,7 +12,7 @@
 		            file_size_limit : "2 MB",	// 2MB
 		            file_types : "*.jpg;*.png;*.gif;*.jpeg",
 		            file_types_description : "JPG Images",
-		            file_upload_limit : "0",
+		            file_upload_limit : "1",
 		            file_post_name: "st_card_cap",
 		
 		            // Event Handler Settings - these functions as defined in Handlers.js
@@ -59,7 +59,7 @@
 		            file_size_limit : "2 MB",	// 2MB
 		            file_types : "*.jpg;*.png;*.gif;*.jpeg",
 		            file_types_description : "JPG Images",
-		            file_upload_limit : "0",
+		            file_upload_limit : "1",
 		            file_post_name: "id_card_cap",
 		
 		            // Event Handler Settings - these functions as defined in Handlers.js

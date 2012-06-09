@@ -3,7 +3,7 @@
     $config = array(
         "uploadPath"=>"upload/",                          //保存路径
         "fileType"=>array(".gif",".png",".jpg",".jpeg",".bmp"),   //文件允许格式
-        "fileSize"=>1000                                          //文件大小限制，单位KB
+        "fileSize"=>2000                                          //文件大小限制，单位KB
     );
     //原始文件名，表单名固定，不可配置
     $oriName = htmlspecialchars($_POST['fileName'], ENT_QUOTES);

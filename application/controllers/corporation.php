@@ -127,7 +127,7 @@
 				'user.school' => array('school_id', 'id')
 			);
 			$request = $this->jiadb->fetchJoin(array('id' => $request_id, 'status' => 1), $join);
-			// 改请求存在，以及被通过了
+			// 该请求存在，以及被通过了
 			if($request) {
 				$request = $request[0];
 				if($request['user'][0]['id'] != $this->session->userdata('id'))
@@ -464,9 +464,5 @@
 			} else {
 				echo 0;
 			}
-		}
-		
-		function blog() {
-			
 		}
 	}

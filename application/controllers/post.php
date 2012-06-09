@@ -50,7 +50,9 @@
 		function add() {
 			$this->_require_ajax();
 			$this->_require_login();
-			$this->_auth('add', 'post', $this->session->userdata('id'));
+			if(!$this->_auth('add', 'post', $this->session->userdata('id'), TRUE)) {
+				echo 0;exit;
+			}
 			$content = $this->input->post('content');
 			if(trim($content)) {
 				$post = array(
@@ -110,8 +112,7 @@
 			$type = $this->input->post('type');
 			$post_id = $this->input->post('post_id');
 			if(!$this->_auth('add', 'comment', $this->session->userdata('id'), TRUE, $post_id)) {
-				echo 0;
-				exit();
+				echo 0;exit;
 			}
 			$post = $this->Post_model->get_info($post_id);
 			$owner_id = $post['owner_id'];

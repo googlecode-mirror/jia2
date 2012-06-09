@@ -47,6 +47,7 @@
 			$following_co = $this->User_model->get_following($user_id, 'corporation');
 			// 这里以后还要加入社团以及活动的owner_id
 			$following_user[] = $user_id;
+			$posts = array();
 			switch ($type) {
 				case 'activity':
 					if($following_co) {

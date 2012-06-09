@@ -42,7 +42,6 @@
 				</div>
 				<? if($this->session->userdata('type') != 'guest'): ?>
 				<div class="comment_wrap">
-					<p>
 						<table class="Textarea">
 			<tbody>
 				<tr>
@@ -65,7 +64,7 @@
 					<td id="Textarea-br"></td>
 				</tr>
 			</tbody>
-		</table></p>
+		</table>
 					<p><?=form_button('comment', '评论', 'class="pub_button comment_button"') ?></p>
 				</div>
 				<? else: ?>
