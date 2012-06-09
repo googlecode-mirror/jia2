@@ -26,7 +26,7 @@
      */
     var tmp = window.location.pathname;
        // URL = window.UEDITOR_HOME_URL||tmp.substr(0,tmp.lastIndexOf("\/")+1).replace("_examples/","").replace("website/","");//这里你可以配置成ueditor目录在您网站的相对路径或者绝对路径（指以http开头的绝对路径）
-		URL = BASE_URL + 'resource/ueditor/';
+		URL = '/resource/ueditor/';
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。
      */
@@ -36,8 +36,8 @@
         UEDITOR_HOME_URL : URL
 
         //图片上传配置区
-        ,imageUrl:URL+"php/imageUp.php"             //图片上传提交地址
-        ,imagePath:URL + "php/"                     //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置
+        ,imageUrl:UEDITOR_IMG_URL             //图片上传提交地址
+        ,imagePath:'/'                     //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置
         //,imageFieldName:"upfile"                   //图片数据的key,若此处修改，需要在后台对应文件修改对应参数
         //,compressSide:0                            //等比压缩的基准，确定maxImageSideLength参数的参照对象。0为按照最长边，1为按照宽度，2为按照高度
         //,maxImageSideLength:900                    //上传图片最大允许的边长，超过会自动等比缩放,不缩放就设置一个比较大的值，更多设置在image.html中
@@ -56,8 +56,8 @@
         //,localDomain:[]                            //本地顶级域名，当开启远程图片抓取时，除此之外的所有其它域名下的图片都将被抓取到本地
 
         //图片在线管理配置区
-        ,imageManagerUrl:URL + "php/imageManager.php"       //图片在线管理的处理地址
-        ,imageManagerPath:URL + "php/"                                    //图片修正地址，同imagePath
+        ,imageManagerUrl:UEDITOR_IMG_MANAGER_URL       //图片在线管理的处理地址
+        ,imageManagerPath:'/'                                   //图片修正地址，同imagePath
 
         //屏幕截图配置区
         ,snapscreenHost: '127.0.0.1'                                  //屏幕截图的server端文件所在的网站地址或者ip，请不要加http://
@@ -68,13 +68,13 @@
 
 
         //word转存配置区
-        ,wordImageUrl:URL + "php/imageUp.php"             //word转存提交地址
-        ,wordImagePath:URL + "php/"                       //
+        ,wordImageUrl:UEDITOR_IMG_URL             //word转存提交地址
+        ,wordImagePath:'/'                       //
         //,wordImageFieldName:"upfile"                     //word转存表单名若此处修改，需要在后台对应文件修改对应参数
 
 
         //获取视频数据的地址
-        ,getMovieUrl:URL+"php/getMovie.php"                   //视频数据获取地址
+        ,getMovieUrl:UEDITOR_GET_MOVIE                  //视频数据获取地址
 
 
 
@@ -88,7 +88,7 @@
                 'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',
                 'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright',
                 'imagecenter', '|', 'insertimage', 'emotion', 'insertvideo', 'map', 'gmap','highlightcode','pagebreak', '|',
-                'horizontal', 'date', 'time', 'spechars', 'wordimage', '|',
+                'horizontal', 'date', 'time', 'spechars', '|',
                 'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|',
                 'print', 'preview', 'searchreplace','help']
         ]

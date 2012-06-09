@@ -1,4 +1,5 @@
 <?php
+define(SITE_TITLE, '加加社团');
 ob_start();
 /*
  *---------------------------------------------------------------
@@ -45,6 +46,7 @@ if (defined('ENVIRONMENT'))
 			exit('The application environment is not set correctly.');
 	}
 }
+
 
 /*
  *---------------------------------------------------------------
