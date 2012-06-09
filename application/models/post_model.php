@@ -1,5 +1,5 @@
 <?php
-	class Post_model extends MY_Model {
+	class Post_model extends CI_Model {
 		public $post_type;
 		protected $jiadb;
 		function __construct() {

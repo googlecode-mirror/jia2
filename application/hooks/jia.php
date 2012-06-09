@@ -9,12 +9,6 @@
 		if(!$CI->session->userdata('type')) {
 			$CI->session->set_userdata('type', 'guest');
 		}
-		// 从数据库读取并修改配置文件
-		$entity_type = $CI->db->get('entity_type')->result_array();
-		foreach ($entity_type as $row) {
-			$CI->config->set_item('entity_type_' . $row['name'], $row['id']);
-		}
-		
 		// 用cooki登录
 		if($CI->session->userdata('type') == 'guest' && get_cookie('id') && get_cookie('pass') && $CI->uri->segment(2) != 'do_login') {
 			$redirect = uri_string();

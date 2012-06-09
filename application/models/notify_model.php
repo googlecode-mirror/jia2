@@ -1,5 +1,5 @@
 <?php
-	class Notify_model extends MY_Model {
+	class Notify_model extends CI_Model {
 		public $jiadb;
 		public $notify_type;
 		function __construct() {
