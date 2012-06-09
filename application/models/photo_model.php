@@ -76,7 +76,27 @@
 					}
 					return $filename;
 					break;
-			}
+				case 'blog':
+					$this->upload->initialize($config);
+					if($this->upload->do_upload('upfile')) {
+						$image_data = $this->upload->data();
+						if($image_data['image_width'] > 700) {
+							$thumb = array(
+								'source_image' => $image_data['full_path'],
+								'maintain_ratio' => TRUE,
+								'thumb_marker' => '',
+								'width' => 700,
+								'height' => 1000
+							);
+							$this->image_lib->initialize($thumb); 
+							$this->image_lib->resize();
+						}
+						return TRUE;
+					} else {
+						return FALSE;
+					}
+					break;
+				}
 		}
 		
 		function set_avatar($mode = 'personal', $filename) {
@@ -106,8 +126,37 @@
 				  echo "FILEID:" . $file_id; 
 			}
 		}
+		// 上传日志图片方法
+		function save_blog_img($path) {
+			$param = array(
+				'upload_path' => $path,
+				'mode' => 'blog',
+				'filename' => rand(1,10000).time().strrchr($_FILES["upfile"]['name'],'.'),
+			);
+			if($this->upload($param)) {
+				return $param['filename'];
+			} else {
+				return FALSE;
+			}
+		}
 		
-		function save_blog_img() {
-			
+		function getfiles($path, &$files = array()){
+			if (!is_dir($path)) return;
+		
+			$handle = opendir($path);
+			while (false !== ($file = readdir($handle))) {
+				if ($file != '.' && $file != '..') {
+					$path2 = $path . '/' . $file;
+					if (is_dir($path2)) {
+						$this->getfiles($path2, $files);
+					} else {
+						if (preg_match("/\.(gif|jpeg|jpg|png|bmp)$/i", $file)) {
+							$files[] = $path2;
+						}
+					}
+		
+				}
+			}
+			return $files;
 		}
 	}

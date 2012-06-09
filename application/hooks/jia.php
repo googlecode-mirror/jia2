@@ -3,7 +3,7 @@
 	function initialize () {
 		$CI =& get_instance();
 		if($CI->config->item('deploy_mode')) {
-			show_error('网站正在升级，请稍后访问');
+			show_error('网站维护中...', 503, '暂停访问');
 		}
 		// 初始化session
 		if(!$CI->session->userdata('type')) {
