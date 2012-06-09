@@ -135,7 +135,7 @@
 			} else {
 				return FALSE;
 			}
-			$this->jiadb->_table = 'post_type';
+			$this->jiadb->_table = 'entity_type';
 			$post_type_result = $this->jiadb->fetchAll(array('name' => $type));
 			$type_id = $post_type_result[0]['id'];
 			$extend = array('type_id' => $type_id);
@@ -143,7 +143,7 @@
 		}
 		
 		function set_access($id, $access = array(), $post_type) {
-			$this->jiadb->_table = 'post_type';
+			$this->jiadb->_table = 'entity_type';
 			$result = $this->jiadb->fetchAll(array('name' => $post_type));
 			$extend = array(
 				'type_id' => $result[0]['id']
