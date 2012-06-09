@@ -15,4 +15,4 @@
 	// 部署模式
 	$config['deploy_mode'] = FALSE;
 	
-	// 更多配置项在钩子和 MY_Model中设置
+	// 更多配置项在MY_Controller中设置

@@ -13,6 +13,11 @@ require_once APPPATH . 'libraries/access.php';
 		public $jiadb;
 		function __construct() {
 			parent::__construct();
+			// 初始化配置文件
+			$entity_type = $this->db->get('entity_type')->result_array();
+			foreach ($entity_type as $row) {
+				$this->config->set_item('entity_type_' . $row['name'], $row['id']);
+			}
 			$this->jiadb = new Jiadb('users');
 		}
 		/**
