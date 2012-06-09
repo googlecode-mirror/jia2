@@ -3,7 +3,7 @@
 -- Server version:               5.5.16 - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-06-09 02:16:06
+-- Date/time:                    2012-06-09 11:24:14
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -178,8 +178,8 @@ CREATE TABLE IF NOT EXISTS `blog_comment` (
   PRIMARY KEY (`id`),
   KEY `FK_blog_comment_user` (`user_id`),
   KEY `FK_blog_comment_blog` (`blog_id`),
-  CONSTRAINT `FK_blog_comment_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `FK_blog_comment_blog` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`)
+  CONSTRAINT `FK_blog_comment_blog` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`),
+  CONSTRAINT `FK_blog_comment_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='日志评论';
 
 -- Dumping data for table jia2.blog_comment: ~0 rows (approximately)
@@ -371,9 +371,9 @@ CREATE TABLE IF NOT EXISTS `comment_auth` (
   KEY `FK_comment_auth_identity` (`identity_id`),
   KEY `FK_comment_auth_operation` (`operation_id`),
   KEY `FK_comment_auth_post_type` (`type_id`),
+  CONSTRAINT `FK_comment_auth_post_type` FOREIGN KEY (`type_id`) REFERENCES `entity_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_comment_auth_identity` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_comment_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_comment_auth_post_type` FOREIGN KEY (`type_id`) REFERENCES `post_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_comment_auth_operation` FOREIGN KEY (`operation_id`) REFERENCES `operation` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table jia2.comment_auth: ~107 rows (approximately)
@@ -725,23 +725,6 @@ CREATE TABLE IF NOT EXISTS `notify_meta` (
 /*!40000 ALTER TABLE `notify_meta` ENABLE KEYS */;
 
 
--- Dumping structure for table jia2.notify_type
-CREATE TABLE IF NOT EXISTS `notify_type` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  `comment` varchar(45) DEFAULT NULL COMMENT '字段说明',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
--- Dumping data for table jia2.notify_type: ~3 rows (approximately)
-/*!40000 ALTER TABLE `notify_type` DISABLE KEYS */;
-REPLACE INTO `notify_type` (`id`, `name`, `comment`) VALUES
-	(1, 'letter', '站内信'),
-	(2, 'request', '请求'),
-	(3, 'message', '消息');
-/*!40000 ALTER TABLE `notify_type` ENABLE KEYS */;
-
-
 -- Dumping structure for table jia2.operation
 CREATE TABLE IF NOT EXISTS `operation` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -850,8 +833,8 @@ REPLACE INTO `post_auth` (`id`, `owner_id`, `identity_id`, `operation_id`, `acce
 	(30, 11, 5, 1, 1),
 	(31, 11, 5, 2, 1),
 	(32, 11, 5, 4, 1),
-	(39, 13, 2, 1, 1),
-	(40, 13, 3, 1, 1),
+	(39, 13, 2, 1, 0),
+	(40, 13, 3, 1, 0),
 	(41, 13, 4, 1, 1),
 	(42, 13, 5, 1, 1),
 	(43, 13, 5, 2, 1),
@@ -889,23 +872,6 @@ REPLACE INTO `post_meta` (`id`, `post_id`, `meta_table`, `meta_key`, `meta_value
 	(1, 54, 'activity', 'activity', '11'),
 	(2, 55, 'activity', 'activity', '12');
 /*!40000 ALTER TABLE `post_meta` ENABLE KEYS */;
-
-
--- Dumping structure for table jia2.post_type
-CREATE TABLE IF NOT EXISTS `post_type` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  `comment` varchar(45) DEFAULT NULL COMMENT '字段说明',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
--- Dumping data for table jia2.post_type: ~3 rows (approximately)
-/*!40000 ALTER TABLE `post_type` DISABLE KEYS */;
-REPLACE INTO `post_type` (`id`, `name`, `comment`) VALUES
-	(1, 'personal', '个人'),
-	(2, 'forward', '转发'),
-	(3, 'activity', '活动');
-/*!40000 ALTER TABLE `post_type` ENABLE KEYS */;
 
 
 -- Dumping structure for table jia2.province
@@ -4431,20 +4397,5 @@ REPLACE INTO `user_meta` (`id`, `user_id`, `meta_table`, `meta_key`, `meta_value
 	(14, 13, 'corporation', 'follower', '8', NULL),
 	(15, 11, 'corporation', 'follower', '10', NULL);
 /*!40000 ALTER TABLE `user_meta` ENABLE KEYS */;
-
-
--- Dumping structure for table jia2.user_type
-CREATE TABLE IF NOT EXISTS `user_type` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '类型id',
-  `name` varchar(45) NOT NULL COMMENT '类型名',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
--- Dumping data for table jia2.user_type: ~2 rows (approximately)
-/*!40000 ALTER TABLE `user_type` DISABLE KEYS */;
-REPLACE INTO `user_type` (`id`, `name`) VALUES
-	(1, 'admin'),
-	(2, 'register');
-/*!40000 ALTER TABLE `user_type` ENABLE KEYS */;
 /*!40014 SET FOREIGN_KEY_CHECKS=1 */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
