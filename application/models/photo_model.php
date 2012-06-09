@@ -102,80 +102,12 @@
 			if($this->upload($param)) {
 				$this->session->set_userdata('type', 'register');
 				$this->session->set_userdata('filename', $param['filename']);
-				//echo $this->session->userdata('filename');
-				//exit();
-				// Get the image and create a thumbnail
-				/*
-			  $img = imagecreatefromjpeg($_FILES[$param['field']]["tmp_name"]);
-			  if (!$img) {
-			   echo "ERROR:could not create image handle ". $_FILES[$param['field']]["tmp_name"];
-			   exit(0);
-			  }
-			
-			  $width = imageSX($img);
-			  $height = imageSY($img);
-			
-			  if (!$width || !$height) {
-			   echo "ERROR:Invalid width or height";
-			   exit(0);
-			  }
-			
-			  // Build the thumbnail
-			  $target_width = 180;
-			  $target_height = 180;
-			  $target_ratio = $target_width / $target_height;
-			
-			  $img_ratio = $width / $height;
-			
-			  if ($target_ratio > $img_ratio) {
-			   $new_height = $target_height;
-			   $new_width = $img_ratio * $target_height;
-			  } else {
-			   $new_height = $target_width / $img_ratio;
-			   $new_width = $target_width;
-			  }
-			
-			  if ($new_height > $target_height) {
-			   $new_height = $target_height;
-			  }
-			  if ($new_width > $target_width) {
-			   $new_height = $target_width;
-			  }
-				$new_img = ImageCreateTrueColor(180, 180);
-				  $white=imagecolorallocate($new_img,255,255,255);
-				  if (!@imagefilledrectangle($new_img, 0, 0, $target_width-1, $target_height-1,$white)) { 
-				   echo "ERROR:Could not fill new image";
-				   exit(0);
-				  }
-				  if (!@imagecopyresampled($new_img, $img, ($target_width-$new_width)/2, ($target_height-$new_height)/2, 0, 0, $new_width, $new_height, $width, $height)) {
-				   echo "ERROR:Could not resize image";
-				   exit(0);
-				  }
-				  /*
-					$file_info = $this->session->userdata('file_info');
-				  if ($file_info) {
-				  	$file_info = array();
-					  $this->session->set_userdata('file_info', $file_info);
-				  }
-				   * 
-				   */
-				
-				  // Use a output buffering to load the image into a variable
-				  /*
-				  ob_start();
-				   
-				  //保存缩略图，并生成文件
-				  imagejpeg($new_img,$thumb,100);
-				  imagejpeg($new_img);
-				  
-				  $imagevariable = ob_get_contents();
-				  ob_end_clean();
-				*/
 				  $file_id = md5($_FILES[$param['field']]["tmp_name"] + rand()*100000);
-				
-				  //$file_info[$file_id] = $imagevariable;
-					//$this->session->set_userdata('file_info', $file_info);
-				  echo "FILEID:" . $file_id; // Return the file id to the script
+				  echo "FILEID:" . $file_id; 
 			}
+		}
+		
+		function save_blog_img() {
+			
 		}
 	}

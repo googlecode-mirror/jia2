@@ -62,11 +62,15 @@
 						'operation_id' => $operation_id
 					);
 					if($extend) {
-						foreach ($extend as $field => $value) {
-							$row[$field] = $value;
-						}
+						$row = array_merge($row, $extend);
 					}
-					$this->CI->db->insert($this->table, $row);
+					$rows = $this->CI->db->get_where($this->table, $row)->num_rows;
+					if($rows == 0) {
+						$this->CI->db->insert($this->table, $row);
+					} else if($rows > 1) {
+						$this->CI->db->delete($this->table, $row, $row-1);
+					}
+					
 				}
 			}
 		}
@@ -81,13 +85,24 @@
 		 */
 		function set_access($id, array $access, $extend = array()) {
 			foreach ($access as $row) {
-				$this->CI->db->where('owner_id', $id);
-				$this->CI->db->where('identity_id', $this->identity_array[$row['identity']]);
-				$this->CI->db->where('operation_id', $this->operation_array[$row['operation']]);
+				$where_array = array(
+					'owner_id' => $id,
+					'identity_id' => $this->identity_array[$row['identity']],
+					'operation_id' => $this->operation_array[$row['operation']]
+				);
 				if($extend) {
-					$this->CI->db->where($extend);
+					$where_array = array_merge($where_array, $extend);
 				}
-				$this->CI->db->update($this->table, array('access' => $row['access']));
+				$rows = $this->CI->db->get_where($this->table, $where_array)->num_rows;
+				if($rows == 1) {
+					$this->CI->db->where($where_array)->update($this->table, array('access' => $row['access']));
+				} else if($rows > 1) {
+					$this->CI->db->where($where_array)->delete($this->table);
+					$this->CI->db->insert($this->table, array_merge($where_array, array('access' => $row['access'])));
+				} else {
+					$this->CI->db->insert($this->table, array_merge($where_array, array('access' => $row['access'])));
+				}
+				
 			}
 		}
 	}
@@ -105,6 +120,7 @@
 				'follower' => array('view'),
 				'self' => array('view', 'add', 'delete')
 			);
+			
 			parent::init($user_id, $init_array);
 		}
 	}

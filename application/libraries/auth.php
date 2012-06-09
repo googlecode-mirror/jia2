@@ -58,11 +58,23 @@ require_once APPPATH . 'libraries/jiadb.php';
 			$this->CI->load->model('User_model');
 		}
 		
-		function get_access($operation, $identity) {
+		function get_access($operation, $identity, $extend = array()) {
 			$operation_id = $this->operation_array[$operation];
 			$identity_id = $this->identity_array[$identity];
 			$this->jiadb->_table = $this->table;
-			$result = $this->jiadb->fetchAll(array('owner_id' => $this->owner_id, 'identity_id' => $identity_id, 'operation_id' => $operation_id));
+			$where = array(
+				'owner_id' => $this->owner_id, 
+				'identity_id' => $identity_id, 
+				'operation_id' => $operation_id
+				);
+			if($extend) {
+				$where = array_merge($where, $extend);
+			}
+			// echo '<pre>';
+			// print_r($extend);
+			// print_r($where);
+			// exit('</pre>');
+			$result = $this->jiadb->fetchAll($where);
 			$this->access = $result[0]['access'];
 		}
 	}
@@ -342,7 +354,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 				$this->CI->load->model('Post_model');
 				$this->CI->load->model('Corporation_model');
 				$post = $this->CI->Post_model->get_info($post_id);
-				$this->type = $this->CI->config->item('post_type_personal') == $post['type_id'] ? 'personal' : 'activity';
+				$this->type = $this->CI->config->item('entity_type_personal') == $post['type_id'] ? 'personal' : 'activity';
 				$this->master_id = $post['owner_id'];
 			}
 		}
@@ -352,7 +364,6 @@ require_once APPPATH . 'libraries/jiadb.php';
 				parent::get_access($operation, $identity);
 				return;
 			}
-			
 			// 最高管理员
 			if($this->CI->session->userdata('type') == 'admin') {
 				$this->access = 1;
@@ -366,15 +377,20 @@ require_once APPPATH . 'libraries/jiadb.php';
 				return;
 			}
 			
+			
 			// 本人
 			if($this->owner_id == $this->CI->session->userdata('id')) {
 				$identity = 'self';
-				parent::get_access($operation, $identity);
+				$extend = array(
+					'type_id' => $this->CI->config->item('entity_type_personal')
+				);
+				parent::get_access($operation, $identity, $extend);
 				if($this->access == 0) {
 					return;
 				}
 				$this->access = 0;
 			}
+			
 			if($this->CI->session->userdata('type') == 'register') {
 				$identity = 'register';
 			}
@@ -382,20 +398,23 @@ require_once APPPATH . 'libraries/jiadb.php';
 			// 再判断对于当前po有没有权限
 			$this->owner_id = $this->master_id;
 			if($this->type == 'personal') {
+				$extend = array(
+					'type_id' => $this->CI->config->item('entity_type_personal')
+				);
 				if($this->request_user == $this->master_id) {
 					$identity = 'po_master';
-					parent::get_access($operation, $identity);
+					parent::get_access($operation, $identity, $extend);
 					return;
 				}
 				$blockers = $this->CI->User_model->get_blockers($this->master_id);
 				if(!empty($blockers) && in_array($this->request_user, $blockers)) {
 					// 黑名单
 					$identity = 'blocker';
-					parent::get_access($operation, $identity);
+					parent::get_access($operation, $identity, $extend);
 					return;
 				}
 				// 注册用户
-				parent::get_access($operation, $identity);
+				parent::get_access($operation, $identity, $extend);
 				if($this->access) {
 					return;
 				}
@@ -403,33 +422,36 @@ require_once APPPATH . 'libraries/jiadb.php';
 				$followers = $this->CI->User_model->get_followers($this->master_id);
 				if(in_array($this->request_user, $followers)) {
 					$identity = 'follower';
-					parent::get_access($operation, $identity);
+					parent::get_access($operation, $identity, $extend);
 					if($this->access) {
 						return;
 					}
 				}
 			}
 			
-			// 
+			// 活动类型post
 			if($this->type == 'activity') {
+				$extend = array(
+					'type_id' => $this->CI->config->item('entity_type_activity')
+				);
 				$corporation = $this->CI->Corporation_model->get_info($this->master_id);
 				$master_id = $corporation['user_id'];
 				
 				// 社长
 				if($this->request_user == $master_id) {
 					$identity = 'co_master';
-					parent::get_access($operation, $identity);
+					parent::get_access($operation, $identity, $extend);
 					return;
 				}
 				$blockers = $this->CI->Corporation_model->get_blockers($this->master_id);
 				if(!empty($blockers) && in_array($this->request_user, $blockers)) {
 					// 黑名单
 					$identity = 'blocker';
-					parent::get_access($operation, $identity);
+					parent::get_access($operation, $identity, $extend);
 					return;
 				}
 				// 注册用户
-				parent::get_access($operation, $identity);
+				parent::get_access($operation, $identity, $extend);
 				if($this->access) {
 					return;
 				}
@@ -445,7 +467,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 				$participants = $this->CI->Activity_model->get_participants($activity_id);
 				if(in_array($this->request_user, $participants)) {
 					$identity = 'participant';
-					parent::get_access($operation, $identity);
+					parent::get_access($operation, $identity, $extend);
 					if($this->access) {
 						return;
 					}
@@ -454,7 +476,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 				$members = $this->CI->Corporation_model->get_members($this->master_id);
 				if(!empty($members) && in_array($this->request_user, $members)) {
 					$identity = 'co_member';
-					parent::get_access($operation, $identity);
+					parent::get_access($operation, $identity, $extend);
 					if($this->access) {
 						return;
 					}
@@ -463,7 +485,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 				$admin = $this->CI->Corporation_model->get_admin($this->master_id);
 				if(!empty($members) && in_array($this->request_user, $admin)) {
 					$identity = 'co_admin';
-					parent::get_access($operation, $identity);
+					parent::get_access($operation, $identity, $extend);
 					return;
 				}
 			}

@@ -4,6 +4,10 @@
 			parent::__construct();
 		}
 		
+		function fetch() {
+			
+		}
+		
 		function insert() {
 			
 		}

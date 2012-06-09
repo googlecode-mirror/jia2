@@ -1,4 +1,5 @@
 function fileQueued(file) {
+	$("#thumbnails").html('');
     try {
         var progress = new FileProgress(file, this.customSettings.progressTarget);
         progress.setStatus("\u51c6\u5907\u4e0a\u4f20.....");//准备上传
@@ -8,6 +9,7 @@ function fileQueued(file) {
     }
 }
 function fileQueueError(file, errorCode, message) {
+	$("#thumbnails").html('');
     try {
         var imageName = "error.gif";
         var errorName = "";
@@ -30,7 +32,8 @@ function fileQueueError(file, errorCode, message) {
             case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
             case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
             default:
-                alert(message);
+            	//alert(message);
+                alert('只能上传一个文件,队列中的请先取消上传选再择其他文件');
                 break;
         }
 
@@ -120,6 +123,7 @@ function uploadComplete(file) {
 }
 
 function uploadError(file, errorCode, message) {
+	$("#thumbnails").html('');
     var imageName =  "error.gif";
     var progress;
     try {
