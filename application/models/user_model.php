@@ -28,7 +28,9 @@
 			$user = array(
 				'email' => $email,
 				'name' => $name,
-				'pass' => md5($pass)
+				'pass' => md5($pass),
+				'regist_time' => time()
+				
 			);
 			$this->db->insert('user', $user);
 			$user_id = $this->db->insert_id();
@@ -53,7 +55,8 @@
 				'owner_id' => $user_id,
 				'type' => 'personal',
 				'name' => '默认相册',
-				'comment' => '默认相册'
+				'comment' => '默认相册',
+				'add_time' => time()
 			);
 			$this->Album_model->insert();
 		}
