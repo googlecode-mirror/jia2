@@ -7,7 +7,9 @@
 		// 默认加载当前用户blog
 		function index() {
 			$this->_require_login();
-			
+			$data['title'] = '发表日志';
+			$data['main_content'] = 'blog/index_view';
+			$this->load->view('includes/template_view', $data);
 		}
 		
 		//发表日志
@@ -33,8 +35,7 @@
 				$data['img_path'] = $this->config->item('personal_blog_path') . $this->session->userdata('id');
 			}
 			if($this->input->post('submit')) {
-				$data['main_content'] = 'blog/index_view';
-				$this->load->view('includes/template_view', $data);
+				static_view('执行插入数据库');
 			} else {
 				$data['main_content'] = '/'.'blog/post_view';
 				$this->load->view('includes/template_view', $data);
