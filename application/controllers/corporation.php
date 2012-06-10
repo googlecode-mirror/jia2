@@ -14,6 +14,8 @@
 			$where = array();
 			$limit = '';
 			$this->jiadb->_table = 'corporation';
+			$data['j_num'] = 0;
+			$data['f_num'] = 0;
 			if($this->session->userdata('id')) {
 				$following_cos = $this->User_model->get_following_co($this->session->userdata('id'));
 				$join_cos = $this->User_model->get_join_co($this->session->userdata('id'));

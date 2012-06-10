@@ -17,5 +17,6 @@
 	$config['corporation_blog_path'] = 'data/blog/corporation/';
 	// 部署模式
 	$config['deploy_mode'] = FALSE;
-	
+	// 相册个数限制
+	$config['album_limit'] = 5;
 	// 更多配置项在MY_Controller中设置

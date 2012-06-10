@@ -8,7 +8,7 @@
 		
 		function upload($param = array()) {
 			$config = array(
-			  		'allowed_types' => 'jpeg|jpg|png|gif',
+			  		'allowed_types' => 'jpeg|jpg|png|gif|bmp',
 			  		'upload_path' => $param['upload_path'],
 			  		'max_size' => '2048',
 			  		'overwrite' => TRUE,
@@ -84,9 +84,10 @@
 							$thumb = array(
 								'source_image' => $image_data['full_path'],
 								'maintain_ratio' => TRUE,
+								'master_dim' => 'width',
 								'thumb_marker' => '',
 								'width' => 700,
-								'height' => 1000
+								'height' => 700
 							);
 							$this->image_lib->initialize($thumb); 
 							$this->image_lib->resize();
@@ -94,6 +95,35 @@
 						return TRUE;
 					} else {
 						return FALSE;
+					}
+					break;
+				case 'album':
+					$config['overwrite'] == FALSE;
+					$this->upload->initialize($config);
+					if($this->upload->do_upload('photo')) {
+						$image_data = $this->upload->data();
+						$filename = array(
+							'original' => $image_data['full_path'],
+							'thumb' => $image_data['full_path']
+						);
+						if($image_data['image_width'] > 150) {
+							$thumb = array(
+								'source_image' => $image_data['full_path'],
+								'maintain_ratio' => TRUE,
+								'thumb_marker' => '_thumb',
+								'master_dim' => 'width',
+								'create_thumb' => TRUE,
+								'width' => 150,
+								'height' => 150
+							);
+							$this->image_lib->initialize($thumb); 
+							if($this->image_lib->resize()) {
+								$filename['thumb'] = $image_data['file_path'] . $image_data['raw_name'] . $thumb['thumb_maker'] . $image_data['file_ext'];
+							} else {
+								return FALSE;
+							}
+						}
+						return $filename;
 					}
 					break;
 				}
@@ -131,7 +161,7 @@
 			$param = array(
 				'upload_path' => $path,
 				'mode' => 'blog',
-				'filename' => rand(1,10000).time().strrchr($_FILES["upfile"]['name'],'.'),
+				'filename' => rand(1,10000).time().strrchr($_FILES['upfile']['name'],'.')
 			);
 			if($this->upload($param)) {
 				return $param['filename'];
@@ -140,6 +170,16 @@
 			}
 		}
 		
+		function save_album_photo($path) {
+			$param = array (
+				'upload_path' => $path,
+				'mode' => 'album',
+				'filename' => rand(1,10000).time().strrchr($_FILES['photo']['name'],'.')
+			);
+			return $this->upload($param);
+		}
+		
+		// UEditor 在线图片管理方法
 		function getfiles($path, &$files = array()){
 			if (!is_dir($path)) return;
 		

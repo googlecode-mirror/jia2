@@ -32,15 +32,30 @@
 			);
 			$this->db->insert('user', $user);
 			$user_id = $this->db->insert_id();
-			$post_access = Access_factory::get_access('post');
-			$post_access->init($user_id);
-			$comment_auth = Access_factory::get_access('comment');
-			$comment_auth->init($user_id, 'personal');
+			$this->_initialize($user_id);
 			$join = array(
 				'entity_type' => array('type_id', 'id')
 			);
 			$info = $this->get_info($user_id, $join);
 			return $info;
+		}
+		
+		//初始化用户数据
+		function _initialize($user_id) {
+			// 权限初始化
+			$post_access = Access_factory::get_access('post');
+			$post_access->init($user_id);
+			$comment_auth = Access_factory::get_access('comment');
+			$comment_auth->init($user_id, 'personal');
+			// 相册初始化
+			$this->load->model('Album_model');
+			$album = array(
+				'owner_id' => $user_id,
+				'type' => 'personal',
+				'name' => '默认相册',
+				'comment' => '默认相册'
+			);
+			$this->Album_model->insert();
 		}
 		
 		function update($where = array(), $row = array()) {

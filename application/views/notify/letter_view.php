@@ -1,5 +1,5 @@
-<!-- <script src="http://code.jquery.com/ui/1.8.20/jquery-ui.min.js"></script> -->
-<!-- <script src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/minified/i18n/jquery-ui-i18n.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+<script src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/minified/i18n/jquery-ui-i18n.min.js"></script>
 <?=form_open('','class="write_letter_form"')?>
 <?=form_button('letter', '写站内信','id="write_letter"') ?>
 <div id="write_letter_area" style="display:none">

@@ -35,11 +35,32 @@
 				$data['img_path'] = $this->config->item('personal_blog_path') . $this->session->userdata('id');
 			}
 			if($this->input->post('submit')) {
-				static_view('执行插入数据库');
+				$title = trim($this->input->post('title'));
+				$content = $this->input->post('myContent');
+				$tags = trim($this->input->post('tag'));
+				if($title && $content != '') {
+					if($tags) {
+						$tags_array = explode(' ', $tags);
+						$tags_array = array_filter($tags_array, function($i){if(trim($i) == '') return false; else return true;});
+						$tags = implode(' ', $tags_array);
+					}
+					$blog = array(
+						'title' => $title,
+						
+					);
+				} else {
+					static_view('发表失败');
+				}
 			} else {
 				$data['main_content'] = '/'.'blog/post_view';
 				$this->load->view('includes/template_view', $data);
 			}
+		}
+		
+		// 编辑日志
+		function edit() {
+			$this->_require_login();
+			$blog_id = $this->input->get('id');
 		}
 		
 		//日志图片上传
@@ -89,16 +110,11 @@
 			}
 		}
 		
-		//获取视频
+		//UEditor获取视频
 		function get_movie() {
 			$key =htmlspecialchars($_POST["searchKey"]);
 			$type = htmlspecialchars($_POST["videoType"]);
 			$html = file_get_contents('http://api.tudou.com/v3/gw?method=item.search&appKey=myKey&format=json&kw='.$key.'&pageNo=1&pageSize=20&channelId='.$type.'&inDays=7&media=v&sort=s');
 			echo $html;
-		}
-		
-		function edit() {
-			$this->_require_login();
-			$blog_id = $this->input->get('id');
 		}
 	}
