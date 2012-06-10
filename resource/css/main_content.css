@@ -1,3 +1,4 @@
+
 /***********h活动**********/
 
 .ac_01,.ac_title{
@@ -65,8 +66,8 @@ span.CheckboxWrapper,span.Checkitem{
 	display:block;
 	float:left;
 	b/order: 1px solid #000;
-	height: 19px;
-	width:18px;
+	height: 15px;
+	width:15px;
 	ove/rflow: hidden;
 	position:relative;
 }
@@ -77,18 +78,18 @@ span.Checkitem{
 	margin-left:5px;
 }
 .Checkbox {
-	background: transparent url(../img/checkbox.gif) no-repeat center top;
+	background: transparent url(../img/checkbox01.gif) no-repeat 0 0;
 	vertical-align: middle;
-	height: 19px;
-	width: 18px;
+	height: 15px;
+	width: 15px;
 	display:block;/*display: -moz-inline-block;*/
 }
 
 .Checked {
-	background: transparent url(../img/checkbox.gif) no-repeat center bottom;
+	background: transparent url(../img/checkbox01.gif) no-repeat 0 -15px;
 	vertical-align: middle;
-	height: 19px;
-	width: 18px;
+	height: 15px;
+	width: 15px;
 	display:block;
 }
 input.chbox{
@@ -784,4 +785,79 @@ ul#member li {
 #conn{
 	height:30px;
 	line-height:30px;
+}
+/*****blog**********/
+.title_02 span{
+	font-weight: bold;
+	font-size:14px;
+	padding-left:0;
+	border-right: 1px solid #ccc;
+	padding-right:10px;
+	margin-right:10px;
+}
+#blog_write,#blog_write div{
+	height:auto;
+	overflow: hidden;
+}
+#blog_write div{
+	height:31px;
+	margin-bottom:10px;
+}
+.info_notice{
+	display: inline-block;
+	height:29px;
+	line-height:29px;
+	font-size:0.8em;
+	margin-left:1em;
+	padding-left:1em;
+	padding-right:1em;
+	border: 1px solid #DDD;
+	border-radius:3px;
+	background: #D5EDF8;
+	color: #205791;
+	border-color: #92CAE4;
+}
+.p_buttons{
+	overflow: hidden;
+	margin-top:5px;
+}
+.btn-pub-02{
+	float:right;
+}
+.btn-pub-01{
+	padding:0 20px;
+	margin-top: 5px;
+	margin-left:20px;
+	margin-right:0;
+	float:right;
+}
+.right_handler{
+	float:left;
+	height:auto;
+	width:200px;
+	background:#E9E9E9;
+	padding:20px 20px;
+	margin-top:-20px;
+	border:1px solid #e1e1e1;
+	border-left:none;
+	border-top-left-radius:0;
+	border-top-right-radius:3px;
+	border-bottom-left-radius:0px;
+	border-bottom-right-radius:3px;
+	font-size:12px;
+}
+.right_handler p{
+	overflow: hidden;
+	margin-bottom:10px;
+}
+.right_handler p span.Checkitem{
+	width: auto;
+}
+.right_handler li{
+	margin:5px 0;
+}
+.right_handler p.line{
+	margin-top:10px;
+	padding-top:10px;
+	border-top:1px solid #C7C7C7;
 }

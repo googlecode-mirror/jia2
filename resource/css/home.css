@@ -52,7 +52,7 @@ form,.clear{
 .hidden{
 	display:none;
 }
-.left {	float: left;}
+.left {float: left;}
 .right{float: right;}
 .block{display:block;margin-top:10px;}
 iframe[name=mainiframe]{
