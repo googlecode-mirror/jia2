@@ -85,19 +85,35 @@
 			return $this->jiadb->fetchMeta($return, $where);
 		}
 		
-		function insert($array) {
-			if($this->db->insert('corporation', $array)) {
+		function insert($corporation) {
+			if($this->db->insert('corporation', $corporation)) {
 				$corporation_id = $this->db->insert_id();
-				$corporation_access = Access_factory::get_access('corporation');
-				$activity_access = Access_factory::get_access('activity');
-				$comment_access = Access_factory::get_access('comment');
-				$comment_access->init($corporation_id, 'activity');
-				$corporation_access->init($corporation_id);
-				$activity_access->init($corporation_id);
+				//初始化社团
+				$this->_initialize($corporation_id);
 				return $corporation_id;
 			} else {
 				return FALSE;
 			}
+		}
+
+		function _initialize($corporation_id) {
+			// 初始化社团相关权限
+			$corporation_access = Access_factory::get_access('corporation');
+			$activity_access = Access_factory::get_access('activity');
+			$comment_access = Access_factory::get_access('comment');
+			$comment_access->init($corporation_id, 'activity');
+			$corporation_access->init($corporation_id);
+			$activity_access->init($corporation_id);
+			
+			//初始化社团相册
+			$this->load->model('Album_model');
+			$album = array(
+				'owner_id' => $corporation_id,
+				'type' => 'corporation',
+				'name' => '社团默认相册',
+				'comment' => '社团默认相册'
+			);
+			$this->Album_model->insert($album);
 		}
 		
 		/**

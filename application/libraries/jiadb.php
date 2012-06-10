@@ -79,7 +79,8 @@
 							$this->_table = $table[1];
 							foreach ($row[$table[0]] as $sub_key => $sub_row) {
 								$tmp = $this->fetchAll(array($field[1] => $sub_row[$field[0]]), '', $limit);
-								$result[$key][$table[0]][$sub_key][$table[1]] = $tmp;
+								if($tmp)
+									$result[$key][$table[0]][$sub_key][$table[1]] = $tmp;
 							}
 						} elseif(!array_key_exists(1, $table)) {
 							$this->_table = $table[0];
