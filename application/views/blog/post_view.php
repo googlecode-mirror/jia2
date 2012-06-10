@@ -37,13 +37,13 @@ $(function(){
 		<p class="li_d p_buttons">
 			<?=form_submit('submit', '取消','class="pub_button left"') ?>
 			<?=form_submit('submit', '直接发布','class="btn-blue btn-pub-01 right"') ?>
-			<?=form_submit('submit', '保存到草稿','class="pub_button btn-pub-02"') ?>
+			<?=form_submit('draft', '保存到草稿','class="pub_button btn-pub-02"') ?>
 			
 		</p>
 	</div>
 </div>
 <div class="right_handler">
-	<h4 class="set_title">设置知道</h4>
+	<h4 class="set_title">日志选项</h4>
 	<p>
 		<span class="CheckboxWrapper Checked">
 			<input type="checkbox" name="user" value="1" class="chbox" checked="checked"/>
@@ -55,14 +55,8 @@ $(function(){
 		</span>
 		<span class="Checkitem">设为社团历程</span>
 	</p>
-	<h4 class="set_title">隐私设置</h4>
-	<ul>
-			<li ><label>浏览权限: </label>
-				<select><option>仅自己可见</option><option>粉丝可见</option><option>注册用户可见</option><option>公开</option></select>
-			</li>
-			<li ><label>评论权限: </label>
-				<select><option>仅自己可见</option><option>粉丝可见</option><option>注册用户可见</option><option>公开</option></select>
-			</li>
-	</ul>
-	<p class="line"><?=form_submit('submit', '确定','class="pub_button"') ?></p>
+	<h4 class="set_title">可见性</h4>
+	<p><label><?=form_radio(array('name' => 'status', 'value' => 'privary')) ?> 保密 (仅自己可见)</label></p>
+	<p><label><?=form_radio(array('name' => 'status', 'value' => 'public', 'checked' => TRUE)) ?> 公开 (继承个人隐私设置) </label></p>
+	<?=form_close() ?>
 </div>

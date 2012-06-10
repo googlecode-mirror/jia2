@@ -30,7 +30,7 @@
 					<li><a href="<?=site_url('personal/setting#info') ?>" >资料修改</a></li>
 					<li><a href="<?=site_url('personal/setting#avatar') ?>" >头像修改</a></li>
 					<li><a href="<?=site_url('personal/setting#account') ?>" >账户设置</a></li>
-					<li><a href="<?=site_url('personal/setting#privacy') ?>" >隐私修改</a></li>
+					<li><a href="<?=site_url('personal/setting#privacy') ?>" >隐私设置</a></li>
 				</ul>
 			</div>
 				<?=anchor('index/logout', '退出') ?>

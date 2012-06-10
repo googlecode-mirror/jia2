@@ -4,6 +4,10 @@
 			parent::__construct();
 		}
 		
+		function get_info() {
+			
+		}
+		
 		function fetch() {
 			
 		}
@@ -14,6 +18,8 @@
 				unset($blog['type']);
 				$this->db->insert('blog', $blog);
 				return $this->db->insert_id();
+			} else {
+				return FALSE;
 			}
 		}
 		
@@ -22,10 +28,6 @@
 		}
 		
 		function update() {
-			
-		}
-		
-		function fetch() {
 			
 		}
 	}

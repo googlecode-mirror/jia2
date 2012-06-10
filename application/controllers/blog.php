@@ -2,6 +2,7 @@
 	class Blog extends MY_Controller {
 		function __construct() {
 			parent::__construct();
+			$this->load->model('Blog_model');
 		}
 		
 		// 默认加载当前用户blog
@@ -34,8 +35,17 @@
 				$data['img_manager'] .= '?id=' . $this->session->userdata('id');
 				$data['img_path'] = $this->config->item('personal_blog_path') . $this->session->userdata('id');
 			}
-			if($this->input->post('submit')) {
+			
+			// 提交表单
+			if($this->input->post('submit') || $this->input->post('draft')) {
 				$title = trim($this->input->post('title'));
+				if($this->input->post('draft')) {
+					$draft = 1;
+				} else {
+					$draft = 0;
+					$privacy = $this->input->post('privacy');
+					$status = ($privacy == 'privary' ? $this->config->item('blog_status_privary') : $this->config->item('blog_status_public')); 
+				}
 				$content = $this->input->post('myContent');
 				$tags = trim($this->input->post('tag'));
 				if($title && $content != '') {
@@ -44,14 +54,28 @@
 						$tags_array = array_filter($tags_array, function($i){if(trim($i) == '') return false; else return true;});
 						$tags = implode(' ', $tags_array);
 					}
+					$time = time();
 					$blog = array(
 						'title' => $title,
-						
+						'content' =>$content,
+						'tags' => $tags,
+						'status' => $status,
+						'draft' => $draft,
+						'add_time' => $time,
+						'update_time' => $time,
+						'type' => 'personal'
 					);
+					$blog_id = $this->Blog_model->insert($blog);
+					if($blog_id) {
+						$str = '发布日志成功！ ' . anchor('blog/view/' . $blog_id, '查看');
+						static_view($str, '发布成功');
+					}
 				} else {
 					static_view('发表失败');
 				}
 			} else {
+				// 加载编辑视图
+				$data['title'] = '发布日志';
 				$data['main_content'] = '/'.'blog/post_view';
 				$this->load->view('includes/template_view', $data);
 			}
@@ -61,6 +85,16 @@
 		function edit() {
 			$this->_require_login();
 			$blog_id = $this->input->get('id');
+		}
+		
+		// 查看单篇日志
+		function view() {
+			
+		}
+		
+		// 列出某个用户或者社团的日志
+		function lists($entity_type, $owner_id) {
+			
 		}
 		
 		//日志图片上传
