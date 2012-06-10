@@ -1,3 +1,5 @@
+<h4 class="title_01 title_02"><a>返回社团首页</a></h4>
+<div class="main_02">
 <div id="add-corporation">
 	<?=form_open('activity/do_add/' . $corporation['id']) ?>
 		<span ><label>活动名称：</label>
@@ -65,5 +67,5 @@
     	});  
 	});  
 	</script>
-	
+</div>	
 </div>  

@@ -2,8 +2,8 @@
 	window.onload = copro_m_tab;
 	CO_ID = <?=$info['id'] ?>
 </script>
+<h4 class="title_01 title_02"><?=anchor('corporation/profile/' . $info['id'], '返回' . $info['name'] . '首页') ?></h2>
 	<div id="main">
-		<h2><?=anchor('corporation/profile/' . $info['id'], '返回' . $info['name'] . '首页') ?></h2>
 		<div class="search_item">
 		<ul>
 			<li class="sd01" id="coo-01">
