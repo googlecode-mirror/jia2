@@ -323,66 +323,6 @@
 		
 		// 更新数据库
 		function update_db() {
-			$this->load->dbforge();
-			$fields = array(
-                'id' => array(
-                             'type' => 'INT',
-                             'constraint' => 10, 
-                             'unsigned' => TRUE,
-                             'auto_increment' => TRUE
-                                  ),
-                'name' => array(
-                                         'type' => 'VARCHAR',
-                                         'constraint' => '50',
-                                  ),
-                'comment' => array(
-                                         'type' =>'VARCHAR',
-                                         'constraint' => '50',
-                                  ),
-                );
-			$this->dbforge->add_field($fields); 
-			$this->dbforge->add_key('id', TRUE);
-			$this->dbforge->create_table('entity_type', TRUE);
-			$data = array(
-			   array(
-			      'name' => 'personal' ,
-			      'comment' => '个人'
-			   ),
-			   array(
-			      'name' => 'corporation' ,
-			      'comment' => '社团'
-			   ),
-			   array(
-			      'name' => 'activity' ,
-			      'comment' => '活动'
-			   ),
-			   array(
-			      'name' => 'forward' ,
-			      'comment' => '转发'
-			   ),
-			   array(
-			      'name' => 'admin' ,
-			      'comment' => '管理员'
-			   ),
-			   array(
-			      'name' => 'register' ,
-			      'comment' => '普通用户'
-			   ),
-			   array(
-			      'name' => 'letter' ,
-			      'comment' => '站内信'
-			   ),
-			   array(
-			      'name' => 'request' ,
-			      'comment' => '请求'
-			   ),
-			   array(
-			      'name' => 'message' ,
-			      'comment' => '消息'
-			   ),
-			);
-
-			$this->db->insert_batch('entity_type', $data); 
 			$entity_result = $this->db->get('entity_type')->result_array();
 			foreach ($entity_result as $row) {
 				$entity[$row['name']] = $row['id'];
