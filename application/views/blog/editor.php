@@ -6,6 +6,10 @@
 	var UEDITOR_IMG_PATH = "<?=$img_path ?>";
 	var UEDITOR_IMG_MANAGER_URL = "<?=$img_manager ?>";
 	var UEDITOR_GET_MOVIE = SITE_URL + 'blog/get_movie';
+	
+	$(function(){
+		//$("#editor").css("width","700");
+	})
 </script>
 <script type="text/javascript" src="<?=base_url()?>resource/ueditor/editor_config.js"></script>
 <script type="text/javascript" src="<?=base_url()?>resource/ueditor/editor_all.js"></script>
