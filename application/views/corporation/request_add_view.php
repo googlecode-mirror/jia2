@@ -99,8 +99,8 @@
                 });
 	     };
 </script>
-
-<div id="main">
+<h4 class="title_01 title_02"><a>返回社团首页</a></h4>
+<div  class="main_02">
 <div id="request_comment">
 	<p>申请细则：</p>
 	<p>1. 申请创建社团需要通过实名认证，需要填写学生信息以及公民身份信息，你填写的身份信息最好和当前账号信息保持一致(姓名)</p>
