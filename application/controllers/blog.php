@@ -51,7 +51,7 @@
 				if($title && $content != '') {
 					if($tags) {
 						$tags_array = explode(' ', $tags);
-						$tags_array = array_filter($tags_array, function($i){if(trim($i) == '') return false; else return true;});
+						//$tags_array = array_filter($tags_array, function($i){if(trim($i) == '') return false; else return true;});
 						$tags = implode(' ', $tags_array);
 					}
 					$time = time();
@@ -93,8 +93,20 @@
 		}
 		
 		// 列出某个用户或者社团的日志
-		function lists($entity_type, $owner_id) {
-			
+		function lists($entity_type, $owner_id = 0, $page = 1) {
+			if($entity_type != 'personal' && $entity_type != 'corporation')
+				static_view('你访问的页面不存在');
+			if($owner_id == 0 || !is_numeric($owner_id)) {
+				static_view('你访问的页面不存在');
+			}
+			$where = array(
+				'owner_id' => $owner_id,
+				'type_id' => $this->config->item('entity_type_' . $entity_type),
+				'draft' => 0,
+				'status' => $this->config->item('blog_status_public'),
+			);
+			$blogs = $this->Blog_model->fetch($where, $entity_type);
+			// 加载视图
 		}
 		
 		//日志图片上传
