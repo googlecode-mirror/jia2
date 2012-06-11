@@ -29,7 +29,8 @@
 				);
 			}
 			$post = $this->Post_model->get_info($post_id, $join);
-			$this->_auth('view', 'post', $post['owner_id'], FALSE, $post['id']);
+			// 暂时注释，社团post需要权限验证
+			//$this->_auth('view', 'post', $post['owner_id'], FALSE, $post['id']);
 			if($post) {
 				$data['js'] = 'post.js';
 				$data['css'] = 'home.css';

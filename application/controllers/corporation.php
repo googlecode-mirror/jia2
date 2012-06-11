@@ -7,7 +7,7 @@
 			$this->load->model('User_model');
 			$this->jiadb = new Jiadb();
 		}
-		// 社团之家~？
+		// 社团之家
 		function index() {
 			$data['title'] = '社团之家';
 			$data['main_content'] = 'corporation/index_view';
