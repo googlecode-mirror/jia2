@@ -6,18 +6,10 @@
 			$this->jiadb = new Jiadb('blog');
 		}
 		
-		function get_info($blog_id, $more = FALSE) {
-			$where = array(
-				'id' => $blog_id
-			);
-			if($more) {
-				$join = array('blog_comment' => array('id' => 'blog_id'));
-				$blog_result = $this->jiadb->fetchJoin($where, $join);
-			} else {
-				$blog_result = $this->jiadb->fetchAll($where);
-			}
-			if($blog_result) {
-				return $blog_result[0];
+		function get_info($blog_id, $join = array()) {
+			$blog = $this->jiadb->fetchJoin(array('id' => $blog_id), $join);
+			if($blog) {
+				return $blog[0];
 			} else {
 				return FALSE;
 			}
@@ -38,11 +30,13 @@
 			}
 		}
 		
-		function delete() {
-			
+		function delete($blog_id) {
+			$this->db->where('id', $blog_id);
+			$this->db->delete('blog');
 		}
 		
-		function update() {
+		function update($blog_id, array $blog) {
 			
+			$this->db->where('id', $blog);
 		}
 	}

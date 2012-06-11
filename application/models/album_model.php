@@ -4,6 +4,10 @@
 			parent:__construct();
 		}
 		
+		function get_info() {
+			
+		}
+		
 		function insert($album) {
 			if($album && is_array($album)) {
 				$album['type_id'] = ($album['type'] == 'corporation' ? $this->config->item('entity_corporation') : $this->config->item('entity_personal'));
@@ -28,7 +32,7 @@
 			
 		}
 		
-		function fetch_photo() {
+		function fetch_photo($album_id) {
 			
 		}
 		
