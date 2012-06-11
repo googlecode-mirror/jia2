@@ -3,7 +3,7 @@
 -- Server version:               5.1.59-community - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-06-11 16:00:53
+-- Date/time:                    2012-06-11 17:47:59
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -147,12 +147,14 @@ CREATE TABLE IF NOT EXISTS `blog` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `owner_id` int(10) NOT NULL,
   `type_id` int(10) NOT NULL,
-  `access` int(10) DEFAULT NULL COMMENT '浏览权限',
+  `draft` int(1) DEFAULT '1' COMMENT '是否草稿',
+  `status` int(1) NOT NULL DEFAULT '2' COMMENT '可见性',
   `title` varchar(100) NOT NULL,
   `content` text NOT NULL,
-  `tag` varchar(50) DEFAULT NULL COMMENT '标签',
+  `tags` varchar(50) DEFAULT NULL COMMENT '标签',
   `add_time` int(10) NOT NULL,
   `update_time` int(10) NOT NULL,
+  `order` int(1) NOT NULL COMMENT '是否置顶',
   `views` int(11) NOT NULL DEFAULT '0' COMMENT '浏览次数',
   `comments` int(11) NOT NULL DEFAULT '0' COMMENT '评论个数',
   PRIMARY KEY (`id`),
@@ -666,9 +668,9 @@ CREATE TABLE IF NOT EXISTS `notify` (
   CONSTRAINT `fk_notify_notify_type1` FOREIGN KEY (`type_id`) REFERENCES `entity_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_notify_user1` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_notify_user2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COMMENT='通知(消息, 请求, 站内信)';
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8 COMMENT='通知(消息, 请求, 站内信)';
 
--- Dumping data for table jia2.notify: ~34 rows (approximately)
+-- Dumping data for table jia2.notify: ~35 rows (approximately)
 /*!40000 ALTER TABLE `notify` DISABLE KEYS */;
 INSERT IGNORE INTO `notify` (`id`, `user_id`, `receiver_id`, `type_id`, `time`, `content`, `status`) VALUES
 	(1, 11, 13, 9, 1335754372, '评论了你的<a href="http://jia2.localhost/post/36">新鲜事</a>', 0),
@@ -704,7 +706,8 @@ INSERT IGNORE INTO `notify` (`id`, `user_id`, `receiver_id`, `type_id`, `time`, 
 	(51, 13, 1, 9, 1338833152, '申请创建社团 <a href="http://jia2.localhost/admin/admin/co_request/1">审核</a>', 1),
 	(52, 1, 13, 9, 1338900159, '你申请创建 加加加社团 社团失败,', 0),
 	(53, 13, 1, 9, 1338900210, '申请创建社团 <a href="http://jia2.localhost/admin/admin/co_request/2">审核</a>', 1),
-	(54, 1, 13, 9, 1338908346, '你申请创建 测试社团 社团失败,', 0);
+	(54, 1, 13, 9, 1338908346, '你申请创建 测试社团 社团失败,', 0),
+	(55, 3, 15, 9, 1339403561, '关注了你', 1);
 /*!40000 ALTER TABLE `notify` ENABLE KEYS */;
 
 
@@ -4386,9 +4389,9 @@ CREATE TABLE IF NOT EXISTS `user_meta` (
   PRIMARY KEY (`id`),
   KEY `fk_user_meta_users1` (`user_id`),
   CONSTRAINT `fk_jia2_user_meta_jia2_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
--- Dumping data for table jia2.user_meta: ~13 rows (approximately)
+-- Dumping data for table jia2.user_meta: ~15 rows (approximately)
 /*!40000 ALTER TABLE `user_meta` DISABLE KEYS */;
 INSERT IGNORE INTO `user_meta` (`id`, `user_id`, `meta_table`, `meta_key`, `meta_value`, `add_time`) VALUES
 	(1, 13, 'user', 'follower', '11', NULL),
@@ -4403,7 +4406,9 @@ INSERT IGNORE INTO `user_meta` (`id`, `user_id`, `meta_table`, `meta_key`, `meta
 	(12, 11, 'user', 'follower', '13', NULL),
 	(13, 15, 'corporation', 'follower', '8', NULL),
 	(14, 13, 'corporation', 'follower', '8', NULL),
-	(15, 11, 'corporation', 'follower', '10', NULL);
+	(15, 11, 'corporation', 'follower', '10', NULL),
+	(17, 3, 'user', 'follower', '13', NULL),
+	(18, 3, 'user', 'follower', '15', NULL);
 /*!40000 ALTER TABLE `user_meta` ENABLE KEYS */;
 /*!40014 SET FOREIGN_KEY_CHECKS=1 */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
