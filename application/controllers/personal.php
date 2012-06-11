@@ -7,6 +7,7 @@
 			$this->load->model('User_model');
 			$this->load->model('Post_model');
 			$this->load->model('Photo_model');
+			$this->load->model('Notify_model');
 			$this->user_id = $this->session->userdata('id');
 			$this->join = array(
 				'school' => array('school_id', 'id'),

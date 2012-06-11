@@ -132,8 +132,7 @@
 							</div>
 							<div class="f_summary">
 								<p class="f_pm">
-									<span><?=jdate($activity['start_time'], FALSE)
-										?></span>
+									<span>时间</span>
 								</p>
 							</div>
 						</div>
@@ -150,8 +149,7 @@
 							</div>
 							<div class="f_summary">
 								<p class="f_pm">
-									<span><?=jdate($activity['start_time'], FALSE)
-										?></span>
+									<span>时间</span>
 								</p>
 							</div>
 						</div>

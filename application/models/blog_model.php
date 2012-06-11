@@ -4,8 +4,14 @@
 			parent::__construct();
 		}
 		
-		function get_info() {
-			
+		function get_info($blog_id) {
+			$blog_result = $this->db->get_where('blog', array('id' => $blog_id));
+			if($blog_result) {
+				$blog_result = $blog_result->result_array();
+				return $blog_result[0];
+			} else {
+				return FALSE;
+			}
 		}
 		
 		function fetch() {

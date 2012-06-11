@@ -25,6 +25,14 @@ require_once APPPATH . 'libraries/jiadb.php';
 				case 'comment':
 					return new Comment_auth($owner_id, $post_id);
 					break;
+				// 日志操作权限
+				case 'blog':
+					return new Blog_auth($owner_id, $blog_id);
+					break;
+				// 日志评论权限
+				case 'blog_comment':
+					return new Blog_comment($owner_id, $blog_id);
+					break;
 			}
 		}
 	}
@@ -88,6 +96,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 	 * 	self 帖子主人
 	 * 	admin 管理员
 	 */
+	 
 	class Post_auth extends Auth {
 		function __construct($owner_id) {
 			parent::__construct($owner_id);
@@ -105,16 +114,14 @@ require_once APPPATH . 'libraries/jiadb.php';
 				$this->access = 1;
 				return;
 			}
-
+			
 			// 本人
 			if($this->owner_id == $this->request_user) {
 				$identity = 'self';
-				$extend = array(
-					'type_id' => $this->CI->config->item('entity_type_personal')
-				);
-				parent::get_access($operation, $identity, $extend);
+				parent::get_access($operation, $identity);
 				return;
 			}
+			
 			// 游客
 			if($this->CI->session->userdata('type') == 'guest') {
 				$identity = 'guest';
@@ -123,7 +130,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 			}
 			
 			// 注册用户
-			if($this->CI->session->userdata('type') == 'register') {
+			if($this->CI->session->userdata('type') == 'register') { 
 				$identity = 'register';
 				$blockers = (array)$this->CI->User_model->get_blockers($this->owner_id);
 				if(in_array($this->request_user, $blockers)) {
@@ -149,6 +156,37 @@ require_once APPPATH . 'libraries/jiadb.php';
 		}
 	}
 	
+	// 日志权限（发表 编辑 删除）
+	class Blog_auth extends Post_auth {
+		public $blog_id;
+		public $master_id;
+		public $type;
+		function __construct($owner_id, $blog_id = '') {
+			parent::__construct($owner_id);
+			$this->table = 'post_auth';
+			$this->blog_id = $blog_id;
+			$this->CI->load->model('Blog_model');
+		}
+
+		function get_access($operation, $identity = '') {
+			// 如果提供了日志id则需要取出日志进行更详细的判断
+			if($this->blog_id) {
+				$blog = $this->CI->blog_model->get_info($this->blog_id);
+				$this->type = ($blog['type_id'] == $this->CI->config->item('entity_corporation') ? 'corporation' : 'personal');
+				if($this->type == 'personal') {
+					parent::get_access($operation);
+				} else {
+					
+				}
+			} 
+			// 否则直接调用父类的get_access方法
+			else {
+				parent::get_access($operation, $identity);
+			}
+			
+			
+		}
+	}
 	// 一个用户对于一个社团的身份可能有（主要用于对社团信息操作的权限控制）
 	/*
 	 *  guest 游客
@@ -362,11 +400,8 @@ require_once APPPATH . 'libraries/jiadb.php';
 		}
 		
 		function get_access($operation, $identity = '') {
-			$extend = array(
-				'type_id' => $this->CI->config->item('entity_personal')
-			);
 			if($identity) {
-				parent::get_access($operation, $identity, $extend);
+				parent::get_access($operation, $identity);
 				return;
 			}
 			// 最高管理员
@@ -378,7 +413,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 			// 游客
 			if($this->CI->session->userdata('type') == 'guest') {
 				$identity = 'guest';
-				parent::get_access($operation, $identity, $extend);
+				parent::get_access($operation, $identity);
 				return;
 			}
 			
@@ -386,13 +421,16 @@ require_once APPPATH . 'libraries/jiadb.php';
 			// 本人
 			if($this->owner_id == $this->CI->session->userdata('id')) {
 				$identity = 'self';
+				$extend = array(
+					'type_id' => $this->CI->config->item('entity_type_personal')
+				);
 				parent::get_access($operation, $identity, $extend);
 				if($this->access == 0) {
 					return;
 				}
 				$this->access = 0;
 			}
-			// 置身份为注册用户
+			
 			if($this->CI->session->userdata('type') == 'register') {
 				$identity = 'register';
 			}
@@ -400,6 +438,9 @@ require_once APPPATH . 'libraries/jiadb.php';
 			// 再判断对于当前po有没有权限
 			$this->owner_id = $this->master_id;
 			if($this->type == 'personal') {
+				$extend = array(
+					'type_id' => $this->CI->config->item('entity_type_personal')
+				);
 				if($this->request_user == $this->master_id) {
 					$identity = 'po_master';
 					parent::get_access($operation, $identity, $extend);
@@ -430,7 +471,9 @@ require_once APPPATH . 'libraries/jiadb.php';
 			
 			// 活动类型post
 			if($this->type == 'activity') {
-				$extend['type_id'] = $this->CI->config->item('entity_type_activity');
+				$extend = array(
+					'type_id' => $this->CI->config->item('entity_type_activity')
+				);
 				$corporation = $this->CI->Corporation_model->get_info($this->master_id);
 				$master_id = $corporation['user_id'];
 				
@@ -488,3 +531,5 @@ require_once APPPATH . 'libraries/jiadb.php';
 			}
 		}
 	}
+	
+	

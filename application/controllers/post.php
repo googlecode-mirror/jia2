@@ -29,7 +29,7 @@
 				);
 			}
 			$post = $this->Post_model->get_info($post_id, $join);
-			$this->_auth('view', 'post',$this->session->userdata('id'), $post['id']);
+			$this->_auth('view', 'post', $post['owner_id'], FALSE, $post['id']);
 			if($post) {
 				$data['js'] = 'post.js';
 				$data['css'] = 'home.css';
