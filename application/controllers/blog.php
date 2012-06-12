@@ -85,11 +85,16 @@
 		function edit() {
 			$this->_require_login();
 			$blog_id = $this->input->get('id');
+			$data['main_content'] = 'blog_edit_view';
+			$data['title'] = '编辑日志';
+			$this->load->view('includes/template_view', $data);
 		}
 		
 		// 查看单篇日志
 		function view() {
-			
+			$data['title'] = '日志单页';
+			$data['main_content'] = 'blog/single_view';
+			$this->load->view('includes/template_view', $data);
 		}
 		
 		// 列出某个用户或者社团的日志

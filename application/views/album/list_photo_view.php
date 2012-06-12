@@ -1,6 +1,5 @@
 <script type="text/javascript" src="js/lightbox.js"></script>
 <link rel="stylesheet" href="css/lightbox.css" type="text/css" media="screen" />
-
 <div class="photopage">
 			<h1>Image Gallery</h1>
 			<div id="page">
