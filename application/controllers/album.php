@@ -30,6 +30,10 @@
 		
 		function upload() {
 			$this->_require_login();
+			$albums = $this->Album_model->fetch_album(array('owner_id' => $this->session->userdata('id'), 'type_id' => $this->config->item('entity_type_personal')));
+			if(!$albums) {
+				static_view('你需要先' . anchor('album/create', '创建一个相册'), '上传图片');
+			}
 			$data['main_content'] = 'album/upload_view';
 			$data['title'] = '上传照片';
 			$data['css'] = array('gallery.css');
