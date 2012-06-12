@@ -10,6 +10,7 @@
 			$this->_require_login();
 			$data['title'] = '发表日志';
 			$data['css'] = array('dairy.css');
+			$data['blogs'] = $this->Blog_model->fetch(array('owner_id' => $this->session->userdata('id')), 'personal');
 			$data['main_content'] = 'blog/index_view';
 			$this->load->view('includes/template_view', $data);
 		}
@@ -40,23 +41,20 @@
 			// 提交表单
 			if($this->input->post('submit') || $this->input->post('draft')) {
 				$title = trim($this->input->post('title'));
-				if($this->input->post('draft')) {
-					$draft = 1;
-				} else {
-					$draft = 0;
-					$privacy = $this->input->post('privacy');
-					$status = ($privacy == 'privary' ? $this->config->item('blog_status_privary') : $this->config->item('blog_status_public')); 
-				}
+				$draft = ($this->input->post('draft') ? 1 : 0);
+				$privacy = $this->input->post('privacy');
+				$status = ($privacy == 'privary' ? $this->config->item('blog_status_privary') : $this->config->item('blog_status_public')); 
 				$content = $this->input->post('myContent');
 				$tags = trim($this->input->post('tag'));
 				if($title && $content != '') {
 					if($tags) {
 						$tags_array = explode(' ', $tags);
-						//$tags_array = array_filter($tags_array, function($i){if(trim($i) == '') return false; else return true;});
+						$tags_array = array_filter($tags_array, function($i){if(trim($i) == '') return false; else return true;});
 						$tags = implode(' ', $tags_array);
 					}
 					$time = time();
 					$blog = array(
+						'owner_id' => $this->session->userdata('id'),
 						'title' => $title,
 						'content' =>$content,
 						'tags' => $tags,

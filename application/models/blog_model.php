@@ -15,8 +15,19 @@
 			}
 		}
 		
-		function fetch($where = array(), $type = 'personal') {
-			
+		function fetch($where = array(), $type = 'personal', $order = '', $limit = '') {
+			if ($type == 'personal') {
+				$join = array(
+					'user' => array('owner_id', 'id')
+				);
+			} elseif ($type == 'corporation') {
+				$join = array(
+					'corporation' => array('owner_id', 'id')
+				);
+			} else {
+				return FALSE;
+			}
+			return $blogs = $this->jiadb->fetchJoin($where, $join, $order, $limit);
 		}
 		
 		function insert($blog) {

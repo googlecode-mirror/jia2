@@ -18,11 +18,10 @@
 			$data['title'] = '***相册';
 			$data['css'] = array('gallery.css','lightbox.css');
 			$data['js'] = array('lightbox.js');
-			//$data['js'] = 'lightbox.js';
 			$this->load->view('includes/template_view', $data);
 		}
 		
-		function create_album() {
+		function create() {
 			$data['main_content'] = 'album/create_view';
 			$data['title'] = '创建相册';
 			$data['css'] = array('gallery.css');
