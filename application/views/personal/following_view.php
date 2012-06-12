@@ -1,4 +1,4 @@
-<h4 class="title_01 title_02"><a>返回个人首页</a></h4>
+<h4 class="title_01 title_02"><?=anchor('personal/profile', '返回个人首页') ?></h4>
 <div  class="main_02">
 <div id="" class="search_result flow_result">
 <h4>我的关注 <span><?=$following_num?>个</span></h4>

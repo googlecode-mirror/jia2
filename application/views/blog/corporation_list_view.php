@@ -13,7 +13,7 @@
 							<div class="ft">
 								<span><?=jdate($blog['add_time'], FALSE) ?></span>
 								<?=anchor('blog/view/' . $blog['id'], '查看全文') ?>
-								<a href=""> 编辑</a>
+								<?=anchor('blog/edit/' . $blog['id'], '编辑') ?>
 								<a href=""> 删除</a>
 							</div>
 						</div>

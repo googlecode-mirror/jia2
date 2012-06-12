@@ -19,7 +19,7 @@ $(function(){
 <h4 class="title_01 title_02"><span>发布日志</span><a>返回日志页面</a></h4>
 <div class="main_02">
 	<div id="post_blog">
-		<p><?=form_open('blog/post') ?> </p>
+		<p><?=form_open() ?> </p>
 	    <div id="blog_write">
 			<div><label>标&nbsp;题：</label>
 					<div class="InputWrapper"><div class="InputInner">
@@ -28,7 +28,7 @@ $(function(){
 			</div>
 			<div><label>标&nbsp;签：</label>
 					<div class="InputWrapper"><div class="InputInner">
-						<?=form_input('tag') ?>
+						<?=form_input('tags') ?>
 					</div></div>
 					<span class="info_notice">多个标签请用空格隔开</span>
 			</div>
@@ -57,6 +57,6 @@ $(function(){
 	</p>
 	<h4 class="set_title">可见性</h4>
 	<p><label><?=form_radio(array('name' => 'status', 'value' => 'privary')) ?> 保密 (仅自己可见)</label></p>
-	<p><label><?=form_radio(array('name' => 'status', 'value' => 'public', 'checked' => TRUE)) ?> 公开 (继承个人隐私设置) </label></p>
+	<p><label><?=form_radio(array('name' => 'status', 'value' => 'public', 'checked' => TRUE)) ?> 公开</label></p>
 	<?=form_close() ?>
 </div>

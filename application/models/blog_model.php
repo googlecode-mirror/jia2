@@ -47,7 +47,12 @@
 		}
 		
 		function update($blog_id, array $blog) {
-			
-			$this->db->where('id', $blog);
+			if($blog && is_array($blog)) {
+				$this->db->where('id', $blog_id);
+				$this->db->update('blog', $blog);
+				return TRUE;
+			} else {
+				return FALSE;
+			}
 		}
 	}
