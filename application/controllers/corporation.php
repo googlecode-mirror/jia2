@@ -78,6 +78,7 @@
 				);
 				$corporation_info = $this->Corporation_model->get_info(array('id' => $corporation_id), $join);
 				if($corporation_info) {
+					$this->load->model('Post_model');
 					$data['info'] = $corporation_info;
 					$data['main_content'] = 'corporation/profile_view';
 					$data['title'] = $data['info']['name'];
@@ -89,8 +90,7 @@
 					$data['members'] = $this->Corporation_model->get_members($corporation_id);
 					$data['members'][] = $data['info']['user_id'];
 					$data['members_info'] = $data['members'] ? $this->jiadb->fetchAll(array('id' => $data['members'])) : array();
-					$posts = $this->Corporation_model->get_trends($corporation_id);
-					$data['posts']['activity'] = $posts ? $posts : array();
+					$data['posts']['activity'] = $this->Post_model->fetch(array('owner_id' => $corporation_id), 'activity');
 					$activities = $this->Corporation_model->get_activities($corporation_id);
 					$data['activities'] =  $activities ? $activities : array();
 					$this->load->view('includes/template_view', $data);

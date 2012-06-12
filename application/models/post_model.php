@@ -90,13 +90,23 @@
 		}
 		
 		// 根据条件筛选信息
-		function fetch($where = array(), $order = array('time' => 'desc'), $limit = array(10, 0)) {
+		function fetch($where = array(), $type = 'personal' ,$order = array('time' => 'desc'), $limit = array(10, 0)) {
 			// 该方法会加入对转载文章的原文读取
-			$join = array(
-				'user' => array('owner_id', 'id'),
-				'comment' => array('id', 'post_id', 5),
-				'comment.user' => array('user_id', 'id')
-			);
+			if($type == 'personal') {
+				$join = array(
+					'user' => array('owner_id', 'id'),
+					'comment' => array('id', 'post_id', 5),
+					'comment.user' => array('user_id', 'id')
+				);
+			} elseif($type == 'activity') {
+				$join = array(
+					'corporation' => array('owner_id', 'id'),
+					'comment' => array('id', 'post_id', 5),
+					'comment.user' => array('user_id', 'id')
+				);
+			} else {
+				return FALSE;
+			}
 			$posts = $this->jiadb->fetchJoin($where, $join, $order, $limit);
 			return $posts;
 		}

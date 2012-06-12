@@ -1,7 +1,7 @@
 <h4 class="title_01 title_02"><span>创建相册</span><a>返回个人页面</a></h4>
 <div class="main_02">
 	<div id="add-album">
-		<?=form_open('ablum/do_add/' . $corporation['id'])?>
+		<?=form_open('album/create') ?>
 		<span ><label>相册名称：</label>
 			<div class="InputWrapper">
 				<div class="InputInner">
@@ -38,7 +38,7 @@
 			</table> </span>
 		<p class="li_d">
 			<?=form_submit('submit', '保存','class="pub_button"')?>
-			<?=form_submit('submit', '取消','class="pub_button"')?>
+			<a href="<?=site_url('album') ?>" class="pub_button">取消</a>
 		</p>
 		<?=form_close()?>
 	</div>
