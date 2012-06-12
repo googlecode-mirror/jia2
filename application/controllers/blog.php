@@ -6,12 +6,19 @@
 		}
 		
 		// 默认加载当前用户blog
-		function index() {
+		function index($id='', $entity_type='personal') {
 			$this->_require_login();
 			$data['title'] = '发表日志';
 			$data['css'] = array('dairy.css');
-			$data['blogs'] = $this->Blog_model->fetch(array('owner_id' => $this->session->userdata('id')), 'personal');
-			$data['main_content'] = 'blog/index_view';
+			$where = array(
+				'owner_id' => $id ? $id : $this->session->userdata('id'),
+				'draft' => 0,
+				'status' => $this->config->item('blog_status_public')
+			);
+			if($entity_type != 'corporation' && $entity_type != 'personal')
+				static_view('你访问的页面不存在');
+			$data['blogs'] = $this->Blog_model->fetch($where, $entity_type);
+			$data['main_content'] =  $entity_type == 'personal' ? 'blog/personal_list_view' : 'blog/corporation_list_view';
 			$this->load->view('includes/template_view', $data);
 		}
 		
@@ -45,7 +52,7 @@
 				$privacy = $this->input->post('privacy');
 				$status = ($privacy == 'privary' ? $this->config->item('blog_status_privary') : $this->config->item('blog_status_public')); 
 				$content = $this->input->post('myContent');
-				$tags = trim($this->input->post('tag'));
+				$tags = trim($this->input->post('tags'));
 				if($title && $content != '') {
 					if($tags) {
 						$tags_array = explode(' ', $tags);
@@ -81,12 +88,56 @@
 		}
 		
 		// 编辑日志
-		function edit() {
+		function edit($blog_id = '') {
 			$this->_require_login();
-			$blog_id = $this->input->get('id');
-			$data['main_content'] = 'blog_edit_view';
-			$data['title'] = '编辑日志';
-			$this->load->view('includes/template_view', $data);
+			if(!$blog_id ||  !is_numeric($blog_id))
+				static_view('你访问的页面不存在');
+			$blog = $this->Blog_model->get_info($blog_id);
+			// 个人日志
+			if($blog['type_id'] = $this->config->item('entity_type_personal') && $blog['owner_id'] == $this->session->userdata('id')) {
+				$data['img_manager'] = site_url('blog/img_manager');
+				$data['img_up'] = site_url('blog/img_up');
+				$data['img_up'] .= '?id=' . $this->session->userdata('id');
+				$data['img_manager'] .= '?id=' . $this->session->userdata('id');
+				$data['img_path'] = $this->config->item('personal_blog_path') . $this->session->userdata('id');
+				if($this->input->post('submit') || $this->input->post('draft')) {
+					$title = trim($this->input->post('title'));
+					$draft = ($this->input->post('draft') ? 1 : 0);
+					$privacy = $this->input->post('privacy');
+					$status = ($privacy == 'privary' ? $this->config->item('blog_status_privary') : $this->config->item('blog_status_public')); 
+					$content = $this->input->post('myContent');
+					$tags = trim($this->input->post('tags'));
+					if($title && $content != '') {
+						if($tags) {
+							$tags_array = explode(' ', $tags);
+							$tags_array = array_filter($tags_array, function($i){if(trim($i) == '') return false; else return true;});
+							$tags = implode(' ', $tags_array);
+						}
+						$time = time();
+						$blog = array(
+							'title' => $title,
+							'content' =>$content,
+							'tags' => $tags,
+							'status' => $status,
+							'draft' => $draft,
+							'update_time' => $time,
+						);
+						if($this->Blog_model->update($blog_id, $blog)) {
+							$str = '编辑日志日志成功！ ' . anchor('blog/view/' . $blog_id, '查看');
+							static_view($str, '发布成功');
+						}
+					} else {
+						static_view('编辑失败');
+					}
+				} else {
+					$data['blog'] = $blog;
+					$data['main_content'] = 'blog/edit_view';
+					$data['title'] = '编辑日志';
+					$this->load->view('includes/template_view', $data);
+				}
+			} else {
+				static_view('貌似你没有该权限哦', '权限不足');
+			}
 		}
 		
 		// 查看单篇日志
@@ -97,6 +148,7 @@
 		}
 		
 		// 列出某个用户或者社团的日志
+		/*           暂时不需要 用index方法代替
 		function lists($entity_type, $owner_id = 0, $page = 1) {
 			if($entity_type != 'personal' && $entity_type != 'corporation')
 				static_view('你访问的页面不存在');
@@ -113,6 +165,8 @@
 			// 加载视图
 		}
 		
+		 * 
+		 */
 		//日志图片上传
 		function img_up() {
 			$state = "上传失败";
