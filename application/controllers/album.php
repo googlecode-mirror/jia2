@@ -8,6 +8,7 @@
 		function index() {
 			$data['main_content'] = 'album/index_view';
 			$data['title'] = '我的相册';
+			$data['css'] = array('gallery.css');
 			$this->load->view('includes/template_view', $data);
 		}
 		
@@ -15,6 +16,8 @@
 		function lists() {
 			$data['main_content'] = 'album/list_photo_view';
 			$data['title'] = '***相册';
+			$data['css'] = array('gallery.css','lightbox.css');
+			$data['js'] = array('lightbox.js');
 			//$data['js'] = 'lightbox.js';
 			$this->load->view('includes/template_view', $data);
 		}
@@ -22,6 +25,7 @@
 		function create_album() {
 			$data['main_content'] = 'album/create_view';
 			$data['title'] = '创建相册';
+			$data['css'] = array('gallery.css');
 			$this->load->view('includes/template_view', $data);
 		}
 		
@@ -29,6 +33,7 @@
 			$this->_require_login();
 			$data['main_content'] = 'album/upload_view';
 			$data['title'] = '上传照片';
+			$data['css'] = array('gallery.css');
 			$this->load->view('includes/template_view', $data);
 		}
 		

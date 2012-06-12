@@ -9,6 +9,7 @@
 		function index() {
 			$this->_require_login();
 			$data['title'] = '发表日志';
+			$data['css'] = array('dairy.css');
 			$data['main_content'] = 'blog/index_view';
 			$this->load->view('includes/template_view', $data);
 		}
