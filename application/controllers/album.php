@@ -33,9 +33,13 @@
 		}
 		
 		// 列出相册的照片
-		function lists() {
+		function lists($album_id = '') {
+			if(!$album_id || !is_numeric($album_id))
+				static_view();
 			$data['main_content'] = 'album/list_photo_view';
-			$data['title'] = '***相册';
+			$data['info'] = $this->Album_model->get_info($album_id);
+			$data['photos'] = $this->Album_model->fetch_photo($album_id);
+			$data['title'] = $data['info']['name'];
 			$data['js'] = array('lightbox.js');
 			$data['css'] = array('gallery.css','lightbox.css');
 			$this->load->view('includes/template_view', $data);
@@ -81,12 +85,32 @@
 		
 		function upload() {
 			$this->_require_login();
+			$this->load->model('Photo_model');
 			$albums = $this->Album_model->fetch_album(array('owner_id' => $this->session->userdata('id'), 'type_id' => $this->config->item('entity_type_personal')));
 			if(!$albums)
 				static_view('你需要先' . anchor('album/create', '创建一个相册'), '上传图片');
+			
+			foreach ($albums as $value) {
+				$data['albums_id'][$value['id']] = $value['name'];
+			}
 			// 提交表单
 			if($this->input->post('submit')) {
-				var_dump($_FILES['userfile']);
+				$album_id = $this->input->post('album');
+				if(!array_key_exists($album_id, $data['albums_id']))
+					static_view('上传失败', '相册不存在');
+				$path = $this->config->item('personal_album_path');
+				$filename = $this->Photo_model->save_album_photo($path);
+				if($filename) {
+					$photo = array(
+						'album_id' => $album_id,
+						'name' => '图片'
+					);
+					$photo = array_merge($photo, $filename);
+					$this->db->insert('photo', $photo);
+					static_view('上传成功' . anchor('album', '返回相册'), '上传成功');
+				} else {
+					static_view('上传失败');
+				}
 			}
 			$data['albums'] = $albums;
 			$data['main_content'] = 'album/upload_view';

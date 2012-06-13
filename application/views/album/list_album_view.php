@@ -1,5 +1,4 @@
 <h4 class="title_01 title_02"><span>相册列表</span>
-	<? var_dump($info) ?>
 	<?=anchor(uri_string(), $info['name'] . '的相册') ?>
 </h4>
 <div class="main_02">

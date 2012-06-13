@@ -9,22 +9,11 @@
 			<ul class="gallery">
 				<? if(isset($albums)): ?>
 				<? foreach($albums as $album): ?>
-					<a href="photos.html">
-					<li><img src="<?=base_url('resource/images/photo01.jpg')?>" alt="description" /><p class="album_name">相册名</p>
+					<a href="<?=site_url('album/lists/' . $album['id']) ?>">
+					<li><img src="<?=cover_url($album['cover_id']) ?>" alt="description" /><p class="album_name"><?=$album['name'] ?></p>
 					</li> </a>
 				<? endforeach ?>
 				<? endif ?>
-				<a href="photos.html">
-				<li><img src="<?=base_url('resource/images/photo01.jpg')?>" alt="description" /><p class="album_name">相册名</p>
-				</li> </a>
-				
-				<a href="photos.html">
-				<li><img src="<?=base_url('resource/images/photo02.jpg')?>" alt="description" /><p class="album_name">相册名</p>
-				</li> </a>
-				
-				<a href="photos.html">
-				<li><img src="<?=base_url('resource/images/photo03.jpg')?>" alt="description" /><p class="album_name">相册名</p>
-				</li> </a>
 			</ul>
 		</div>
 	</div>
