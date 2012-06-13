@@ -13,7 +13,7 @@
 			$where = array(
 				'owner_id' => $owner_id,
 				'draft' => 0,
-				'status' => $this->config->item('blog_status_public')
+				'status' => $this->config->item('status_public')
 			);
 			if($entity_type == 'corporation') {
 				$data['main_content'] = 'blog/corporation_list_view';
@@ -57,10 +57,11 @@
 			
 			// 提交表单
 			if($this->input->post('submit') || $this->input->post('draft')) {
+				$order = $this->input->post('order');
 				$title = trim($this->input->post('title'));
 				$draft = ($this->input->post('draft') ? 1 : 0);
 				$privacy = $this->input->post('privacy');
-				$status = ($privacy == 'privary' ? $this->config->item('blog_status_privary') : $this->config->item('blog_status_public')); 
+				$status = ($privacy == 'privary' ? $this->config->item('status_privary') : $this->config->item('status_public')); 
 				$content = $this->input->post('myContent');
 				$tags = trim($this->input->post('tags'));
 				if($title && $content != '') {
@@ -79,7 +80,8 @@
 						'draft' => $draft,
 						'add_time' => $time,
 						'update_time' => $time,
-						'type' => 'personal'
+						'type' => 'personal',
+						'order' => $this->input->post('order') ? 1 : 0
 					);
 					$blog_id = $this->Blog_model->insert($blog);
 					if($blog_id) {
@@ -114,7 +116,7 @@
 					$title = trim($this->input->post('title'));
 					$draft = ($this->input->post('draft') ? 1 : 0);
 					$privacy = $this->input->post('privacy');
-					$status = ($privacy == 'privary' ? $this->config->item('blog_status_privary') : $this->config->item('blog_status_public')); 
+					$status = ($privacy == 'privary' ? $this->config->item('status_privary') : $this->config->item('status_public')); 
 					$content = $this->input->post('myContent');
 					$tags = trim($this->input->post('tags'));
 					if($title && $content != '') {
@@ -182,7 +184,7 @@
 				'owner_id' => $owner_id,
 				'type_id' => $this->config->item('entity_type_' . $entity_type),
 				'draft' => 0,
-				'status' => $this->config->item('blog_status_public'),
+				'status' => $this->config->item('status_public'),
 			);
 			$blogs = $this->Blog_model->fetch($where, $entity_type);
 			// 加载视图

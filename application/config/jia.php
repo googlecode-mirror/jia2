@@ -19,11 +19,11 @@
 	$config['deploy_mode'] = FALSE;
 	// 相册个数限制
 	$config['album_limit'] = 5;
-	// 日志状态码
+	// 状态码
 	// 和谐
-	$config['blog_status_block'] = 0;
+	$config['status_block'] = 0;
 	// 保密
-	$config['blog_status_privary'] = 1;
+	$config['status_privary'] = 1;
 	//公开
-	$config['blog_status_public'] = 2;
+	$config['status_public'] = 2;
 	// 更多配置项在MY_Controller中设置

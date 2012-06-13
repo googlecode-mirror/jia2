@@ -1,4 +1,4 @@
-<h4 class="title_01 title_02"><span>创建相册</span><a>返回个人页面</a></h4>
+<h4 class="title_01 title_02"><span>创建相册</span><?=anchor('album', '返回我的相册') ?></h4>
 <div class="main_02">
 	<div id="add-album">
 		<?=form_open('album/create') ?>
@@ -8,6 +8,12 @@
 					<?=form_input('name')?>
 				</div>
 			</div> </div>
+		<div class="form_line"><label>标签：</label>
+		<div class="InputWrapper">
+			<div class="InputInner">
+				<?=form_input('tags')?>
+			</div>
+		</div> </div>
 		<div class="form_line"><label>相册描述：</label>
 			<table class="Textarea">
 				<tbody>
@@ -31,14 +37,13 @@
 					</tr>
 				</tbody>
 			</table> </div>
-			<div class="form_line"><label>权限：</label>
-			<select>
-				<option>所有人可见</option>
-				<option>粉丝可见</option>
-			</select> </div>
+			<div class="form_line"><label>可见性：</label>
+				<p><label><?=form_radio(array('name' => 'status', 'value' => 'privary')) ?> 保密 (仅自己可见)</label></p>
+				<p><label><?=form_radio(array('name' => 'status', 'value' => 'public', 'checked' => TRUE)) ?> 公开</label></p>
+			</div>
 		<p>
+			<?=anchor('album', '取消', 'class="pub_button"') ?>
 			<?=form_submit('submit', '保存','class="pub_button"')?>
-			<?=form_submit('submit', '取消','class="pub_button"')?>
 		</p>
 		<?=form_close()?>
 	</div>
