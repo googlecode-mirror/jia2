@@ -31,6 +31,14 @@
 				if($info['id'] != $this->session->userdata('id'))
 					static_view('权限不足');
 			}
+			if($this->input->post('submit')) {
+				$name = $this->input->post('name');
+				$tags = $this->input->post('tags');
+				//$tags_array = explode(' ', $tags);
+				//$tags_array = array_filter($tags_array, function($i){if(trim($i) == '') return false; else return true;});
+				//$tags = implode(' ', $tags_array);
+				$type_id = $entity_type == 'corporation' ? $this->config->item('entity_type_corporation') : $this->config->item('entity_type_personal');
+			}
 			$data['main_content'] = 'album/create_view';
 			$data['title'] = '创建相册';
 			$data['css'] = array('gallery.css');

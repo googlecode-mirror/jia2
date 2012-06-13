@@ -44,13 +44,13 @@ $(function(){
 <div class="right_handler">
 	<h4 class="set_title">日志选项</h4>
 	<p>
-		<span class="CheckboxWrapper Checked">
-			<input type="checkbox" name="user" value="1" class="chbox" checked="checked"/>
+		<span class="CheckboxWrapper Checkbox">
+			<input type="checkbox" name="order" value="1" class="chbox"/>
 		</span>
 		<span class="Checkitem">置顶</span>
 	</p><p>
 		<span class="CheckboxWrapper Checkbox">
-			<input type="checkbox" name="order" value="1" class="chbox"/>
+			<input type="checkbox" name="progress" value="1" class="chbox"/>
 		</span>
 		<span class="Checkitem">设为社团历程</span>
 	</p>
