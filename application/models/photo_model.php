@@ -100,17 +100,17 @@
 				case 'album':
 					$config['overwrite'] == FALSE;
 					$this->upload->initialize($config);
-					if($this->upload->do_upload('photo')) {
+					if($this->upload->do_upload('userfile')) {
 						$image_data = $this->upload->data();
 						$filename = array(
-							'original' => $image_data['full_path'],
-							'thumb' => $image_data['full_path']
+							'original' => $param['upload_path'] . $image_data['orig_name'],
+							'thumb' => $param['upload_path'] . $image_data['orig_name']
 						);
 						if($image_data['image_width'] > 150) {
 							$thumb = array(
 								'source_image' => $image_data['full_path'],
 								'maintain_ratio' => TRUE,
-								'thumb_marker' => '_thumb',
+								'thumb_maker' => '_thumb',
 								'master_dim' => 'width',
 								'create_thumb' => TRUE,
 								'width' => 150,
@@ -118,13 +118,32 @@
 							);
 							$this->image_lib->initialize($thumb); 
 							if($this->image_lib->resize()) {
-								$filename['thumb'] = $image_data['file_path'] . $image_data['raw_name'] . $thumb['thumb_maker'] . $image_data['file_ext'];
+								$filename['thumb'] = $param['upload_path'] . $image_data['raw_name'] . $thumb['thumb_maker'] . $image_data['file_ext'];
 							} else {
+								unlink($image_data['full_path']);
+								return FALSE;
+							}
+						}
+						if($image_data['image_width'] > 700) {
+							
+							$original = array(
+								'source_image' => $image_data['full_path'],
+								'maintain_ratio' => TRUE,
+								'master_dim' => 'width',
+								'thumb_marker' => '',
+								'width' => 700,
+								'height' => 700
+							);
+							$this->image_lib->initialize($original);
+							if(!$this->image_lib->resize()) {
+								unlink($image_data['full_path']);
+								unlink($filename['thumb']);
 								return FALSE;
 							}
 						}
 						return $filename;
 					}
+					echo $this->upload->display_errors();
 					break;
 				}
 		}
@@ -174,7 +193,7 @@
 			$param = array (
 				'upload_path' => $path,
 				'mode' => 'album',
-				'filename' => rand(1,10000).time().strrchr($_FILES['photo']['name'],'.')
+				'filename' => rand(1,10000).time().strrchr($_FILES['userfile']['name'],'.')
 			);
 			return $this->upload($param);
 		}

@@ -20,11 +20,11 @@
 			if($album && is_array($album)) {
 				$album['type_id'] = ($album['type'] == 'corporation' ? $this->config->item('entity_type_corporation') : $this->config->item('entity_type_personal'));
 				unset($album['type']);
-				$result = $this->db->get_where('album', $album);
+				$result = $this->db->get_where('album', array('owner_id' => $album['owner_id'], 'name' => $album['name'], 'type_id' => $album['type_id']));
 				if($result->num_rows > 0) {
 					return '相册名已存在';
 				} else {
-					$album['time'] = time();
+					$album['add_time'] = time();
 					$this->db->insert('album', $album);
 					return $this->db->insert_id();
 				}
@@ -41,16 +41,16 @@
 		
 		function fetch_album($where = array(), $join = array(), $order = '', $limit = '') {
 			$this->jiadb->_table = 'album';
-			$join['photo'] =  array('cover_id', 'id');
 			if($where) {
-				return $this->jiadb->fetchJoin($where, $join, $order, $limit);
+				return $this->jiadb->fetchAll($where, $order, $limit);
 			} else {
 				return FALSE;
 			}
 		}
 		
 		function fetch_photo($album_id) {
-			
+			$this->jiadb->_table = 'photo';
+			return $this->jiadb->fetchAll(array('album_id' => $album_id));
 		}
 		
 		function delete_album() {

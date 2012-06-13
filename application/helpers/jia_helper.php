@@ -111,3 +111,15 @@ function arrayRecursive(&$array, $function, $apply_to_keys_also = false)
     }
 }
 /***************** jia_json end ***************************/
+if(! function_exists('cover_url')) {
+	function cover_url($cover_id) {
+		if(!$cover_id || !is_numeric($cover_id))
+			return base_url('data/album/cover.png');
+		$CI = &get_instance();
+		$cover = $CI->db->get_where('photo', array('id' => $cover_id))->result_array();
+		if($cover) {
+			return base_url($cover['thumb']);
+		}
+		return base_url('data/album/cover.png');
+	}
+}
