@@ -6,15 +6,15 @@
 		<div id="images">
 			<ul class="gallery">
 				<a href="photos.html">
-				<li><img src="images/photo01.jpg" alt="description" /><p class="album_name">相册名</p>
+				<li><img src="<?=base_url('resource/images/photo01.jpg')?>" alt="description" /><p class="album_name">相册名</p>
 				</li> </a>
 				
 				<a href="photos.html">
-				<li><img src="images/photo02.jpg" alt="description" /><p class="album_name">相册名</p>
+				<li><img src="<?=base_url('resource/images/photo02.jpg')?>" alt="description" /><p class="album_name">相册名</p>
 				</li> </a>
 				
 				<a href="photos.html">
-				<li><img src="images/photo03.jpg" alt="description" /><p class="album_name">相册名</p>
+				<li><img src="<?=base_url('resource/images/photo03.jpg')?>" alt="description" /><p class="album_name">相册名</p>
 				</li> </a>
 			</ul>
 		</div>

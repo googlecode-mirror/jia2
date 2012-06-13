@@ -16,8 +16,8 @@
 		function lists() {
 			$data['main_content'] = 'album/list_photo_view';
 			$data['title'] = '***相册';
-			$data['css'] = array('gallery.css','lightbox.css');
 			$data['js'] = array('lightbox.js');
+			$data['css'] = array('gallery.css','lightbox.css');
 			$this->load->view('includes/template_view', $data);
 		}
 		

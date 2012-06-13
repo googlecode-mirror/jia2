@@ -2,18 +2,13 @@
 <div class="main_02">
 	<div id="add-album">
 		<?=form_open('album/create') ?>
-		<span ><label>相册名称：</label>
+		<div class="form_line"><label>相册名称：</label>
 			<div class="InputWrapper">
 				<div class="InputInner">
 					<?=form_input('name')?>
 				</div>
-			</div> </span>
-		<span ><label>权限：</label>
-			<select>
-				<option>所有人可见</option>
-				<option>粉丝可见</option>
-			</select> </span>
-		<span ><label>相册描述：</label>
+			</div> </div>
+		<div class="form_line"><label>相册描述：</label>
 			<table class="Textarea">
 				<tbody>
 					<tr>
@@ -35,10 +30,15 @@
 						<td id="Textarea-br"></td>
 					</tr>
 				</tbody>
-			</table> </span>
-		<p class="li_d">
+			</table> </div>
+			<div class="form_line"><label>权限：</label>
+			<select>
+				<option>所有人可见</option>
+				<option>粉丝可见</option>
+			</select> </div>
+		<p>
 			<?=form_submit('submit', '保存','class="pub_button"')?>
-			<a href="<?=site_url('album') ?>" class="pub_button">取消</a>
+			<?=form_submit('submit', '取消','class="pub_button"')?>
 		</p>
 		<?=form_close()?>
 	</div>

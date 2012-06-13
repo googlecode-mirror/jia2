@@ -187,7 +187,9 @@
   float: right;
   padding-bottom: 0.7em;
   outline: none;
+  back/ground:url(../images/close.png);
 }
+
 /* line 117, ../sass/lightbox.sass */
 .lb-data .lb-close:hover {
   cursor: pointer;

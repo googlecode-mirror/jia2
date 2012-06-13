@@ -11,12 +11,12 @@
   color: #000;
 }
 
-h1
+h2
 {
 	background: inherit;
 	border-bottom: 1px dashed #ccc;
 	color: #933;
-	font: 32px Georgia, serif;
+	font: 18px Georgia, serif;
     font-weight: bold;
 	margin: 0 0 20px;
 	padding: 0 0 15px;
@@ -34,10 +34,11 @@ ul, li, p,h4{
 	padding: 0;
 	margin: 0;
 }
-.upload_photo_btn {
+a.upload_photo_btn {
 	margin-left:10px;
 	margin-right:25px;
 	float:left;
+	color:#fff;
 }
 .photo_album_box {
 	overflow: hidden;
@@ -106,4 +107,25 @@ ul, li, p,h4{
 	margin: 10px;
 	padding: 5px;
 	position: relative;
+}
+/**add-album*********/
+#add-album .form_line{
+	display:block;
+	overflow: hidden;
+	height:auto;
+	margin-bottom:10px;
+}
+.form_line label{
+	width:60px;
+	text-align:right;
+}
+.form_line textarea{
+	height:40px;
+}
+#add-album p{
+	margin-left:70px;
+}
+.pub_button{
+	float: left;
+	margin:20px 20px 20px 0;
 }
