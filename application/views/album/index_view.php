@@ -1,4 +1,4 @@
-<h4 class="title_01 title_02"><span>日志列表</span><a>返回个人</a></h4>
+<h4 class="title_01 title_02"><span>相册列表</span><a>返回社团主页</a></h4>
 <div class="main_02">
 	<a class="upload_photo_btn" href="<?=site_url('album/upload') ?>">上传照片</a>
 	<a class="upload_photo_btn" href="<?=site_url('album/create') ?>">创建相册</a>

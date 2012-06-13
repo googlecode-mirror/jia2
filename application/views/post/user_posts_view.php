@@ -43,28 +43,28 @@
 				<? if($this->session->userdata('type') != 'guest'): ?>
 				<div class="comment_wrap">
 						<table class="Textarea">
-				<tbody>
-					<tr>
-						<td id="Textarea-tl"></td>
-						<td id="Textarea-tm"></td>
-						<td id="Textarea-tr"></td>
-					</tr>
-					<tr>
-						<td id="Textarea-ml"></td>
-						<td id="Textarea-mm" class="">
-							<div>
-								<?=form_textarea(array('name' => 'comment_content', 'post_id'=>$post['id'], 'type' => 'personal', 'cols' => 50, 'rows' =>1,'class'=>'comment_textarea')) ?>
-							</div>
-						</td>
-						<td id="Textarea-mr"></td>
-					</tr>
-					<tr>
-						<td id="Textarea-bl"></td>
-						<td id="Textarea-bm"></td>
-						<td id="Textarea-br"></td>
-					</tr>
-				</tbody>
-			</table>
+						<tbody>
+							<tr>
+								<td id="Textarea-tl"></td>
+								<td id="Textarea-tm"></td>
+								<td id="Textarea-tr"></td>
+							</tr>
+							<tr>
+								<td id="Textarea-ml"></td>
+								<td id="Textarea-mm" class="">
+									<div>
+										<?=form_textarea(array('name' => 'comment_content', 'post_id'=>$post['id'], 'type' => 'personal', 'cols' => 50, 'rows' =>1,'class'=>'comment_textarea')) ?>
+									</div>
+								</td>
+								<td id="Textarea-mr"></td>
+							</tr>
+							<tr>
+								<td id="Textarea-bl"></td>
+								<td id="Textarea-bm"></td>
+								<td id="Textarea-br"></td>
+							</tr>
+						</tbody>
+					</table>
 					<p><?=form_button('comment', '评论', 'class="pub_button comment_button"') ?></p>
 				</div>
 				<? else: ?>

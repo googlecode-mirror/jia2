@@ -81,14 +81,36 @@
 									<span><a class="col-c">收起评论</a></span>
 								</p>
 							</div>
-								<div class="feeds_comment_box">
-									<ul class="comment">
-									</ul>
-									<div>
-										<p><?=form_textarea(array('name' => 'comment_content', 'post_id'=>$post['id'], 'type' => 'personal', 'cols' => 50, 'rows' => 2)) ?></p>
-										<p><?=form_button('comment', '评论') ?></p>
-									</div>
-								</div>
+							<div class="feeds_comment_box">
+								<ul class="comment">
+								</ul>
+								<div class="comment_wrap">
+									<table class="Textarea">
+									<tbody>
+										<tr>
+											<td id="Textarea-tl"></td>
+											<td id="Textarea-tm"></td>
+											<td id="Textarea-tr"></td>
+										</tr>
+										<tr>
+											<td id="Textarea-ml"></td>
+											<td id="Textarea-mm" class="">
+												<div>
+													<?=form_textarea(array('name' => 'comment_content', 'post_id'=>$post['id'], 'type' => 'personal', 'cols' => 50, 'rows' =>1,'class'=>'comment_textarea')) ?>
+												</div>
+											</td>
+											<td id="Textarea-mr"></td>
+										</tr>
+										<tr>
+											<td id="Textarea-bl"></td>
+											<td id="Textarea-bm"></td>
+											<td id="Textarea-br"></td>
+										</tr>
+									</tbody>
+								</table>
+								<p><?=form_button('comment', '评论', 'class="pub_button comment_button"') ?></p>
+							</div>
+							</div>
 						</div>
 					</li>
 					<?

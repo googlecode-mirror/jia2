@@ -160,10 +160,12 @@
 			if($data['blog']['type_id'] == $this->config->item('entity_type_personal')) {
 				$this->load->model('User_model');
 				$data['info'] = $this->User_model->get_info($data['blog']['owner_id']);
+				$data['css'] = array('dairy.css');
 				$data['main_content'] = 'blog/personal_single_view';
 			} elseif($data['blog']['type_id'] == $this->config->item('entity_type_corporation')) {
 				$this->load->model('Corporation_model');
 				$this->Corporation_model->get_info($data['blog']['owner_id']);
+				$data['css'] = array('dairy.css');
 				$data['main_content'] = 'blog/corporation_single_view';
 			} else {
 				static_view();
