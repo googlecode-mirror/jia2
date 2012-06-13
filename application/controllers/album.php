@@ -6,6 +6,26 @@
 		}
 		
 		function index($id = '', $entity_type = 'personal') {
+			$owner_id = $id ? $id : $this->session->userdata('id');
+			$where = array(
+				'owner_id' => $owner_id,
+			);
+			if($entity_type == 'personal') {
+				$this->load->model('User_model');
+				$data['info'] = $this->User_model->get_info($owner_id);
+				if(!$data['info'])
+					static_view();
+				$where['type_id'] = $this->config->item('entity_type_personal');
+			} elseif($entity_type == 'corporation') {
+				$this->load->model('Corporation_model');
+				$data['info'] = $this->Corporation_model->get_info($owner_id);
+				if(!$data['info'])
+					static_view();
+				$where['type_id'] = $this->config->item('entity_type_corporation');
+			} else {
+				static_view();
+			}
+			$data['albums'] = $this->Album_model->fetch_album($where);
 			$data['main_content'] = 'album/index_view';
 			$data['title'] = '我的相册';
 			$data['css'] = array('gallery.css');
