@@ -37,15 +37,14 @@
 				//$tags_array = explode(' ', $tags);
 				//$tags_array = array_filter($tags_array, function($i){if(trim($i) == '') return false; else return true;});
 				//$tags = implode(' ', $tags_array);
-				$type_id = $entity_type == 'corporation' ? $this->config->item('entity_type_corporation') : $this->config->item('entity_type_personal');
+				$type = $entity_type == 'corporation' ? 'corporation' : 'personal';
 				$status = $this->input->post('status') == 'public' ? $this->config->item('status_public') : $this->config->item('status_privary');
 				$album = array(
 					'name' => $name,
 					'owner_id' => $owner_id,
-					'type_id' => $type_id,
+					'type' => $type,
 					'status' => $status,
-					'tags' => $tags,
-					'add_time' => time()
+					'tags' => $tags
 				);
 				$album_id = $this->Album_model->insert($album);
 				if(is_numeric($album_id)) {

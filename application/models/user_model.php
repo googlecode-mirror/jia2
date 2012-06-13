@@ -55,8 +55,7 @@
 				'owner_id' => $user_id,
 				'type' => 'personal',
 				'name' => '默认相册',
-				'comment' => '默认相册',
-				'add_time' => time()
+				'comment' => '默认相册'
 			);
 			$this->Album_model->insert($album);
 		}
