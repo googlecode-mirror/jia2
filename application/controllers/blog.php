@@ -5,8 +5,8 @@
 			$this->load->model('Blog_model');
 		}
 		
-		// 默认加载当前用户blog
-		function index($id='', $entity_type='personal') {
+		// 默认加载当前用户 blog
+		function index($id='', $entity_type = 'personal') {
 			$owner_id = $id ? $id : $this->session->userdata('id');
 			$data['title'] = '我的日志'; 
 			$data['css'] = array('dairy.css');
@@ -25,7 +25,7 @@
 				$this->load->model('User_model');
 				$data['info'] = $this->User_model->get_info($owner_id);
 			} else {
-				static_view('你访问的页面不存在');
+				static_view();
 			}
 			$data['title'] = $data['info']['name'] . '的日志';
 			$data['blogs'] = $this->Blog_model->fetch($where, $entity_type);
@@ -101,7 +101,7 @@
 		function edit($blog_id = '') {
 			$this->_require_login();
 			if(!$blog_id ||  !is_numeric($blog_id))
-				static_view('你访问的页面不存在');
+				static_view();
 			$blog = $this->Blog_model->get_info($blog_id);
 			// 个人日志
 			if($blog['type_id'] = $this->config->item('entity_type_personal') && $blog['owner_id'] == $this->session->userdata('id')) {
@@ -151,9 +151,22 @@
 		}
 		
 		// 查看单篇日志
-		function view() {
-			$data['title'] = '日志单页';
-			$data['main_content'] = 'blog/single_view';
+		function view($blog_id = '') {
+			if(!$blog_id || !is_numeric($blog_id))
+				static_view();
+			$data['blog'] = $this->Blog_model->get_info($blog_id);
+			if($data['blog']['type_id'] == $this->config->item('entity_type_personal')) {
+				$this->load->model('User_model');
+				$data['info'] = $this->User_model->get_info($data['blog']['owner_id']);
+				$data['main_content'] = 'blog/personal_single_view';
+			} elseif($data['blog']['type_id'] == $this->config->item('entity_type_corporation')) {
+				$this->load->model('Corporation_model');
+				$this->Corporation_model->get_info($data['blog']['owner_id']);
+				$data['main_content'] = 'blog/corporation_single_view';
+			} else {
+				static_view();
+			}
+			$data['title'] = $data['blog']['title'] . '-' . $data['info']['name'] . '的日志';
 			$this->load->view('includes/template_view', $data);
 		}
 		
