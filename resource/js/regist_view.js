@@ -10,6 +10,9 @@ $(function() {
 	});
 	
 	$("input[name='submit']").click(function() {
+		$submit = $(this);
+		$(this).attr('disabled', 'disabled');
+		$(this).val('正在注册');
 		if(email_check() && name_check() && pass_check()) {
 			email = $("#email").val();
 			name = $("#name").val();
@@ -21,9 +24,12 @@ $(function() {
 				pass: pass
 			}, function(data) {
 					if(data.verify == 1) {
+						$submit.val('注册成功');
 						window.location.href = SITE_URL;
 					} else {
 						$("#email_prompt").text(data.email);
+						$submit.val('注册');
+						$submit.removeAttr('disabled');
 						return false;
 					}
 				}, 'json'
