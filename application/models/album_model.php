@@ -39,18 +39,9 @@
 			return TRUE;
 		}
 		
-		function fetch_album($where = array(), $type = 'personal', $order = '', $limit = '') {
+		function fetch_album($where = array(), $join = array(), $order = '', $limit = '') {
 			$this->jiadb->_table = 'album';
-			$join = array(
-				'photo' => array('cover_id', 'id')
-			);
-			if($type == 'personal') {
-				$join['user'] = array('owner_id', 'id');
-			} elseif ($type == 'corporation') {
-				$join['corporation'] = array('owner_id', 'id');
-			} else {
-				return FALSE;
-			}
+			$join['photo'] =  array('cover_id', 'id');
 			if($where) {
 				return $this->jiadb->fetchJoin($where, $join, $order, $limit);
 			} else {
