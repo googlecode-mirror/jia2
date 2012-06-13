@@ -7,18 +7,28 @@
 		
 		// 默认加载当前用户blog
 		function index($id='', $entity_type='personal') {
-			$this->_require_login();
-			$data['title'] = '发表日志';
+			$owner_id = $id ? $id : $this->session->userdata('id');
+			$data['title'] = '我的日志'; 
 			$data['css'] = array('dairy.css');
 			$where = array(
-				'owner_id' => $id ? $id : $this->session->userdata('id'),
+				'owner_id' => $owner_id,
 				'draft' => 0,
 				'status' => $this->config->item('blog_status_public')
 			);
-			if($entity_type != 'corporation' && $entity_type != 'personal')
+			if($entity_type == 'corporation') {
+				$data['main_content'] = 'blog/corporation_list_view';
+				$this->load->model('Corporation_model');
+				$data['info'] = $this->Corporation_model->get_info($owner_id);
+				
+			} elseif($entity_type == 'personal') {
+				$data['main_content'] = 'blog/personal_list_view';
+				$this->load->model('User_model');
+				$data['info'] = $this->User_model->get_info($owner_id);
+			} else {
 				static_view('你访问的页面不存在');
+			}
+			$data['title'] = $data['info']['name'] . '的日志';
 			$data['blogs'] = $this->Blog_model->fetch($where, $entity_type);
-			$data['main_content'] =  $entity_type == 'personal' ? 'blog/personal_list_view' : 'blog/corporation_list_view';
 			$this->load->view('includes/template_view', $data);
 		}
 		
@@ -56,7 +66,7 @@
 				if($title && $content != '') {
 					if($tags) {
 						$tags_array = explode(' ', $tags);
-						$tags_array = array_filter($tags_array, function($i){if(trim($i) == '') return false; else return true;});
+						//$tags_array = array_filter($tags_array, function($i){if(trim($i) == '') return false; else return true;});
 						$tags = implode(' ', $tags_array);
 					}
 					$time = time();
@@ -110,7 +120,7 @@
 					if($title && $content != '') {
 						if($tags) {
 							$tags_array = explode(' ', $tags);
-							$tags_array = array_filter($tags_array, function($i){if(trim($i) == '') return false; else return true;});
+							//$tags_array = array_filter($tags_array, function($i){if(trim($i) == '') return false; else return true;});
 							$tags = implode(' ', $tags_array);
 						}
 						$time = time();
