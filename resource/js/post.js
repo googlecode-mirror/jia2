@@ -19,8 +19,7 @@ $(function() {
 			$button.attr('disabled', 'disabled');
 		}
 	});
-	$("button[name='comment']").click(function() {
-		//$comment = $(this).parent().prev().children('textarea');
+	$("button[name='comment']").live("click",function(){
 		$comment = $(this).parent().parent().find("textarea");
 		$button = $(this);
 		content = $comment.val();
@@ -41,15 +40,14 @@ $(function() {
 				}
 			}
 		);
-	});
-	
-	$("textarea[name='post_content']").keyup(function() {
+	})
+	$("textarea[name='post_content']").live("keyup",function() {
 		if($(this).val() != '') {
 			$("button[name='post']").removeAttr('disabled');
 		} else {
 			$("button[name='post']").attr('disabled', 'disabled');
 		}
-	});
+	})
 	
 	$("button[name='post']").click(function() {
 		content = $("textarea[name='post_content']").val();
