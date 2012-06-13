@@ -18,7 +18,7 @@
 		
 		function insert($album) {
 			if($album && is_array($album)) {
-				$album['type_id'] = ($album['type'] == 'corporation' ? $this->config->item('entity_corporation') : $this->config->item('entity_personal'));
+				$album['type_id'] = ($album['type'] == 'corporation' ? $this->config->item('entity_type_corporation') : $this->config->item('entity_type_personal'));
 				unset($album['type']);
 				$result = $this->db->get_where('album', $album);
 				if($result->num_rows > 0) {

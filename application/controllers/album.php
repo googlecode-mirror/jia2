@@ -38,6 +38,21 @@
 				//$tags_array = array_filter($tags_array, function($i){if(trim($i) == '') return false; else return true;});
 				//$tags = implode(' ', $tags_array);
 				$type_id = $entity_type == 'corporation' ? $this->config->item('entity_type_corporation') : $this->config->item('entity_type_personal');
+				$status = $this->input->post('status') == 'public' ? $this->config->item('status_public') : $this->config->item('status_privary');
+				$album = array(
+					'name' => $name,
+					'owner_id' => $owner_id,
+					'type_id' => $type_id,
+					'status' => $status,
+					'tags' => $tags,
+					'add_time' => time()
+				);
+				$album_id = $this->Album_model->insert($album);
+				if(is_numeric($album_id)) {
+					static_view('创建相册成功' . anchor('album/'.$album_id, '查看相册') . '|' .anchor('album/upload', '上传图片'), '创建相册成功');
+				} else {
+					static_view($album_id, '创建失败');
+				}
 			}
 			$data['main_content'] = 'album/create_view';
 			$data['title'] = '创建相册';
