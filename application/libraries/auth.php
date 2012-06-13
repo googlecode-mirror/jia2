@@ -363,7 +363,7 @@ require_once APPPATH . 'libraries/jiadb.php';
 		
 		function get_access($operation, $identity = '') {
 			$extend = array(
-				'type_id' => $this->CI->config->item('entity_personal')
+				'type_id' => $this->CI->config->item('entity_type_personal')
 			);
 			if($identity) {
 				parent::get_access($operation, $identity, $extend);
@@ -381,7 +381,6 @@ require_once APPPATH . 'libraries/jiadb.php';
 				parent::get_access($operation, $identity, $extend);
 				return;
 			}
-			
 			
 			// 本人
 			if($this->owner_id == $this->CI->session->userdata('id')) {

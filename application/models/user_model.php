@@ -58,7 +58,7 @@
 				'comment' => '默认相册',
 				'add_time' => time()
 			);
-			$this->Album_model->insert();
+			$this->Album_model->insert($album);
 		}
 		
 		function update($where = array(), $row = array()) {
