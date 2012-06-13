@@ -112,7 +112,6 @@
 				'type' => 'corporation',
 				'name' => '社团默认相册',
 				'comment' => '社团默认相册',
-				'add_time' => time()
 			);
 			$this->Album_model->insert($album);
 		}

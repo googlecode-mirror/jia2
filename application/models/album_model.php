@@ -24,6 +24,7 @@
 				if($result->num_rows > 0) {
 					return '相册名已存在';
 				} else {
+					$album['time'] = time();
 					$this->db->insert('album', $album);
 					return $this->db->insert_id();
 				}
