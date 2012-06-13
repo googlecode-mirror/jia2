@@ -35,10 +35,9 @@ $(function(){
 		</div>
 		<?=$this->load->view('blog/editor') ?>
 		<p class="li_d p_buttons">
-			<?=form_submit('submit', '取消','class="pub_button left"') ?>
+			<?=anchor('blog', '取消', 'class="pub_button left"') ?>
 			<?=form_submit('submit', '直接发布','class="btn-blue btn-pub-01 right"') ?>
 			<?=form_submit('draft', '保存到草稿','class="pub_button btn-pub-02"') ?>
-			
 		</p>
 	</div>
 </div>
@@ -51,7 +50,7 @@ $(function(){
 		<span class="Checkitem">置顶</span>
 	</p><p>
 		<span class="CheckboxWrapper Checkbox">
-			<input type="checkbox" name="corporation" value="1" class="chbox"/>
+			<input type="checkbox" name="order" value="1" class="chbox"/>
 		</span>
 		<span class="Checkitem">设为社团历程</span>
 	</p>

@@ -10,7 +10,7 @@
 <script type="text/javascript" src="<?=base_url()?>resource/ueditor/editor_all.js"></script>
 <link rel="stylesheet" href="<?=base_url();?>resource/ueditor/themes/default/ueditor.css"/>
 <script type="text/plain" id="editor" name="myContent">
-	<? if($blog['content']): ?>
+	<? if(isset($blog['content'])): ?>
 		<?=$blog['content'] ?>
 	<? endif ?>
 </script>
