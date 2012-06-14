@@ -64,11 +64,12 @@
 				$type = $entity_type == 'corporation' ? 'corporation' : 'personal';
 				$status = $this->input->post('status') == 'public' ? $this->config->item('status_public') : $this->config->item('status_privary');
 				$album = array(
-					'name' => $name,
+					'name' => trim($name),
 					'owner_id' => $owner_id,
+					'comment' => trim($this->input->post('comment')),
 					'type' => $type,
 					'status' => $status,
-					'tags' => $tags
+					'tags' => trim($tags)
 				);
 				$album_id = $this->Album_model->insert($album);
 				if(is_numeric($album_id)) {

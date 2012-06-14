@@ -7,12 +7,14 @@
 	<div class="photo_album_box">
 		<div id="images">
 			<ul class="gallery">
-				<? if(isset($albums)): ?>
+				<? if(isset($albums) && is_array($albums)): ?>
 				<? foreach($albums as $album): ?>
 					<a href="<?=site_url('album/lists/' . $album['id']) ?>">
 					<li><img src="<?=cover_url($album['cover_id']) ?>" alt="description" /><p class="album_name"><?=$album['name'] ?></p>
 					</li> </a>
 				<? endforeach ?>
+				<? else: ?>
+					<p>你还没有相册，<?=anchor('album/create', '创建相册') ?></p>
 				<? endif ?>
 			</ul>
 		</div>
