@@ -64,7 +64,7 @@
 </div>
 <div id="main">
 	<div class="asso_intro_box">
-		<h3><?=$info['name'] ?><span> (<?=count($members) ?>个成员)</span><span><a href="<?=site_url('corporation/diary.html')?>">(2)篇日志</a></span><span><a href="<?=site_url('corporation/photo.html')?>">(2)个相册</a></span></h3>
+		<h3><?=$info['name'] ?><span><a href="<?=site_url('blog/' . $info['id'] . '/corporation')?>">社团日志</a></span><span><a href="<?=site_url('album/' . $info['id'] . '/corporation')?>">社团相册</a></span></h3>
 		<p>
 			<?=$info['comment'] ?>
 		</p>

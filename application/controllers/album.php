@@ -15,12 +15,18 @@
 				$data['info'] = $this->User_model->get_info($owner_id);
 				if(!$data['info'])
 					static_view();
+				$data['upload_url'] = site_url('album/upload');
+				$data['create_url'] = site_url('album/create');
+				$data['back_a'] = $owner_id == $this->session->userdata('id') ? anchor('personal/profile/', '返回我的主页') : anchor('personal/profile/' .$owner_id, '返回' . $data['info']['name'] . '的主页');
 				$where['type_id'] = $this->config->item('entity_type_personal');
 			} elseif($entity_type == 'corporation') {
 				$this->load->model('Corporation_model');
 				$data['info'] = $this->Corporation_model->get_info($owner_id);
 				if(!$data['info'])
 					static_view();
+				$data['upload_url'] = site_url('album/upload/' . $data['info']['id'] . '/corporation');
+				$data['create_url'] = site_url('album/create/' . $data['info']['id'] . '/corporation');
+				$data['back_a'] = anchor('corporation/profile/' . $owner_id, '返回'.$data['info']['name'].'首页');
 				$where['type_id'] = $this->config->item('entity_type_corporation');
 			} else {
 				static_view();
@@ -38,6 +44,17 @@
 				static_view();
 			$data['main_content'] = 'album/list_photo_view';
 			$data['info'] = $this->Album_model->get_info($album_id);
+			if($data['info']['type_id'] == $this->config->item('entity_type_corporation')) {
+				$this->load->model('Corporation_model');
+				$owner_info = $this->Corporation_model->get_info($data['info']['owner_id']);
+				$data['profile_a'] = anchor('corporation/profile/' . $owner_info['id'], $owner_info['name']);
+				$data['back_a'] = anchor('album/' . $owner_info['id'] . '/corporation', $owner_info['name'] . '的相册');
+			} else {
+				$this->load->model('User_model');
+				$owner_info = $this->User_model->get_info($data['info']['owner_id']);
+				$data['profile_a'] = anchor('personal/profile/' . $owner_info['id'], $owner_info['name']);
+				$data['back_a'] = anchor('album/' . $owner_info['id'], $owner_info['name'] . '的相册');
+			}
 			$data['photos'] = $this->Album_model->fetch_photo($album_id);
 			$data['title'] = $data['info']['name'];
 			$data['js'] = array('lightbox.js');
@@ -48,12 +65,20 @@
 		function create($id = '', $entity_type = 'personal') {
 			$this->_require_login();
 			$owner_id = $id ? $id : $this->session->userdata('id');
-			$entity_type = $this->input->post('entity');
 			if($entity_type == 'personal') {
 				$this->load->model('User_model');
-				$info = $this->User_model->get_info($owner_id);
-				if($info['id'] != $this->session->userdata('id'))
+				$data['info'] = $this->User_model->get_info($owner_id);
+				if($data['info']['id'] != $this->session->userdata('id'))
 					static_view('权限不足');
+				$data['back_a'] = anchor('album', '返回我的相册');
+			} elseif($entity_type == 'corporation') {
+				$this->load->model('Corporation_model');
+				$data['info'] = $this->Corporation_model->get_info($owner_id);
+				//if($data['info']['user_id'] != $this->session->userdata('id'))
+				//	static_view('权限不足');
+				$data['back_a'] = anchor('album/'.$data['info'].'/corporation', '返回' . $data['info']['name']);
+			} else {
+				static_view();
 			}
 			if($this->input->post('submit')) {
 				$name = $this->input->post('name');
@@ -73,7 +98,7 @@
 				);
 				$album_id = $this->Album_model->insert($album);
 				if(is_numeric($album_id)) {
-					static_view('创建相册成功' . anchor('album/'.$album_id, '查看相册') . '|' .anchor('album/upload', '上传图片'), '创建相册成功');
+					static_view('创建相册成功' . anchor('album/lists/'.$album_id, '查看相册') . '|' .anchor('album/upload', '上传图片'), '创建相册成功');
 				} else {
 					static_view($album_id, '创建失败');
 				}
@@ -84,13 +109,28 @@
 			$this->load->view('includes/template_view', $data);
 		}
 		
-		function upload() {
+		function upload($id = '', $entity_type = 'personal') {
 			$this->_require_login();
+			if($entity_type != 'personal' && $entity_type != 'corporation')
+				static_view();
 			$this->load->model('Photo_model');
-			$albums = $this->Album_model->fetch_album(array('owner_id' => $this->session->userdata('id'), 'type_id' => $this->config->item('entity_type_personal')));
+			$owner_id = $id ? $id : $this->session->userdata('id');
+			$albums = $this->Album_model->fetch_album(array('owner_id' => $owner_id, 'type_id' => $this->config->item('entity_type_' . $entity_type)));
+			if($entity_type == 'corporation') {
+				$this->load->model('Corporation_model');
+				$owner_info = $this->Corporation_model->get_info($owner_id);
+				$create_url = 'album/create' . $owner_id . '/corporation';
+				$data['profile_a'] = anchor('corporation/profile/' . $owner_info['id'], $owner_info['name']);
+				$data['back_a'] = anchor('album/' . $owner_info['id'] . '/corporation', $owner_info['name'] . '的相册');
+			} else {
+				$this->load->model('User_model');
+				$owner_info = $this->User_model->get_info($owner_id);
+				$create_url = 'album/create'; 
+				$data['profile_a'] = anchor('personal/profile/' . $owner_info['id'], $owner_info['name']);
+				$data['back_a'] = anchor('album/' . $owner_info['id'], $owner_info['name'] . '的相册');
+			}
 			if(!$albums)
-				static_view('你需要先' . anchor('album/create', '创建一个相册'), '上传图片');
-			
+				static_view('你需要先' . anchor($create_url, '创建一个相册'), '上传图片');
 			foreach ($albums as $value) {
 				$data['albums_id'][$value['id']] = $value['name'];
 			}
@@ -108,7 +148,7 @@
 					);
 					$photo = array_merge($photo, $filename);
 					$this->db->insert('photo', $photo);
-					static_view('上传成功' . anchor('album', '返回相册'), '上传成功');
+					static_view('上传成功' . $data['back_a'], '上传成功');
 				} else {
 					static_view('上传失败');
 				}

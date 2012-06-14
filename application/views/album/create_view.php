@@ -1,7 +1,7 @@
-<h4 class="title_01 title_02"><span>创建相册</span><?=anchor('album', '返回我的相册') ?></h4>
+<h4 class="title_01 title_02"><span>创建相册</span><?=anchor(str_replace('/create', '', uri_string()), $info['name'] . '的相册') ?></h4>
 <div class="main_02">
 	<div id="add-album">
-		<?=form_open('album/create') ?>
+		<?=form_open('') ?>
 		<div class="form_line"><label>相册名称：</label>
 			<div class="InputWrapper">
 				<div class="InputInner">
