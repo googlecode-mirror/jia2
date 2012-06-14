@@ -74,8 +74,8 @@
 			} elseif($entity_type == 'corporation') {
 				$this->load->model('Corporation_model');
 				$data['info'] = $this->Corporation_model->get_info($owner_id);
-				//if($data['info']['user_id'] != $this->session->userdata('id'))
-				//	static_view('权限不足');
+				if($data['info']['user_id'] != $this->session->userdata('id'))
+					static_view('权限不足');
 				$data['back_a'] = anchor('album/'.$data['info'].'/corporation', '返回' . $data['info']['name']);
 			} else {
 				static_view();
@@ -119,7 +119,9 @@
 			if($entity_type == 'corporation') {
 				$this->load->model('Corporation_model');
 				$owner_info = $this->Corporation_model->get_info($owner_id);
-				$create_url = 'album/create' . $owner_id . '/corporation';
+				if($owner_info['user_id'] != $this->session->userdata('id'))
+					static_view('你没有该权限', '权限不足');
+				$create_url = 'album/create/' . $owner_id . '/corporation';
 				$data['profile_a'] = anchor('corporation/profile/' . $owner_info['id'], $owner_info['name']);
 				$data['back_a'] = anchor('album/' . $owner_info['id'] . '/corporation', $owner_info['name'] . '的相册');
 			} else {
