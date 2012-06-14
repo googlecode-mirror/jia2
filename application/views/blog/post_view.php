@@ -16,7 +16,7 @@ $(function(){
 		})
 })
 </script> 
-<h4 class="title_01 title_02"><span>发布日志</span><a>返回日志页面</a></h4>
+<h4 class="title_01 title_02"><span>发布日志</span><?=$back_a ?></h4>
 <div class="main_02">
 	<div id="post_blog">
 		<p><?=form_open() ?> </p>
@@ -48,11 +48,6 @@ $(function(){
 			<input type="checkbox" name="order" value="1" class="chbox"/>
 		</span>
 		<span class="Checkitem">置顶</span>
-	</p><p>
-		<span class="CheckboxWrapper Checkbox">
-			<input type="checkbox" name="progress" value="1" class="chbox"/>
-		</span>
-		<span class="Checkitem">设为社团历程</span>
 	</p>
 	<h4 class="set_title">可见性</h4>
 	<p><label><?=form_radio(array('name' => 'status', 'value' => 'privary')) ?> 保密 (仅自己可见)</label></p>

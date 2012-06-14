@@ -4,9 +4,8 @@
 	<div class="article">
 		<h2 class="hd"><?=$blog['title']?></h2>
 		<div class="ht">
-			<span>2011-12-04</span>
-			<a href=""> 编辑</a>
-			<a href=""> 删除</a>
+			<span><?=jdate($blog['add_time'], FALSE) ?></span>
+			<?=anchor('blog/edit/' . $blog['id'], '编辑') ?>
 		</div>
 		<div class="bd">
 			<?=$blog['content'] ?>
