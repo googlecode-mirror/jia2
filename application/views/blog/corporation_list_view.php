@@ -1,4 +1,4 @@
-<h4 class="title_01 title_02"><span>日志列表</span><?=anchor('', '返回首页') ?><a class="oprate_w">写日志</a></h4>
+<h4 class="title_01 title_02"><span>日志列表</span><?=anchor('', '返回首页') ?><?=anchor('blog/post/' , '写日志','class="oprate_w"') ?></h4>
 <div class="main_02">
 	<div class="dairy_summary">
 		<ul>
