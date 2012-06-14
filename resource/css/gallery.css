@@ -37,9 +37,12 @@ ul, li, p,h4{
 }
 a.upload_photo_btn {
 	margin-left:10px;
-	margin-right:25px;
 	float:left;
 	color:#fff;
+}
+.upload_photo_btn {
+	padding:0 15px;
+	margin-right:4px;
 }
 .photo_album_box {
 	overflow: hidden;
@@ -58,7 +61,7 @@ a.upload_photo_btn {
 	margin-bottom: 20px;
 	background: url(../images/yulan.png) no-repeat;
 }
-#spanButtonPlaceholder3,.upload_photo_btn {
+#spanButtonPlaceholder3 {
 	display: block;
 	width: 150px;
 	height: 30px;
