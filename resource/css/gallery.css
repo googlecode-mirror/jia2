@@ -92,7 +92,7 @@ a.upload_photo_btn {
 	border-width: 0;
 	color: inherit;
 	vertical-align: top;
-	width: 150px;
+	width: 170px;
 	height: 150px;
 }
 
@@ -120,6 +120,9 @@ a.upload_photo_btn {
 	width:60px;
 	text-align:right;
 }
+p span{
+	margin-right:20px;
+}
 .form_line textarea{
 	height:40px;
 }
@@ -130,3 +133,17 @@ a.upload_photo_btn {
 	float: left;
 	margin:20px 20px 20px 0;
 }
+div.btn-blue input{
+	width:90px;
+	height:30px;
+}
+div.btn-blue {margin-bottom:10px;}
+.photo_target{
+	clear:both;
+	padding-top:10px;
+	border-top:1px solid #e1e1e1;
+}
+.photo_target span{
+	width:90px;
+}
+

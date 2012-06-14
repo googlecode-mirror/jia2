@@ -38,8 +38,8 @@
 				</tbody>
 			</table> </div>
 			<div class="form_line"><label>可见性：</label>
-				<p><label><?=form_radio(array('name' => 'status', 'value' => 'privary')) ?> 保密 (仅自己可见)</label></p>
-				<p><label><?=form_radio(array('name' => 'status', 'value' => 'public', 'checked' => TRUE)) ?> 公开</label></p>
+				<p><span> <?=form_radio(array('name' => 'status', 'value' => 'privary')) ?> 保密 (仅自己可见)</span>
+				<?=form_radio(array('name' => 'status', 'value' => 'public', 'checked' => TRUE)) ?> 公开</p>
 			</div>
 		<p>
 			<?=anchor('album', '取消', 'class="pub_button"') ?>
