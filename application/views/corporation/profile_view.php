@@ -1,5 +1,35 @@
 <script>
 		window.onload = coprotab;
+		function gossips() {
+			if($("#gossips").length > 0) {
+				return false;
+			} else {
+				$.post(SITE_URL+'gossip', {
+					ajax: 1,
+					id: <?=$info['id']?>,
+					type:'corporation'
+				}, function(data) {
+					$("#gossips_container").html(data);
+				})
+			}
+		}
+		$(function() {
+			$("button[name='gossips']").click(function() {
+				content = $("#gossips_content").val();
+				if(content == '')
+					return false;
+				$("#gossips_content").val('');
+				$.post(SITE_URL+'gossip/add', {
+					ajax: 1,
+					id: <?=$info['id'] ?>,
+					type: 'corporation',
+					content: content
+				},function(data) {
+					$("#tmp_gossip").remove();
+					$("#gossips").append(data);
+				})
+			});
+		});
 </script>
 <!-- 	社团资料 -->
 <div id="popup5" class="popup_block">
@@ -86,7 +116,7 @@
 				<a href="#">社团活动&nbsp;(<?=count($activities) ?>)</a>
 			</li>
 			<li class="sd03" id="co-03">
-				<a href="#">留言&nbsp;</a>
+				<a href="#" onclick="gossips();">留言&nbsp;</a>
 			</li>
 		</ul>
 	</div>
@@ -118,53 +148,39 @@
 		<div id="co_03" class="hidden">
 		<div class="massege_wrap">
 			<h3 class="h3_line">最新留言</h3>
-			<div class="massege">
-				<ul>
-					<li>
-						<div class="img_block">
-							<a class="head_pic"><img src="" /></a>
-						</div>
-						<div class="feed_main">
-							<div class="f_info">
-								<a href="">留言者</a>
-								<br>
-								<span class="f_do">说什么随便说什么好了。。</span>
-							</div>
-							<div class="f_summary">
-								<p class="f_pm">
-									<span>时间</span>
-								</p>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="img_block">
-							<a class="head_pic"><img src="" /></a>
-						</div>
-						<div class="feed_main">
-							<div class="f_info">
-								<a href="">留言者</a>
-								<br>
-								<span class="f_do">说什么随便说什么好了。。</span>
-							</div>
-							<div class="f_summary">
-								<p class="f_pm">
-									<span>时间</span>
-								</p>
-							</div>
-						</div>
-					</li>
-				</ul>
+			<div class="massege" id="gossips_container">
 			</div>
 			<div class="leave_massege">
-				<div class="img_block">
-					<a class="head_pic"><img src="" /></a>
+			<? if($this->session->userdata('type') != 'guest'): ?>
+				<div class="comment_wrap">
+						<table class="Textarea">
+						<tbody>
+							<tr>
+								<td id="Textarea-tl"></td>
+								<td id="Textarea-tm"></td>
+								<td id="Textarea-tr"></td>
+							</tr>
+							<tr>
+								<td id="Textarea-ml"></td>
+								<td id="Textarea-mm" class="">
+									<div>
+										<?=form_textarea(array('name' => 'content', 'id' => 'gossips_content', 'cols' => 50, 'rows' =>1,'class'=>'comment_textarea')) ?>
+									</div>
+								</td>
+								<td id="Textarea-mr"></td>
+							</tr>
+							<tr>
+								<td id="Textarea-bl"></td>
+								<td id="Textarea-bm"></td>
+								<td id="Textarea-br"></td>
+							</tr>
+						</tbody>
+					</table>
+					<p><?=form_button('gossips', '留言', 'class="pub_button comment_button"') ?></p>
 				</div>
-				<div class="feed_main">
-					<div class="f_info">
-						<textarea></textarea>
-					</div>
-				</div>
+				<? else: ?>
+					<p>要后登录才能留言哦~ <?=anchor('index/login?jump='.uri_string(), '马上登录>>') ?></p>
+				<? endif ?>
 			</div>
 		</div>
 	</div>
