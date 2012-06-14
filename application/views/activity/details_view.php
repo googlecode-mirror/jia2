@@ -3,9 +3,9 @@
 <?=print_r($info) ?>
 </pre>
 -->
-<h4 class="title_01 title_02"><span>活动详细</span><?=anchor('', '返回首页') ?></h4>
+<h4 class="title_01 title_02"><span>活动详细</span><?=anchor('corporation/profile/' . $info['corporation'][0]['id'], '返回' . $info['corporation'][0]['name']) ?></h4>
 <div class="main_02">
-	<h2 class="ac_title"><?=anchor('corporation/profile/' . $info['corporation'][0]['id'], $info['corporation'][0]['name']) . '的' . $info['user'][0]['name'] . '童鞋发起了 ' . $info['name']?></h2>
+	<h2 class="ac_title"><?=anchor('corporation/profile/' . $info['corporation'][0]['id'], $info['corporation'][0]['name']) . ' 的' . $info['user'][0]['name'] . '童鞋发起了 ' . $info['name']?></h2>
 	<div class="ac_01">
 		<h3>活动时间</h3>
 		<p>

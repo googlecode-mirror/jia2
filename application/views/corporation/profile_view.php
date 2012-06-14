@@ -104,7 +104,7 @@
 				<div class="feed_main">
 					<div class="f_info">
 						<a href="<?=site_url('corporation/profile/' . $info['id']) ?>"><?=$info['name']?></a><br>
-						<span class="f_do"><?=$activity['detail']?></span>
+						<span class="f_do"><?=anchor('activity/view/' . $activity['id'], $activity['name']) ?></span>
 					</div>
 					<div class="f_summary">
 						<p class="f_pm">
