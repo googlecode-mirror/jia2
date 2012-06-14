@@ -103,3 +103,9 @@ background-image: url(../img/blog_app.png?max_age=19830211&d=20120606143839);
 background-position: -333px -42px;
 border-width: 0;
 font-size: 0;
+}
+
+a.oprate_w{
+	float:right;
+	margin-right:20px;
+}
