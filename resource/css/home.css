@@ -70,6 +70,10 @@ iframe[name=mainiframe]{
 	border-top-left-radius:4px;
 	border-top-right-radius:4px;
 }
+.title_02 {
+	width: 640px;
+	background: #E9E9E9;
+}
 .content_1{
 	border: 1px solid #E1E1E1;
 	border-bottom-left-radius:4px;
