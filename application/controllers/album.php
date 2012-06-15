@@ -83,9 +83,9 @@
 			if($this->input->post('submit')) {
 				$name = $this->input->post('name');
 				$tags = $this->input->post('tags');
-				//$tags_array = explode(' ', $tags);
-				//$tags_array = array_filter($tags_array, function($i){if(trim($i) == '') return false; else return true;});
-				//$tags = implode(' ', $tags_array);
+				$tags_array = explode(' ', $tags);
+				$tags_array = array_filter($tags_array, "tags_filter");
+				$tags = implode(' ', $tags_array);
 				$type = $entity_type == 'corporation' ? 'corporation' : 'personal';
 				$status = $this->input->post('status') == 'public' ? $this->config->item('status_public') : $this->config->item('status_privary');
 				$album = array(

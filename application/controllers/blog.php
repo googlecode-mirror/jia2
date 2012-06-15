@@ -76,7 +76,7 @@
 				if($title && $content != '') {
 					if($tags) {
 						$tags_array = explode(' ', $tags);
-						$tags_array = array_filter($tags_array, function($i){if(trim($i) == '') return false; else return true;});
+						$tags_array = array_filter($tags_array, "tags_filter");
 						$tags = implode(' ', $tags_array);
 					}
 					$time = time();
@@ -140,7 +140,7 @@
 				if($title && $content != '') {
 					if($tags) {
 						$tags_array = explode(' ', $tags);
-						$tags_array = array_filter($tags_array, function($i){if(trim($i) == '') return false; else return true;});
+						$tags_array = array_filter($tags_array, "tags_filter");
 						$tags = implode(' ', $tags_array);
 					}
 					$time = time();

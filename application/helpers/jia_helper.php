@@ -123,3 +123,12 @@ if(! function_exists('cover_url')) {
 		return base_url('data/album/cover.png');
 	}
 }
+
+if(! function_exists('tags_filter')) {
+	function tags_filter($item) {
+		if(!$item || trim($item) == '') 
+			return false; 
+		else 
+			return true;
+	}
+}
