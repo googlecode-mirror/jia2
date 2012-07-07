@@ -176,9 +176,11 @@
 			if($data['blog']['type_id'] == $this->config->item('entity_type_personal')) {
 				$this->load->model('User_model');
 				$data['info'] = $this->User_model->get_info($data['blog']['owner_id']);
+				$data['back_a'] = anchor('blog/' . $data['info']['id'], $data['info']['name'] . '的日志');
 			} elseif($data['blog']['type_id'] == $this->config->item('entity_type_corporation')) {
 				$this->load->model('Corporation_model');
 				$data['info'] = $this->Corporation_model->get_info($data['blog']['owner_id']);
+				$data['back_a'] = anchor('blog/' . $data['info']['id'] . '/corporation', $data['info']['name'] . '的日志');
 			} else {
 				static_view();
 			}

@@ -1,5 +1,5 @@
 <h4 class="title_01 title_02"><span><?=anchor('blog', '日志') ?></span>
-	<?=anchor('blog/' . $info['id'] . '/corporation', $info['name'] . '的日志') ?> -> <?=anchor('blog/view/' . $blog['id'], $blog['title']) ?></h4>
+	<?=$back_a ?> -> <?=anchor('blog/view/' . $blog['id'], $blog['title']) ?></h4>
 <div class="main_02">
 	<div class="article">
 		<h2 class="hd"><?=$blog['title']?></h2>
