@@ -47,11 +47,13 @@
 			if($data['info']['type_id'] == $this->config->item('entity_type_corporation')) {
 				$this->load->model('Corporation_model');
 				$owner_info = $this->Corporation_model->get_info($data['info']['owner_id']);
+				$data['access_user'] = $owner_info['user_id'];
 				$data['profile_a'] = anchor('corporation/profile/' . $owner_info['id'], $owner_info['name']);
 				$data['back_a'] = anchor('album/' . $owner_info['id'] . '/corporation', $owner_info['name'] . '的相册');
 			} else {
 				$this->load->model('User_model');
 				$owner_info = $this->User_model->get_info($data['info']['owner_id']);
+				$data['access_user'] = $owner_info['id'];
 				$data['profile_a'] = anchor('personal/profile/' . $owner_info['id'], $owner_info['name']);
 				$data['back_a'] = anchor('album/' . $owner_info['id'], $owner_info['name'] . '的相册');
 			}
@@ -162,11 +164,39 @@
 			$this->load->view('includes/template_view', $data);
 		}
 		
-		function delte() {
+		function delete_album() {
 			
 		}
 		
-		function edit() {
+		function edit_album() {
 			
+		}
+		
+		function edit_photo() {
+			$this->_require_login();
+			$this->_require_ajax();
+			$action = $this->input->post('action');
+			$photo_id = $this->input->post('id');
+			$join = array(
+				'album' => array('album_id', 'id')
+			);
+			$photo = $this->Photo_model->get_photo_info($photo_id, $join);
+			switch ($action) {
+				// 讲照片设置为相册封面
+				case 'cover':
+					$album_id = $photo['album'][0]['id'];
+					$this->db->where('id', $album_id);
+					$album = array(
+						'cover_id' => $photo_id
+					);
+					$this->db->update('album', $album);
+					break;
+				case 'info':
+					
+					break;
+				case 'delete':
+					
+					break;
+			}
 		}
 	}

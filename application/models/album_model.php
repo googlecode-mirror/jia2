@@ -16,6 +16,16 @@
 			}
 		}
 		
+		function get_photo_info($photo_id, $join = array()) {
+			$this->jiadb->_table = 'photo';
+			$photo = $this->jiadb->fetchJoin(array('id' => $album_id), $join);
+			if($photo) {
+				return $photo[0];
+			} else {
+				return FALSE;
+			}
+		}
+		
 		function insert($album) {
 			if($album && is_array($album)) {
 				$album['type_id'] = ($album['type'] == 'corporation' ? $this->config->item('entity_type_corporation') : $this->config->item('entity_type_personal'));

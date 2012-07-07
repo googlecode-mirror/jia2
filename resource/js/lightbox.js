@@ -48,8 +48,8 @@ lightbox = new Lightbox options
   LightboxOptions = (function() {
 
     function LightboxOptions() {
-      this.fileLoadingImage = 'http://jia2.localhost/resource/images/loading.gif';
-      this.fileCloseImage = 'http://jia2.localhost/resource/images/close.png';
+      this.fileLoadingImage = SITE_URL + 'resource/images/loading.gif';
+      this.fileCloseImage = SITE_URL + 'resource/images/close.png';
       this.resizeDuration = 700;
       this.fadeDuration = 500;
       this.labelImage = "Image";

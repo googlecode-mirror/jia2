@@ -40,7 +40,7 @@
 				<li>
 					<label>生日：</label>
 					<div class="InputWrapper"><div class="InputInner">
-					<?=form_input('birthday', jdate($info['birthday']), 'id="birthday"') ?>
+					<?=form_input('birthday', date('m/d/Y', $info['birthday']), 'id="birthday"') ?>
 					</div></div>
 				</li>
 				<li>
